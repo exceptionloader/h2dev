@@ -1,4 +1,3 @@
-```markdown
 <a name="top"></a>
 
 <code>h2@GitHub:~$ cat README.md</code>
@@ -222,6 +221,3 @@
     <img src="https://img.shields.io/badge/Back%20to%20the%20Top-2d2d2d?style=for-the-badge&logo=github&logoColor=white" alt="Back to the Top"/>
   </a>
 </p>
-
-
-```
