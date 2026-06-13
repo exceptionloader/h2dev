@@ -7,28 +7,6 @@
 <h1 align="center">💻 Hey, I'm h2 💻</h1>
 <h3 align="center">🔥 Developer and Automation Addict from Germany 🔥</h3>
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=h2dev&label=Profile%20Views&color=blue&style=flat-square" alt="h2dev" />
-</p>
-
-<p align="center">
-  <a href="https://h2.dev/telegram" target="_blank"><img src="https://img.shields.io/badge/Telegram-@h2-blue?style=for-the-badge&logo=telegram" /></a>
-  <a href="https://h2.dev/twitter"><img src="https://img.shields.io/badge/Twitter-@h2＿1337-blue?style=for-the-badge&logo=x" /></a>
-  <a href="mailto:contact@h2.dev"><img src="https://img.shields.io/badge/Email-contact@h2.dev-informational?style=for-the-badge&logo=gmail" /></a>
-  <br />
-  <a href="https://h2.dev/user"><img src="https://img.shields.io/badge/Discord-h2%20%3C3-blue?style=for-the-badge&logo=discord" /></a>
-  <a href="https://h2.dev/discord"><img src="https://img.shields.io/badge/Discord-Server-blue?style=for-the-badge&logo=discord" /></a>
-  <br />
-  <a href="https://h2.dev"><img src="https://img.shields.io/badge/Website-h2.dev-blue?style=for-the-badge&logo=awesomelists&logoColor=black" /></a>
-  <br />
-  <p align="center">
-  <img src="https://lanyard.cnrad.dev/api/1488642490150949075?borderRadius=5px&idleMessage=Idle&bg=a&animated=true;" alt="RPC" />
-  <!--<br />-->
-  <!--<b><i>💀 Banned from Discord 💀</i></b>-->
-  <!--432260852486242314-->
-  <!--1405599489531576411-->
-</p>
-
 ---
 
 <a name="me"></a>
