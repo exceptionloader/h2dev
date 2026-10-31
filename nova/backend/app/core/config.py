@@ -15,6 +15,8 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+asyncpg://nova:nova@localhost:5432/nova"
     database_echo: bool = False
+    database_pool_size: int = 10
+    database_max_overflow: int = 20
 
     # Origins allowed to call the API with credentials (CORS + CSRF origin check).
     # Comma-separated in the environment, e.g. "https://a.example,https://b.example".

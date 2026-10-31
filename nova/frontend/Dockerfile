@@ -1,0 +1,11 @@
+# Production image: builds the SPA and serves it with Caddy (HTTPS, reverse proxy to the API).
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM caddy:2.8-alpine
+COPY --from=build /app/dist /srv
+COPY Caddyfile /etc/caddy/Caddyfile

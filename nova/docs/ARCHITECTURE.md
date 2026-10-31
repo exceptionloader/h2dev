@@ -22,10 +22,10 @@ something testable.
 ```
  Browser / later Tauri shell
  ┌──────────────────────────────┐
- │ React SPA (Vite)             │  same-origin /api via Vite proxy (dev) or reverse proxy (prod)
+ │ React SPA (Vite)             │  same-origin /api via Vite proxy (dev) or Caddy (prod)
  │ TanStack Query ⇄ REST        │
- │ WebSocket (M2) ⇄ gateway     │
- │ LiveKit client SDK (M3) ─────┼──────────────► LiveKit server (WebRTC media)
+ │ WebSocket ⇄ /api/v1/gateway  │
+ │ livekit-client (lazy) ───────┼──────────────► LiveKit server (WebRTC media)
  └──────────────┬───────────────┘                      ▲
                 │ HTTPS + cookie                       │ short-lived JWT, issued by backend
  ┌──────────────▼───────────────┐                      │ after a permission check
@@ -33,8 +33,10 @@ something testable.
  │  api/ → services/ → models/  │
  └──────┬───────────────┬───────┘
         │               │
-   PostgreSQL     S3-compatible storage (M2: avatars, attachments)
+   PostgreSQL     uploads: local volume or S3-compatible storage
                   Redis only once we run >1 backend process (pub/sub + rate limits)
+
+ NOVA Bot (separate process) ── REST + gateway with "Authorization: Bot <token>"
 ```
 
 A **modular monolith**: one FastAPI service, one database. No microservices, no Kubernetes.
@@ -56,9 +58,10 @@ splitting later if ever needed.
 | Business logic | `services/` modules; routes only parse/serialize | Testable, keeps handlers thin. A separate repository layer was skipped on purpose — SQLAlchemy already is one, and extra indirection would slow a solo developer down. |
 | Rate limiting | In-process sliding window (login, register, password reset) | Correct for one process. Must move to Redis before scaling out (documented in code). |
 | Logging | JSON lines with request id, method, path, status, duration | Greppable locally, ingestible by any log stack later. |
-| Real-time (M2/M3) | One authenticated WebSocket per client (cookie auth on upgrade + Origin check), server pushes events per subscribed server | Simple fan-out; Redis pub/sub only when a second process exists. |
-| Voice (M3) | LiveKit; backend issues room tokens valid ~10 minutes after checking `CONNECT_VOICE`/`SPEAK` on that channel | LiveKit secret never reaches the browser. |
-| Bots (later) | Bots are external processes talking to a scoped HTTP/WebSocket API with their own token; they get a member + roles like users | Never run third-party code in the main server; bots can't bypass permissions because they go through the same checks. |
+| Real-time | One WebSocket per client (`/api/v1/gateway`): cookie auth + Origin check for browsers, bot token for bots. Server → client only; all actions go through REST. Message events are sent only to members who can **view that channel** (computed per message). Revoked sessions close their sockets. | Simple, secure fan-out. Hub state (connections, presence, voice states) is in-process → Redis pub/sub once there is a second process. |
+| Voice | LiveKit; `POST /voice/channels/{id}/token` checks `CONNECT_VOICE`, sets `canPublish` from `SPEAK`, token valid 10 min. Clients report their voice state afterwards (display only). | LiveKit secret never reaches the browser; media access is enforced by LiveKit via the token. |
+| Bots | External processes with a hashed token (`Authorization: Bot …`). Inside a server a bot is a normal member with a **managed role** holding exactly the permissions granted at install time (capped by the installer's own permissions, never `ADMINISTRATOR`). Bots are blocked from account/social endpoints. | Third-party code never runs in the main server; bots go through the same permission checks as humans. |
+| Uploads | Files are read with a size cap, image types detected from magic bytes (client content type ignored), served by the API after a permission check with `Content-Security-Policy: sandbox` and `nosniff`; non-images are forced downloads. | Prevents stored XSS via uploads; works with local disk or any S3-compatible store. |
 
 ## 4. Permission model
 
@@ -74,10 +77,10 @@ effective(channel) = start with effective(server)
                      no VIEW_CHANNEL ⇒ nothing
 ```
 
-Hierarchy rules (enforced by the role/moderation endpoints in M2, already tested):
+Hierarchy rules (enforced by the role, moderation, override and bot-install endpoints; tested):
 
 - A member's rank = highest role `position`; the owner outranks everyone.
-- You can only edit/assign roles **strictly below** your rank (`can_manage_role`).
+- You can only edit/assign roles **strictly below** your rank (`can_manage_role`), and you can only assign a role whose permissions you hold yourself.
 - You can only grant permissions you hold yourself (`can_grant_permissions`) — the default
   Admin role does not hold `ADMINISTRATOR` and therefore can't create one.
 - You can only kick/ban/re-role members ranked below you; nobody can act on the owner.
@@ -86,7 +89,7 @@ Non-members get **404** for every server endpoint, so server ids cannot be probe
 
 ## 5. Database
 
-Implemented now (migration `0001`):
+Migrations: `0001` (core) and `0002` (community, social, activity, bots).
 
 ```
 users ─┬─< user_sessions                 (cascade on user delete)
@@ -95,40 +98,48 @@ users ─┬─< user_sessions                 (cascade on user delete)
        └─< server_members >─ servers     (unique(server_id, user_id))
                  │                 │
                  └─< member_roles >─ server_roles   (role must belong to the same server — enforced in service code)
-servers ─< channels (self-FK parent_id → category; categories can't nest — CHECK)
-channels ─< channel_permission_overrides  (exactly one of role_id / member_id — CHECK; unique per target)
-servers ─< audit_logs (actor_id SET NULL so history survives account deletion)
+servers ─┬─< channels (self-FK parent_id → category; categories can't nest — CHECK)
+         │     └─< channel_permission_overrides (exactly one of role_id / member_id — CHECK)
+         ├─< server_invites (code unique, uses / max_uses / expires_at)
+         ├─< server_bans (PK server_id + user_id)
+         ├─< audit_logs (actor_id SET NULL so history survives account deletion)
+         ├─< gaming_spaces ─< voice_zones (each zone 1:1 with a voice channel, unique)
+         ├─< gaming_sessions ─┬─< gaming_session_members (PK session + user)
+         │                    └─< session_notes (note / link / task / followup)
+         ├─< bot_installations (unique bot+server, managed role FK cascade)
+         └─< user_reports (server-scoped queue; server_id NULL = platform report)
+channels ─< messages ─┬─< message_reactions (PK message + user + emoji)
+                      ├─< attachments (unlinked until the message is sent)
+                      └── reply_to_id → messages (SET NULL)
+friendships  (one row per pair via unique index on least/greatest of the two ids)
+user_blocks  (PK blocker + blocked)
+dm_channels  (ordered pair low < high, unique) ─< direct_messages
+bot_applications (bot_user_id → users, unique; token hash unique)
 ```
 
-Conventions: UUID primary keys, `timestamptz` everywhere, named constraints (stable
-migrations), enums as `CHECK`-constrained strings (cheap to extend), `ON DELETE CASCADE` from
-server to everything it owns.
-
-Planned tables and the milestone that adds them:
-
-| Milestone | Tables |
-| --- | --- |
-| M2 | `messages` (channel_id, author_id, reply_to_id, edited_at, deleted_at, pinned_at), `message_reactions` (unique message/user/emoji), `attachments`, `server_invites` (code, uses, max_uses, expires_at), `server_bans` |
-| M3 | `gaming_spaces`, `voice_zones` (space_id, channel_id, x/y/w/h), `gaming_sessions`, `gaming_session_members`, `session_notes` |
-| M4 | `friendships` (requester, addressee, status, unique pair), `user_blocks`, `dm_channels`, `user_reports` |
-| Later | `bot_applications`, `bot_installations`, `bot_permissions` |
+Conventions: UUID primary keys, `timestamptz` everywhere, named constraints, enums as
+`CHECK`-constrained strings, `ON DELETE CASCADE` from a server to everything it owns.
+The spec's `role_permissions` / `bot_permissions` tables are folded into bit-field columns
+(`server_roles.permissions`, `bot_installations.permissions`).
 
 ## 6. Security checklist (status)
 
 | Item | Status |
 | --- | --- |
-| Argon2id hashing, no plaintext secrets | ✅ |
+| Argon2id hashing, no plaintext secrets, hashed session/reset/bot tokens | ✅ |
 | HttpOnly / SameSite cookies, `Secure` enforced in production | ✅ |
-| Server-side session revocation (logout, password change, reset) | ✅ |
+| Server-side session revocation (logout, password change, reset) incl. open WebSockets | ✅ |
 | Input validation (Pydantic, length limits, username charset) | ✅ |
-| Rate limiting on auth endpoints | ✅ (single process) |
-| Account enumeration resistance (login + reset) | ✅ |
-| Server-side authorization on every server endpoint | ✅ |
-| CSRF (SameSite + Origin check) | ✅ |
-| Security headers (nosniff, frame deny, referrer policy) | ✅ — CSP via reverse proxy in production |
-| XSS | ✅ React escapes output; no `dangerouslySetInnerHTML`. Message rendering (M2) must keep it that way. |
-| Upload validation / size limits | ⏳ M2 |
-| WebSocket auth | ⏳ M2 |
-| LiveKit token authorization | ⏳ M3 |
-| Abuse reports, blocking | ⏳ M4 |
-| Real e-mail delivery for password reset | ⏳ before beta |
+| Rate limiting: login, register, reset, messages, invites, friend requests, reports, uploads | ✅ (single process) |
+| Account enumeration resistance (login, reset, friend requests) | ✅ |
+| Server-side authorization on every endpoint; non-members get 404 | ✅ |
+| Role hierarchy + anti-escalation (create/edit/assign roles, overrides, bot installs) | ✅ tested |
+| CSRF (SameSite + Origin check, JSON bodies) | ✅ |
+| WebSocket auth + Origin check, per-channel event filtering | ✅ tested |
+| Upload validation: size limits, magic-byte sniffing, sandboxed serving | ✅ tested |
+| XSS: React escaping, links rendered as elements, no `dangerouslySetInnerHTML` | ✅ tested |
+| Security headers (API) + CSP/HSTS in the Caddy config | ✅ (Caddy config not run in CI) |
+| Voice tokens: short-lived, permission-checked, secret server-only | ✅ tested |
+| Bots isolated (separate process, scoped managed role, no human endpoints) | ✅ tested |
+| Blocking, reports, moderation queue, audit log | ✅ tested |
+| Secrets via environment only (`.env.prod`, never committed) | ✅ |
