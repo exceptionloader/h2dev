@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from app.api import auth, servers, users
+from app.api import auth, channels, gateway, media, members, servers, users
 from app.core.config import get_settings
 from app.core.database import engine
 from app.core.errors import AppError, app_error_handler, validation_error_handler
@@ -88,6 +88,10 @@ API_PREFIX = "/api/v1"
 app.include_router(auth.router, prefix=API_PREFIX)
 app.include_router(users.router, prefix=API_PREFIX)
 app.include_router(servers.router, prefix=API_PREFIX)
+app.include_router(members.router, prefix=API_PREFIX)
+app.include_router(channels.router, prefix=API_PREFIX)
+app.include_router(media.router, prefix=API_PREFIX)
+app.include_router(gateway.router, prefix=API_PREFIX)
 
 
 @app.get("/api/health", tags=["meta"])

@@ -383,3 +383,88 @@ async def create_channel(
     await db.flush()
     effective = perms.channel_permissions(access.ctx, _to_info(overrides))
     return channel, effective, data.private
+
+
+# --- Bulk permission helpers (used for realtime fan-out) ------------------------------------
+
+
+async def member_contexts(
+    db: AsyncSession, server: Server
+) -> list[tuple[ServerMember, MemberContext]]:
+    """Permission contexts for every member of a server (3 queries total)."""
+    members = list(
+        await db.scalars(select(ServerMember).where(ServerMember.server_id == server.id))
+    )
+    roles = {
+        r.id: r
+        for r in await db.scalars(select(ServerRole).where(ServerRole.server_id == server.id))
+    }
+    default = next(r for r in roles.values() if r.is_default)
+    assigned: dict[uuid.UUID, list[uuid.UUID]] = defaultdict(list)
+    if members:
+        for member_id, role_id in await db.execute(
+            select(MemberRole.member_id, MemberRole.role_id).where(
+                MemberRole.member_id.in_([m.id for m in members])
+            )
+        ):
+            assigned[member_id].append(role_id)
+    return [
+        (
+            m,
+            MemberContext(
+                member_id=m.id,
+                is_owner=m.user_id == server.owner_id,
+                default_role=_role_info(default),
+                roles=tuple(_role_info(roles[r]) for r in assigned[m.id] if r in roles),
+            ),
+        )
+        for m in members
+    ]
+
+
+async def channel_viewer_ids(db: AsyncSession, channel: Channel) -> list[uuid.UUID]:
+    server = await db.get(Server, channel.server_id)
+    assert server is not None
+    overrides = _to_info((await _overrides_by_channel(db, [channel.id])).get(channel.id, []))
+    return [
+        m.user_id
+        for m, ctx in await member_contexts(db, server)
+        if Permission.VIEW_CHANNEL in perms.channel_permissions(ctx, overrides)
+    ]
+
+
+async def server_member_ids(db: AsyncSession, server_id: uuid.UUID) -> list[uuid.UUID]:
+    return list(
+        await db.scalars(select(ServerMember.user_id).where(ServerMember.server_id == server_id))
+    )
+
+
+async def channel_permissions_for(
+    db: AsyncSession, access: ServerAccess, channel: Channel
+) -> tuple[Permission, bool]:
+    """Effective permissions of the accessing member in a channel, and its privacy."""
+    ch_overrides = (await _overrides_by_channel(db, [channel.id])).get(channel.id, [])
+    effective = perms.channel_permissions(access.ctx, _to_info(ch_overrides))
+    return effective, _is_private(ch_overrides, access.ctx.default_role.id)
+
+
+async def get_channel_access(
+    db: AsyncSession, channel_id: uuid.UUID, user_id: uuid.UUID
+) -> tuple[ServerAccess, Channel, Permission]:
+    """Channel + membership + effective permissions; 404 unless the user can view it."""
+    channel = await db.get(Channel, channel_id)
+    if channel is None:
+        raise NotFound("Channel not found", code="channel_not_found")
+    try:
+        access = await get_access(db, channel.server_id, user_id)
+    except NotFound as exc:
+        raise NotFound("Channel not found", code="channel_not_found") from exc
+    effective, _ = await channel_permissions_for(db, access, channel)
+    if Permission.VIEW_CHANNEL not in effective:
+        raise NotFound("Channel not found", code="channel_not_found")
+    return access, channel, effective
+
+
+def require_channel(effective: Permission, permission: Permission) -> None:
+    if not perms.has(effective, permission):
+        raise Forbidden(f"Missing permission {permission.name}", code="missing_permission")

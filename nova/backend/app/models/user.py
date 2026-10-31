@@ -25,6 +25,8 @@ class User(UUIDPk, CreatedAt, Base):
     status: Mapped[str] = mapped_column(String(16), default="online", server_default="online")
     custom_status: Mapped[str | None] = mapped_column(String(128))
     is_active: Mapped[bool] = mapped_column(default=True, server_default="true")
+    # Bot accounts cannot log in; they authenticate with a bot token (see BotApplication).
+    is_bot: Mapped[bool] = mapped_column(default=False, server_default="false")
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), default=utcnow, onupdate=utcnow
     )

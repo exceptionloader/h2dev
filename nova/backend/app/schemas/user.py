@@ -31,6 +31,9 @@ CustomStatus = Annotated[str, StringConstraints(max_length=128, strip_whitespace
 Status = Literal["online", "idle", "dnd", "invisible"]
 
 
+Presence = Literal["online", "idle", "dnd", "offline"]
+
+
 class UserPublic(ORMModel):
     id: uuid.UUID
     username: str
@@ -38,6 +41,9 @@ class UserPublic(ORMModel):
     avatar_url: str | None
     status: Status
     custom_status: str | None
+    is_bot: bool = False
+    # Live presence, filled from the realtime hub (see app.realtime.hub.public_user).
+    presence: Presence = "offline"
 
 
 class UserMe(UserPublic):

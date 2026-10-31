@@ -109,3 +109,136 @@ class AuditLogOut(BaseModel):
     target_id: uuid.UUID | None
     details: dict[str, Any]
     created_at: datetime
+
+
+# --- Milestone 2 ----------------------------------------------------------------------------
+
+RoleName = Annotated[str, StringConstraints(max_length=32), AfterValidator(_clean)]
+HexColor = Annotated[str, StringConstraints(pattern=r"^#[0-9A-Fa-f]{6}$")]
+
+
+class RoleCreate(BaseModel):
+    name: RoleName
+    color: HexColor | None = None
+    permissions: list[str] = Field(default_factory=list, max_length=64)
+
+
+class RoleUpdate(BaseModel):
+    name: RoleName | None = None
+    color: HexColor | None = None
+    permissions: list[str] | None = Field(default=None, max_length=64)
+
+
+class RoleMove(BaseModel):
+    direction: Literal["up", "down"]
+
+
+class InviteCreate(BaseModel):
+    max_uses: int | None = Field(default=None, ge=1, le=1000)
+    expires_in_hours: int | None = Field(default=24, ge=1, le=24 * 30)
+
+
+class InviteOut(BaseModel):
+    code: str
+    server_id: uuid.UUID
+    creator: UserPublic | None
+    max_uses: int | None
+    uses: int
+    expires_at: datetime | None
+    created_at: datetime
+
+
+class InvitePreview(BaseModel):
+    code: str
+    server: ServerOut
+    member_count: int
+    already_member: bool
+    expires_at: datetime | None
+
+
+class BanCreate(BaseModel):
+    user_id: uuid.UUID
+    reason: Annotated[str, StringConstraints(max_length=300, strip_whitespace=True)] | None = None
+
+
+class BanOut(BaseModel):
+    user: UserPublic
+    reason: str | None
+    created_at: datetime
+
+
+class OwnershipTransfer(BaseModel):
+    new_owner_id: uuid.UUID
+    password: Annotated[str, StringConstraints(min_length=1, max_length=128)]
+
+
+class ChannelUpdate(BaseModel):
+    name: Annotated[str, StringConstraints(max_length=64), AfterValidator(_channel_name)] | None = (
+        None
+    )
+    topic: Annotated[str, StringConstraints(max_length=300, strip_whitespace=True)] | None = None
+    parent_id: uuid.UUID | None = None
+
+
+class OverrideIn(BaseModel):
+    allow: list[str] = Field(default_factory=list, max_length=64)
+    deny: list[str] = Field(default_factory=list, max_length=64)
+
+
+class OverrideOut(BaseModel):
+    role_id: uuid.UUID | None
+    member_id: uuid.UUID | None
+    allow: list[str]
+    deny: list[str]
+
+
+class DiscoverServer(ServerOut):
+    member_count: int
+    is_member: bool
+
+
+class AttachmentOut(BaseModel):
+    id: uuid.UUID
+    filename: str
+    content_type: str
+    size: int
+    is_image: bool
+    url: str
+
+
+class ReactionOut(BaseModel):
+    emoji: str
+    user_ids: list[uuid.UUID]
+
+
+class ReplyPreview(BaseModel):
+    id: uuid.UUID
+    author: UserPublic | None
+    content: str
+
+
+class MessageOut(BaseModel):
+    id: uuid.UUID
+    channel_id: uuid.UUID
+    server_id: uuid.UUID
+    author: UserPublic | None
+    content: str
+    created_at: datetime
+    edited_at: datetime | None
+    pinned: bool
+    reply_to: ReplyPreview | None
+    reactions: list[ReactionOut]
+    attachments: list[AttachmentOut]
+
+
+MessageContent = Annotated[str, StringConstraints(max_length=2000)]
+
+
+class MessageCreate(BaseModel):
+    content: MessageContent = ""
+    reply_to_id: uuid.UUID | None = None
+    attachment_ids: list[uuid.UUID] = Field(default_factory=list, max_length=5)
+
+
+class MessageEdit(BaseModel):
+    content: Annotated[str, StringConstraints(min_length=1, max_length=2000)]

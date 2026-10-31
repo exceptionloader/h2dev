@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request, Response, status
 
 from app.api.deps import DB, Auth, client_ip, rate_limit
 from app.core.config import get_settings
+from app.realtime.hub import hub
 from app.schemas.user import (
     LoginRequest,
     PasswordResetConfirm,
@@ -66,6 +67,8 @@ async def login(data: LoginRequest, request: Request, response: Response, db: DB
 async def logout(auth: Auth, db: DB, response: Response):
     await auth_service.revoke_session(db, auth.token)
     await db.commit()
+    if auth.session:
+        hub.disconnect_sessions(auth.user.id, session_id=auth.session.id)
     _clear_session_cookie(response)
 
 
@@ -80,5 +83,6 @@ async def password_reset_request(data: PasswordResetRequest, request: Request, d
 @router.post("/password-reset/confirm", status_code=status.HTTP_204_NO_CONTENT)
 async def password_reset_confirm(data: PasswordResetConfirm, request: Request, db: DB):
     rate_limit(request, "pwreset-confirm", get_settings().rate_limit_password_reset)
-    await auth_service.confirm_password_reset(db, data.token, data.new_password)
+    user_id = await auth_service.confirm_password_reset(db, data.token, data.new_password)
     await db.commit()
+    hub.disconnect_sessions(user_id)

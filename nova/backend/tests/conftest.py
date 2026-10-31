@@ -8,14 +8,20 @@ if not TEST_DATABASE_URL.rsplit("/", 1)[-1].split("?")[0].endswith("_test"):
     raise RuntimeError("NOVA_TEST_DATABASE_URL must point to a database ending in '_test'")
 os.environ["NOVA_DATABASE_URL"] = TEST_DATABASE_URL
 os.environ["NOVA_ENVIRONMENT"] = "test"
+os.environ["NOVA_STORAGE_LOCAL_PATH"] = os.path.join(
+    os.environ.get("TMPDIR", "/tmp"), f"nova-test-uploads-{os.getpid()}"
+)
+os.environ.pop("NOVA_SMTP_HOST", None)
 os.environ["NOVA_LOG_LEVEL"] = "WARNING"
 
 import asyncio  # noqa: E402
+import contextlib  # noqa: E402
 from collections.abc import AsyncIterator  # noqa: E402
 
 import httpx  # noqa: E402
 import pytest  # noqa: E402
 from alembic.config import Config  # noqa: E402
+from httpx_ws.transport import ASGIWebSocketTransport  # noqa: E402
 from sqlalchemy import text  # noqa: E402
 
 from alembic import command  # noqa: E402
@@ -24,6 +30,7 @@ from app.core.database import engine  # noqa: E402
 from app.core.rate_limit import limiter  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models import Base  # noqa: E402
+from app.realtime.hub import hub  # noqa: E402
 
 PASSWORD = "sehr-sicheres-passwort"
 
@@ -50,6 +57,7 @@ async def _clean_tables() -> AsyncIterator[None]:
     async with engine.begin() as conn:
         await conn.execute(text(f"TRUNCATE {tables} CASCADE"))
     limiter.reset()
+    hub.reset()
 
 
 @pytest.fixture(autouse=True)
@@ -92,3 +100,58 @@ async def bob() -> AsyncIterator[httpx.AsyncClient]:
     async with make_client() as c:
         await register(c, "bob")
         yield c
+
+
+@pytest.fixture
+async def carol() -> AsyncIterator[httpx.AsyncClient]:
+    async with make_client() as c:
+        await register(c, "carol")
+        yield c
+
+
+async def me(c: httpx.AsyncClient) -> dict:
+    return (await c.get("/users/me")).json()
+
+
+async def create_server(c: httpx.AsyncClient, name: str = "Squad", **extra) -> dict:
+    res = await c.post("/servers", json={"name": name, **extra})
+    assert res.status_code == 201, res.text
+    return res.json()
+
+
+async def invite_and_join(owner: httpx.AsyncClient, joiner: httpx.AsyncClient, sid: str) -> None:
+    code = (await owner.post(f"/servers/{sid}/invites", json={})).json()["code"]
+    res = await joiner.post(f"/invites/{code}/accept")
+    assert res.status_code == 200, res.text
+
+
+async def role_id(c: httpx.AsyncClient, sid: str, name: str) -> str:
+    roles = (await c.get(f"/servers/{sid}/roles")).json()
+    return next(r["id"] for r in roles if r["name"] == name)
+
+
+async def grant_role(owner: httpx.AsyncClient, sid: str, user_id: str, name: str) -> None:
+    rid = await role_id(owner, sid, name)
+    res = await owner.put(f"/servers/{sid}/members/{user_id}/roles/{rid}")
+    assert res.status_code == 204, res.text
+
+
+async def channel_by_name(c: httpx.AsyncClient, sid: str, name: str) -> dict:
+    return next(ch for ch in (await c.get(f"/servers/{sid}/channels")).json() if ch["name"] == name)
+
+
+@contextlib.asynccontextmanager
+async def ws_connect(c: httpx.AsyncClient | None = None, **kwargs):
+    """Open the gateway as the user of client ``c`` (cookies are copied)."""
+    from httpx_ws import aconnect_ws
+
+    async with httpx.AsyncClient(
+        transport=ASGIWebSocketTransport(app),
+        base_url="http://test/api/v1",
+        cookies=c.cookies if c is not None else None,
+    ) as wc:
+        async with aconnect_ws("/gateway", wc, **kwargs) as ws:
+            yield ws
+        # Give the server a moment to run its disconnect handling before the test
+        # transport cancels the app task.
+        await asyncio.sleep(0.3)

@@ -52,7 +52,7 @@ async def authenticate(db: AsyncSession, login: str, password: str) -> User:
     if not verify_password(user.password_hash if user else None, password):
         raise Unauthorized("Invalid credentials", code="invalid_credentials")
     assert user is not None
-    if not user.is_active:
+    if not user.is_active or user.is_bot:
         raise Unauthorized("Account disabled", code="account_disabled")
     if password_needs_rehash(user.password_hash):
         user.password_hash = hash_password(password)
@@ -111,7 +111,7 @@ async def revoke_all_sessions(
 
 
 async def change_password(
-    db: AsyncSession, user: User, current: str, new: str, keep_session_id: uuid.UUID
+    db: AsyncSession, user: User, current: str, new: str, keep_session_id: uuid.UUID | None
 ) -> None:
     if not verify_password(user.password_hash, current):
         raise AppError("Current password is wrong", code="invalid_current_password")
@@ -149,7 +149,7 @@ async def request_password_reset(db: AsyncSession, email: str) -> None:
     )
 
 
-async def confirm_password_reset(db: AsyncSession, token: str, new_password: str) -> None:
+async def confirm_password_reset(db: AsyncSession, token: str, new_password: str) -> uuid.UUID:
     row = await db.scalar(
         select(PasswordResetToken)
         .where(PasswordResetToken.token_hash == hash_token(token))
@@ -162,3 +162,4 @@ async def confirm_password_reset(db: AsyncSession, token: str, new_password: str
     row.used_at = utcnow()
     user.password_hash = hash_password(new_password)
     await revoke_all_sessions(db, user.id)
+    return user.id

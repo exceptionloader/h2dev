@@ -86,6 +86,8 @@ class ServerRole(UUIDPk, CreatedAt, Base):
     # Bit field, see app.core.permissions.Permission.
     permissions: Mapped[int] = mapped_column(BigInteger, default=0)
     is_default: Mapped[bool] = mapped_column(default=False, server_default="false")
+    # Managed roles belong to an installed bot and can only change via (un)installing it.
+    managed: Mapped[bool] = mapped_column(default=False, server_default="false")
 
 
 class MemberRole(Base):

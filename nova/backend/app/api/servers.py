@@ -2,9 +2,11 @@ import uuid
 
 from fastapi import APIRouter, Query, status
 
-from app.api.deps import DB, Auth
+from app.api.deps import DB, AnyAuth, Auth
 from app.core.permissions import Permission, permission_names
 from app.models import Channel, Server, ServerRole
+from app.realtime import events
+from app.realtime.hub import public_user
 from app.schemas.server import (
     AuditLogOut,
     ChannelCreate,
@@ -17,7 +19,6 @@ from app.schemas.server import (
     ServerOut,
     ServerUpdate,
 )
-from app.schemas.user import UserPublic
 from app.services import audit_service, server_service
 from app.services.server_service import ServerAccess
 
@@ -53,7 +54,7 @@ def _role_out(role: ServerRole) -> RoleOut:
 
 
 @router.get("", response_model=list[ServerOut])
-async def list_servers(auth: Auth, db: DB) -> list[Server]:
+async def list_servers(auth: AnyAuth, db: DB) -> list[Server]:
     return await server_service.list_user_servers(db, auth.user.id)
 
 
@@ -65,7 +66,7 @@ async def create_server(data: ServerCreate, auth: Auth, db: DB):
 
 
 @router.get("/{server_id}", response_model=ServerDetail)
-async def get_server(server_id: uuid.UUID, auth: Auth, db: DB):
+async def get_server(server_id: uuid.UUID, auth: AnyAuth, db: DB):
     return await _detail(db, await server_service.get_access(db, server_id, auth.user.id))
 
 
@@ -74,23 +75,26 @@ async def update_server(server_id: uuid.UUID, data: ServerUpdate, auth: Auth, db
     access = await server_service.get_access(db, server_id, auth.user.id)
     await server_service.update_server(db, access, auth.user, data)
     await db.commit()
+    await events.server_changed(db, server_id, "server")
     return await _detail(db, access)
 
 
 @router.delete("/{server_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_server(server_id: uuid.UUID, data: ServerDelete, auth: Auth, db: DB):
     access = await server_service.get_access(db, server_id, auth.user.id)
+    member_ids = await server_service.server_member_ids(db, server_id)
     await server_service.delete_server(db, access, data.confirm_name)
     await db.commit()
+    events.to_users(member_ids, "server.removed", {"server_id": server_id, "reason": "deleted"})
 
 
 @router.get("/{server_id}/members", response_model=list[MemberOut])
-async def list_members(server_id: uuid.UUID, auth: Auth, db: DB):
+async def list_members(server_id: uuid.UUID, auth: AnyAuth, db: DB):
     access = await server_service.get_access(db, server_id, auth.user.id)
     return [
         MemberOut(
             id=m.id,
-            user=UserPublic.model_validate(m.user),
+            user=public_user(m.user),
             nickname=m.nickname,
             joined_at=m.joined_at,
             role_ids=role_ids,
@@ -101,13 +105,13 @@ async def list_members(server_id: uuid.UUID, auth: Auth, db: DB):
 
 
 @router.get("/{server_id}/roles", response_model=list[RoleOut])
-async def list_roles(server_id: uuid.UUID, auth: Auth, db: DB):
+async def list_roles(server_id: uuid.UUID, auth: AnyAuth, db: DB):
     await server_service.get_access(db, server_id, auth.user.id)
     return [_role_out(r) for r in await server_service.list_roles(db, server_id)]
 
 
 @router.get("/{server_id}/channels", response_model=list[ChannelOut])
-async def list_channels(server_id: uuid.UUID, auth: Auth, db: DB):
+async def list_channels(server_id: uuid.UUID, auth: AnyAuth, db: DB):
     access = await server_service.get_access(db, server_id, auth.user.id)
     return [_channel_out(*row) for row in await server_service.list_visible_channels(db, access)]
 
@@ -119,6 +123,7 @@ async def create_channel(server_id: uuid.UUID, data: ChannelCreate, auth: Auth, 
     access = await server_service.get_access(db, server_id, auth.user.id)
     row = await server_service.create_channel(db, access, auth.user, data)
     await db.commit()
+    await events.server_changed(db, server_id, "channels")
     return _channel_out(*row)
 
 
@@ -132,7 +137,7 @@ async def list_audit_logs(
         AuditLogOut(
             id=e.id,
             action=e.action,
-            actor=UserPublic.model_validate(e.actor) if e.actor else None,
+            actor=public_user(e.actor) if e.actor else None,
             target_type=e.target_type,
             target_id=e.target_id,
             details=e.details,
