@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-base: #090d18;
+  --color-surface: #111827;
+  --color-card: #172033;
+  --color-card-hover: #1d2840;
+  --color-primary: #8b5cf6;
+  --color-primary-hover: #7c4ff0;
+  --color-accent: #22d3ee;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-fg: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-line: rgb(148 163 184 / 0.12);
+  --color-line-strong: rgb(148 163 184 / 0.24);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-base text-fg font-sans antialiased;
+  }
+  ::selection {
+    background: rgb(139 92 246 / 0.4);
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(148 163 184 / 0.25) transparent;
+  }
+}
