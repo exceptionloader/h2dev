@@ -1,0 +1,40 @@
+# Production web server. NOVA_DOMAIN / LIVEKIT_DOMAIN come from the environment.
+# Caddy obtains and renews TLS certificates automatically.
+{
+	email {$ACME_EMAIL}
+}
+
+{$NOVA_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), geolocation=(), microphone=(self)"
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self' wss://{$LIVEKIT_DOMAIN} https://{$LIVEKIT_DOMAIN}; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+		-Server
+	}
+
+	# API + WebSocket gateway (Caddy proxies WebSockets automatically).
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+
+	# Hashed assets can be cached forever; index.html never.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		header /index.html Cache-Control "no-store"
+		file_server
+	}
+}
+
+# LiveKit signalling over TLS (media itself uses UDP/TCP ports exposed by the livekit service).
+{$LIVEKIT_DOMAIN} {
+	reverse_proxy livekit:7880
+}
