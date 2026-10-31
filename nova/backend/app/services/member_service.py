@@ -218,6 +218,21 @@ async def remove_member(db: AsyncSession, server_id: uuid.UUID, user_id: uuid.UU
             ),
         )
     )
+    # Bots: removing the member also removes the installation and its managed role.
+    from app.models import BotApplication, BotInstallation
+
+    bot_installs = list(
+        await db.scalars(
+            select(BotInstallation).where(
+                BotInstallation.server_id == server_id,
+                BotInstallation.bot_id.in_(
+                    select(BotApplication.id).where(BotApplication.bot_user_id == user_id)
+                ),
+            )
+        )
+    )
+    for inst in bot_installs:
+        await db.execute(delete(ServerRole).where(ServerRole.id == inst.role_id))
     state = hub.voice.get(user_id)
     if state and state.server_id == server_id:
         del hub.voice[user_id]

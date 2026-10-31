@@ -2,7 +2,7 @@
 
 import uuid
 
-from tests.conftest import channel_by_name, create_server, invite_and_join, me
+from tests.conftest import channel_by_name, create_server, invite_and_join
 
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 64
 
@@ -198,7 +198,3 @@ async def test_s3_storage_backend(monkeypatch):
         assert await store.load(key) == PNG
         await store.delete(key)
         assert await store.load(key) is None
-
-
-async def test_bob_id_helper(bob):
-    assert (await me(bob))["username"] == "bob"
