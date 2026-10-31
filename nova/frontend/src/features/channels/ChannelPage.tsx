@@ -1,21 +1,30 @@
-import { Lock, MessagesSquare, Mic, Users } from "lucide-react";
+import { Lock, Pin, Settings, Users } from "lucide-react";
+import { useState } from "react";
 import { useParams } from "react-router";
 import { EmptyState, FullPageSpinner, PageHeader } from "@/components/ui/Feedback";
+import { Chat } from "@/features/chat/Chat";
 import { useChannels } from "@/features/servers/api";
 import { CHANNEL_ICON } from "@/features/servers/channelIcons";
 import { useServerContext } from "@/features/servers/useServerContext";
+import { VoiceChannelView } from "@/features/voice/VoiceChannelView";
+import { cn } from "@/lib/cn";
 import { can } from "@/lib/permissions";
 import { useUi } from "@/stores/ui";
+import { ChannelSettingsModal } from "./ChannelSettingsModal";
+
+const headerBtn = "rounded-lg p-2 text-muted hover:bg-card hover:text-fg";
 
 export function ChannelPage() {
   const server = useServerContext();
   const { channelId } = useParams();
   const { data: channels, isPending } = useChannels(server.id);
   const toggleMembers = useUi((s) => s.toggleMemberList);
+  const [showPins, setShowPins] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   if (isPending) return <FullPageSpinner />;
   const channel = channels?.find((c) => c.id === channelId);
-  if (!channel) {
+  if (!channel || channel.type === "category") {
     return (
       <div className="flex flex-1 items-center justify-center p-6">
         <EmptyState icon={Lock} title="Kanal nicht verfügbar">
@@ -24,9 +33,8 @@ export function ChannelPage() {
       </div>
     );
   }
-
   const Icon = CHANNEL_ICON[channel.type];
-  const canSend = can(channel.my_permissions, "SEND_MESSAGES");
+  const isText = channel.type === "text" || channel.type === "announcement";
 
   return (
     <>
@@ -35,38 +43,25 @@ export function ChannelPage() {
         title={channel.name}
         subtitle={channel.topic}
         actions={
-          <button
-            onClick={toggleMembers}
-            className="rounded-lg p-2 text-muted hover:bg-card hover:text-fg"
-            aria-label="Mitgliederliste ein-/ausblenden"
-            title="Mitgliederliste"
-          >
-            <Users className="size-5" />
-          </button>
+          <>
+            {isText && (
+              <button onClick={() => setShowPins((v) => !v)} className={cn(headerBtn, showPins && "text-fg")} aria-pressed={showPins} aria-label="Angeheftete Nachrichten" title="Angeheftete Nachrichten">
+                <Pin className="size-5" />
+              </button>
+            )}
+            {can(channel.my_permissions, "MANAGE_CHANNELS") && (
+              <button onClick={() => setSettingsOpen(true)} className={headerBtn} aria-label="Kanaleinstellungen" title="Kanaleinstellungen">
+                <Settings className="size-5" />
+              </button>
+            )}
+            <button onClick={toggleMembers} className={headerBtn} aria-label="Mitgliederliste ein-/ausblenden" title="Mitgliederliste">
+              <Users className="size-5" />
+            </button>
+          </>
         }
       />
-      <div className="flex flex-1 items-center justify-center p-6">
-        {channel.type === "voice" ? (
-          <EmptyState icon={Mic} title={`Sprachkanal „${channel.name}“`}>
-            Beitreten, Stummschalten und Teilnehmeranzeige kommen mit der LiveKit-Integration in
-            Meilenstein 3.
-            {!can(channel.my_permissions, "CONNECT_VOICE") && (
-              <p className="mt-2 text-warning">Du hast in diesem Kanal keine Sprachberechtigung.</p>
-            )}
-          </EmptyState>
-        ) : (
-          <EmptyState icon={MessagesSquare} title={`Willkommen in #${channel.name}`}>
-            Nachrichten, Antworten, Reaktionen und angeheftete Beiträge kommen in Meilenstein 2.
-            <p className="mt-2">
-              {canSend ? (
-                <span className="text-success">Du darfst hier schreiben.</span>
-              ) : (
-                <span className="text-warning">Dieser Kanal ist für dich schreibgeschützt.</span>
-              )}
-            </p>
-          </EmptyState>
-        )}
-      </div>
+      {isText ? <Chat key={channel.id} channel={channel} showPins={showPins} /> : <VoiceChannelView server={server} channel={channel} />}
+      <ChannelSettingsModal serverId={server.id} channel={channel} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </>
   );
 }

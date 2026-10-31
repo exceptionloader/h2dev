@@ -50,3 +50,18 @@ export async function api<T>(
   }
   return data as T;
 }
+
+/** Multipart upload of a single file (field name "file"). */
+export async function upload<T>(path: string, file: File): Promise<T> {
+  const body = new FormData();
+  body.append("file", file);
+  let res: Response;
+  try {
+    res = await fetch(BASE + path, { method: "POST", credentials: "same-origin", body });
+  } catch {
+    throw new ApiError(0, "network_error");
+  }
+  const data = await res.json().catch(() => null);
+  if (!res.ok) throw new ApiError(res.status, data?.code ?? "internal_error", data?.errors ?? []);
+  return data as T;
+}

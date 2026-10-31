@@ -42,11 +42,11 @@ describe("format helpers", () => {
 });
 
 const role = (id: string, position: number, is_default = false): Role => ({
-  id, name: id, color: null, icon: null, position, permissions: [], is_default,
+  id, name: id, color: null, icon: null, position, permissions: [], is_default, managed: false,
 });
 const member = (id: string, role_ids: string[], is_owner = false): Member => ({
   id,
-  user: { id, username: id, display_name: id, avatar_url: null, status: "online", custom_status: null },
+  user: { id, username: id, display_name: id, avatar_url: null, status: "online", custom_status: null, is_bot: false, presence: "online" },
   nickname: null, joined_at: "2026-01-01T00:00:00Z", role_ids, is_owner,
 });
 
@@ -78,5 +78,24 @@ describe("describeAudit", () => {
     expect(describeAudit(entry("server.update", { name: {}, visibility: {} }))).toBe(
       "hat Name, Sichtbarkeit geändert",
     );
+  });
+});
+
+describe("RichText", () => {
+  it("renders links safely and never as HTML", async () => {
+    const { render } = await import("@testing-library/react");
+    const { createMemoryRouter, RouterProvider } = await import("react-router");
+    const { RichText } = await import("@/features/chat/RichText");
+    const router = createMemoryRouter([
+      { path: "/", element: <p data-testid="t"><RichText text={'<img src=x onerror=alert(1)> https://nova.gg **fett** /einladung/abc123'} /></p> },
+    ]);
+    const { getByTestId } = render(<RouterProvider router={router} />);
+    const el = getByTestId("t");
+    expect(el.querySelector("img")).toBeNull();
+    expect(el.textContent).toContain("<img src=x onerror=alert(1)>");
+    const links = Array.from(el.querySelectorAll("a"));
+    expect(links.map((a) => a.getAttribute("href"))).toEqual(["https://nova.gg", "/einladung/abc123"]);
+    expect(links[0]!.getAttribute("rel")).toContain("noopener");
+    expect(el.querySelector("strong")?.textContent).toBe("fett");
   });
 });

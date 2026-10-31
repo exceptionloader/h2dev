@@ -1,8 +1,10 @@
 import { Crown } from "lucide-react";
-import { useMemo } from "react";
-import { Avatar } from "@/components/ui/Avatar";
+import { useMemo, useState } from "react";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import { Spinner } from "@/components/ui/Feedback";
-import type { Member, Role } from "@/lib/types";
+import type { Member, Role, ServerDetail } from "@/lib/types";
+import { useRealtime } from "@/stores/realtime";
+import { MemberCard } from "./MemberCard";
 import { useMembers, useRoles } from "./api";
 
 interface Group {
@@ -27,12 +29,21 @@ export function groupMembers(members: Member[], roles: Role[]): Group[] {
   return groups.filter((g) => g.members.length > 0);
 }
 
-export function MemberSidebar({ serverId }: { serverId: string }) {
+export function MemberSidebar({ server }: { server: ServerDetail }) {
+  const serverId = server.id;
   const members = useMembers(serverId);
   const roles = useRoles(serverId);
+  const [selected, setSelected] = useState<Member | null>(null);
+  const livePresence = useRealtime((s) => s.presence);
   const groups = useMemo(
-    () => (members.data && roles.data ? groupMembers(members.data, roles.data) : []),
-    [members.data, roles.data],
+    () => {
+      if (!members.data || !roles.data) return [];
+      // Online members first inside each group.
+      const online = (m: Member) => (livePresence[m.user.id] ?? m.user.presence) !== "offline" || m.user.is_bot;
+      const sorted = [...members.data].sort((a, b) => Number(online(b)) - Number(online(a)));
+      return groupMembers(sorted, roles.data);
+    },
+    [members.data, roles.data, livePresence],
   );
 
   return (
@@ -46,20 +57,25 @@ export function MemberSidebar({ serverId }: { serverId: string }) {
           </h3>
           <ul>
             {group.members.map((m) => (
-              <li key={m.id} className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-card">
-                <Avatar id={m.user.id} name={m.user.display_name} src={m.user.avatar_url} size="sm" />
+              <li key={m.id}>
+                <button onClick={() => setSelected(m)} className="flex w-full items-center gap-3 rounded-lg px-2 py-1.5 text-left hover:bg-card">
+                <UserAvatar user={m.user} />
                 <div className="min-w-0 leading-tight">
                   <div className="flex items-center gap-1 truncate text-sm font-medium" style={{ color: group.color ?? undefined }}>
                     {m.nickname || m.user.display_name}
                     {m.is_owner && <Crown className="size-3.5 shrink-0 text-warning" aria-label="Owner" />}
                   </div>
-                  <div className="truncate text-xs text-muted">{m.user.custom_status || `@${m.user.username}`}</div>
+                  <div className="truncate text-xs text-muted">
+                    {m.user.is_bot ? "Bot" : m.user.custom_status || `@${m.user.username}`}
+                  </div>
                 </div>
+                </button>
               </li>
             ))}
           </ul>
         </section>
       ))}
+      <MemberCard server={server} member={selected} roles={roles.data ?? []} onClose={() => setSelected(null)} />
     </aside>
   );
 }

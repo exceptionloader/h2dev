@@ -25,6 +25,62 @@ export function describeAudit(entry: AuditLogEntry): string {
       const type = CHANNEL_TYPE_LABEL[d.type as keyof typeof CHANNEL_TYPE_LABEL] ?? "Kanal";
       return `hat ${d.private ? "privaten " : ""}${type} „${String(d.name)}“ erstellt`;
     }
+    case "channel.update":
+      return "hat einen Kanal bearbeitet";
+    case "channel.delete":
+      return `hat den Kanal „${String(d.name)}“ gelöscht`;
+    case "channel.override":
+      return `hat Kanalrechte für „${String(d.role)}“ geändert`;
+    case "member.join":
+      return "ist dem Server beigetreten";
+    case "member.leave":
+      return "hat den Server verlassen";
+    case "member.kick":
+      return "hat ein Mitglied entfernt";
+    case "member.ban":
+      return `hat ein Mitglied gebannt${d.reason ? ` („${String(d.reason)}“)` : ""}`;
+    case "member.unban":
+      return "hat einen Bann aufgehoben";
+    case "member.role_add":
+      return `hat die Rolle „${String(d.role)}“ vergeben`;
+    case "member.role_remove":
+      return `hat die Rolle „${String(d.role)}“ entzogen`;
+    case "role.create":
+      return `hat die Rolle „${String(d.name)}“ erstellt`;
+    case "role.update":
+      return "hat eine Rolle bearbeitet";
+    case "role.delete":
+      return `hat die Rolle „${String(d.name)}“ gelöscht`;
+    case "role.move":
+      return `hat die Rolle „${String(d.name)}“ verschoben`;
+    case "invite.create":
+      return "hat eine Einladung erstellt";
+    case "invite.delete":
+      return "hat eine Einladung gelöscht";
+    case "ownership.transfer":
+      return "hat die Eigentümerschaft übertragen";
+    case "message.delete":
+      return `hat eine Nachricht in #${String(d.channel)} gelöscht`;
+    case "message.pin":
+      return `hat eine Nachricht in #${String(d.channel)} angeheftet`;
+    case "message.unpin":
+      return `hat eine Nachricht in #${String(d.channel)} gelöst`;
+    case "space.create":
+      return `hat den Gaming Space „${String(d.name)}“ erstellt`;
+    case "space.update":
+      return "hat einen Gaming Space bearbeitet";
+    case "space.delete":
+      return `hat den Gaming Space „${String(d.name)}“ gelöscht`;
+    case "session.close":
+      return `hat die Session „${String(d.title)}“ beendet`;
+    case "bot.install":
+      return `hat den Bot „${String(d.name)}“ installiert`;
+    case "bot.uninstall":
+      return `hat den Bot „${String(d.name)}“ entfernt`;
+    case "report.resolved":
+      return "hat eine Meldung erledigt";
+    case "report.dismissed":
+      return "hat eine Meldung abgelehnt";
     default:
       return entry.action;
   }

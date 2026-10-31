@@ -69,6 +69,7 @@ class RoleOut(ORMModel):
     position: int
     permissions: list[str]
     is_default: bool
+    managed: bool = False
 
 
 class MemberOut(BaseModel):

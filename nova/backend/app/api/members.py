@@ -38,6 +38,7 @@ def _role_out(role: ServerRole) -> RoleOut:
         position=role.position,
         permissions=permission_names(role.permissions),
         is_default=role.is_default,
+        managed=role.managed,
     )
 
 

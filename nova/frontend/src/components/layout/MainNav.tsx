@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router";
 import { Avatar } from "@/components/ui/Avatar";
 import { useMe } from "@/features/auth/api";
 import { useServers } from "@/features/servers/api";
+import { useFriends } from "@/features/social/api";
 import { cn } from "@/lib/cn";
 import { useUi } from "@/stores/ui";
 import { NovaLogo } from "./NovaLogo";
@@ -26,11 +27,14 @@ const railItem =
   "relative flex size-11 items-center justify-center rounded-2xl text-muted transition-all hover:rounded-xl hover:bg-card hover:text-fg";
 const railActive = "rounded-xl bg-primary/15 text-primary hover:bg-primary/20 hover:text-primary";
 
-function RailLink({ to, label, icon: Icon, end }: { to: string; label: string; icon: LucideIcon; end?: boolean }) {
+function RailLink({ to, label, icon: Icon, end, badge }: { to: string; label: string; icon: LucideIcon; end?: boolean; badge?: number }) {
   return (
     <Tooltip label={label}>
-      <NavLink to={to} end={end} aria-label={label} className={({ isActive }) => cn(railItem, isActive && railActive)}>
+      <NavLink to={to} end={end} aria-label={badge ? `${label} (${badge} neu)` : label} className={({ isActive }) => cn(railItem, isActive && railActive)}>
         <Icon className="size-5" />
+        {!!badge && (
+          <span className="absolute -top-0.5 -right-0.5 flex min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[10px] font-bold text-white">{badge}</span>
+        )}
       </NavLink>
     </Tooltip>
   );
@@ -48,6 +52,7 @@ export function MainNav() {
   const { data: me } = useMe();
   const { data: servers } = useServers();
   const openCreate = useUi((s) => s.setCreateServerOpen);
+  const { data: friends } = useFriends();
 
   return (
     <nav aria-label="Hauptnavigation" className="flex w-[72px] shrink-0 flex-col items-center gap-2 border-r border-line bg-base py-3">
@@ -55,7 +60,7 @@ export function MainNav() {
         <NovaLogo className="size-11" />
       </Link>
       {PRIMARY_NAV.map((item) => (
-        <RailLink key={item.to} {...item} />
+        <RailLink key={item.to} {...item} badge={item.to === "/freunde" ? friends?.incoming.length : undefined} />
       ))}
 
       <div className="my-1 h-px w-8 bg-line" />

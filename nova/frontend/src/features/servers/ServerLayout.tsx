@@ -37,7 +37,7 @@ export function ServerLayout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <Outlet context={server} />
       </div>
-      {memberListOpen && <MemberSidebar serverId={server.id} />}
+      {memberListOpen && <MemberSidebar server={server} />}
     </>
   );
 }

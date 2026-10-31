@@ -1,13 +1,9 @@
-import { Headphones, WifiOff } from "lucide-react";
 import { Link } from "react-router";
 import { Avatar, STATUS_LABEL } from "@/components/ui/Avatar";
 import { useMe } from "@/features/auth/api";
+import { VoiceBar } from "@/features/voice/VoiceBar";
 
-/**
- * Bottom bar: the current user and the voice connection.
- * Voice (LiveKit) arrives in milestone 3; until then it truthfully shows "not connected"
- * and offers no controls that would not work.
- */
+/** Bottom bar: the current user and the voice connection. */
 export function StatusBar() {
   const { data: me } = useMe();
   if (!me) return null;
@@ -20,13 +16,7 @@ export function StatusBar() {
           <div className="truncate text-xs text-muted">{me.custom_status || STATUS_LABEL[me.status]}</div>
         </div>
       </Link>
-      <div className="ml-auto flex items-center gap-3 text-sm text-muted" aria-live="polite">
-        <Headphones className="size-4" aria-hidden />
-        <span className="hidden sm:inline">Sprachkanal</span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-0.5 text-xs">
-          <WifiOff className="size-3.5" aria-hidden /> Nicht verbunden
-        </span>
-      </div>
+      <VoiceBar />
     </footer>
   );
 }

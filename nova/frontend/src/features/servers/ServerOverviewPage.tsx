@@ -1,9 +1,11 @@
-import { CalendarDays, Crown, Globe, Hash, LayoutDashboard, Lock, Map as MapIcon, Users } from "lucide-react";
+import { CalendarDays, Crown, Globe, LayoutDashboard, Lock, Map as MapIcon, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge, PageHeader, Panel } from "@/components/ui/Feedback";
 import { formatDate } from "@/lib/format";
+import { useServerSessions, useSpaces } from "@/features/activity/api";
+import { SessionCard } from "@/features/activity/SessionCard";
 import { useChannels, useRoles } from "./api";
 import { CHANNEL_ICON } from "./channelIcons";
 import { useServerContext } from "./useServerContext";
@@ -12,6 +14,8 @@ export function ServerOverviewPage() {
   const server = useServerContext();
   const { data: channels = [] } = useChannels(server.id);
   const { data: roles = [] } = useRoles(server.id);
+  const { data: sessions = [] } = useServerSessions(server.id);
+  const { data: spaces = [] } = useSpaces(server.id);
   // Same order as the sidebar: uncategorized first, then category by category.
   const categoryOrder = new Map(
     channels.filter((c) => c.type === "category").map((c, i) => [c.id, i + 1]),
@@ -83,7 +87,7 @@ export function ServerOverviewPage() {
             <h3 className="mb-3 font-semibold">Rollen</h3>
             <div className="flex flex-wrap gap-2">
               <Badge color="#F59E0B">Owner</Badge>
-              {roles.map((r) => (
+              {roles.filter((r) => !r.managed).map((r) => (
                 <Badge key={r.id} color={r.color}>
                   {r.name}
                 </Badge>
@@ -96,18 +100,31 @@ export function ServerOverviewPage() {
           </Panel>
         </div>
 
-        <Panel className="border-dashed">
-          <div className="flex items-start gap-3">
-            <MapIcon className="mt-0.5 size-5 text-accent" aria-hidden />
-            <div>
-              <h3 className="font-semibold">Gaming Spaces & Sessions</h3>
-              <p className="mt-1 text-sm text-muted">
-                Interaktive 2D-Räume mit Voice-Zonen und spontanen Gaming-Sessions kommen in
-                Meilenstein 3. <Hash className="inline size-3" /> Textchat folgt in Meilenstein 2.
-              </p>
-            </div>
+        <Panel>
+          <div className="mb-3 flex items-center">
+            <h3 className="flex-1 font-semibold">Offene Sessions</h3>
+            <Link to={`/server/${server.id}/sessions`} className="text-sm text-accent hover:underline">Alle ansehen</Link>
           </div>
+          {sessions.length === 0 ? (
+            <p className="text-sm text-muted">Keine offenen Sessions. Starte eine über „Sessions“.</p>
+          ) : (
+            <div className="grid gap-3 xl:grid-cols-2">{sessions.slice(0, 4).map((s) => <SessionCard key={s.id} session={s} />)}</div>
+          )}
         </Panel>
+
+        {spaces.length > 0 && (
+          <Panel>
+            <h3 className="mb-3 font-semibold">Gaming Spaces</h3>
+            <div className="flex flex-wrap gap-2">
+              {spaces.map((sp) => (
+                <Link key={sp.id} to={`/server/${server.id}/space/${sp.id}`} className="flex items-center gap-2 rounded-xl border border-line bg-base/40 px-3 py-2 text-sm hover:border-primary/50">
+                  <MapIcon className="size-4 text-accent" /> {sp.name}
+                  <span className="text-xs text-muted">{sp.zones.length} Zonen</span>
+                </Link>
+              ))}
+            </div>
+          </Panel>
+        )}
       </motion.div>
     </>
   );
