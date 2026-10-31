@@ -50,6 +50,21 @@ export function Chat({ channel, showPins }: { channel: Channel; showPins: boolea
     setReplyTo(null);
   }, [channel.id]);
 
+  // Images and other late content change the height after render: stay at the bottom
+  // if the reader was there.
+  const content = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = scroller.current;
+    const inner = content.current;
+    if (!el || !inner || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(() => {
+      if (stickToBottom.current) el.scrollTop = el.scrollHeight;
+      prevHeight.current = el.scrollHeight;
+    });
+    observer.observe(inner);
+    return () => observer.disconnect();
+  }, []);
+
   const onScroll = () => {
     const el = scroller.current!;
     stickToBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
@@ -62,6 +77,7 @@ export function Chat({ channel, showPins }: { channel: Channel; showPins: boolea
     <div className="flex min-h-0 flex-1">
       <div className="flex min-w-0 flex-1 flex-col">
         <div ref={scroller} onScroll={onScroll} className="flex-1 overflow-y-auto pb-4" aria-label="Nachrichten" role="log">
+          <div ref={content}>
           {query.isFetchingNextPage && <Spinner className="mx-auto my-3 size-5" />}
           {!query.hasNextPage && !query.isPending && (
             <div className="px-4 pt-8 pb-4">
@@ -97,6 +113,7 @@ export function Chat({ channel, showPins }: { channel: Channel; showPins: boolea
               />
             );
           })}
+          </div>
         </div>
         <Composer channel={channel} canSend={canSend} replyTo={replyTo} onClearReply={() => setReplyTo(null)} onSent={() => (stickToBottom.current = true)} />
       </div>
