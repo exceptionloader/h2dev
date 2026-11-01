@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlauWelle Box</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1b1f24; --muted:#5b6470; --line:#e2e5ea;
+          --blue:#1d5fd1; --green:#178a45; --amber:#b26b00; --red:#c0362c; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#101317; --card:#181c22; --text:#e8ebef; --muted:#9aa3ad; --line:#2a3038; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.45 system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  main { max-width: 960px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin-bottom: 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .label { color:var(--muted); font-size:13px; }
+  .big { font-size:22px; font-weight:600; }
+  .state-idle { color: var(--muted); } .state-requested { color: var(--amber); }
+  .state-active { color: var(--green); } .state-cooldown { color: var(--blue); }
+  .state-fault { color: var(--red); }
+  .bar { height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:4px; }
+  .bar > i { display:block; height:100%; background:var(--blue); }
+  table { width:100%; border-collapse: collapse; font-size:14px; }
+  th, td { text-align:left; padding:6px 4px; border-bottom:1px solid var(--line); }
+  .tablewrap { overflow-x:auto; }
+  button { font:inherit; padding:2px 8px; border-radius:6px; border:1px solid var(--line);
+           background:var(--card); color:var(--text); cursor:pointer; }
+  input { font:inherit; padding:4px 8px; border:1px solid var(--line); border-radius:6px;
+          background:var(--card); color:var(--text); width: 100%; max-width: 260px; }
+  section { margin-top: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">BlauWelle Box</h1>
+  <div class="sub" id="sub">Verbinde …</div>
+
+  <div class="grid">
+    <div class="card"><div class="label">Zustand</div><div class="big" id="state">–</div><div id="fault" class="label"></div></div>
+    <div class="card"><div class="label">Sirene</div><div class="big" id="siren">–</div><div class="label" id="sirendetail"></div></div>
+    <div class="card"><div class="label">Anforderungen (gesamt)</div><div class="big" id="req">–</div><div class="label" id="ttg"></div></div>
+  </div>
+
+  <section>
+    <h2 class="label">Zufahrten</h2>
+    <div class="grid" id="approaches"></div>
+  </section>
+
+  <section>
+    <h2 class="label">Letzte Ereignisse</h2>
+    <div style="margin-bottom:8px"><input id="token" type="password" placeholder="API-Token (für Rückmeldungen)"></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Zeit</th><th>Ereignis</th><th>Zufahrt</th><th>Konf.</th><th>Rückmeldung</th></tr></thead>
+      <tbody id="events"></tbody>
+    </table></div>
+  </section>
+</main>
+<script>
+const NAMES = {request:"Anforderung", green:"Grün erreicht", release:"Freigabe", fault:"Fehler",
+               conflict:"Konflikt", warning:"Warnung", reset:"Zurückgesetzt"};
+const STATES = {idle:"Bereit", requested:"Angefordert", active:"Vorrang aktiv", cooldown:"Pause", fault:"Fehler"};
+const $ = id => document.getElementById(id);
+try { $("token").value = localStorage.getItem("bw_token") || ""; } catch (e) {}
+$("token").addEventListener("change", () => { try { localStorage.setItem("bw_token", $("token").value); } catch (e) {} });
+
+function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+async function feedback(id, value) {
+  const r = await fetch(`/api/events/${id}/feedback`, {method:"POST",
+    headers:{"Authorization":"Bearer " + $("token").value, "Content-Type":"application/json"},
+    body: JSON.stringify({value})});
+  if (!r.ok) alert("Nicht gespeichert (Token prüfen).");
+  load();
+}
+
+async function load() {
+  try {
+    const [s, st, ev] = await Promise.all(["/api/status", "/api/stats", "/api/events?limit=30"]
+      .map(u => fetch(u).then(r => r.json())));
+    $("title").textContent = "BlauWelle · " + (s.name || s.intersection);
+    $("sub").textContent = "Aktualisiert " + new Date().toLocaleTimeString("de-DE");
+    $("state").textContent = (STATES[s.state] || s.state) + (s.approach ? " · " + s.approach : "");
+    $("state").className = "big state-" + s.state;
+    $("fault").textContent = s.fault || "";
+    $("siren").textContent = Math.round(s.audio.score * 100) + " %";
+    $("sirendetail").textContent = (s.audio.bearing_deg != null ? "Richtung " + s.audio.bearing_deg + "° · " : "")
+      + s.audio.level_dbfs + " dBFS";
+    $("req").textContent = st.anforderungen;
+    $("ttg").textContent = st.zeit_bis_gruen_s_mittel != null ? "Ø " + st.zeit_bis_gruen_s_mittel + " s bis Grün" : "";
+    $("approaches").innerHTML = s.approaches.map(a => `
+      <div class="card"><div class="label">${esc(a.name)}${a.locked ? " · gesperrt" : ""}</div>
+        <div class="big">${a.confirmed ? "Erkannt" : Math.round(a.confidence * 100) + " %"}</div>
+        <div class="label">Kamera ${Math.round(a.vision*100)} %</div><div class="bar"><i style="width:${a.vision*100}%"></i></div>
+        <div class="label">Ton ${Math.round(a.audio*100)} %</div><div class="bar"><i style="width:${a.audio*100}%"></i></div>
+      </div>`).join("");
+    $("events").innerHTML = ev.map(e => `<tr>
+      <td>${new Date(e.ts * 1000).toLocaleString("de-DE")}</td>
+      <td>${esc(NAMES[e.kind] || e.kind)}${e.detail.reason ? " (" + esc(e.detail.reason) + ")" : ""}</td>
+      <td>${esc(e.approach || "")}</td><td>${e.confidence ? Math.round(e.confidence*100) + " %" : ""}</td>
+      <td>${e.kind === "request" ? (e.feedback ? esc(e.feedback) :
+        `<button onclick="feedback(${e.id},'korrekt')">korrekt</button> <button onclick="feedback(${e.id},'fehlalarm')">Fehlalarm</button>`) : ""}</td>
+    </tr>`).join("");
+  } catch (err) {
+    $("sub").textContent = "Keine Verbindung zur Box";
+  }
+}
+load();
+setInterval(load, 2000);
+</script>
+</body>
+</html>

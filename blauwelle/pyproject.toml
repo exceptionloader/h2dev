@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blauwelle"
+version = "0.1.0"
+description = "Vorrangschaltung für Einsatzfahrzeuge zum Nachrüsten (Kamera + Mikrofon)"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+hardware = ["sounddevice>=0.4", "opencv-python-headless>=4.8", "gpiozero>=2.0"]
+
+[project.scripts]
+blauwelle = "blauwelle.__main__:main"
+
+[tool.setuptools]
+packages = ["blauwelle"]
+
+[tool.setuptools.package-data]
+blauwelle = ["dashboard.html"]

@@ -1,0 +1,40 @@
+{
+  "intersection_id": "musterstadt-k17",
+  "name": "Hauptstraße / Bahnhofstraße",
+  "database": "/var/lib/blauwelle/events.db",
+  "approaches": [
+    {
+      "id": "nord", "name": "Hauptstraße Nord",
+      "bearing_deg": 0, "bearing_tolerance_deg": 40,
+      "camera": "/dev/video0", "roi": {"x0": 0.25, "y0": 0.3, "x1": 0.75, "y1": 1.0},
+      "output_pin": 17, "feedback_pin": 5, "priority": 1
+    },
+    {
+      "id": "ost", "name": "Bahnhofstraße Ost",
+      "bearing_deg": 90, "bearing_tolerance_deg": 40,
+      "camera": "/dev/video1", "roi": {"x0": 0.2, "y0": 0.3, "x1": 0.8, "y1": 1.0},
+      "output_pin": 27, "feedback_pin": 6
+    },
+    {
+      "id": "sued", "name": "Hauptstraße Süd",
+      "bearing_deg": 180, "bearing_tolerance_deg": 40,
+      "camera": "/dev/video2", "roi": {"x0": 0.25, "y0": 0.3, "x1": 0.75, "y1": 1.0},
+      "output_pin": 22, "feedback_pin": 13, "priority": 1
+    },
+    {
+      "id": "west", "name": "Zufahrt Feuerwache",
+      "bearing_deg": 270, "bearing_tolerance_deg": 40,
+      "camera": "/dev/video3", "roi": {"x0": 0.2, "y0": 0.3, "x1": 0.8, "y1": 1.0},
+      "output_pin": 23, "feedback_pin": 19, "priority": 2
+    }
+  ],
+  "audio": {
+    "sample_rate": 16000,
+    "mic_positions": [[-0.05, -0.05], [0.05, -0.05], [0.05, 0.05], [-0.05, 0.05]]
+  },
+  "vision": {"fps": 15},
+  "fusion": {"require_both": true, "confirm_s": 1.0, "lost_s": 3.0},
+  "safety": {"max_hold_s": 60, "cooldown_s": 5, "lockout_s": 120, "watchdog_s": 2, "auto_recover_s": 300},
+  "controller": {"type": "gpio", "active_high": true, "heartbeat_pin": 24},
+  "api": {"host": "127.0.0.1", "port": 8080, "token": "BITTE-AENDERN"}
+}
