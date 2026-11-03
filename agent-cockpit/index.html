@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>H2 Agent Cockpit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/cockpit.css">
+</head>
+<body data-view="pipeline">
+<header class="top" id="top">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div>
+      <div class="brand-name">H2 Agent Cockpit</div>
+      <div class="brand-sub">LLM schreibt · Engine entscheidet · Code handelt</div>
+    </div>
+  </div>
+  <div class="kpis" id="kpis">
+    <div class="kpi"><span class="k">Entscheidungen</span><b id="kDec">0</b></div>
+    <div class="kpi"><span class="k">Median-Latenz</span><b id="kLat">– ms</b><canvas class="kspark" id="kLatSpark"></canvas></div>
+    <div class="kpi"><span class="k">Kosten</span><b id="kCost">0,00 $</b></div>
+    <div class="kpi"><span class="k">Konfidenz</span><b id="kConf">–</b><span class="kbar"><i id="kConfBar"></i></span></div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="Module">
+  <a href="#pipeline" data-v="pipeline"><span>01</span>Pipeline</a>
+  <a href="#trading" data-v="trading"><span>02</span>Trading-Desk</a>
+  <a href="#inbox" data-v="inbox"><span>03</span>Inbox-Router</a>
+  <a href="#decide" data-v="decide"><span>04</span>Entscheider</a>
+  <a href="#swarm" data-v="swarm"><span>05</span>Schwarm</a>
+  <a href="#costlab" data-v="costlab"><span>06</span>Kosten-Labor</a>
+  <a href="#brain" data-v="brain"><span>07</span>Second Brain</a>
+</nav>
+
+<main id="views">
+  <section class="view" id="v-pipeline" hidden></section>
+  <section class="view" id="v-trading" hidden></section>
+  <section class="view" id="v-inbox" hidden></section>
+  <section class="view" id="v-decide" hidden></section>
+  <section class="view" id="v-swarm" hidden></section>
+  <section class="view" id="v-costlab" hidden></section>
+  <section class="view" id="v-brain" hidden></section>
+</main>
+
+<footer class="foot">
+  <p>Märkte, Agenten und Kosten-Läufe sind <b>Simulationen</b>. Echte KI-Antworten gibt es nur bei Knöpfen mit <span class="ai-chip">Claude</span> (in der claude.ai-Ansicht). Keine Anlageberatung.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/core.js"></script>
+<script src="js/pipeline.js"></script>
+<script src="js/trading.js"></script>
+<script src="js/inbox.js"></script>
+<script src="js/decide.js"></script>
+<script src="js/swarm.js"></script>
+<script src="js/costlab.js"></script>
+<script src="js/brain.js"></script>
+<script>AC.start();</script>
+</body>
+</html>
