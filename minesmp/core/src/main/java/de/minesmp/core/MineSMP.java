@@ -80,6 +80,7 @@ public final class MineSMP extends JavaPlugin {
     private BattlePassService battlepass;
     private EventManager events;
     private ScoreboardService scoreboard;
+    private de.minesmp.core.display.ResourcePackService pack;
     private de.minesmp.core.display.InfoBarService infobar;
     private ChatService chat;
     private TeleportService teleport;
@@ -106,7 +107,7 @@ public final class MineSMP extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         File sbFile = new File(getDataFolder(), "scoreboard.yml");
-        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 2) {
+        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 3) {
             File old = new File(getDataFolder(), "scoreboard-alt.yml");
             if (old.exists()) old.delete();
             if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
@@ -167,6 +168,7 @@ public final class MineSMP extends JavaPlugin {
         events = new EventManager(this);
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
+        pack = new de.minesmp.core.display.ResourcePackService(this);
         scoreboard = new ScoreboardService(this);
         infobar = new de.minesmp.core.display.InfoBarService(this);
 
@@ -185,6 +187,7 @@ public final class MineSMP extends JavaPlugin {
             if (duels != null) duels.shutdown();
             if (trade != null) trade.cancelAll();
             if (cosmetics != null) cosmetics.shutdown();
+            if (pack != null) pack.shutdown();
             if (clans != null) clans.saveAll();
             if (bounties != null) bounties.save();
             if (data != null) data.saveAll();
@@ -244,6 +247,7 @@ public final class MineSMP extends JavaPlugin {
     public BattlePassService battlepass() { return battlepass; }
     public EventManager events() { return events; }
     public ScoreboardService scoreboard() { return scoreboard; }
+    public de.minesmp.core.display.ResourcePackService pack() { return pack; }
     public de.minesmp.core.display.InfoBarService infobar() { return infobar; }
     public ChatService chat() { return chat; }
     public TeleportService teleport() { return teleport; }

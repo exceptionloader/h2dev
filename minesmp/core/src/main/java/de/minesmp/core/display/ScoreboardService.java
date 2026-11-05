@@ -53,7 +53,7 @@ public final class ScoreboardService implements Listener {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Scoreboard sb = boards.get(p.getUniqueId());
                 Objective o = sb == null ? null : sb.getObjective("minesmp");
-                if (o != null && o.getDisplaySlot() == DisplaySlot.SIDEBAR) o.displayName(t);
+                if (o != null && o.getDisplaySlot() == DisplaySlot.SIDEBAR && !(plugin.pack() != null && plugin.pack().has(p) && cfg.isString("title-pack"))) o.displayName(t);
             }
         }, 20, 3);
         Bukkit.getScheduler().runTaskTimer(plugin, this::refreshNametags, 100, 200);
@@ -115,8 +115,10 @@ public final class ScoreboardService implements Listener {
             o.setDisplaySlot(null);
         } else {
             o.setDisplaySlot(DisplaySlot.SIDEBAR);
-            o.displayName(Text.c(title()));
-            List<String> lines = plugin.combat().isTagged(p) && !cfg.getStringList("combat-lines").isEmpty() ? cfg.getStringList("combat-lines") : cfg.getStringList("lines");
+            boolean pack = plugin.pack() != null && plugin.pack().has(p);
+            o.displayName(Text.c(pack && cfg.isString("title-pack") ? plugin.placeholders().apply(p, cfg.getString("title-pack")) : title()));
+            String sfx = pack && !cfg.getStringList("lines-pack").isEmpty() ? "-pack" : "";
+            List<String> lines = plugin.combat().isTagged(p) && !cfg.getStringList("combat-lines" + sfx).isEmpty() ? cfg.getStringList("combat-lines" + sfx) : cfg.getStringList("lines" + sfx);
             int n = Math.min(15, lines.size());
             for (int i = 0; i < 15; i++) {
                 String entry = "l" + i;
@@ -134,8 +136,10 @@ public final class ScoreboardService implements Listener {
                 }
             }
         }
+        boolean packTab = plugin.pack() != null && plugin.pack().has(p) && !cfg.getStringList("tab.header-pack").isEmpty();
+        List<String> header = packTab ? cfg.getStringList("tab.header-pack") : cfg.getStringList("tab.header-frames." + (frame % Math.max(1, cfg.getInt("tab.frame-count", 1))));
         p.sendPlayerListHeaderAndFooter(
-                Text.c(plugin.placeholders().apply(p, String.join("\n", cfg.getStringList("tab.header-frames." + (frame % Math.max(1, cfg.getInt("tab.frame-count", 1))))))),
+                Text.c(plugin.placeholders().apply(p, String.join("\n", header))),
                 Text.c(plugin.placeholders().apply(p, String.join("\n", cfg.getStringList("tab.footer")))));
         refreshTabName(p);
     }

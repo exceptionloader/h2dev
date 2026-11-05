@@ -6,7 +6,7 @@
 #  %clan_level% %rank_short% %bounty% %event% %combat% %bp_tier% %daily_streak% %coords% %direction% %world%
 #  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 2
+design-version: 3
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -37,6 +37,39 @@ lines:
   - ' &8▪ &7ᴏɴʟɪɴᴇ<r>&f%online% &8● '
   - '<g:#4F7CFF:#55FFFF:#FFFFFF>ᴍɪɴᴇsᴍᴘ.ᴅᴇ</g>'
 
+# ---- Version mit Ressourcenpaket (Logo, farbige Kaestchen, Icons) ----
+# Kuerzel: :logo: :profil: :kampf: :clan: :server: :event: :daily: :vote: :combat: :web:
+#          :coin: :star: :sword: :skull: :shield: :people: :crown: :pin: :clock: :heart: :bolt: :arrow: :dot:
+# Spieler ohne Paket sehen automatisch die Text-Version oben (lines / combat-lines).
+title-pack: ':logo:'
+lines-pack:
+  - '&8'
+  - ':profil:'
+  - ' :crown: &7Rang<r>%rank_short%'
+  - ' :coin: &7Geld<r>&a%balance%'
+  - ' :star: &7Level<r>&e%level%'
+  - '&7'
+  - ':kampf:'
+  - ' :sword: &7Kills<r>&c%kills%'
+  - ' :skull: &7Tode<r>&f%deaths%'
+  - '&f'
+  - ':clan:<r>&8[&b%clan_tag%&8]'
+  - ' :shield: &f%clan%<r>&7Lv &b%clan_level%'
+  - '&3'
+  - ' :people: &7Online<r>&f%online%'
+  - ':web:'
+combat-lines-pack:
+  - '&8'
+  - ':combat:'
+  - ' :clock: &7Noch<r>&c%combat%'
+  - ' :bolt: &7Streak<r>&6%killstreak%'
+  - ' :sword: &7Kills<r>&c%kills%'
+  - ' :coin: &7Kopfgeld<r>&a%bounty%'
+  - '&7'
+  - '&c&oNicht ausloggen!'
+  - '&3'
+  - ':web:'
+
 # Waehrend Combat-Tag
 combat-lines:
   - '&8'
@@ -62,6 +95,12 @@ tab:
       - ' '
       - '&7ᴡɪʟʟᴋᴏᴍᴍᴇɴ, &f%player% &8┃ &7ᴏɴʟɪɴᴇ &b%online%'
       - ' '
+  header-pack:
+    - ' '
+    - ':logo:'
+    - ' '
+    - '&7Willkommen, &f%player% &8┃ :people: &f%online% &7online'
+    - ' '
   footer:
     - ' '
     - '&7ᴘɪɴɢ &f%ping%ms &8┃ &7ᴛᴘs &f%tps% &8┃ &7ᴜʜʀᴢᴇɪᴛ &f%time%'
@@ -76,13 +115,14 @@ sort-groups: [owner, admin, developer, moderator, supporter, builder, legende, m
 infobar:
   enabled: true
   entries:
-    - {text: '<g:#55FFFF:#FFFFFF>&lᴍɪɴᴇsᴍᴘ</g> &8┃ &7ᴏɴʟɪɴᴇ &f%online% &8┃ &7ᴅɪsᴄᴏʀᴅ &b/discord', seconds: 15, color: BLUE}
-    - {text: '&d&lᴇᴠᴇɴᴛ &8┃ &f%next_event% &7ɪɴ &d%next_event_in%', seconds: 15, color: PURPLE}
-    - {text: '&a&lᴅᴀɪʟʏ &8┃ &7ʙᴇʟᴏʜɴᴜɴɢ ᴀʙʜᴏʟᴇɴ &a/daily &8┃ &7sᴛʀᴇᴀᴋ &f%daily_streak%', seconds: 12, color: GREEN}
-    - {text: '&b&lᴄʟᴀɴ &8┃ &f%clan% &8┃ &7ʟᴇᴠᴇʟ &e%level% &8┃ &7ʙᴀᴛᴛʟᴇᴘᴀss &d%bp_tier%', seconds: 12, color: BLUE}
-    - {text: '&e&lᴠᴏᴛᴇ &8┃ &7ꜰʀᴇɪᴇ sᴄʜʟᴜᴇssᴇʟ ᴍɪᴛ &e/vote', seconds: 12, color: YELLOW}
+    - {text: '<g:#55FFFF:#FFFFFF>&lᴍɪɴᴇsᴍᴘ</g> &8┃ &7ᴏɴʟɪɴᴇ &f%online% &8┃ &7ᴅɪsᴄᴏʀᴅ &b/discord', text-pack: ':logo: &7Online &f%online% &8┃ &7Discord &b/discord', seconds: 15, color: BLUE}
+    - {text: '&d&lᴇᴠᴇɴᴛ &8┃ &f%next_event% &7ɪɴ &d%next_event_in%', text-pack: ':event: &f%next_event% &7in &d%next_event_in%', seconds: 15, color: PURPLE}
+    - {text: '&a&lᴅᴀɪʟʏ &8┃ &7ʙᴇʟᴏʜɴᴜɴɢ ᴀʙʜᴏʟᴇɴ &a/daily &8┃ &7sᴛʀᴇᴀᴋ &f%daily_streak%', text-pack: ':daily: &7Belohnung abholen &a/daily &8┃ &7Streak &f%daily_streak%', seconds: 12, color: GREEN}
+    - {text: '&b&lᴄʟᴀɴ &8┃ &f%clan% &8┃ &7ʟᴇᴠᴇʟ &e%level% &8┃ &7ʙᴀᴛᴛʟᴇᴘᴀss &d%bp_tier%', text-pack: ':clan: &f%clan% &8┃ :star: &7Level &e%level% &8┃ &7Pass &d%bp_tier%', seconds: 12, color: BLUE}
+    - {text: '&e&lᴠᴏᴛᴇ &8┃ &7ꜰʀᴇɪᴇ sᴄʜʟᴜᴇssᴇʟ ᴍɪᴛ &e/vote', text-pack: ':vote: &7Freie Schluessel mit &e/vote', seconds: 12, color: YELLOW}
 
 # Dauerhafte Info ueber der Hotbar (Actionbar). Kampf-, Teleport- und Einnahmen-Meldungen haben Vorrang.
 actionbar:
   enabled: true
   text: '&a⛃ &f%balance%  &8┃  &b✦ &f%coords%  &8┃  &e➤ &f%direction%  &8┃  &7%world%'
+  text-pack: ':coin: &f%balance%   :pin: &f%coords%   :arrow: &f%direction%   :clock: &f%time%'

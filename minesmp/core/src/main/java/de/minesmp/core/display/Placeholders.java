@@ -85,6 +85,7 @@ public final class Placeholders {
 
     public String apply(Player p, String text) {
         if (text == null) return "";
+        if (plugin.pack() != null) text = plugin.pack().glyphs(text);
         Matcher m = P.matcher(text);
         StringBuilder sb = new StringBuilder();
         while (m.find()) {

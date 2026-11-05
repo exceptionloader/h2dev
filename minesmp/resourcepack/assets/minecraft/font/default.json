@@ -1,0 +1,220 @@
+{
+ "providers": [
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/logo.png",
+   "ascent": 10,
+   "height": 12,
+   "chars": [
+    "\ue000"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/profil.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue001"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/kampf.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue002"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/clan.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue003"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/server.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue004"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/event.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue005"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/daily.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue006"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/vote.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue007"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/combat.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue008"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/web.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue009"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/coin.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/star.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/sword.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/skull.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/shield.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/people.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue00f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/crown.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue010"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/pin.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue011"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/clock.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue012"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/heart.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue013"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/bolt.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue014"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/arrow.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue015"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dot.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue016"
+   ]
+  },
+  {
+   "type": "space",
+   "advances": {
+    "\ue0f0": -1,
+    "\ue0f1": 1,
+    "\ue0f2": 3,
+    "\ue0f3": 6
+   }
+  }
+ ]
+}

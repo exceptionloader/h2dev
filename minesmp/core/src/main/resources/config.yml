@@ -30,6 +30,19 @@ world-names:
   spawn: Spawn
   farmwelt: Farmwelt
 
+# Ressourcenpaket (Logo, Kaestchen und Icons fuer Scoreboard, Tab, Leiste oben, Hotbar-Info)
+# Der Server liefert es selbst ueber einen kleinen Webserver aus (Port unten).
+# host: Adresse, unter der Spieler den Server erreichen ("localhost" = nur dein eigener PC).
+# url: Wenn du das Paket woanders hochlaedst (z.B. Dropbox-Direktlink), hier eintragen - dann kein eigener Webserver.
+resource-pack:
+  enabled: true
+  host: localhost
+  port: 8163
+  url: ''
+  required: false
+  prompt: '&b&lMINE&f&lSMP &7- Lade das Paket fuer Scoreboard-Design und Icons.'
+  keep-custom-file: false
+
 links:
   discord: https://discord.gg/minesmp
   website: https://minesmp.de

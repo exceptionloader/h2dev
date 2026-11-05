@@ -19,12 +19,12 @@ import java.util.Map;
  * Event- und Kriegs-Bossbars haben Vorrang; andere Actionbar-Meldungen (Kampf, Teleport, Einnahmen) ebenso.
  */
 public final class InfoBarService {
-    private record Entry(String text, int seconds, BarColor color) {}
+    private record Entry(String text, String packText, int seconds, BarColor color) {}
 
     private final MineSMP plugin;
     private final List<Entry> entries = new ArrayList<>();
     private boolean barEnabled, abEnabled;
-    private String abText = "";
+    private String abText = "", abPack = null;
     private long cycleStart = System.currentTimeMillis();
     private int index;
 
@@ -45,12 +45,14 @@ public final class InfoBarService {
             BarColor c;
             try { c = BarColor.valueOf(String.valueOf(m.get("color") == null ? "BLUE" : m.get("color")).toUpperCase(Locale.ROOT)); } catch (IllegalArgumentException e) { c = BarColor.BLUE; }
             Object sec = m.get("seconds");
-            entries.add(new Entry(String.valueOf(m.get("text")), sec instanceof Number n ? Math.max(3, n.intValue()) : 15, c));
+            Object pt = m.get("text-pack");
+            entries.add(new Entry(String.valueOf(m.get("text")), pt == null ? null : String.valueOf(pt), sec instanceof Number n ? Math.max(3, n.intValue()) : 15, c));
         }
         // ohne expliziten Standardwert lesen, damit die Plugin-Standardwerte greifen
         abEnabled = y.getBoolean("actionbar.enabled");
         abText = y.getString("actionbar.text");
         if (abText == null) abText = "";
+        abPack = y.getString("actionbar.text-pack");
         index = 0;
         cycleStart = System.currentTimeMillis();
     }
@@ -75,12 +77,14 @@ public final class InfoBarService {
             if (d == null) continue;
             boolean busy = plugin.scoreboard().hasBossbar(p, "event") || plugin.scoreboard().hasBossbar(p, "war");
             if (cur != null && !busy && d.setting("bossbar", true)) {
-                plugin.scoreboard().bossbar(p, "info", plugin.placeholders().apply(p, cur.text), progress, cur.color);
+                boolean pk = plugin.pack() != null && plugin.pack().has(p);
+                plugin.scoreboard().bossbar(p, "info", plugin.placeholders().apply(p, pk && cur.packText != null ? cur.packText : cur.text), progress, cur.color);
             } else {
                 plugin.scoreboard().hideBossbar(p, "info");
             }
             if (abEnabled && d.setting("actionbar", true) && !Msg.actionbarBusy(p) && !plugin.combat().isTagged(p) && !abText.isEmpty()) {
-                p.sendActionBar(Text.c(plugin.placeholders().apply(p, abText)));
+                boolean pk = plugin.pack() != null && plugin.pack().has(p);
+                p.sendActionBar(Text.c(plugin.placeholders().apply(p, pk && abPack != null ? abPack : abText)));
             }
         }
     }
