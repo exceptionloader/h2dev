@@ -27,8 +27,18 @@ Write-Host ''
 
 # ---------------------------------------------------------------- Java 25
 function Get-JavaMajor($exe) {
+    # java -version schreibt auf stderr; ueber ProcessStartInfo lesen, damit PowerShell das nicht als Fehler wertet
     try {
-        $out = & $exe -version 2>&1 | Out-String
+        $psi = New-Object System.Diagnostics.ProcessStartInfo
+        $psi.FileName = $exe
+        $psi.Arguments = '-version'
+        $psi.UseShellExecute = $false
+        $psi.RedirectStandardError = $true
+        $psi.RedirectStandardOutput = $true
+        $psi.CreateNoWindow = $true
+        $p = [System.Diagnostics.Process]::Start($psi)
+        $out = $p.StandardError.ReadToEnd() + $p.StandardOutput.ReadToEnd()
+        $p.WaitForExit()
         if ($out -match 'version "(\d+)') { return [int]$Matches[1] }
     } catch { }
     return 0
