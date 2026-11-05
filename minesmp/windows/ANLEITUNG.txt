@@ -1,0 +1,11 @@
+MineSMP - lokaler Testserver fuer Windows
+==========================================
+
+1. Diesen Ordner irgendwo hin entpacken (z.B. C:\MineSMP).
+2. "MineSMP starten.bat" doppelklicken.
+3. Fragen beantworten: Java 25 installieren (J), EULA (J), dein Minecraft-Name.
+4. Warten bis "Server laeuft!" erscheint.
+5. Minecraft Java 1.21.11 -> Mehrspieler -> Direktverbindung -> localhost
+
+Beenden: im Fenster "stop" eintippen.
+Neu starten: wieder "MineSMP starten.bat".

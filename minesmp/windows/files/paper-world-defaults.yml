@@ -1,0 +1,52 @@
+# MineSMP - Paper Welt-Standards (nur abweichende Werte; Rest ergaenzt Paper).
+_version: 31
+anticheat:
+  anti-xray:
+    enabled: true
+    engine-mode: 2
+    max-block-height: 64
+    update-radius: 2
+    lava-obscures: false
+    use-permission: false
+    hidden-blocks: [copper_ore, deepslate_copper_ore, raw_copper_block, gold_ore, deepslate_gold_ore, iron_ore, deepslate_iron_ore,
+      raw_iron_block, coal_ore, deepslate_coal_ore, lapis_ore, deepslate_lapis_ore, mossy_cobblestone, obsidian, chest,
+      diamond_ore, deepslate_diamond_ore, redstone_ore, deepslate_redstone_ore, clay, emerald_ore, deepslate_emerald_ore, ender_chest]
+    replacement-blocks: [stone, oak_planks, deepslate]
+chunks:
+  auto-save-interval: 6000
+  max-auto-save-chunks-per-tick: 12
+  prevent-moving-into-unloaded-chunks: true
+  entity-per-chunk-save-limit:
+    arrow: 16
+    experience_orb: 16
+    snowball: 8
+    ender_pearl: 8
+    fireball: 8
+    small_fireball: 8
+entities:
+  armor-stands:
+    tick: false
+  spawning:
+    per-player-mob-spawns: true
+    despawn-ranges:
+      monster:
+        hard: 72
+        soft: 30
+environment:
+  optimize-explosions: true
+  treasure-maps:
+    enabled: true
+    find-already-discovered:
+      loot-tables: true
+      villager-trade: true
+hopper:
+  disable-move-event: false
+  ignore-occluding-blocks: true
+tick-rates:
+  mob-spawner: 2
+  grass-spread: 4
+  container-update: 1
+collisions:
+  max-entity-collisions: 4
+unsupported-settings:
+  fix-invulnerable-end-crystal-exploit: true
