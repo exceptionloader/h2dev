@@ -1,0 +1,62 @@
+# Crates. chance = Gewichtung (wird relativ zur Summe gerechnet).
+# reward: siehe Belohnungsformat (money, keys, items, custom-items, commands, bp-xp, clan-xp, display)
+# broadcast: true -> immer Server-Nachricht; sonst ab "broadcast-below-percent".
+open-anywhere: true
+broadcast-below-percent: 2.0
+
+crates:
+  vote:
+    name: '&a&lVote-Crate'
+    key-material: TRIPWIRE_HOOK
+    rewards:
+      geld_klein: {chance: 35, display: {material: GOLD_NUGGET, name: '&a500 MineCoins'}, reward: {money: 500}}
+      geld_mittel: {chance: 20, display: {material: GOLD_INGOT, name: '&a1.500 MineCoins'}, reward: {money: 1500}}
+      eisen: {chance: 15, display: {material: IRON_INGOT, amount: 16, name: '&f16x Eisen'}, reward: {items: [{material: IRON_INGOT, amount: 16}]}}
+      diamant: {chance: 8, display: {material: DIAMOND, amount: 3, name: '&b3x Diamant'}, reward: {items: [{material: DIAMOND, amount: 3}]}}
+      xp: {chance: 12, display: {material: EXPERIENCE_BOTTLE, amount: 16, name: '&e16x XP-Flasche'}, reward: {items: [{material: EXPERIENCE_BOTTLE, amount: 16}]}}
+      rare_key: {chance: 8, display: {material: TRIPWIRE_HOOK, name: '&9Rare-Schluessel'}, reward: {keys: {rare: 1}}}
+      gapple: {chance: 2, display: {material: ENCHANTED_GOLDEN_APPLE, name: '&6Verzauberter Goldapfel'}, reward: {items: [{material: ENCHANTED_GOLDEN_APPLE, amount: 1}]}, broadcast: true}
+  daily:
+    name: '&e&lDaily-Crate'
+    key-material: TRIPWIRE_HOOK
+    rewards:
+      geld: {chance: 40, display: {material: GOLD_INGOT, name: '&a1.000 MineCoins'}, reward: {money: 1000}}
+      essen: {chance: 20, display: {material: GOLDEN_CARROT, amount: 32, name: '&632x Goldene Karotte'}, reward: {items: [{material: GOLDEN_CARROT, amount: 32}]}}
+      bp: {chance: 20, display: {material: NETHER_STAR, name: '&d150 Battlepass-XP'}, reward: {bp-xp: 150}}
+      vote_key: {chance: 15, display: {material: TRIPWIRE_HOOK, name: '&a2x Vote-Schluessel'}, reward: {keys: {vote: 2}}}
+      epic_key: {chance: 5, display: {material: TRIPWIRE_HOOK, name: '&5Epic-Schluessel'}, reward: {keys: {epic: 1}}}
+  rare:
+    name: '&9&lRare-Crate'
+    key-material: TRIPWIRE_HOOK
+    rewards:
+      geld: {chance: 30, display: {material: GOLD_BLOCK, name: '&a5.000 MineCoins'}, reward: {money: 5000}}
+      diamanten: {chance: 20, display: {material: DIAMOND, amount: 8, name: '&b8x Diamant'}, reward: {items: [{material: DIAMOND, amount: 8}]}}
+      sellwand: {chance: 15, display: {material: BLAZE_ROD, name: '&eVerkaufsstab (50)'}, reward: {custom-items: [sellwand]}}
+      buch: {chance: 15, display: {material: ENCHANTED_BOOK, name: '&dMending-Buch'}, reward: {items: [{material: ENCHANTED_BOOK, amount: 1, enchantments: {mending: 1}}]}}
+      herzen: {chance: 10, display: {material: PINK_DYE, name: '&dSpur: Herzen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.herzen true']}}
+      epic_key: {chance: 10, display: {material: TRIPWIRE_HOOK, name: '&5Epic-Schluessel'}, reward: {keys: {epic: 1}}}
+  epic:
+    name: '&5&lEpic-Crate'
+    key-material: TRIPWIRE_HOOK
+    rewards:
+      geld: {chance: 30, display: {material: GOLD_BLOCK, amount: 4, name: '&a20.000 MineCoins'}, reward: {money: 20000}}
+      hammer: {chance: 15, display: {material: DIAMOND_PICKAXE, name: '&bMine-Hammer'}, reward: {custom-items: [hammer]}}
+      axt: {chance: 15, display: {material: DIAMOND_AXE, name: '&6Holzfaeller-Axt'}, reward: {custom-items: [holzfaeller]}}
+      netherite: {chance: 10, display: {material: NETHERITE_INGOT, name: '&81x Netherite-Barren'}, reward: {items: [{material: NETHERITE_INGOT, amount: 1}]}}
+      pet: {chance: 10, display: {material: STRING, name: '&fHaustier: Katze'}, reward: {commands: ['lp user {player} permission set minesmp.pet.katze true']}}
+      flammen: {chance: 10, display: {material: BLAZE_POWDER, name: '&6Spur: Flammen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.flammen true']}}
+      legendary_key: {chance: 10, display: {material: TRIPWIRE_HOOK, name: '&6Legendary-Schluessel'}, reward: {keys: {legendary: 1}}}
+  legendary:
+    name: '&6&lLegendary-Crate'
+    key-material: TRIPWIRE_HOOK
+    rewards:
+      geld: {chance: 30, display: {material: GOLD_BLOCK, amount: 16, name: '&a100.000 MineCoins'}, reward: {money: 100000}}
+      elytra: {chance: 12, display: {material: ELYTRA, name: '&dElytra'}, reward: {items: [{material: ELYTRA, amount: 1}]}, broadcast: true}
+      netherite: {chance: 15, display: {material: NETHERITE_INGOT, amount: 4, name: '&84x Netherite-Barren'}, reward: {items: [{material: NETHERITE_INGOT, amount: 4}]}}
+      beacon: {chance: 10, display: {material: BEACON, name: '&bLeuchtfeuer'}, reward: {items: [{material: BEACON, amount: 1}]}, broadcast: true}
+      fuchs: {chance: 10, display: {material: SWEET_BERRIES, name: '&6Haustier: Fuchs'}, reward: {commands: ['lp user {player} permission set minesmp.pet.fuchs true']}}
+      seele: {chance: 10, display: {material: SOUL_LANTERN, name: '&3Spur: Seelen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.seele true']}}
+      vip: {chance: 3, display: {material: NETHER_STAR, name: '&e&lVIP-Rang (30 Tage)'}, reward: {commands: ['lp user {player} parent addtemp vip 30d']}, broadcast: true}
+
+# Wird mit /crate setblock <crate> verwaltet
+locations: {}

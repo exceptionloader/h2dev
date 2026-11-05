@@ -1,0 +1,56 @@
+# Skills: XP und MineCoins pro Aktion. Geld wird alle 30s gesammelt gutgeschrieben.
+# Von Spielern platzierte Erze/Staemme geben nichts (Exploit-Schutz). Spawner-Mobs geben nichts.
+formula:
+  skill-base: 100
+  skill-exponent: 1.6
+  max-skill-level: 100
+  player-base: 250
+  player-exponent: 1.5
+  max-player-level: 200
+
+vip-xp-multiplier: 1.25          # Berechtigung minesmp.xp.boost
+skill-levelup-money-per-level: 100
+spawner-mobs-give-no-rewards: true
+
+skills:
+  mining:
+    name: '&7Mining'
+    icon: IRON_PICKAXE
+    xp: {STONE: 0.3, DEEPSLATE: 0.4, COAL_ORE: 4, DEEPSLATE_COAL_ORE: 5, COPPER_ORE: 3, DEEPSLATE_COPPER_ORE: 4, IRON_ORE: 6, DEEPSLATE_IRON_ORE: 7,
+         GOLD_ORE: 10, DEEPSLATE_GOLD_ORE: 11, NETHER_GOLD_ORE: 5, REDSTONE_ORE: 6, DEEPSLATE_REDSTONE_ORE: 7, LAPIS_ORE: 8, DEEPSLATE_LAPIS_ORE: 9,
+         DIAMOND_ORE: 30, DEEPSLATE_DIAMOND_ORE: 32, EMERALD_ORE: 40, DEEPSLATE_EMERALD_ORE: 42, NETHER_QUARTZ_ORE: 4, ANCIENT_DEBRIS: 80, AMETHYST_CLUSTER: 5}
+    money: {COAL_ORE: 2, DEEPSLATE_COAL_ORE: 2.5, COPPER_ORE: 1.5, DEEPSLATE_COPPER_ORE: 2, IRON_ORE: 4, DEEPSLATE_IRON_ORE: 4.5, GOLD_ORE: 7, DEEPSLATE_GOLD_ORE: 8,
+            NETHER_GOLD_ORE: 3, REDSTONE_ORE: 3, DEEPSLATE_REDSTONE_ORE: 3.5, LAPIS_ORE: 5, DEEPSLATE_LAPIS_ORE: 5.5, DIAMOND_ORE: 25, DEEPSLATE_DIAMOND_ORE: 27,
+            EMERALD_ORE: 35, DEEPSLATE_EMERALD_ORE: 37, NETHER_QUARTZ_ORE: 2, ANCIENT_DEBRIS: 100}
+  farming:
+    name: '&aFarming'
+    icon: GOLDEN_HOE
+    xp: {WHEAT: 2, CARROTS: 2, POTATOES: 2, BEETROOTS: 2, NETHER_WART: 3, COCOA: 2, MELON: 2, PUMPKIN: 2, SUGAR_CANE: 0.5, SWEET_BERRY_BUSH: 1}
+    money: {WHEAT: 0.8, CARROTS: 0.8, POTATOES: 0.8, BEETROOTS: 0.8, NETHER_WART: 1, COCOA: 0.8, MELON: 0.6, PUMPKIN: 0.8, SUGAR_CANE: 0.2}
+  woodcutting:
+    name: '&6Holzfaellen'
+    icon: IRON_AXE
+    xp: {OAK_LOG: 2, SPRUCE_LOG: 2, BIRCH_LOG: 2, JUNGLE_LOG: 2, ACACIA_LOG: 2, DARK_OAK_LOG: 2.5, MANGROVE_LOG: 2.5, CHERRY_LOG: 3, PALE_OAK_LOG: 3, CRIMSON_STEM: 3, WARPED_STEM: 3}
+    money: {OAK_LOG: 0.8, SPRUCE_LOG: 0.8, BIRCH_LOG: 0.8, JUNGLE_LOG: 0.8, ACACIA_LOG: 0.8, DARK_OAK_LOG: 1, MANGROVE_LOG: 1, CHERRY_LOG: 1.2, PALE_OAK_LOG: 1.2, CRIMSON_STEM: 1.2, WARPED_STEM: 1.2}
+  fishing:
+    name: '&9Fischen'
+    icon: FISHING_ROD
+    xp: {DEFAULT: 10, COD: 10, SALMON: 12, TROPICAL_FISH: 20, PUFFERFISH: 18, NAUTILUS_SHELL: 40, ENCHANTED_BOOK: 30}
+    money: {DEFAULT: 4, COD: 4, SALMON: 5, TROPICAL_FISH: 10, PUFFERFISH: 8, NAUTILUS_SHELL: 20, ENCHANTED_BOOK: 15}
+  combat:
+    name: '&cKampf'
+    icon: IRON_SWORD
+    xp: {DEFAULT: 3, ZOMBIE: 4, SKELETON: 4, SPIDER: 4, CREEPER: 6, ENDERMAN: 10, WITCH: 12, BLAZE: 10, WITHER_SKELETON: 15, PIGLIN_BRUTE: 20,
+         GUARDIAN: 12, ELDER_GUARDIAN: 150, WARDEN: 500, ENDER_DRAGON: 1000, WITHER: 800, BREEZE: 15}
+    money: {DEFAULT: 1, ZOMBIE: 2, SKELETON: 2, SPIDER: 2, CREEPER: 3, ENDERMAN: 5, WITCH: 6, BLAZE: 5, WITHER_SKELETON: 8, PIGLIN_BRUTE: 10,
+            GUARDIAN: 6, ELDER_GUARDIAN: 250, WARDEN: 1000, ENDER_DRAGON: 5000, WITHER: 3000, BREEZE: 8}
+
+# Belohnungen beim Erreichen eines Spielerlevels (einmalig)
+level-rewards:
+  5: {money: 1000, keys: {vote: 1}}
+  10: {money: 2500, keys: {rare: 1}}
+  20: {money: 5000, keys: {rare: 2}}
+  30: {money: 10000, keys: {epic: 1}}
+  50: {money: 25000, keys: {epic: 2}, commands: ['lp user {player} permission set minesmp.trail.funken true'], display: '&bSpur: Funken'}
+  75: {money: 50000, keys: {legendary: 1}}
+  100: {money: 100000, keys: {legendary: 2}, commands: ['lp user {player} permission set minesmp.pet.axolotl true'], display: '&dHaustier: Axolotl'}

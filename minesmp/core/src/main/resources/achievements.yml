@@ -1,0 +1,20 @@
+# Erfolge. stat: kills, deaths, level, balance, best-streak, playtime-hours, duel-wins, event-wins, daily-streak,
+#   skill:<mining|farming|woodcutting|fishing|combat>, stat:<blocks_broken|fish_caught|mobs_killed|quests_done|crates_opened|votes>
+achievements:
+  erste_schritte: {name: '&aErste Schritte', description: 'Baue 1.000 Bloecke ab', stat: 'stat:blocks_broken', amount: 1000, icon: WOODEN_PICKAXE, reward: {money: 500}}
+  bergmann: {name: '&7Bergmann', description: 'Baue 50.000 Bloecke ab', stat: 'stat:blocks_broken', amount: 50000, icon: DIAMOND_PICKAXE, reward: {money: 10000, keys: {rare: 1}}}
+  erster_kill: {name: '&cErstes Blut', description: 'Toete einen Spieler', stat: kills, amount: 1, icon: WOODEN_SWORD, reward: {money: 500}}
+  krieger: {name: '&cKrieger', description: 'Toete 100 Spieler', stat: kills, amount: 100, icon: DIAMOND_SWORD, reward: {money: 15000, keys: {epic: 1}}}
+  serienkiller: {name: '&4Unaufhaltsam', description: 'Erreiche eine Killstreak von 15', stat: best-streak, amount: 15, icon: NETHERITE_SWORD, reward: {money: 20000, keys: {epic: 1}}}
+  reich: {name: '&6Wohlhabend', description: 'Besitze 100.000 MineCoins', stat: balance, amount: 100000, icon: GOLD_INGOT, reward: {keys: {rare: 1}}}
+  millionaer: {name: '&6&lMillionaer', description: 'Besitze 1.000.000 MineCoins', stat: balance, amount: 1000000, icon: GOLD_BLOCK, reward: {keys: {legendary: 1}}}
+  level10: {name: '&eAufsteiger', description: 'Erreiche Spielerlevel 10', stat: level, amount: 10, icon: EXPERIENCE_BOTTLE, reward: {money: 2000}}
+  level50: {name: '&e&lVeteran', description: 'Erreiche Spielerlevel 50', stat: level, amount: 50, icon: NETHER_STAR, reward: {money: 25000, keys: {epic: 1}}}
+  angler: {name: '&9Angler', description: 'Fange 500 Fische', stat: 'stat:fish_caught', amount: 500, icon: FISHING_ROD, reward: {money: 5000}}
+  jaeger: {name: '&2Monsterjaeger', description: 'Toete 2.500 Monster', stat: 'stat:mobs_killed', amount: 2500, icon: BOW, reward: {money: 7500, keys: {rare: 1}}}
+  treu: {name: '&bTreuer Spieler', description: 'Spiele 100 Stunden', stat: playtime-hours, amount: 100, icon: CLOCK, reward: {money: 20000, keys: {epic: 1}}}
+  duellmeister: {name: '&3Duellmeister', description: 'Gewinne 50 Duelle', stat: duel-wins, amount: 50, icon: SHIELD, reward: {money: 15000, keys: {epic: 1}}}
+  champion: {name: '&6Champion', description: 'Gewinne 10 Events', stat: event-wins, amount: 10, icon: GOLDEN_HELMET, reward: {money: 25000, keys: {legendary: 1}}}
+  quester: {name: '&dFleissig', description: 'Schliesse 100 Quests ab', stat: 'stat:quests_done', amount: 100, icon: WRITABLE_BOOK, reward: {money: 10000, keys: {epic: 1}}}
+  streak30: {name: '&aJeden Tag dabei', description: 'Erreiche 30 Tage Daily-Streak', stat: daily-streak, amount: 30, icon: SUNFLOWER, reward: {money: 15000, keys: {epic: 1}}}
+  mining50: {name: '&7Meister-Mining', description: 'Erreiche Mining-Level 50', stat: 'skill:mining', amount: 50, icon: NETHERITE_PICKAXE, reward: {money: 30000, keys: {legendary: 1}}}

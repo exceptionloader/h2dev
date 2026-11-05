@@ -1,0 +1,24 @@
+# Nur abweichende Werte - fehlende Werte ergaenzt Paper beim Start.
+settings:
+  restart-on-crash: false
+  bungeecord: false
+  netty-threads: 4
+messages:
+  unknown-command: '§8[§b§lMine§f§lSMP§8] §cUnbekannter Befehl. Nutze §f/help§c.'
+  server-full: '§cDer Server ist voll.'
+commands:
+  send-namespaced: false
+  tab-complete: 0
+  log: true
+world-settings:
+  default:
+    entity-activation-range:
+      animals: 24
+      monsters: 32
+      raiders: 48
+      misc: 12
+    merge-radius:
+      item: 3.0
+      exp: 4.0
+    mob-spawn-range: 6
+    nerf-spawner-mobs: true

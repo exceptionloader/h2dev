@@ -1,0 +1,112 @@
+# Quests. type: BREAK, HARVEST, FISH, KILL_MOB, KILL_PLAYER, EARN, DUEL_WIN
+# target: Material/EntityType, Liste oder Muster mit * (z.B. "*_ORE", "*_LOG"). Ohne target = alles.
+daily:
+  count: 3
+  pool:
+    stein:
+      name: 'Steinbrecher'
+      type: BREAK
+      target: [STONE, DEEPSLATE, COBBLESTONE]
+      amount: 512
+      icon: STONE_PICKAXE
+      reward: {money: 600, bp-xp: 60}
+    erze:
+      name: 'Erzsucher'
+      type: BREAK
+      target: ['*_ORE']
+      amount: 64
+      icon: IRON_ORE
+      reward: {money: 900, bp-xp: 80}
+    holz:
+      name: 'Holzfaeller'
+      type: BREAK
+      target: ['*_LOG', '*_STEM']
+      amount: 128
+      icon: OAK_LOG
+      reward: {money: 600, bp-xp: 60}
+    ernte:
+      name: 'Erntehelfer'
+      type: HARVEST
+      amount: 192
+      icon: WHEAT
+      reward: {money: 700, bp-xp: 60}
+    angeln:
+      name: 'Angler'
+      type: FISH
+      amount: 25
+      icon: FISHING_ROD
+      reward: {money: 700, bp-xp: 70}
+    zombies:
+      name: 'Zombiejaeger'
+      type: KILL_MOB
+      target: [ZOMBIE, HUSK, DROWNED, ZOMBIE_VILLAGER]
+      amount: 40
+      icon: ROTTEN_FLESH
+      reward: {money: 600, bp-xp: 60}
+    monster:
+      name: 'Monsterjaeger'
+      type: KILL_MOB
+      amount: 100
+      icon: IRON_SWORD
+      reward: {money: 900, bp-xp: 80}
+    verdienen:
+      name: 'Haendler'
+      type: EARN
+      amount: 5000
+      icon: GOLD_INGOT
+      reward: {money: 500, bp-xp: 60}
+    diamant:
+      name: 'Diamantenfieber'
+      type: BREAK
+      target: [DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE]
+      amount: 5
+      icon: DIAMOND
+      reward: {money: 1200, bp-xp: 100, keys: {vote: 1}}
+
+weekly:
+  count: 3
+  pool:
+    tiefbau:
+      name: 'Tiefbau-Profi'
+      type: BREAK
+      target: [STONE, DEEPSLATE, COBBLESTONE, TUFF, ANDESITE, DIORITE, GRANITE]
+      amount: 10000
+      icon: DIAMOND_PICKAXE
+      reward: {money: 10000, bp-xp: 400, keys: {rare: 1}}
+    grossbauer:
+      name: 'Grossbauer'
+      type: HARVEST
+      amount: 3000
+      icon: HAY_BLOCK
+      reward: {money: 8000, bp-xp: 400, keys: {rare: 1}}
+    kopfgeld:
+      name: 'Kopfgeldjaeger'
+      type: KILL_PLAYER
+      amount: 15
+      icon: NETHERITE_SWORD
+      reward: {money: 12000, bp-xp: 500, keys: {epic: 1}}
+    duellant:
+      name: 'Duellant'
+      type: DUEL_WIN
+      amount: 10
+      icon: SHIELD
+      reward: {money: 8000, bp-xp: 400, keys: {rare: 1}}
+    fischer:
+      name: 'Meisterfischer'
+      type: FISH
+      amount: 300
+      icon: TROPICAL_FISH
+      reward: {money: 8000, bp-xp: 400, keys: {rare: 1}}
+    millionaer:
+      name: 'Grosshaendler'
+      type: EARN
+      amount: 100000
+      icon: GOLD_BLOCK
+      reward: {money: 10000, bp-xp: 500, keys: {epic: 1}}
+    netherjaeger:
+      name: 'Netherjaeger'
+      type: KILL_MOB
+      target: [BLAZE, WITHER_SKELETON, GHAST, PIGLIN_BRUTE, MAGMA_CUBE]
+      amount: 150
+      icon: BLAZE_ROD
+      reward: {money: 9000, bp-xp: 450, keys: {rare: 1}}

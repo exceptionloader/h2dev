@@ -1,0 +1,17 @@
+# MineSMP Nachrichten
+# Jede Nachricht kann hier angepasst werden. Fehlende Schluessel werden automatisch mit dem
+# deutschen Standardtext ergaenzt (beim naechsten Speichern, spaetestens beim Stopp).
+# {prefix} = Praefix unten, weitere {platzhalter} je Nachricht. Leerer Text = Nachricht aus.
+prefix: '&8[&b&lMine&f&lSMP&8] &7'
+no-permission: '{prefix}&cDazu hast du keine Berechtigung.'
+player-not-found: '{prefix}&cSpieler &f{name} &cist nicht online.'
+not-enough-money: '{prefix}&cDu hast nicht genug MineCoins.'
+death:
+  fall: '&8☠ &7{name} ist zu tief gefallen.'
+  lava: '&8☠ &7{name} wollte in Lava baden.'
+  drowning: '&8☠ &7{name} ist ertrunken.'
+  entity_attack: '&8☠ &7{name} wurde von einem Monster getoetet.'
+  entity_explosion: '&8☠ &7{name} wurde in die Luft gesprengt.'
+  void: '&8☠ &7{name} ist ins Nichts gefallen.'
+  fire_tick: '&8☠ &7{name} ist verbrannt.'
+  starvation: '&8☠ &7{name} ist verhungert.'

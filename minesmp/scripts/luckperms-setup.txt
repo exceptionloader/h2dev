@@ -1,0 +1,139 @@
+# MineSMP - LuckPerms Rangsystem
+# In der Server-Konsole Zeile fuer Zeile ausfuehren (ohne fuehrenden "/"), Kommentare (#) weglassen.
+# Farbschema: Tuerkis (&b/&3), Blau (&9/&1), Weiss (&f), Dunkelgrau (&8)
+
+# --- Gruppen anlegen (Gewicht = Reihenfolge) ---
+lp creategroup vip
+lp creategroup mvp
+lp creategroup legende
+lp creategroup builder
+lp creategroup supporter
+lp creategroup moderator
+lp creategroup developer
+lp creategroup admin
+lp creategroup owner
+lp group default setweight 0
+lp group vip setweight 10
+lp group mvp setweight 20
+lp group legende setweight 30
+lp group builder setweight 40
+lp group supporter setweight 50
+lp group moderator setweight 60
+lp group developer setweight 70
+lp group admin setweight 80
+lp group owner setweight 100
+
+# --- Prefixe ---
+lp group default meta setprefix 0 "&7"
+lp group vip meta setprefix 10 "&b&lVIP &8| &b"
+lp group mvp meta setprefix 20 "&3&lMVP &8| &3"
+lp group legende meta setprefix 30 "&9&lLEGENDE &8| &9"
+lp group builder meta setprefix 40 "&a&lBUILDER &8| &a"
+lp group supporter meta setprefix 50 "&e&lSUPPORT &8| &e"
+lp group moderator meta setprefix 60 "&6&lMOD &8| &6"
+lp group developer meta setprefix 70 "&d&lDEV &8| &d"
+lp group admin meta setprefix 80 "&c&lADMIN &8| &c"
+lp group owner meta setprefix 100 "&4&lOWNER &8| &4"
+
+# --- Vererbung ---
+lp group vip parent add default
+lp group mvp parent add vip
+lp group legende parent add mvp
+lp group builder parent add default
+lp group supporter parent add default
+lp group moderator parent add supporter
+lp group developer parent add moderator
+lp group admin parent add moderator
+lp group owner parent add admin
+
+# --- Spieler (Standardrechte von MineSMPCore kommen automatisch ueber minesmp.player) ---
+lp group default permission set gsit.sit true
+lp group default permission set gsit.lay true
+lp group default permission set gsit.crawl true
+lp group default permission set minesmp.player true
+
+# --- VIP ---
+lp group vip permission set minesmp.homes.5 true
+lp group vip permission set minesmp.kit.vip true
+lp group vip permission set minesmp.sell.multiplier.vip true
+lp group vip permission set minesmp.ah.limit.8 true
+lp group vip permission set minesmp.pwarp.limit.2 true
+lp group vip permission set minesmp.craft true
+lp group vip permission set minesmp.enderchest true
+lp group vip permission set minesmp.xp.boost true
+
+# --- MVP ---
+lp group mvp permission set minesmp.homes.8 true
+lp group mvp permission set minesmp.sell.multiplier.mvp true
+lp group mvp permission set minesmp.ah.limit.12 true
+lp group mvp permission set minesmp.pwarp.limit.3 true
+lp group mvp permission set minesmp.repair true
+lp group mvp permission set minesmp.back.death true
+lp group mvp permission set minesmp.trail.herzen true
+
+# --- Legende ---
+lp group legende permission set minesmp.homes.12 true
+lp group legende permission set minesmp.sell.multiplier.legende true
+lp group legende permission set minesmp.ah.limit.20 true
+lp group legende permission set minesmp.pwarp.limit.5 true
+lp group legende permission set minesmp.repair.all true
+lp group legende permission set minesmp.chat.color true
+lp group legende permission set minesmp.battlepass.premium true
+lp group legende permission set minesmp.trail.funken true
+lp group legende permission set minesmp.pet.katze true
+lp group legende permission set minesmp.afk.nokick true
+
+# --- Builder ---
+lp group builder permission set minesmp.staff.member true
+lp group builder permission set worldedit.* true
+lp group builder permission set worldguard.region.bypass.spawn true
+lp group builder permission set minecraft.command.gamemode true
+
+# --- Supporter ---
+lp group supporter permission set minesmp.staff.member true
+lp group supporter permission set minesmp.staff.chat true
+lp group supporter permission set minesmp.staff.reports true
+lp group supporter permission set minesmp.staff.mute true
+lp group supporter permission set minesmp.staff.warn true
+lp group supporter permission set minesmp.staff.kick true
+lp group supporter permission set minesmp.staff.history true
+lp group supporter permission set minesmp.staff.invsee true
+lp group supporter permission set minesmp.chat.bypass true
+lp group supporter permission set minesmp.chat.links true
+lp group supporter permission set minesmp.afk.nokick true
+lp group supporter permission set coreprotect.inspect true
+lp group supporter permission set coreprotect.lookup true
+lp group supporter permission set grim.alerts true
+
+# --- Moderator ---
+lp group moderator permission set minesmp.staff.tempban true
+lp group moderator permission set minesmp.staff.ban true
+lp group moderator permission set minesmp.staff.unban true
+lp group moderator permission set minesmp.staff.vanish true
+lp group moderator permission set minesmp.staff.socialspy true
+lp group moderator permission set minesmp.staff.broadcast true
+lp group moderator permission set minesmp.staff.commands true
+lp group moderator permission set minesmp.teleport.instant true
+lp group moderator permission set coreprotect.rollback true
+lp group moderator permission set coreprotect.restore true
+lp group moderator permission set worldguard.region.info.* true
+lp group moderator permission set minecraft.command.teleport true
+
+# --- Developer / Admin ---
+lp group developer permission set minesmp.admin.reload true
+lp group admin permission set minesmp.* true
+lp group admin permission set minesmp.combat.bypass false
+lp group admin permission set minesmp.staff.bypass true
+lp group admin permission set worldedit.* true
+lp group admin permission set worldguard.* true
+lp group admin permission set coreprotect.* true
+lp group admin permission set grim.* true
+lp group admin permission set luckperms.user.* true
+
+# --- Owner ---
+lp group owner permission set * true
+lp group owner permission set minesmp.combat.bypass false
+
+# --- Beispiel: Spieler einem Rang zuweisen ---
+# lp user DeinName parent set owner
+# lp user Spieler parent addtemp vip 30d

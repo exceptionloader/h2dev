@@ -1,0 +1,184 @@
+# Server-Shop. buy = Kaufpreis (0 = nicht kaufbar), sell = Verkaufspreis pro Stueck (0 = nicht verkaufbar).
+# Exploit-Schutz: Ist sell > buy, wird sell automatisch auf buy begrenzt.
+confirm-above: 10000
+
+categories:
+  bloecke:
+    name: '&bBaubloecke'
+    icon: BRICKS
+    slot: 10
+    items:
+      - {material: STONE, buy: 4, sell: 0.5}
+      - {material: COBBLESTONE, buy: 2, sell: 0.25}
+      - {material: STONE_BRICKS, buy: 6, sell: 0.5}
+      - {material: DEEPSLATE, buy: 4, sell: 0.4}
+      - {material: COBBLED_DEEPSLATE, buy: 3, sell: 0.3}
+      - {material: ANDESITE, buy: 3, sell: 0.3}
+      - {material: DIORITE, buy: 3, sell: 0.3}
+      - {material: GRANITE, buy: 3, sell: 0.3}
+      - {material: TUFF, buy: 4, sell: 0.3}
+      - {material: CALCITE, buy: 6, sell: 0.5}
+      - {material: DIRT, buy: 2, sell: 0.2}
+      - {material: GRASS_BLOCK, buy: 8, sell: 0}
+      - {material: SAND, buy: 3, sell: 0.4}
+      - {material: RED_SAND, buy: 4, sell: 0.5}
+      - {material: GRAVEL, buy: 3, sell: 0.4}
+      - {material: CLAY, buy: 8, sell: 1.5}
+      - {material: GLASS, buy: 6, sell: 0}
+      - {material: BRICKS, buy: 12, sell: 0}
+      - {material: SANDSTONE, buy: 6, sell: 0.5}
+      - {material: QUARTZ_BLOCK, buy: 40, sell: 6}
+      - {material: PRISMARINE, buy: 30, sell: 0}
+      - {material: TERRACOTTA, buy: 8, sell: 0}
+      - {material: WHITE_CONCRETE, buy: 10, sell: 0}
+      - {material: BLACK_CONCRETE, buy: 10, sell: 0}
+      - {material: LIGHT_BLUE_CONCRETE, buy: 10, sell: 0}
+      - {material: CYAN_CONCRETE, buy: 10, sell: 0}
+      - {material: BLACKSTONE, buy: 5, sell: 0.4}
+      - {material: END_STONE, buy: 10, sell: 1}
+      - {material: OBSIDIAN, buy: 60, sell: 8}
+      - {material: SNOW_BLOCK, buy: 6, sell: 0.5}
+      - {material: ICE, buy: 12, sell: 1}
+      - {material: PACKED_ICE, buy: 30, sell: 2}
+      - {material: MOSS_BLOCK, buy: 12, sell: 1}
+      - {material: MUD, buy: 4, sell: 0.3}
+  holz:
+    name: '&6Holz'
+    icon: OAK_LOG
+    slot: 11
+    items:
+      - {material: OAK_LOG, buy: 12, sell: 2}
+      - {material: SPRUCE_LOG, buy: 12, sell: 2}
+      - {material: BIRCH_LOG, buy: 12, sell: 2}
+      - {material: JUNGLE_LOG, buy: 12, sell: 2}
+      - {material: ACACIA_LOG, buy: 12, sell: 2}
+      - {material: DARK_OAK_LOG, buy: 14, sell: 2.5}
+      - {material: MANGROVE_LOG, buy: 14, sell: 2.5}
+      - {material: CHERRY_LOG, buy: 16, sell: 3}
+      - {material: PALE_OAK_LOG, buy: 16, sell: 3}
+      - {material: CRIMSON_STEM, buy: 16, sell: 2.5}
+      - {material: WARPED_STEM, buy: 16, sell: 2.5}
+      - {material: BAMBOO_BLOCK, buy: 10, sell: 1.5}
+  erze:
+    name: '&3Erze & Mineralien'
+    icon: DIAMOND
+    slot: 12
+    items:
+      - {material: COAL, buy: 15, sell: 3}
+      - {material: RAW_IRON, buy: 25, sell: 5}
+      - {material: IRON_INGOT, buy: 30, sell: 7}
+      - {material: RAW_COPPER, buy: 10, sell: 2}
+      - {material: COPPER_INGOT, buy: 12, sell: 2.5}
+      - {material: RAW_GOLD, buy: 50, sell: 10}
+      - {material: GOLD_INGOT, buy: 60, sell: 12}
+      - {material: REDSTONE, buy: 8, sell: 1.5}
+      - {material: LAPIS_LAZULI, buy: 15, sell: 3}
+      - {material: QUARTZ, buy: 12, sell: 2.5}
+      - {material: AMETHYST_SHARD, buy: 20, sell: 3}
+      - {material: EMERALD, buy: 300, sell: 40}
+      - {material: DIAMOND, buy: 1000, sell: 150}
+      - {material: ANCIENT_DEBRIS, buy: 0, sell: 1500}
+      - {material: NETHERITE_SCRAP, buy: 0, sell: 1800}
+      - {material: NETHERITE_INGOT, buy: 0, sell: 7500}
+  farming:
+    name: '&aFarming'
+    icon: WHEAT
+    slot: 13
+    items:
+      - {material: WHEAT, buy: 6, sell: 1.2}
+      - {material: WHEAT_SEEDS, buy: 2, sell: 0.1}
+      - {material: CARROT, buy: 5, sell: 1}
+      - {material: POTATO, buy: 5, sell: 1}
+      - {material: BEETROOT, buy: 5, sell: 1}
+      - {material: MELON_SLICE, buy: 3, sell: 0.4}
+      - {material: PUMPKIN, buy: 15, sell: 2.5}
+      - {material: SUGAR_CANE, buy: 6, sell: 1}
+      - {material: CACTUS, buy: 6, sell: 0.8}
+      - {material: COCOA_BEANS, buy: 6, sell: 1}
+      - {material: NETHER_WART, buy: 8, sell: 1.5}
+      - {material: SWEET_BERRIES, buy: 4, sell: 0.6}
+      - {material: BAMBOO, buy: 2, sell: 0.2}
+      - {material: KELP, buy: 2, sell: 0.2}
+      - {material: APPLE, buy: 10, sell: 1.5}
+      - {material: EGG, buy: 4, sell: 0.5}
+      - {material: HONEY_BOTTLE, buy: 30, sell: 5}
+  mobdrops:
+    name: '&cMob-Drops'
+    icon: BONE
+    slot: 14
+    items:
+      - {material: ROTTEN_FLESH, buy: 0, sell: 0.5}
+      - {material: BONE, buy: 6, sell: 1}
+      - {material: STRING, buy: 6, sell: 1}
+      - {material: SPIDER_EYE, buy: 8, sell: 1.5}
+      - {material: GUNPOWDER, buy: 15, sell: 3}
+      - {material: ENDER_PEARL, buy: 60, sell: 10}
+      - {material: BLAZE_ROD, buy: 60, sell: 10}
+      - {material: SLIME_BALL, buy: 25, sell: 4}
+      - {material: MAGMA_CREAM, buy: 30, sell: 5}
+      - {material: GHAST_TEAR, buy: 150, sell: 25}
+      - {material: PHANTOM_MEMBRANE, buy: 80, sell: 12}
+      - {material: LEATHER, buy: 12, sell: 2}
+      - {material: FEATHER, buy: 4, sell: 0.5}
+      - {material: INK_SAC, buy: 6, sell: 1}
+      - {material: PRISMARINE_SHARD, buy: 10, sell: 1.5}
+      - {material: SHULKER_SHELL, buy: 2500, sell: 300}
+  essen:
+    name: '&eEssen'
+    icon: COOKED_BEEF
+    slot: 15
+    items:
+      - {material: BREAD, buy: 10, sell: 0}
+      - {material: COOKED_BEEF, buy: 15, sell: 2}
+      - {material: COOKED_PORKCHOP, buy: 15, sell: 2}
+      - {material: COOKED_CHICKEN, buy: 12, sell: 1.5}
+      - {material: COOKED_MUTTON, buy: 12, sell: 1.5}
+      - {material: COOKED_COD, buy: 10, sell: 1.5}
+      - {material: COOKED_SALMON, buy: 12, sell: 2}
+      - {material: BAKED_POTATO, buy: 8, sell: 1}
+      - {material: GOLDEN_CARROT, buy: 60, sell: 0}
+      - {material: GOLDEN_APPLE, buy: 600, sell: 0}
+  fischen:
+    name: '&9Fischen'
+    icon: FISHING_ROD
+    slot: 16
+    items:
+      - {material: COD, buy: 0, sell: 2}
+      - {material: SALMON, buy: 0, sell: 3}
+      - {material: TROPICAL_FISH, buy: 0, sell: 8}
+      - {material: PUFFERFISH, buy: 0, sell: 6}
+      - {material: NAUTILUS_SHELL, buy: 0, sell: 80}
+      - {material: FISHING_ROD, buy: 40, sell: 0}
+  redstone:
+    name: '&4Redstone & Technik'
+    icon: REDSTONE
+    slot: 21
+    items:
+      - {material: HOPPER, buy: 250, sell: 0}
+      - {material: PISTON, buy: 60, sell: 0}
+      - {material: STICKY_PISTON, buy: 90, sell: 0}
+      - {material: OBSERVER, buy: 60, sell: 0}
+      - {material: REPEATER, buy: 25, sell: 0}
+      - {material: COMPARATOR, buy: 40, sell: 0}
+      - {material: REDSTONE_TORCH, buy: 6, sell: 0}
+      - {material: LEVER, buy: 5, sell: 0}
+      - {material: RAIL, buy: 15, sell: 0}
+      - {material: POWERED_RAIL, buy: 80, sell: 0}
+      - {material: DISPENSER, buy: 50, sell: 0}
+      - {material: DROPPER, buy: 30, sell: 0}
+      - {material: SLIME_BLOCK, buy: 220, sell: 0}
+  spezial:
+    name: '&dSpezial'
+    icon: NETHER_STAR
+    slot: 23
+    items:
+      - {material: EXPERIENCE_BOTTLE, buy: 80, sell: 0}
+      - {material: NAME_TAG, buy: 300, sell: 0}
+      - {material: SADDLE, buy: 400, sell: 0}
+      - {material: ELYTRA, buy: 0, sell: 5000}
+      - {material: TOTEM_OF_UNDYING, buy: 0, sell: 800}
+      - {material: TRIDENT, buy: 0, sell: 600}
+      - {material: HEART_OF_THE_SEA, buy: 0, sell: 500}
+      - {material: NETHER_STAR, buy: 0, sell: 4000}
+      - {material: SPONGE, buy: 200, sell: 20}
+      - {material: BOOK, buy: 20, sell: 2}

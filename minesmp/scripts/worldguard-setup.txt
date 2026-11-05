@@ -1,0 +1,28 @@
+# MineSMP - WorldGuard Schutz (Konsole oder ingame, ohne fuehrenden "/" in der Konsole)
+# Spawn-Welt komplett schuetzen (globale Region der Welt "spawn"):
+rg flag -w spawn __global__ build deny
+rg flag -w spawn __global__ pvp deny
+rg flag -w spawn __global__ mob-spawning deny
+rg flag -w spawn __global__ tnt deny
+rg flag -w spawn __global__ creeper-explosion deny
+rg flag -w spawn __global__ fire-spread deny
+rg flag -w spawn __global__ lava-fire deny
+rg flag -w spawn __global__ lighter deny
+rg flag -w spawn __global__ ice-melt deny
+rg flag -w spawn __global__ leaf-decay deny
+rg flag -w spawn __global__ fall-damage deny
+rg flag -w spawn __global__ item-frame-rotation deny
+rg flag -w spawn __global__ chest-access deny
+rg flag -w spawn __global__ use allow
+rg flag -w spawn __global__ interact allow
+
+# PvP-Arena (FFA) und Duell-Arenen in der Spawn-Welt: Bereich mit //wand markieren (ingame), dann:
+#   rg define pvparena
+#   rg flag pvparena pvp allow
+#   rg flag pvparena fall-damage allow
+#   rg define duell1
+#   rg flag duell1 pvp allow
+#   rg flag duell1 fall-damage allow
+# Danach Positionen setzen: /duel setarena duell1 1, /duel setarena duell1 2, /duel setffa
+# KOTH-Huegel (in der Survival-Welt): /eventadmin setkoth 1 und 2 an gegenueberliegenden Ecken.
+# Boss-Spawn: /eventadmin setboss  (am besten in einer WorldGuard-Region mit pvp deny, mob-spawning deny)
