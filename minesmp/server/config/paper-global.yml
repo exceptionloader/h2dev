@@ -1,0 +1,35 @@
+# MineSMP - Paper Global (nur abweichende Werte; Rest ergaenzt Paper).
+_version: 31
+chunk-loading-basic:
+  player-max-chunk-generate-rate: 100.0
+  player-max-chunk-load-rate: 100.0
+chunk-system:
+  io-threads: 2
+  worker-threads: -1
+item-validation:
+  book-size:
+    page-max: 2560
+    total-multiplier: 0.98
+  display-name: 8192
+  lore-line: 8192
+misc:
+  max-joins-per-tick: 5
+packet-limiter:
+  all-packets:
+    action: KICK
+    interval: 7.0
+    max-packet-rate: 500.0
+spam-limiter:
+  incoming-packet-threshold: 300
+  recipe-spam-increment: 1
+  recipe-spam-limit: 20
+  tab-spam-increment: 1
+  tab-spam-limit: 500
+unsupported-settings:
+  allow-headless-pistons: false
+  allow-permanent-block-break-exploits: false
+  allow-piston-duplication: false
+  allow-unsafe-end-portal-teleportation: false
+watchdog:
+  early-warning-delay: 10000
+  early-warning-every: 5000

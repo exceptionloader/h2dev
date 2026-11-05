@@ -1,0 +1,38 @@
+# Plugins & Versionen
+
+Stand: 05.11.2026. Zielversion **Minecraft Java 1.21.11** mit **Paper** (Build 132).
+Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, siehe [TESTS.md](TESTS.md)).
+
+| Plugin | Version (getestet) | Aufgabe | Quelle |
+|---|---|---|---|
+| Paper | 1.21.11-132 | Server-Software (Purpur ist moeglich, wurde aber nicht getestet) | papermc.io |
+| **MineSMPCore** | 1.0.0 | Eigenes Plugin: Economy, Shop, AH, Handel, Spieler-Shops, Clans, PvP, Duelle, Kopfgelder, Kits, Crates, Skills, Quests, Erfolge, Battlepass, Events, Scoreboard/Tab/Chat, Homes/TPA/RTP, Strafen, Reports, Audit-Log, Webhooks | `core/` |
+| LuckPerms | 5.5.71 | Raenge & Rechte | Modrinth |
+| Vault | 1.7.3 | Economy-/Chat-Schnittstelle (MineCoins fuer andere Plugins, Prefixe) | GitHub |
+| PlaceholderAPI | 2.12.3 | Platzhalter `%minesmp_...%` fuer andere Plugins | Modrinth |
+| WorldEdit | 7.4.6 | Bauen, Regionen markieren | Modrinth |
+| WorldGuard | 7.0.17 | Spawn-Schutz, PvP-Zonen/Safezones | Modrinth |
+| CoreProtect CE | 24.1 | Block-Logging & Rollbacks | Modrinth |
+| GrimAC | 2.3.75 | Anti-Cheat | Modrinth |
+| GSit | 3.8.0 | /sit, /lay, /crawl | Modrinth |
+| Chunky | 1.4.40 | Welt vorgenerieren | Modrinth |
+| Geyser + Floodgate | 2.12.1 / 2.2.5 | Optional: Bedrock-Spieler | geysermc.org |
+| NuVotifier | (manuell) | Optional: Vote-Belohnungen | GitHub |
+
+## Wichtig: Java-Version
+**WorldEdit 7.4.6 und WorldGuard 7.0.17 benoetigen Java 25** (im Test mit Java 21 nicht ladbar:
+`UnsupportedClassVersionError`, Klassenversion 69). Deshalb: **Java 25 verwenden** (z.B. Eclipse Temurin 25).
+MineSMPCore selbst ist fuer Java 21 kompiliert und laeuft auf Java 21 und 25.
+
+## Bewusst NICHT verwendet (vermeidet doppelte Funktionen)
+- **EssentialsX**: Homes, TPA, Spawn, Back, Msg, AFK, Kits, Economy etc. sind in MineSMPCore enthalten.
+  EssentialsX wuerde Befehle (/money, /home, /msg ...) doppelt belegen.
+- **Skript**: Der Auftrag nannte Skript fuer einfache Funktionen. Alles ist stattdessen in einem Java-Plugin umgesetzt:
+  eine Codebasis, keine doppelten Datenhaltungen, asynchrone Datenbank, keine zusaetzliche Abhaengigkeit.
+  Die im Auftrag skizzierte `plugins/Skript/scripts/*.sk`-Struktur entfaellt daher.
+- **TAB / Scoreboard-Plugins / DecentHolograms**: Scoreboard, Tablist, Nametags und Crate-Hologramme (TextDisplay) macht MineSMPCore.
+- **LiteBans/AdvancedBan**: Ban/Mute/Warn/Kick mit Verlauf ist eingebaut.
+
+## Weitere Abhaengigkeiten von MineSMPCore
+Werden beim ersten Start automatisch von Maven Central geladen (Paper-Library-Loader, siehe `plugin.yml`):
+HikariCP 6.2.1, sqlite-jdbc 3.47.1.0, mariadb-java-client 3.5.1.

@@ -1,0 +1,62 @@
+name: MineSMPCore
+version: '${project.version}'
+main: de.minesmp.core.MineSMP
+api-version: '1.21'
+description: Kern-Plugin des deutschen SMP-Servers MineSMP (Economy, Clans, PvP, Crates, Quests, Events u.v.m.)
+author: MineSMP
+website: https://minesmp.de
+softdepend: [Vault, PlaceholderAPI, LuckPerms, Votifier, WorldGuard]
+# Wird beim Start von Maven Central geladen (Paper Library Loader)
+libraries:
+  - com.zaxxer:HikariCP:6.2.1
+  - org.xerial:sqlite-jdbc:3.47.1.0
+  - org.mariadb.jdbc:mariadb-java-client:3.5.1
+# Befehle werden dynamisch registriert (siehe docs/COMMANDS.md), Berechtigungen siehe docs/PERMISSIONS.md
+permissions:
+  minesmp.player:
+    description: Alle Standard-Spielerrechte
+    default: true
+    children:
+      minesmp.money: true
+      minesmp.pay: true
+      minesmp.baltop: true
+      minesmp.shop: true
+      minesmp.sell: true
+      minesmp.sell.all: true
+      minesmp.ah: true
+      minesmp.trade: true
+      minesmp.playershop.create: true
+      minesmp.clan: true
+      minesmp.bounty: true
+      minesmp.kit: true
+      minesmp.kit.starter: true
+      minesmp.duel: true
+      minesmp.arena: true
+      minesmp.crate: true
+      minesmp.skills: true
+      minesmp.quests: true
+      minesmp.achievements: true
+      minesmp.battlepass: true
+      minesmp.daily: true
+      minesmp.rewards: true
+      minesmp.event: true
+      minesmp.home: true
+      minesmp.tpa: true
+      minesmp.back: true
+      minesmp.spawn: true
+      minesmp.rtp: true
+      minesmp.farmwelt: true
+      minesmp.pwarp: true
+      minesmp.afk: true
+      minesmp.trash: true
+      minesmp.msg: true
+      minesmp.ignore: true
+      minesmp.playtime: true
+      minesmp.info: true
+      minesmp.profile: true
+      minesmp.stats: true
+      minesmp.settings: true
+      minesmp.report: true
+      minesmp.staff.list: true
+      minesmp.vote: true
+      minesmp.cosmetics: true

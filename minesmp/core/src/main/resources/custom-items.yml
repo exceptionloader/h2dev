@@ -1,0 +1,48 @@
+# Custom Items. ability: HAMMER (3x3), TREEFELLER (ganzer Baum, Schleichen), SELLWAND (Rechtsklick auf Truhe = Inhalt verkaufen)
+# uses: Anzahl Nutzungen (nur SELLWAND). Vergabe: /msitem <Spieler> <id>, Crates, Battlepass, Rezepte.
+items:
+  hammer:
+    material: DIAMOND_PICKAXE
+    name: '&b&lMine-Hammer'
+    lore: ['&7Baut 3x3 Bloecke auf einmal ab.', '&8MineSMP Custom Item']
+    enchantments: {efficiency: 3, unbreaking: 3}
+    custom-model-data: 10001
+  holzfaeller:
+    material: DIAMOND_AXE
+    name: '&6&lHolzfaeller-Axt'
+    lore: ['&7Schleichen + Abbauen faellt den', '&7ganzen Baum.', '&8MineSMP Custom Item']
+    enchantments: {efficiency: 3, unbreaking: 3}
+    custom-model-data: 10002
+  sellwand:
+    material: BLAZE_ROD
+    name: '&e&lVerkaufsstab'
+    lore: ['&7Rechtsklick auf eine Truhe verkauft', '&7den gesamten Inhalt an den Shop.']
+    glow: true
+    uses: 50
+    custom-model-data: 10003
+  spawnfeder:
+    material: FEATHER
+    name: '&f&lFeder des Wanderers'
+    lore: ['&7Ein seltenes Sammlerstueck.', '&8Kosmetisch']
+    glow: true
+
+recipes:
+  # Eigenes Rezept: Sattel
+  sattel:
+    result: {material: SADDLE}
+    shape: ['LLL', 'LSL', 'I I']
+    ingredients: {L: LEATHER, S: STRING, I: IRON_INGOT}
+  # Eigenes Rezept: Namensschild
+  namensschild:
+    result: {material: NAME_TAG}
+    shape: ['  S', ' P ', 'P  ']
+    ingredients: {S: STRING, P: PAPER}
+  # Formloses Rezept: Seelensand
+  seelensand:
+    result: {material: SOUL_SAND, amount: 2}
+    ingredients: [SAND, NETHERRACK]
+  # Verkaufsstab craftbar
+  verkaufsstab:
+    result-custom: sellwand
+    shape: [' G ', ' B ', ' B ']
+    ingredients: {G: GOLD_BLOCK, B: BLAZE_ROD}

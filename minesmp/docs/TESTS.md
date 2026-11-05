@@ -1,0 +1,64 @@
+# Tests
+
+Alle Tests liefen am 05.11.2026 auf einem echten Paper-1.21.11-Server (Build 132) mit Bot-Spielern
+(mineflayer 4.39) und RCON. Skripte: `tests/smoke-*.js` (`MC_PORT`, `RCON_PORT`, `RCON_PASSWORD` setzen).
+
+## Ergebnis: bestanden
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Build | `mvn clean package` (Java 21, 127 Klassen, ~9.500 Zeilen) | ✅ ohne Fehler |
+| Start | Paper + LuckPerms + Vault + PlaceholderAPI + MineSMPCore (Java 21) | ✅ keine Exceptions |
+| Start | Alle 12 Plugins zusammen (Java 25) | ✅ alle aktiviert, keine Exceptions |
+| Start | Java 21 + WorldEdit 7.4.6 / WorldGuard 7.0.17 | ❌ erwartet: brauchen Java 25 (dokumentiert) |
+| Install | `scripts/install.sh` laedt Paper + 11 Plugins, baut Plugin, kopiert Configs | ✅ |
+| Configs | Teil-Configs `paper-global.yml`, `paper-world-defaults.yml`, `spigot.yml`, `bukkit.yml` werden von Paper ergaenzt | ✅ |
+| Setup | Alle Befehle aus `luckperms-setup.txt` + `worldguard-setup.txt` per RCON | ✅ (ein ungueltiges WG-Flag `hunger` gefunden und entfernt) |
+| Economy | /money, /bal, /pay, /baltop, /eco give (RCON) | ✅ |
+| Shop | /shop GUI oeffnen, Kategorie, Kauf per Klick (Geld abgezogen) | ✅ |
+| Verkauf | /sellhand | ✅ |
+| Auktionshaus | /ah sell, Kauf durch 2. Spieler mit Bestaetigungs-GUI, Status SOLD in DB | ✅ |
+| Homes/TPA | /sethome (in Spawn-Welt korrekt gesperrt, in Survival ok), /home, /tpa + /tpaccept, /spawn | ✅ |
+| Clans | create, invite, join, info, bank deposit, /cc; Friendly-Fire-Schutz (kein Schaden unter Clanmitgliedern) | ✅ |
+| PvP | Kill mit Todesnachricht, Combat-Tag-Nachricht, /spawn im Kampf gesperrt, Kampf-Logout = Tod + Broadcast | ✅ |
+| Anti-Farm | Kill zwischen gleicher IP gibt keine Belohnung | ✅ |
+| Duelle | Anfrage, Annahme, Kit, Sieger/Verlierer-Statistik | ✅ |
+| Kopfgeld | /bounty set mit Bestaetigung, Broadcast | ✅ |
+| Crates | /crate givekey (RCON), /crate open vote mit Animation, Belohnung gutgeschrieben | ✅ |
+| Belohnungen | /daily (+ Sperre beim 2. Mal), /quests GUI, /skills GUI | ✅ |
+| Events | /eventadmin start mining, /event, /eventadmin stop | ✅ |
+| Moderation | /tempmute (RCON) blockiert Chat mit Grund, /report mit Team-Benachrichtigung, /history | ✅ |
+| Sicherheit | /pl und /minecraft:op fuer Spieler blockiert; Link-Filter; Chat-Tempo-Limit | ✅ |
+| Raenge | LuckPerms-VIP: Prefix im Tab ("VIP \| Name"), /kit vip nur fuer VIP | ✅ |
+| Chat | Format `{prefix}{clan}Name » Nachricht` mit Hover/Klick (Paket geprueft) | ✅ |
+| Aliase | /tell, /w, /help werden von MineSMP uebernommen | ✅ |
+| Anti-Cheat | GrimAC erkennt die Bot-Bewegung (TickTimer) | ✅ (zeigt: Grim aktiv) |
+| Speicherung | Nach `stop`: Spieler, Clan, 12 Transaktionen, Mute, Auktion in SQLite vorhanden | ✅ |
+
+## Noch NICHT getestet (ehrlich)
+- **Echte Spieler mit echtem Client** (nur Bots) - insbesondere Optik von Scoreboard, Bossbars, GUIs, Hologrammen, Partikeln.
+- **MariaDB-Betrieb** (nur SQLite getestet).
+- **Last/Performance** mit vielen Spielern (nur 2-3 Bots).
+- **Bedrock-Spieler** ueber Geyser/Floodgate (Plugins starten, Verbindung nicht getestet).
+- **NuVotifier**-Votes (nur `/fakevote`-Pfad im Code, nicht ausgefuehrt).
+- **KOTH, Supply Drop, Schatzsuche, Boss, Turnier** komplett durchgespielt (nur Mining-Wettbewerb gestartet/gestoppt).
+- **Farmwelt-Reset** (Erstellung getestet, Reset-Ablauf nicht).
+- **Clan-Kriege, Allianzen**, Clan-Level-Up, Clan-Aufloesung.
+- **Handel (/trade)**, Spieler-Shops (Schilder), Verkaufsstab, Mine-Hammer, Holzfaeller-Axt, eigene Rezepte im Spiel.
+- **Lifesteal** (standardmaessig aus), Battlepass-Abholung, Erfolge-Freischaltung, Haustiere, Spuren.
+- **Discord-Webhooks** (kein Webhook konfiguriert).
+- **Absturzschutz Duell-Inventar** (Restore nach Crash), Anti-Bot-Sperre bei Join-Flut.
+- **Purpur** statt Paper.
+
+## Manuelle Testliste (vor dem Release mit 2 echten Accounts)
+1. `/trade <Spieler>`: Items auf beide Seiten, Geld +1000, beide bestaetigen -> Tausch korrekt; Abbruch per ESC -> jeder bekommt seins zurueck.
+2. Truhe + Schild `[Shop]` / `1` / `K 10 : V 5` mit Item in der Hand -> Kauf/Verkauf, Fremde koennen Truhe nicht oeffnen, Trichter ziehen nichts.
+3. `/clan war <Clan> 1000`, `/clan war accept`, Kills zaehlen in Bossbar, Pot geht an Sieger.
+4. `/eventadmin setkoth 1|2`, `/eventadmin start koth`, im Bereich stehen -> Sieg nach 180 s.
+5. `/eventadmin start supply` -> Koordinaten im Chat, Kiste oeffnen -> Gewinner.
+6. `/eventadmin setboss`, `/eventadmin start boss` -> Bossbar, Top-3-Belohnung.
+7. `/eventadmin start turnier` mit 4 Spielern -> K.-o.-Runden ueber Duell-Arena.
+8. `/farmwelt reset` -> Spieler zum Spawn, Welt neu.
+9. Erz platzieren und abbauen -> keine Skill-Belohnung; natuerliches Erz -> Belohnung (nach 30 s Actionbar).
+10. `/msitem <Spieler> hammer` -> 3x3 Abbau, respektiert WorldGuard am Spawn.
+11. Server hart beenden (kill -9) waehrend Duell -> beim naechsten Join kommt Inventar zurueck.
+12. `/ban`, `/tempban 1h`, `/unban`, `/warn` 3x -> automatischer Mute.

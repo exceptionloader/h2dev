@@ -1,0 +1,248 @@
+# =====================================================================
+#  MineSMPCore - Hauptkonfiguration   (minesmp.de)
+#  Farbcodes: &0-&f, &l fett, &#RRGGBB fuer Hex-Farben
+#  Nach Aenderungen: /minesmp reload (Nachrichten/Shop/Crates/Kits/Events/Scoreboard)
+#  Alles andere: Server-Neustart
+# =====================================================================
+
+database:
+  # sqlite (Standard, keine Einrichtung noetig) oder mariadb (fuer groessere Server)
+  type: sqlite
+  file: minesmp.db
+  host: localhost
+  port: 3306
+  name: minesmp
+  user: minesmp
+  password: ''
+  pool-size: 6
+  autosave-minutes: 5
+
+# Befehle, die NICHT registriert werden sollen (z.B. wenn ein anderes Plugin sie liefert)
+disabled-commands: []
+# Eigene Aliase (z.B. /tell, /w, /r) ueberschreiben Vanilla-Befehle gleichen Namens
+override-aliases: true
+
+links:
+  discord: https://discord.gg/minesmp
+  website: https://minesmp.de
+  store: https://store.minesmp.de
+
+# Wird von /setspawn gesetzt (Format: welt;x;y;z;yaw;pitch)
+spawn: ''
+
+worlds:
+  spawn: spawn
+  create-spawn-world: true
+  survival: [world, world_nether, world_the_end]
+  sleep-percentage: 30
+  farmworld:
+    enabled: true
+    name: farmwelt
+    border: 6000
+    reset-day: SUNDAY
+    reset-time: '04:00'
+
+spawn-particles:
+  enabled: true
+
+teleport:
+  warmup-seconds: 3
+  tpa-timeout-seconds: 60
+  spawn-on-join: false
+
+homes:
+  default-max: 3          # mehr ueber minesmp.homes.<n>
+  blocked-worlds: [spawn]
+
+pwarps:
+  default-max: 1          # mehr ueber minesmp.pwarp.limit.<n>
+  cost: 5000
+
+rtp:
+  worlds: [world, world_nether]
+  default-world: world
+  min-radius: 500
+  max-radius: 5000
+  cooldown-seconds: 300
+
+cooldowns:
+  tpa: 15
+  repair: 600
+  report: 60
+
+repair:
+  cost-per-item: 0
+
+economy:
+  currency-symbol: MC
+  start-balance: 500
+  max-balance: 1000000000000
+  pay-minimum: 1
+  pay-confirm-above: 100000
+  log-transactions: true
+  # Verkaufs-Multiplikator ueber Berechtigung minesmp.sell.multiplier.<name>
+  sell-multipliers:
+    vip: 1.1
+    mvp: 1.2
+    legende: 1.3
+
+auction:
+  max-listings: 5          # mehr ueber minesmp.ah.limit.<n>
+  duration-hours: 48
+  listing-fee-percent: 2
+  sale-tax-percent: 5
+  min-price: 1
+  max-price: 1000000000
+  blocked-items: [BEDROCK, BARRIER, COMMAND_BLOCK, STRUCTURE_BLOCK, SPAWNER]
+
+trade:
+  max-distance: 15
+
+player-shops:
+  max-per-player: 20
+
+clans:
+  create-cost: 10000
+  tag-format: '&8[&b{tag}&8] '
+  base-members: 8
+  members-per-level: 2
+  max-level: 50
+  max-allies: 3
+  ally-damage: false
+  xp-base: 1000
+  xp:
+    kill: 10
+    quest: 20
+    per-1000-deposit: 5
+    war-win: 500
+  blocked-names: [admin, mod, team, minesmp, nazi, hitler]
+  war:
+    enabled: true
+    duration-minutes: 30
+    min-online: 2
+    min-stake: 1000
+    max-stake: 1000000
+    cooldown-hours: 6
+
+combat:
+  tag-seconds: 15
+  disable-elytra: true
+  punish-kicks: false
+  # Nur ohne WorldGuard aktiv (mit WorldGuard: Region-Flag "pvp")
+  pvp-disabled-worlds: [spawn]
+  blocked-commands: [spawn, home, homes, h, tpa, tpahere, tpaccept, back, rtp, wild, warp, pwarp, pw, farmwelt, fw, ec, enderchest, ah, trade, clan, c, kit, duel, arena, afk, trash, craft, repair, sell, shop]
+  kill-reward: 50
+  streak-bonus: 10
+  streak-announce: [5, 10, 15, 20, 25, 50]
+  same-victim-cooldown-minutes: 10
+  player-kill-xp: 25
+
+lifesteal:
+  enabled: false
+  max-extra-hearts: 10
+  min-extra-hearts: -5
+
+bounty:
+  min: 500
+
+duels:
+  max-minutes: 5
+  ffa-spawn: ''
+  # Arenen: /duel setarena <name> 1|2
+  arenas: {}
+
+daily:
+  base-money: 250
+  per-streak-day: 50
+  cycle-days: 7
+  rewards:
+    3:
+      keys: {daily: 1}
+    7:
+      keys: {rare: 1}
+      bp-xp: 100
+
+vote:
+  links:
+    - https://minecraft-server.eu/vote/index/minesmp
+    - https://www.minecraft-serverlist.net/vote/minesmp
+  party-votes: 50
+  reward:
+    money: 250
+    keys: {vote: 1}
+  party-reward:
+    keys: {rare: 1}
+    money: 500
+
+afk:
+  auto-minutes: 5
+  kick-minutes: 30
+  kick-min-online: 30
+
+punishments:
+  # Automatische Strafe ab X aktiven Verwarnungen
+  warn-escalation:
+    3: {type: MUTE, duration: 1h}
+    5: {type: BAN, duration: 1d}
+    7: {type: BAN, duration: 7d}
+
+security:
+  max-accounts-per-ip: 3
+  antibot:
+    window-seconds: 10
+    max-new-joins: 8
+    lockdown-seconds: 120
+  blocked-commands: [pl, plugins, ver, version, about, icanhasbukkit, bukkit:pl, bukkit:plugins, me, minecraft:me]
+
+chat:
+  format: '{prefix}{clan}&f{name} &8» &f{message}'
+  default-prefix: '&7'
+  delay-ms: 1500
+  max-caps-ratio: 0.6
+  allowed-domains: [minesmp.de, discord.gg/minesmp]
+  blocked-words: []
+
+custom-items:
+  treefeller-requires-sneak: true
+  treefeller-max: 96
+
+discord:
+  large-payment: 1000000
+  # Discord-Webhook-URLs (leer = aus). Kanaele: punishments, reports, events, economy, server
+  webhooks:
+    punishments: ''
+    reports: ''
+    events: ''
+    economy: ''
+    server: ''
+
+rules:
+  - 'Kein Hacking, keine Mods mit unfairen Vorteilen (X-Ray, Killaura, Fly ...).'
+  - 'Kein Griefing und kein Stehlen aus fremden Grundstuecken.'
+  - 'Respektvoller Umgang - keine Beleidigungen, Rassismus oder Drohungen.'
+  - 'Kein Spam und keine Werbung fuer andere Server.'
+  - 'Bugs melden statt ausnutzen (Dupes, Exploits).'
+  - 'Combat-Logging und Kill-Farming mit Zweitaccounts sind verboten.'
+  - 'Maximal 3 Accounts pro Haushalt.'
+  - 'Den Anweisungen des Teams ist Folge zu leisten.'
+
+help:
+  - '&b/spawn &8- &7Zum Spawn  &8| &b/rtp &8- &7Zufaelliger Ort'
+  - '&b/sethome, /home, /delhome &8- &7Deine Homes'
+  - '&b/tpa, /tpahere, /tpaccept &8- &7Teleport-Anfragen'
+  - '&b/money, /pay, /baltop &8- &7MineCoins'
+  - '&b/shop, /sell, /sellhand, /sellall &8- &7Server-Shop'
+  - '&b/ah &8- &7Auktionshaus  &8| &b/trade &8- &7Sicherer Handel'
+  - '&b/clan &8- &7Clans (create, invite, bank, war ...)'
+  - '&b/duel, /arena, /kit &8- &7PvP'
+  - '&b/bounty &8- &7Kopfgelder'
+  - '&b/crate, /keys &8- &7Kisten'
+  - '&b/quests, /skills, /battlepass, /achievements &8- &7Fortschritt'
+  - '&b/daily, /rewards, /vote &8- &7Belohnungen'
+  - '&b/event &8- &7Events (KOTH, Supply Drops, Turniere ...)'
+  - '&b/pwarp &8- &7Spieler-Warps  &8| &b/farmwelt &8- &7Ressourcenwelt'
+  - '&b/profile, /stats, /playtime &8- &7Statistiken'
+  - '&b/settings &8- &7Einstellungen  &8| &b/cosmetics &8- &7Kosmetik'
+  - '&b/msg, /r, /ignore &8- &7Private Nachrichten'
+  - '&b/sit, /lay &8- &7Hinsetzen/Hinlegen (GSit)'
+  - '&b/report, /staff, /rules, /discord &8- &7Support'

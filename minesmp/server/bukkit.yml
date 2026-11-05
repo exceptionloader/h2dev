@@ -1,0 +1,17 @@
+# Nur abweichende Werte - fehlende Werte ergaenzt Paper beim Start.
+settings:
+  connection-throttle: 4000
+  allow-end: true
+  shutdown-message: '§b§lMINE§f§lSMP §7startet neu - gleich wieder da!'
+spawn-limits:
+  monsters: 50
+  animals: 8
+  water-animals: 3
+  water-ambient: 10
+  water-underground-creature: 3
+  axolotls: 3
+  ambient: 1
+ticks-per:
+  animal-spawns: 400
+  monster-spawns: 2
+  autosave: 6000

@@ -1,0 +1,4 @@
+core/target/
+live/
+node_modules/
+*.log

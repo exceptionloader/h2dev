@@ -1,0 +1,7 @@
+{
+  "name": "minesmp-smoke-tests",
+  "private": true,
+  "description": "Automatisierte Bot-Tests gegen einen laufenden MineSMP-Testserver (online-mode=false noetig, RCON an)",
+  "scripts": { "test": "node smoke-1-basics.js && node smoke-2-duel-ah.js && node smoke-3-pvp-combat.js" },
+  "dependencies": { "mineflayer": "^4.39.0", "rcon-client": "^4.2.5" }
+}

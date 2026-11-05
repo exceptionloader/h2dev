@@ -1,0 +1,159 @@
+# Events. Zeitplan-Format: "<TAG|DAILY> <HH:mm> <event-id|random>" (Zeitzone Europe/Berlin)
+schedule:
+  - 'DAILY 16:00 random'
+  - 'DAILY 19:00 supply'
+  - 'MONDAY 20:00 koth'
+  - 'WEDNESDAY 20:00 mining'
+  - 'FRIDAY 20:00 turnier'
+  - 'SATURDAY 20:00 boss'
+  - 'SUNDAY 18:00 schatz'
+  - 'TUESDAY 20:00 fishing'
+  - 'THURSDAY 20:00 koth'
+
+# Pool fuer "random" (taegliche Mini-Events)
+random-pool: [supply, mining, fishing, farming, holz, schatz]
+
+# Mit /eventadmin setkoth 1|2 und /eventadmin setboss setzen
+koth-region: {}
+boss-spawn: ''
+
+events:
+  koth:
+    name: '&6&lKing of the Hill'
+    type: KOTH
+    duration-minutes: 20
+    capture-seconds: 180
+    min-players: 2
+    rewards:
+      1: {money: 25000, keys: {epic: 1}, clan-xp: 200, bp-xp: 300}
+  supply:
+    name: '&b&lSupply Drop'
+    type: SUPPLY_DROP
+    world: world
+    radius: 1500
+    duration-minutes: 15
+    rewards:
+      1: {money: 5000, bp-xp: 100}
+    loot:
+      a: {material: DIAMOND, amount: 8, chance: 80}
+      b: {material: GOLDEN_APPLE, amount: 4, chance: 70}
+      c: {material: EXPERIENCE_BOTTLE, amount: 32, chance: 90}
+      d: {material: NETHERITE_SCRAP, amount: 2, chance: 30}
+      e: {material: ENCHANTED_GOLDEN_APPLE, amount: 1, chance: 10}
+      f: {material: TOTEM_OF_UNDYING, amount: 1, chance: 15}
+      g: {material: ENDER_PEARL, amount: 16, chance: 60}
+  schatz:
+    name: '&e&lSchatzsuche'
+    type: TREASURE_HUNT
+    world: world
+    radius: 1000
+    duration-minutes: 20
+    hint-interval-seconds: 120
+    rewards:
+      1: {money: 15000, keys: {rare: 2}, bp-xp: 200}
+    loot:
+      a: {material: DIAMOND_BLOCK, amount: 2, chance: 60}
+      b: {material: GOLD_BLOCK, amount: 8, chance: 90}
+      c: {material: EMERALD_BLOCK, amount: 4, chance: 70}
+      d: {material: NETHERITE_INGOT, amount: 1, chance: 25}
+  mining:
+    name: '&7&lMining-Wettbewerb'
+    type: COMPETITION
+    action: MINING
+    duration-minutes: 15
+    participation-min: 25
+    rewards:
+      1: {money: 15000, keys: {epic: 1}, bp-xp: 250}
+      2: {money: 8000, keys: {rare: 1}, bp-xp: 150}
+      3: {money: 4000, keys: {vote: 2}, bp-xp: 100}
+      participation: {money: 500, bp-xp: 30}
+  fishing:
+    name: '&9&lAngel-Wettbewerb'
+    type: COMPETITION
+    action: FISHING
+    duration-minutes: 15
+    participation-min: 5
+    rewards:
+      1: {money: 15000, keys: {epic: 1}, bp-xp: 250}
+      2: {money: 8000, keys: {rare: 1}, bp-xp: 150}
+      3: {money: 4000, keys: {vote: 2}, bp-xp: 100}
+      participation: {money: 500, bp-xp: 30}
+  farming:
+    name: '&a&lErnte-Wettbewerb'
+    type: COMPETITION
+    action: FARMING
+    duration-minutes: 15
+    participation-min: 30
+    rewards:
+      1: {money: 12000, keys: {rare: 2}, bp-xp: 250}
+      2: {money: 6000, keys: {rare: 1}, bp-xp: 150}
+      3: {money: 3000, keys: {vote: 2}, bp-xp: 100}
+      participation: {money: 400, bp-xp: 30}
+  holz:
+    name: '&6&lHolzfaeller-Wettbewerb'
+    type: COMPETITION
+    action: WOODCUTTING
+    duration-minutes: 15
+    participation-min: 30
+    rewards:
+      1: {money: 12000, keys: {rare: 2}, bp-xp: 250}
+      2: {money: 6000, keys: {rare: 1}, bp-xp: 150}
+      3: {money: 3000, keys: {vote: 2}, bp-xp: 100}
+      participation: {money: 400, bp-xp: 30}
+  boss:
+    name: '&4&lDer Tiefenwaechter'
+    type: BOSS
+    entity: WITHER_SKELETON
+    health: 1500
+    damage: 14
+    duration-minutes: 20
+    min-players: 3
+    rewards:
+      1: {money: 30000, keys: {legendary: 1}, bp-xp: 400}
+      2: {money: 15000, keys: {epic: 1}, bp-xp: 250}
+      3: {money: 8000, keys: {rare: 2}, bp-xp: 150}
+      participation: {money: 1500, keys: {vote: 1}, bp-xp: 50}
+  turnier:
+    name: '&c&lPvP-Turnier'
+    type: TOURNAMENT
+    kit: duel_classic
+    signup-seconds: 120
+    min-participants: 4
+    duration-minutes: 60
+    rewards:
+      1: {money: 40000, keys: {legendary: 1}, bp-xp: 500}
+      participation: {money: 500, bp-xp: 30}
+
+# Dauerhafte Community-Challenge (alle Spieler zusammen). type: COMMUNITY_MINING, COMMUNITY_WOODCUTTING, COMMUNITY_FARMING
+community:
+  name: 'Gemeinsam 100.000 Erze und Steine abbauen'
+  type: COMMUNITY_MINING
+  goal: 100000
+  reward: {money: 2500, keys: {rare: 1}}
+
+# Saisonale Events (Datum MM-TT). Geld-Multiplikator gilt fuer Skill-Einnahmen.
+seasonal:
+  weihnachten:
+    name: '&c&lWeihnachts-Event'
+    from: '12-01'
+    to: '12-26'
+    money-multiplier: 1.5
+    join-message: '&c&lFrohe Weihnachten! &7Alle Skill-Einnahmen x1,5 bis 26.12.!'
+  silvester:
+    name: '&6&lSilvester-Event'
+    from: '12-27'
+    to: '01-03'
+    money-multiplier: 2.0
+    join-message: '&6&lGuten Rutsch! &7Doppelte Skill-Einnahmen!'
+  halloween:
+    name: '&6&lHalloween'
+    from: '10-25'
+    to: '11-02'
+    money-multiplier: 1.25
+    join-message: '&6&lHappy Halloween! &7Skill-Einnahmen x1,25!'
+  sommer:
+    name: '&e&lSommer-Event'
+    from: '07-15'
+    to: '08-15'
+    money-multiplier: 1.2
+    join-message: '&e&lSommer auf MineSMP! &7Skill-Einnahmen x1,2!'

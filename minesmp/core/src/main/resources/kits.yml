@@ -1,0 +1,72 @@
+# Kits. cooldown in Sekunden. permission Standard: minesmp.kit.<name>
+# duel-only: true -> nur fuer Duelle/Turniere (nicht ueber /kit abholbar)
+kits:
+  starter:
+    name: '&aStarter'
+    icon: STONE_SWORD
+    cooldown: 86400
+    permission: minesmp.kit.starter
+    items:
+      a: {material: STONE_SWORD}
+      b: {material: STONE_PICKAXE}
+      c: {material: STONE_AXE}
+      d: {material: BREAD, amount: 16}
+      e: {material: TORCH, amount: 16}
+  vip:
+    name: '&eVIP'
+    icon: IRON_CHESTPLATE
+    cooldown: 172800
+    permission: minesmp.kit.vip
+    armor:
+      helmet: {material: IRON_HELMET}
+      chestplate: {material: IRON_CHESTPLATE}
+      leggings: {material: IRON_LEGGINGS}
+      boots: {material: IRON_BOOTS}
+    items:
+      a: {material: IRON_SWORD, enchantments: {sharpness: 2}}
+      b: {material: IRON_PICKAXE, enchantments: {efficiency: 2}}
+      c: {material: COOKED_BEEF, amount: 32}
+  duel_classic:
+    name: '&bKlassisch'
+    icon: DIAMOND_SWORD
+    duel-only: true
+    armor:
+      helmet: {material: DIAMOND_HELMET, enchantments: {protection: 2}}
+      chestplate: {material: DIAMOND_CHESTPLATE, enchantments: {protection: 2}}
+      leggings: {material: DIAMOND_LEGGINGS, enchantments: {protection: 2}}
+      boots: {material: DIAMOND_BOOTS, enchantments: {protection: 2}}
+    offhand: {material: SHIELD}
+    items:
+      a: {material: DIAMOND_SWORD, enchantments: {sharpness: 2}}
+      b: {material: BOW, enchantments: {power: 1}}
+      c: {material: ARROW, amount: 16}
+      d: {material: GOLDEN_APPLE, amount: 3}
+      e: {material: COOKED_BEEF, amount: 16}
+  duel_netherite:
+    name: '&8Netherite'
+    icon: NETHERITE_SWORD
+    duel-only: true
+    armor:
+      helmet: {material: NETHERITE_HELMET, enchantments: {protection: 4}}
+      chestplate: {material: NETHERITE_CHESTPLATE, enchantments: {protection: 4}}
+      leggings: {material: NETHERITE_LEGGINGS, enchantments: {protection: 4}}
+      boots: {material: NETHERITE_BOOTS, enchantments: {protection: 4}}
+    offhand: {material: TOTEM_OF_UNDYING}
+    items:
+      a: {material: NETHERITE_SWORD, enchantments: {sharpness: 5}}
+      b: {material: NETHERITE_AXE, enchantments: {sharpness: 3}}
+      c: {material: GOLDEN_APPLE, amount: 8}
+      d: {material: ENDER_PEARL, amount: 8}
+  duel_bogen:
+    name: '&6Bogen'
+    icon: BOW
+    duel-only: true
+    armor:
+      helmet: {material: LEATHER_HELMET}
+      chestplate: {material: CHAINMAIL_CHESTPLATE}
+      leggings: {material: CHAINMAIL_LEGGINGS}
+      boots: {material: LEATHER_BOOTS}
+    items:
+      a: {material: BOW, enchantments: {power: 3, infinity: 1}}
+      b: {material: ARROW, amount: 1}
+      c: {material: WOODEN_SWORD}

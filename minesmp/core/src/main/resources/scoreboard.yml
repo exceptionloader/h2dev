@@ -1,0 +1,59 @@
+# Scoreboard & Tablist - Platzhalter: %online% %balance% %kills% %deaths% %clan% %clan_tag% %level%
+# %killstreak% %kd% %playtime% %ping% %tps% %rank% %bounty% %event% %combat% %bp_tier% %keys_vote% ...
+# PlaceholderAPI-Platzhalter funktionieren ebenfalls (falls installiert).
+
+update-ticks: 20
+
+title-frames:
+  - '&b&lMINE&f&lSMP'
+  - '&3&lM&b&lINE&f&lSMP'
+  - '&b&lM&3&lI&b&lNE&f&lSMP'
+  - '&b&lMI&3&lN&b&lE&f&lSMP'
+  - '&b&lMIN&3&lE&f&lSMP'
+  - '&b&lMINE&7&lS&f&lMP'
+  - '&b&lMINE&f&lS&7&lM&f&lP'
+  - '&b&lMINE&f&lSM&7&lP'
+  - '&b&lMINE&f&lSMP'
+  - '&b&lMINE&f&lSMP'
+
+lines:
+  - '&8&m                    '
+  - '&7Spieler: &f%online%'
+  - '&7Geld: &a%balance%'
+  - ' '
+  - '&7Kills: &c%kills%'
+  - '&7Tode: &f%deaths%'
+  - '&7Clan: &b%clan%'
+  - '&7Level: &e%level%'
+  - '  '
+  - '&7Event: &d%event%'
+  - '&8&m                    &r'
+  - '&bminesmp.de'
+
+# Wird angezeigt, solange der Spieler im Kampf ist
+combat-lines:
+  - '&8&m                    '
+  - '&c&lIM KAMPF'
+  - '&7Noch: &f%combat%'
+  - ' '
+  - '&7Killstreak: &c%killstreak%'
+  - '&7Kopfgeld: &a%bounty%'
+  - '&8&m                    &r'
+  - '&bminesmp.de'
+
+tab:
+  name-format: '{prefix}{clan}&f{name}{afk}'
+  frame-count: 4
+  header-frames:
+    0: [' ', '&b&lMINE&f&lSMP &8| &7Survival', '&7Willkommen, &f%player%&7!', ' ']
+    1: [' ', '&3&lMINE&f&lSMP &8| &7Survival', '&7Willkommen, &f%player%&7!', ' ']
+    2: [' ', '&b&lMINE&7&lSMP &8| &7Survival', '&7Willkommen, &f%player%&7!', ' ']
+    3: [' ', '&b&lMINE&f&lSMP &8| &7Survival', '&7Willkommen, &f%player%&7!', ' ']
+  footer:
+    - ' '
+    - '&7Online: &f%online% &8| &7Ping: &f%ping%ms &8| &7TPS: &f%tps%'
+    - '&7Discord: &b/discord &8| &7Shop: &bstore.minesmp.de'
+    - ' '
+
+# Reihenfolge im Tab (LuckPerms-Gruppen, oben = zuerst)
+sort-groups: [owner, admin, developer, moderator, supporter, builder, legende, mvp, vip, default]
