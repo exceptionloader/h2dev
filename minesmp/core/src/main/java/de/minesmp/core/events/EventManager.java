@@ -260,6 +260,30 @@ public final class EventManager implements Listener {
         stop(false);
     }
 
+    public record NextEvent(String name, long inMillis) {}
+
+    /** Naechstes geplantes Event aus dem Zeitplan (innerhalb der naechsten 7 Tage). */
+    public NextEvent nextEvent() {
+        LocalDateTime now = LocalDateTime.now(RewardService.ZONE);
+        NextEvent best = null;
+        for (String entry : cfg.getStringList("schedule")) {
+            String[] p = entry.trim().split("\\s+");
+            if (p.length < 3) continue;
+            String[] hm = p[1].split(":");
+            if (hm.length != 2) continue;
+            for (int d = 0; d <= 7; d++) {
+                LocalDateTime t;
+                try { t = now.toLocalDate().plusDays(d).atTime(Integer.parseInt(hm[0]), Integer.parseInt(hm[1])); } catch (Exception e) { break; }
+                if (!t.isAfter(now)) continue;
+                if (!p[0].equalsIgnoreCase("DAILY") && !p[0].equalsIgnoreCase(t.getDayOfWeek().name())) continue;
+                long ms = java.time.Duration.between(now, t).toMillis();
+                if (best == null || ms < best.inMillis()) best = new NextEvent(p[2].equalsIgnoreCase("random") ? "Zufalls-Event" : Text.strip(name(p[2])), ms);
+                break;
+            }
+        }
+        return best;
+    }
+
     public String activeName() {
         return active == null ? null : Text.strip(active.name);
     }

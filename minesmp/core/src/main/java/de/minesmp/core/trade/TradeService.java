@@ -221,6 +221,7 @@ public final class TradeService {
                     if (!readyA || !readyB || finished) { cancel(); return; }
                     if (sec == 0) { cancel(); complete(); return; }
                     for (Player p : List.of(a, b)) {
+                        Msg.markActionbar(p, 1500);
                         p.sendActionBar(Text.c("&bHandel in &f" + sec + "&b..."));
                         p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1.5f);
                     }

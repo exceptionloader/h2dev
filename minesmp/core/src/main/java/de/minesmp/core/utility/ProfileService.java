@@ -28,6 +28,8 @@ public final class ProfileService {
 
     private final List<Setting> settings = List.of(
             new Setting("scoreboard", "Scoreboard", Material.PAINTING, true, null),
+            new Setting("bossbar", "Info-Leiste oben", Material.DRAGON_HEAD, true, null),
+            new Setting("actionbar", "Info ueber der Hotbar", Material.COMPASS, true, null),
             new Setting("tpa", "Teleport-Anfragen", Material.ENDER_PEARL, true, null),
             new Setting("msg", "Private Nachrichten", Material.WRITABLE_BOOK, true, null),
             new Setting("pay", "Zahlungen empfangen", Material.GOLD_INGOT, true, null),

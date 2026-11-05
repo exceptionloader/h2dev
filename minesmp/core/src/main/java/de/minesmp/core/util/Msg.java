@@ -73,7 +73,22 @@ public final class Msg {
         Bukkit.getConsoleSender().sendMessage(Text.c(s));
     }
 
+    private static final Map<java.util.UUID, Long> AB_BUSY = new ConcurrentHashMap<>();
+
     public static void actionbar(Player p, String key, String def, String... kv) {
+        markActionbar(p, 3000);
         p.sendActionBar(Text.c(get(key, def, kv)));
+    }
+
+    /** Haelt die dauerhafte Info-Actionbar fuer kurze Zeit frei (andere Meldung hat Vorrang). */
+    public static void markActionbar(Player p, long ms) {
+        AB_BUSY.put(p.getUniqueId(), System.currentTimeMillis() + ms);
+    }
+
+    public static boolean actionbarBusy(Player p) {
+        Long t = AB_BUSY.get(p.getUniqueId());
+        if (t == null) return false;
+        if (t < System.currentTimeMillis()) { AB_BUSY.remove(p.getUniqueId()); return false; }
+        return true;
     }
 }

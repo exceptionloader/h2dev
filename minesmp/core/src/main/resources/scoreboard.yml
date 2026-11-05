@@ -57,3 +57,20 @@ tab:
 
 # Reihenfolge im Tab (LuckPerms-Gruppen, oben = zuerst)
 sort-groups: [owner, admin, developer, moderator, supporter, builder, legende, mvp, vip, default]
+
+# Info-Leiste oben (Bossbar). Die Eintraege wechseln der Reihe nach, die Leiste laeuft pro Eintrag ab.
+# Waehrend Events oder Clan-Kriegen wird stattdessen deren Bossbar gezeigt.
+# Farben: BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW. Spieler koennen sie in /settings ausschalten.
+infobar:
+  enabled: true
+  entries:
+    - {text: '&b&lMINE&f&lSMP &8| &7Online: &f%online% &8| &7Discord: &b/discord', seconds: 15, color: BLUE}
+    - {text: '&7Naechstes Event: &d%next_event% &7in &f%next_event_in%', seconds: 15, color: PURPLE}
+    - {text: '&7Taegliche Belohnung: &a/daily &8| &7Streak: &f%daily_streak% Tage', seconds: 12, color: GREEN}
+    - {text: '&7Clan: &b%clan% &8| &7Level &e%level% &8| &7Battlepass-Stufe &d%bp_tier%', seconds: 12, color: BLUE}
+    - {text: '&7Vote fuer MineSMP: &a/vote &8| &7Belohnung: &eVote-Schluessel', seconds: 12, color: YELLOW}
+
+# Dauerhafte Info ueber der Hotbar (Actionbar). Kampf-, Teleport- und Einnahmen-Meldungen haben Vorrang.
+actionbar:
+  enabled: true
+  text: '&b⛃ &f%balance% MC &8| &7XYZ &f%coords% &8| &e%direction% &8| &7%world% &8| &7%time% Uhr'

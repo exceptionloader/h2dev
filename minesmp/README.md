@@ -15,7 +15,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 - **Crates**: Vote/Daily/Rare/Epic/Legendary, Roll-Animation, Vorschau mit Chancen, virtuelle + physische Schluessel, Hologramme, Broadcast bei seltenen Gewinnen
 - **Fortschritt**: Spielerlevel + 5 Skills, Level-Belohnungen, taegliche/woechentliche Quests, Erfolge, Battlepass (Free/Premium)
 - **Events**: KOTH, Supply Drop, Schatzsuche, Mining-/Angel-/Ernte-/Holz-Wettbewerb, Boss, PvP-Turnier, Community-Challenge, saisonale Events, Zeitplan, Rangliste
-- **Anzeige**: animiertes Scoreboard, animierte Tablist, Rang-Prefixe (LuckPerms), Nametags, Bossbars, Actionbars, alle Texte in `messages.yml`
+- **Anzeige**: animiertes Scoreboard, Info-Leiste oben (wechselnde, ablaufende Bossbar), Info-Zeile ueber der Hotbar (Geld, Koordinaten, Richtung, Welt, Uhrzeit), animierte Tablist, Rang-Prefixe (LuckPerms), Nametags, Bossbars, Actionbars, alle Texte in `messages.yml`
 - **Komfort**: /trash /craft /ec /repair /msg /r /ignore /profile /stats /playtime /daily /rewards /quests /settings /discord /rules /help /report /staff /vote, AFK-System, Custom Items, eigene Rezepte, Partikel-Spuren, Haustiere
 - **Sicherheit/Team**: Ban/Tempban/Mute/Warn (mit Eskalation)/Kick + Verlauf, Reports-GUI, Teamchat, Vanish, Invsee, Audit-Log, Discord-Webhooks, Anti-Spam/Links, Anti-Bot, Schutz vor Namespace-/Plugin-Befehlen, Dupe-Schutz in allen GUIs
 - **Technik**: SQLite oder MariaDB (HikariCP), alle DB-Zugriffe asynchron, PlaceholderAPI-Erweiterung `%minesmp_...%`

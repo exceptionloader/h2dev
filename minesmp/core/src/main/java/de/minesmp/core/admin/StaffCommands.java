@@ -45,6 +45,7 @@ public final class StaffCommands implements Listener {
                 plugin.kits().reload();
                 plugin.events().reload();
                 plugin.scoreboard().reload();
+                plugin.infobar().reload();
                 plugin.audit().log(s, "RELOAD", "Konfiguration neu geladen");
                 Msg.send(s, "reload.done", "{prefix}&aNachrichten, Shop, Crates, Kits, Events und Scoreboard neu geladen. &7(Andere Aenderungen: Neustart)");
             } else {

@@ -58,8 +58,28 @@ public final class Placeholders {
             case "bp_tier" -> String.valueOf(plugin.battlepass().tier(p));
             case "daily_streak" -> String.valueOf(d.dailyStreak);
             case "afk" -> plugin.afk().isAfk(p) ? "AFK" : "";
+            case "coords" -> p.getLocation().getBlockX() + " " + p.getLocation().getBlockY() + " " + p.getLocation().getBlockZ();
+            case "x" -> String.valueOf(p.getLocation().getBlockX());
+            case "y" -> String.valueOf(p.getLocation().getBlockY());
+            case "z" -> String.valueOf(p.getLocation().getBlockZ());
+            case "direction" -> direction(p.getLocation().getYaw());
+            case "world" -> worldName(p.getWorld().getName());
+            case "health" -> String.valueOf((int) Math.ceil(p.getHealth()));
+            case "time" -> java.time.LocalTime.now(de.minesmp.core.utility.RewardService.ZONE).withSecond(0).withNano(0).toString();
+            case "next_event" -> { var n = plugin.events().nextEvent(); yield n == null ? "-" : n.name(); }
+            case "next_event_in" -> { var n = plugin.events().nextEvent(); yield n == null ? "-" : TimeUtil.format(n.inMillis() >= 3_600_000 ? n.inMillis() - n.inMillis() % 60_000 : n.inMillis()); }
             default -> null;
         };
+    }
+
+    private static String direction(float yaw) {
+        String[] d = {"S", "SW", "W", "NW", "N", "NO", "O", "SO"};
+        return d[Math.floorMod(Math.round(yaw / 45f), 8)];
+    }
+
+    private String worldName(String w) {
+        String n = plugin.getConfig().getString("world-names." + w);
+        return n != null ? n : w;
     }
 
     public String apply(Player p, String text) {

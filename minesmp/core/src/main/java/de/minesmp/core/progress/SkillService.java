@@ -162,6 +162,7 @@ public final class SkillService implements Listener {
             Player p = Bukkit.getPlayer(e.getKey());
             if (p != null && e.getValue() >= 0.01) {
                 plugin.eco().deposit(p, e.getValue(), "SKILL", "Aktivitaet");
+                Msg.markActionbar(p, 3500);
                 p.sendActionBar(Text.c(Msg.get("skill.earned", "&a+{money} &8| &b+{xp} XP &7(letzte 30s)",
                         "money", plugin.eco().format(e.getValue()), "xp", Text.money(pendingXpShown.getOrDefault(e.getKey(), 0.0)))));
             }

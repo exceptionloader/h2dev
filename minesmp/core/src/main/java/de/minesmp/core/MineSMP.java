@@ -80,6 +80,7 @@ public final class MineSMP extends JavaPlugin {
     private BattlePassService battlepass;
     private EventManager events;
     private ScoreboardService scoreboard;
+    private de.minesmp.core.display.InfoBarService infobar;
     private ChatService chat;
     private TeleportService teleport;
     private PlayerWarpService pwarps;
@@ -161,6 +162,7 @@ public final class MineSMP extends JavaPlugin {
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
         scoreboard = new ScoreboardService(this);
+        infobar = new de.minesmp.core.display.InfoBarService(this);
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PlaceholderHook(this).register();
@@ -236,6 +238,7 @@ public final class MineSMP extends JavaPlugin {
     public BattlePassService battlepass() { return battlepass; }
     public EventManager events() { return events; }
     public ScoreboardService scoreboard() { return scoreboard; }
+    public de.minesmp.core.display.InfoBarService infobar() { return infobar; }
     public ChatService chat() { return chat; }
     public TeleportService teleport() { return teleport; }
     public PlayerWarpService pwarps() { return pwarps; }

@@ -22,6 +22,14 @@ disabled-commands: []
 # Eigene Aliase (z.B. /tell, /w, /r) ueberschreiben Vanilla-Befehle gleichen Namens
 override-aliases: true
 
+# Anzeigenamen der Welten (Platzhalter %world%)
+world-names:
+  world: Survival
+  world_nether: Nether
+  world_the_end: End
+  spawn: Spawn
+  farmwelt: Farmwelt
+
 links:
   discord: https://discord.gg/minesmp
   website: https://minesmp.de

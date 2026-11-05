@@ -161,6 +161,11 @@ public final class ScoreboardService implements Listener {
         }
     }
 
+    public boolean hasBossbar(Player p, String id) {
+        Map<String, BossBar> m = bars.get(p.getUniqueId());
+        return m != null && m.containsKey(id);
+    }
+
     public void hideBossbar(Player p, String id) {
         Map<String, BossBar> m = bars.get(p.getUniqueId());
         if (m == null) return;
