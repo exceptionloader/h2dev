@@ -49,22 +49,30 @@ function Find-Java {
     return $null
 }
 
-$Java = Find-Java
+$LocalJava = Join-Path $Root 'java'
+$Java = $null
+if (Test-Path $LocalJava) {
+    $j = Get-ChildItem $LocalJava -Recurse -Filter java.exe -ErrorAction SilentlyContinue | Where-Object { $_.Directory.Name -eq 'bin' } | Select-Object -First 1
+    if ($j -and (Get-JavaMajor $j.FullName) -ge 25) { $Java = $j.FullName }
+}
+if (-not $Java) { $Java = Find-Java }
 if (-not $Java) {
-    Warn 'Java 25 wurde nicht gefunden (wird fuer den Server gebraucht).'
-    $a = Read-Host '  Soll Java 25 (Eclipse Temurin) jetzt installiert werden? [J/N]'
-    if ($a -notmatch '^[JjYy]') { Fail 'Ohne Java 25 kann der Server nicht starten. Download: https://adoptium.net' }
-    Info 'Lade Java 25 herunter ...'
-    $assets = Invoke-RestMethod 'https://api.adoptium.net/v3/assets/latest/25/hotspot?architecture=x64&image_type=jdk&os=windows&vendor=eclipse'
-    $msiUrl = ($assets | Where-Object { $_.binary.installer } | Select-Object -First 1).binary.installer.link
-    if (-not $msiUrl) { Fail 'Java-Download nicht gefunden. Bitte manuell von https://adoptium.net installieren.' }
-    $msi = Join-Path $env:TEMP 'temurin25.msi'
-    Invoke-WebRequest $msiUrl -OutFile $msi -UseBasicParsing
-    Info 'Installiere Java 25 (Windows fragt evtl. nach Administrator-Rechten) ...'
-    $p = Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /passive ADDLOCAL=FeatureMain,FeatureEnvironment,FeatureJavaHome" -Verb RunAs -Wait -PassThru
-    if ($p.ExitCode -ne 0) { Fail "Java-Installation fehlgeschlagen (Code $($p.ExitCode))." }
-    $Java = Find-Java
-    if (-not $Java) { Fail 'Java 25 wurde installiert, aber nicht gefunden. Bitte das Fenster schliessen und erneut starten.' }
+    Info 'Java 25 nicht gefunden - lade es in den MineSMP-Ordner (ohne Installation, ca. 60 MB) ...'
+    try {
+        $assets = Invoke-RestMethod 'https://api.adoptium.net/v3/assets/latest/25/hotspot?architecture=x64&image_type=jre&os=windows&vendor=eclipse'
+        $zipUrl = ($assets | Select-Object -First 1).binary.package.link
+    } catch { $zipUrl = $null }
+    if (-not $zipUrl) { Fail 'Java-Download nicht gefunden. Bitte Internetverbindung pruefen.' }
+    $zip = Join-Path $env:TEMP 'minesmp-java25.zip'
+    Invoke-WebRequest $zipUrl -OutFile $zip -UseBasicParsing
+    if (Test-Path $LocalJava) { Remove-Item $LocalJava -Recurse -Force }
+    Info 'Entpacke Java ...'
+    Expand-Archive -Path $zip -DestinationPath $LocalJava -Force
+    Remove-Item $zip -Force -ErrorAction SilentlyContinue
+    $j = Get-ChildItem $LocalJava -Recurse -Filter java.exe | Where-Object { $_.Directory.Name -eq 'bin' } | Select-Object -First 1
+    if (-not $j) { Fail 'Java wurde entpackt, aber java.exe fehlt.' }
+    $Java = $j.FullName
+    if ((Get-JavaMajor $Java) -lt 25) { Fail "Java konnte nicht gestartet werden: $Java" }
 }
 Ok "Java: $Java"
 
