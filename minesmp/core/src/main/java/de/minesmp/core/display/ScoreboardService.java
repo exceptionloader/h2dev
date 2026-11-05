@@ -33,7 +33,7 @@ public final class ScoreboardService implements Listener {
     private YamlConfiguration cfg;
     private final Map<UUID, Scoreboard> boards = new HashMap<>();
     private final Map<UUID, Map<String, BossBar>> bars = new HashMap<>();
-    private int frame;
+    private int frame, titleFrame;
 
     public ScoreboardService(MineSMP plugin) {
         this.plugin = plugin;
@@ -44,6 +44,18 @@ public final class ScoreboardService implements Listener {
             frame++;
             for (Player p : Bukkit.getOnlinePlayers()) update(p);
         }, 20, Math.max(5, cfg.getLong("update-ticks", 20)));
+        // Titel-Animation laeuft schneller als der Rest (nur der Titel wird neu gesendet)
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            var g = cfg.getConfigurationSection("title-gradient");
+            if (g == null || !g.getBoolean("enabled", true)) return;
+            titleFrame++;
+            var t = Text.c(title());
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                Scoreboard sb = boards.get(p.getUniqueId());
+                Objective o = sb == null ? null : sb.getObjective("minesmp");
+                if (o != null && o.getDisplaySlot() == DisplaySlot.SIDEBAR) o.displayName(t);
+            }
+        }, 20, 3);
         Bukkit.getScheduler().runTaskTimer(plugin, this::refreshNametags, 100, 200);
     }
 
@@ -75,6 +87,18 @@ public final class ScoreboardService implements Listener {
         update(p);
     }
 
+    /** Titel: animierter Farbverlauf (title-gradient) oder klassische Einzelbilder (title-frames). */
+    private String title() {
+        var g = cfg.getConfigurationSection("title-gradient");
+        if (g != null && g.getBoolean("enabled", true)) {
+            List<String> colors = g.getStringList("colors");
+            if (colors.size() < 2) colors = List.of("#55FFFF", "#FFFFFF");
+            double speed = g.getDouble("speed", 0.04);
+            return Text.gradient(g.getString("text", "MINESMP"), (titleFrame * speed) % 1.0 + 1e-9, g.getBoolean("bold", true) ? "&l" : "", colors.toArray(new String[0]));
+        }
+        return animated("title-frames", "&b&lMINE&f&lSMP");
+    }
+
     private String animated(String path, String def) {
         List<String> frames = cfg.getStringList(path);
         if (frames.isEmpty()) return cfg.getString(path, def);
@@ -91,7 +115,7 @@ public final class ScoreboardService implements Listener {
             o.setDisplaySlot(null);
         } else {
             o.setDisplaySlot(DisplaySlot.SIDEBAR);
-            o.displayName(Text.c(animated("title-frames", "&b&lMINE&f&lSMP")));
+            o.displayName(Text.c(title()));
             List<String> lines = plugin.combat().isTagged(p) && !cfg.getStringList("combat-lines").isEmpty() ? cfg.getStringList("combat-lines") : cfg.getStringList("lines");
             int n = Math.min(15, lines.size());
             for (int i = 0; i < 15; i++) {
@@ -99,7 +123,15 @@ public final class ScoreboardService implements Listener {
                 if (i >= n) { sb.resetScores(entry); continue; }
                 var score = o.getScore(entry);
                 score.setScore(n - i);
-                score.customName(Text.c(plugin.placeholders().apply(p, lines.get(i))));
+                String line = plugin.placeholders().apply(p, lines.get(i));
+                int split = line.indexOf("<r>");
+                if (split >= 0) {
+                    score.customName(Text.c(line.substring(0, split)));
+                    score.numberFormat(NumberFormat.fixed(Text.c(line.substring(split + 3))));
+                } else {
+                    score.customName(Text.c(line));
+                    score.numberFormat(null);
+                }
             }
         }
         p.sendPlayerListHeaderAndFooter(

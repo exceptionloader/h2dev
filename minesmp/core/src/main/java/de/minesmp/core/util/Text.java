@@ -20,9 +20,53 @@ public final class Text {
 
     private Text() {}
 
+    private static final java.util.regex.Pattern GRAD = java.util.regex.Pattern.compile("<g((?::#[0-9a-fA-F]{6}){2,})>(.*?)</g>");
+
     public static Component c(String s) {
         if (s == null) return Component.empty();
-        return LEGACY.deserialize(s);
+        return LEGACY.deserialize(gradients(s));
+    }
+
+    /** Ersetzt <g:#55FFFF:#4F7CFF>Text</g> durch einzelne Hex-Farben pro Zeichen. Fuehrende &l/&o usw. bleiben erhalten. */
+    public static String gradients(String s) {
+        if (s.indexOf("<g:") < 0) return s;
+        java.util.regex.Matcher m = GRAD.matcher(s);
+        StringBuilder out = new StringBuilder();
+        while (m.find()) {
+            String[] hex = m.group(1).substring(2).split(":#");
+            String body = m.group(2), flags = "";
+            while (body.length() >= 2 && body.charAt(0) == '&' && "lmnok".indexOf(Character.toLowerCase(body.charAt(1))) >= 0) {
+                flags += body.substring(0, 2);
+                body = body.substring(2);
+            }
+            m.appendReplacement(out, java.util.regex.Matcher.quoteReplacement(gradient(body, 0, flags, hex)));
+        }
+        m.appendTail(out);
+        return out.toString();
+    }
+
+    /** Farbverlauf ueber die Zeichen; offset (0..1) verschiebt den Verlauf (fuer Animationen, zyklisch). */
+    public static String gradient(String text, double offset, String flags, String... hex) {
+        int[] cps = text.codePoints().toArray();
+        int[][] cols = new int[hex.length][];
+        for (int i = 0; i < hex.length; i++) {
+            int v = Integer.parseInt(hex[i].replace("#", ""), 16);
+            cols[i] = new int[]{(v >> 16) & 255, (v >> 8) & 255, v & 255};
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < cps.length; i++) {
+            if (Character.isWhitespace(cps[i])) { sb.appendCodePoint(cps[i]); continue; }
+            double t = cps.length <= 1 ? 0 : (double) i / (cps.length - 1);
+            if (offset != 0) { t = (t + offset) % 1.0; t = t < 0.5 ? t * 2 : (1 - t) * 2; } // hin und zurueck, damit die Animation nahtlos laeuft
+            double pos = t * (cols.length - 1);
+            int a = Math.min(cols.length - 2, (int) Math.floor(pos));
+            double f = pos - a;
+            int r = (int) Math.round(cols[a][0] + (cols[a + 1][0] - cols[a][0]) * f);
+            int g = (int) Math.round(cols[a][1] + (cols[a + 1][1] - cols[a][1]) * f);
+            int b = (int) Math.round(cols[a][2] + (cols[a + 1][2] - cols[a][2]) * f);
+            sb.append(String.format("&#%02X%02X%02X", r, g, b)).append(flags).appendCodePoint(cps[i]);
+        }
+        return sb.toString();
     }
 
     /** Fuer Item-Namen/Lore: Kursiv standardmaessig aus. */

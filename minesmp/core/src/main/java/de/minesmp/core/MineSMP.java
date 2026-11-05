@@ -105,6 +105,12 @@ public final class MineSMP extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+        File sbFile = new File(getDataFolder(), "scoreboard.yml");
+        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 2) {
+            File old = new File(getDataFolder(), "scoreboard-alt.yml");
+            if (old.exists()) old.delete();
+            if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
+        }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
                 "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
