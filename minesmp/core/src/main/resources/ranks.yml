@@ -1,0 +1,39 @@
+# =====================================================================
+#  MineSMP - Raenge: Abzeichen, Namensfarbe, Namensschild (auch selbst in F5 sichtbar) und Rang-Partikel
+#  Reihenfolge = Prioritaet (oben zuerst). Erkannt ueber die LuckPerms-Gruppe (Recht group.<id>).
+#  badge:     Abzeichen aus dem Ressourcenpaket (rank_owner, rank_admin, rank_dev, rank_mod, rank_support,
+#             rank_builder, rank_legende, rank_mvp, rank_vip, rank_spieler)
+#  text:      Ersatz fuer Spieler ohne Ressourcenpaket
+#  name:      Format des Namens ({name}); Farbverlauf: <g:#AAAAAA:#BBBBBB>{name}</g>
+#  particles: none | sparkle (Funkeln) | ring (Ring um die Huefte) | halo (Heiligenschein)
+#             | helix (Doppelspirale) | crown (Flammenkrone)
+#  colors:    zwei Hex-Farben fuer die Partikel
+# =====================================================================
+ranks:
+  owner:     {badge: rank_owner,   text: '&4&lOWNER',   name: '<g:#FF6B6B:#FFC46B>&l{name}</g>', particles: crown,   colors: ['#FF4D4D', '#FFC46B']}
+  admin:     {badge: rank_admin,   text: '&c&lADMIN',   name: '<g:#FF5555:#FF9A9A>{name}</g>',   particles: halo,    colors: ['#FF5555', '#FFB4B4']}
+  developer: {badge: rank_dev,     text: '&d&lDEV',     name: '<g:#C084FC:#F0ABFC>{name}</g>',   particles: halo,    colors: ['#C084FC', '#F0ABFC']}
+  moderator: {badge: rank_mod,     text: '&6&lMOD',     name: '&6{name}',                        particles: ring,    colors: ['#F59E0B', '#FDE68A']}
+  supporter: {badge: rank_support, text: '&e&lSUPPORT', name: '&e{name}',                        particles: ring,    colors: ['#FACC15', '#FFF3A3']}
+  builder:   {badge: rank_builder, text: '&a&lBUILDER', name: '&a{name}',                        particles: sparkle, colors: ['#22C55E', '#BBF7D0']}
+  legende:   {badge: rank_legende, text: '&9&lLEGENDE', name: '<g:#4F7CFF:#55FFFF>{name}</g>',   particles: helix,   colors: ['#4F7CFF', '#55FFFF']}
+  mvp:       {badge: rank_mvp,     text: '&3&lMVP',     name: '<g:#22C3D6:#B6F7FF>{name}</g>',   particles: ring,    colors: ['#22C3D6', '#B6F7FF']}
+  vip:       {badge: rank_vip,     text: '&b&lVIP',     name: '&b{name}',                        particles: sparkle, colors: ['#8FF3FF', '#FFFFFF']}
+  default:   {badge: rank_spieler, text: '&7Spieler',   name: '&f{name}',                        particles: none}
+
+# Namensschild ueber dem Kopf (ersetzt das normale Minecraft-Namensschild)
+# {badge} {text} {name} {clan} {level} {afk}
+nametag:
+  enabled: true
+  line1-pack: '{badge} {name}{afk}'
+  line1: '{text} &8| {name}{afk}'
+  line2: '{clan}&7Lvl &e{level}'
+  clan-format: '&8[&b{tag}&8] '
+  afk-format: ' &7[AFK]'
+  height: 0.28
+  view-range: 0.7
+
+particles:
+  enabled: true
+  interval-ticks: 2
+  range: 32

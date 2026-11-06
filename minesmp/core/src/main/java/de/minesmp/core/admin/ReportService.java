@@ -96,7 +96,7 @@ public final class ReportService {
                     } else {
                         Player t = Bukkit.getPlayerExact(r.target);
                         Location loc = t != null ? t.getLocation() : PlayerData.locFromString(r.location);
-                        if (loc != null) staff.teleportAsync(loc);
+                        if (loc != null) plugin.ranks().teleport(staff, loc);
                         staff.closeInventory();
                     }
                 });

@@ -66,13 +66,20 @@ Fuer MariaDB: `MARIADB_DB=minesmp MARIADB_USER=minesmp MARIADB_PASSWORD=... ./ba
 Wiederherstellen: Server stoppen, Archiv im Serverordner entpacken (`tar xzf backups/minesmp_DATUM.tar.gz`), starten.
 Block-Rollbacks fuer Griefing: CoreProtect (`/co inspect`, `/co rollback u:Spieler t:1h r:20`).
 
-## 7. Anpassen
+## 7. Raenge vergeben
+`lp user Spielername parent set mvp` (Gruppen: owner, admin, developer, moderator, supporter, builder, legende, mvp, vip, default).
+Abzeichen, Namensfarben, Namensschild und Partikel stehen in `plugins/MineSMPCore/ranks.yml` (`/minesmp reload`).
+Spieler koennen in `/settings` ihr eigenes Namensschild (F5), ihre Partikel und die Partikel anderer ausschalten.
+Hinweis: Plugin-Teleports in andere Welten funktionieren mit dem Namensschild, weil MineSMPCore es dafuer kurz abnimmt.
+Fremde Plugins, die Spieler per API in andere Welten teleportieren, koennten daran scheitern - dann `nametag.enabled: false`.
+
+## 8. Anpassen
 Alle Texte: `plugins/MineSMPCore/messages.yml` (fehlende Schluessel werden automatisch ergaenzt).
 Preise: `shop.yml`, Kisten: `crates.yml`, Quests: `quests.yml`, Events/Zeiten: `events.yml`,
 Battlepass: `battlepass.yml`, Skills/Belohnungen: `skills.yml`, Scoreboard/Tab: `scoreboard.yml`.
 Neu laden: `/minesmp reload` (Nachrichten, Shop, Crates, Kits, Events, Scoreboard). Alles andere: Neustart.
 
-## 8. Update von MineSMPCore
+## 9. Update von MineSMPCore
 ```bash
 cd h2dev/minesmp/core && mvn -B clean package
 cp target/MineSMPCore-*.jar /opt/minesmp/plugins/   # alte Version vorher loeschen

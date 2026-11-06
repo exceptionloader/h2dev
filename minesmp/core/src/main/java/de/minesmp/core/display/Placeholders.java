@@ -49,6 +49,9 @@ public final class Placeholders {
             case "clan_level" -> c == null ? "-" : String.valueOf(c.level);
             case "rank" -> Text.strip(plugin.chat().prefix(p)).trim();
             case "prefix" -> plugin.chat().prefix(p);
+            case "rank_badge" -> plugin.ranks() == null ? plugin.chat().prefix(p) : plugin.ranks().badge(p);
+            case "rank_name" -> plugin.ranks() == null ? p.getName() : plugin.ranks().name(p);
+            case "rank_text" -> plugin.ranks() == null ? plugin.chat().prefix(p) : plugin.ranks().rankText(p);
             case "rank_short" -> { String pre = plugin.chat().prefix(p); int cut = pre.indexOf(" &8|"); String r = (cut > 0 ? pre.substring(0, cut) : pre).trim(); yield Text.strip(r).isBlank() ? "&7Spieler" : r; }
             case "playtime" -> TimeUtil.format(p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L * 1000L);
             case "ping" -> String.valueOf(p.getPing());

@@ -6,7 +6,7 @@
 #  %clan_level% %rank_short% %bounty% %event% %combat% %bp_tier% %daily_streak% %coords% %direction% %world%
 #  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 3
+design-version: 4
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -23,7 +23,7 @@ title-frames:
 lines:
   - '&8'
   - '<g:#55FFFF:#4F7CFF>&lᴘʀᴏꜰɪʟ</g>'
-  - ' &8▪ &7ʀᴀɴɢ<r>%rank_short%'
+  - ' &8▪ &7ʀᴀɴɢ<r>%rank_text%'
   - ' &8▪ &7ɢᴇʟᴅ<r>&a%balance% &2⛃'
   - ' &8▪ &7ʟᴇᴠᴇʟ<r>&e%level% &6✦'
   - '&7'
@@ -45,7 +45,7 @@ title-pack: ':logo:'
 lines-pack:
   - '&8'
   - ':profil:'
-  - ' :crown: &7Rang<r>%rank_short%'
+  - ' :crown: &7Rang<r>%rank_badge%'
   - ' :coin: &7Geld<r>&a%balance%'
   - ' :star: &7Level<r>&e%level%'
   - '&7'
@@ -85,7 +85,7 @@ combat-lines:
   - '<g:#4F7CFF:#55FFFF:#FFFFFF>ᴍɪɴᴇsᴍᴘ.ᴅᴇ</g>'
 
 tab:
-  name-format: '{prefix}{clan}&f{name}{afk}'
+  name-format: '{prefix}{clan}{name}{afk}'
   frame-count: 1
   header-frames:
     0:

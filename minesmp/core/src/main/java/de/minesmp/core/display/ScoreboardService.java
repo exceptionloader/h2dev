@@ -146,7 +146,8 @@ public final class ScoreboardService implements Listener {
 
     public void refreshTabName(Player p) {
         String fmt = cfg.getString("tab.name-format", "{prefix}{clan}&f{name}{afk}");
-        p.playerListName(Text.c(Text.replace(fmt, "prefix", plugin.chat().prefix(p), "clan", plugin.clans().tag(p), "name", p.getName(),
+        p.playerListName(Text.c(Text.replace(fmt, "prefix", plugin.chat().prefix(p), "clan", plugin.clans().tag(p),
+                "name", plugin.ranks() != null ? plugin.ranks().name(p) : p.getName(),
                 "afk", plugin.afk().isAfk(p) ? " &7[AFK]" : "")));
     }
 
@@ -163,7 +164,8 @@ public final class ScoreboardService implements Listener {
             }
             for (Player target : Bukkit.getOnlinePlayers()) {
                 int idx = order.size();
-                for (int i = 0; i < order.size(); i++) if (target.hasPermission("group." + order.get(i))) { idx = i; break; }
+                if (plugin.ranks() != null) idx = plugin.ranks().order(target);
+                else for (int i = 0; i < order.size(); i++) if (target.hasPermission("group." + order.get(i))) { idx = i; break; }
                 String teamName = String.format("%03d", idx) + target.getName();
                 if (teamName.length() > 64) teamName = teamName.substring(0, 64);
                 Team old = sb.getEntryTeam(target.getName());
@@ -171,6 +173,9 @@ public final class ScoreboardService implements Listener {
                 Team t = sb.getTeam(teamName);
                 if (t == null) t = sb.registerNewTeam(teamName);
                 t.prefix(Text.c(plugin.chat().prefix(target) + plugin.clans().tag(target)));
+                // Eigenes Namensschild (RankService) ersetzt das normale
+                t.setOption(Team.Option.NAME_TAG_VISIBILITY, plugin.ranks() != null && plugin.ranks().nametagsEnabled()
+                        ? Team.OptionStatus.NEVER : Team.OptionStatus.ALWAYS);
                 if (!t.hasEntry(target.getName())) t.addEntry(target.getName());
             }
         }

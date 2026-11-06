@@ -183,8 +183,8 @@ public final class DuelService implements Listener {
             p.getActivePotionEffects().forEach(pe -> p.removePotionEffect(pe.getType()));
             plugin.kits().equip(p, kit, true);
         }
-        a.teleportAsync(l1);
-        b.teleportAsync(l2);
+        plugin.ranks().teleport(a, l1);
+        plugin.ranks().teleport(b, l2);
         new org.bukkit.scheduler.BukkitRunnable() {
             int n = 3;
             @Override public void run() {
@@ -237,7 +237,7 @@ public final class DuelService implements Listener {
         d.dirty = true;
         plugin.data().save(d, p);
         if (back != null && !p.isDead()) {
-            if (quitting) p.teleport(back); else p.teleportAsync(back);
+            if (quitting) plugin.ranks().teleportNow(p, back); else plugin.ranks().teleport(p, back);
         }
     }
 

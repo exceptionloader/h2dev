@@ -287,7 +287,7 @@ public final class SpawnService implements Listener {
         // Spieler kurz in Sicherheit bringen
         World safe = Bukkit.getWorlds().get(0);
         List<Player> moved = new ArrayList<>(w.getPlayers());
-        for (Player p : moved) p.teleport(safe.getSpawnLocation());
+        for (Player p : moved) plugin.ranks().teleportNow(p, safe.getSpawnLocation());
         for (Entity e : w.getEntities()) if (e.getPersistentDataContainer().has(npcKey) || e.getPersistentDataContainer().has(holoKey)) e.remove();
         npcEntities.clear();
         holoEntities.clear();
@@ -341,7 +341,7 @@ public final class SpawnService implements Listener {
                     applyConfig(true);
                     ensureEntities();
                     Location sp = loc(spawnPos);
-                    for (Player p : moved) if (p.isOnline() && sp != null) p.teleport(sp);
+                    for (Player p : moved) if (p.isOnline() && sp != null) plugin.ranks().teleportNow(p, sp);
                     plugin.audit().log(by, "SPAWN_BUILD", placed + " Bloecke");
                     long ms = System.currentTimeMillis() - t0;
                     Msg.send(by, "spawn.build-done", "{prefix}&aSpawn gebaut! &7{n} Bloecke in {t}{bad}", "n", Text.money(placed),
@@ -511,7 +511,7 @@ public final class SpawnService implements Listener {
         if (action.startsWith("warp:")) {
             Location to = action.equals("warp:arena") ? loc(arenaArrival) : loc(spawnPos);
             if (to == null) return false;
-            p.teleportAsync(to);
+            plugin.ranks().teleport(p, to);
             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.7f, 1.2f);
             return true;
         }
@@ -530,7 +530,7 @@ public final class SpawnService implements Listener {
             plugin.teleport().findSafe(target, 0).thenAccept(l -> plugin.sync(() -> {
                 if (!p.isOnline()) return;
                 if (l == null) { plugin.cooldowns().set(p.getUniqueId(), "rtp", 1); Msg.send(p, "rtp.failed", "{prefix}&cKein sicherer Ort gefunden. Versuche es erneut."); return; }
-                p.teleportAsync(l).thenAccept(ok -> { if (ok) p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.7f, 1f); });
+                plugin.ranks().teleport(p, l).thenAccept(ok -> { if (ok) p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.7f, 1f); });
             }));
             return true;
         }
@@ -549,7 +549,7 @@ public final class SpawnService implements Listener {
                 if (l == null) return;
                 if (plugin.combat().isTagged(p)) { Msg.send(p, "combat.blocked", "{prefix}&cDas kannst du im Kampf nicht tun."); return; }
                 if (p.getWorld().getName().equals(worldName)) {
-                    p.teleportAsync(l);
+                    plugin.ranks().teleport(p, l);
                     p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.3f);
                 } else plugin.teleport().teleport(p, l, Text.strip(a.name));
             });
@@ -580,7 +580,7 @@ public final class SpawnService implements Listener {
         Player p = e.getPlayer();
         if (e.getTo().getY() < voidY) {
             Location back = isPvpZone(e.getFrom()) || (arenaArrival != null && e.getTo().getZ() > 95) ? loc(arenaArrival) : loc(spawnPos);
-            if (back != null) Bukkit.getScheduler().runTask(plugin, () -> p.teleport(back));
+            if (back != null) Bukkit.getScheduler().runTask(plugin, () -> plugin.ranks().teleportNow(p, back));
             return;
         }
         Portal portal = portalAt(e.getTo());
@@ -589,7 +589,7 @@ public final class SpawnService implements Listener {
         Bukkit.getScheduler().runTask(plugin, () -> {
             if (!runAction(p, portal.action, portal) && portal.back != null) {
                 Location b = loc(portal.back);
-                if (b != null) p.teleport(b);
+                if (b != null) plugin.ranks().teleportNow(p, b);
             }
         });
     }
@@ -694,7 +694,7 @@ public final class SpawnService implements Listener {
         if (e.getCause() == EntityDamageEvent.DamageCause.VOID) {
             e.setCancelled(true);
             Location back = loc(spawnPos);
-            if (back != null) Bukkit.getScheduler().runTask(plugin, () -> p.teleport(back));
+            if (back != null) Bukkit.getScheduler().runTask(plugin, () -> plugin.ranks().teleportNow(p, back));
             return;
         }
         if (plugin.duels().inDuel(p) || isPvpZone(p.getLocation())) return;

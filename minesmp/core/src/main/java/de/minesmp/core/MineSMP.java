@@ -81,6 +81,7 @@ public final class MineSMP extends JavaPlugin {
     private EventManager events;
     private ScoreboardService scoreboard;
     private de.minesmp.core.display.ResourcePackService pack;
+    private de.minesmp.core.display.RankService ranks;
     private de.minesmp.core.display.InfoBarService infobar;
     private ChatService chat;
     private TeleportService teleport;
@@ -108,13 +109,13 @@ public final class MineSMP extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         File sbFile = new File(getDataFolder(), "scoreboard.yml");
-        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 3) {
+        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 4) {
             File old = new File(getDataFolder(), "scoreboard-alt.yml");
             if (old.exists()) old.delete();
             if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
-                "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml"}) {
+                "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
         }
         Msg.load(this);
@@ -171,6 +172,7 @@ public final class MineSMP extends JavaPlugin {
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
         pack = new de.minesmp.core.display.ResourcePackService(this);
+        ranks = new de.minesmp.core.display.RankService(this);
         scoreboard = new ScoreboardService(this);
         infobar = new de.minesmp.core.display.InfoBarService(this);
 
@@ -190,6 +192,7 @@ public final class MineSMP extends JavaPlugin {
             if (trade != null) trade.cancelAll();
             if (cosmetics != null) cosmetics.shutdown();
             if (pack != null) pack.shutdown();
+            if (ranks != null) ranks.shutdown();
             if (clans != null) clans.saveAll();
             if (bounties != null) bounties.save();
             if (data != null) data.saveAll();
@@ -250,6 +253,7 @@ public final class MineSMP extends JavaPlugin {
     public EventManager events() { return events; }
     public ScoreboardService scoreboard() { return scoreboard; }
     public de.minesmp.core.display.ResourcePackService pack() { return pack; }
+    public de.minesmp.core.display.RankService ranks() { return ranks; }
     public de.minesmp.core.display.InfoBarService infobar() { return infobar; }
     public ChatService chat() { return chat; }
     public TeleportService teleport() { return teleport; }

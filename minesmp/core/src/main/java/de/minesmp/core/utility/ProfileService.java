@@ -36,6 +36,9 @@ public final class ProfileService {
             new Setting("duels", "Duell-Anfragen", Material.IRON_SWORD, true, null),
             new Setting("mentions", "Erwaehnungs-Ton", Material.NOTE_BLOCK, true, null),
             new Setting("join-messages", "Join-/Quit-Nachrichten", Material.OAK_DOOR, true, null),
+            new Setting("nametag-self", "Eigenes Namensschild (F5)", Material.NAME_TAG, true, null),
+            new Setting("rank-particles", "Meine Rang-Partikel", Material.FIREWORK_STAR, true, null),
+            new Setting("show-particles", "Partikel anderer Spieler", Material.ENDER_EYE, true, null),
             new Setting("socialspy", "SocialSpy (Team)", Material.SPYGLASS, false, "minesmp.staff.socialspy"));
 
     public ProfileService(MineSMP plugin) {

@@ -179,6 +179,15 @@ public final class ChatService implements Listener {
                         "clan", plugin.clans().of(p) == null ? "-" : plugin.clans().of(p).name, "kills", String.valueOf(plugin.data().get(p).kills)))))
                 .clickEvent(ClickEvent.runCommand("/profile " + p.getName()));
         Component body = Text.c(clean);
-        e.renderer((source, displayName, message, viewer) -> name.append(body));
+        Component packName = name;
+        if (plugin.ranks() != null && plugin.pack() != null) {
+            String pf = plugin.getConfig().getString("chat.format-pack", "{badge} {clan}{name} &8» &f{message}");
+            String ph = Text.replace(pf.substring(0, Math.max(0, pf.indexOf("{message}"))), "badge", plugin.ranks().badge(p),
+                    "clan", plugin.clans().tag(p), "name", plugin.ranks().name(p), "prefix", prefix(p));
+            packName = Text.c(ph).hoverEvent(name.hoverEvent()).clickEvent(name.clickEvent());
+        }
+        Component packHead = packName;
+        e.renderer((source, displayName, message, viewer) ->
+                (viewer instanceof Player vp && plugin.pack() != null && plugin.pack().has(vp) ? packHead : name).append(body));
     }
 }

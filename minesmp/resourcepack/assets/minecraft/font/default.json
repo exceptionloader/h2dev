@@ -208,6 +208,96 @@
    ]
   },
   {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_owner.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue017"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_admin.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue018"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_dev.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue019"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_mod.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_support.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_builder.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_legende.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_mvp.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_vip.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue01f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_spieler.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue020"
+   ]
+  },
+  {
    "type": "space",
    "advances": {
     "\ue0f0": -1,

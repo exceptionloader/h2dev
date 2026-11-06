@@ -137,7 +137,7 @@ public final class WorldService implements Listener {
         resetting = true;
         Msg.broadcast("farmwelt.resetting", "{prefix}&eDie Farmwelt wird jetzt zurueckgesetzt...");
         if (w != null) {
-            for (Player p : w.getPlayers()) p.teleport(plugin.teleport().spawn());
+            for (Player p : w.getPlayers()) plugin.ranks().teleportNow(p, plugin.teleport().spawn());
             if (!Bukkit.unloadWorld(w, false)) {
                 plugin.getLogger().warning("Farmwelt konnte nicht entladen werden - Reset abgebrochen.");
                 resetting = false;

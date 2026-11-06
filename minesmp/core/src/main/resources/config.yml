@@ -223,6 +223,8 @@ security:
 
 chat:
   format: '{prefix}{clan}&f{name} &8» &f{message}'
+  # Fuer Spieler mit Ressourcenpaket: Rang-Abzeichen statt Text-Praefix ({badge}, {name} im Rang-Format)
+  format-pack: '{badge} {clan}{name} &8» &f{message}'
   default-prefix: '&7'
   delay-ms: 1500
   max-caps-ratio: 0.6

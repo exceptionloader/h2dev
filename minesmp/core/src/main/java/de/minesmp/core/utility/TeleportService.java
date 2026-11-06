@@ -72,7 +72,7 @@ public final class TeleportService implements Listener {
             if (a.length > 0 && s.hasPermission("minesmp.spawn.others")) target = Bukkit.getPlayerExact(a[0]);
             if (target == null) return;
             Location sp = spawn();
-            if (target != s) target.teleportAsync(sp);
+            if (target != s) plugin.ranks().teleport(target, sp);
             else teleport(target, sp, "Spawn");
         }, "lobby", "hub"));
         plugin.command(new SimpleCommand("setspawn", "minesmp.admin.setspawn", "Spawn setzen", (s, l, a) -> {
@@ -108,7 +108,7 @@ public final class TeleportService implements Listener {
     }
 
     private void doTeleport(Player p, Location to, String name) {
-        p.teleportAsync(to, PlayerTeleportEvent.TeleportCause.PLUGIN).thenAccept(ok -> {
+        plugin.ranks().teleport(p, to).thenAccept(ok -> {
             if (ok) {
                 Msg.actionbar(p, "teleport.done", "&aTeleportiert: &f{name}", "name", name);
                 p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.6f, 1.2f);
@@ -159,7 +159,7 @@ public final class TeleportService implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (!e.getPlayer().hasPlayedBefore() || plugin.getConfig().getBoolean("teleport.spawn-on-join", false)) {
-            e.getPlayer().teleportAsync(spawn());
+            plugin.ranks().teleport(e.getPlayer(), spawn());
         }
     }
 
