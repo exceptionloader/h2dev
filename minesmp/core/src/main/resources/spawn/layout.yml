@@ -1,0 +1,762 @@
+# Automatisch erzeugt von tools/build_spawn.py
+{
+ "version": 1,
+ "world": "spawn",
+ "spawn": [
+  0.5,
+  101,
+  12.5,
+  180,
+  0
+ ],
+ "arena-arrival": [
+  0.5,
+  101,
+  121.5,
+  0,
+  0
+ ],
+ "void-y": 55,
+ "pvp-zones": [
+  {
+   "center": [
+    0.5,
+    150.5
+   ],
+   "radius": 18.5,
+   "y": [
+    99,
+    120
+   ]
+  }
+ ],
+ "clear-boxes": [
+  [
+   -72,
+   60,
+   -72,
+   72,
+   140,
+   72
+  ],
+  [
+   -86,
+   60,
+   108,
+   86,
+   140,
+   192
+  ]
+ ],
+ "npcs": [
+  {
+   "id": "shop",
+   "name": "&a&lHändler",
+   "desc": "&7Server-Shop",
+   "item": "EMERALD",
+   "pos": [
+    29.5,
+    101,
+    -12.5,
+    0,
+    0
+   ],
+   "action": "cmd:shop",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "sell",
+   "name": "&e&lAnkäufer",
+   "desc": "&7Items verkaufen",
+   "item": "GOLD_INGOT",
+   "pos": [
+    39.5,
+    101,
+    -12.5,
+    0,
+    0
+   ],
+   "action": "cmd:sell",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "ah",
+   "name": "&6&lAuktionator",
+   "desc": "&7Auktionshaus",
+   "item": "GOLDEN_HELMET",
+   "pos": [
+    29.5,
+    101,
+    13.5,
+    180,
+    0
+   ],
+   "action": "cmd:ah",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "pwarp",
+   "name": "&b&lReiseführer",
+   "desc": "&7Spieler-Warps",
+   "item": "ENDER_PEARL",
+   "pos": [
+    39.5,
+    101,
+    13.5,
+    180,
+    0
+   ],
+   "action": "cmd:pwarp",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "battlepass",
+   "name": "&d&lPass-Meister",
+   "desc": "&7Battlepass",
+   "item": "NETHER_STAR",
+   "pos": [
+    -37.5,
+    101,
+    0.5,
+    -90,
+    0
+   ],
+   "action": "cmd:battlepass",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "quests",
+   "name": "&b&lQuestgeberin",
+   "desc": "&7Tägliche & wöchentliche Quests",
+   "item": "WRITABLE_BOOK",
+   "pos": [
+    -34.5,
+    101,
+    -6.5,
+    -90,
+    0
+   ],
+   "action": "cmd:quests",
+   "skin": "slim/alex"
+  },
+  {
+   "id": "rewards",
+   "name": "&a&lBelohnungen",
+   "desc": "&7Daily, Vote & mehr",
+   "item": "SUNFLOWER",
+   "pos": [
+    -34.5,
+    101,
+    7.5,
+    -90,
+    0
+   ],
+   "action": "cmd:rewards",
+   "skin": "slim/efe"
+  },
+  {
+   "id": "skills",
+   "name": "&e&lLehrmeister",
+   "desc": "&7Skills & Level",
+   "item": "EXPERIENCE_BOTTLE",
+   "pos": [
+    -30.5,
+    101,
+    -11.5,
+    -90,
+    0
+   ],
+   "action": "cmd:skills",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "achievements",
+   "name": "&6&lChronist",
+   "desc": "&7Erfolge",
+   "item": "GOLDEN_APPLE",
+   "pos": [
+    -30.5,
+    101,
+    12.5,
+    -90,
+    0
+   ],
+   "action": "cmd:achievements",
+   "skin": "wide/steve"
+  },
+  {
+   "id": "clan",
+   "name": "&9&lClanmeister",
+   "desc": "&7Clans gründen & verwalten",
+   "item": "BLUE_BANNER",
+   "pos": [
+    33.5,
+    101,
+    -37.5,
+    0,
+    0
+   ],
+   "action": "cmd:clan",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "bounty",
+   "name": "&c&lKopfgeldjäger",
+   "desc": "&7Kopfgelder",
+   "item": "IRON_SWORD",
+   "pos": [
+    28.5,
+    101,
+    -28.5,
+    -135,
+    0
+   ],
+   "action": "cmd:bounty",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "kits",
+   "name": "&7&lWaffenmeister",
+   "desc": "&7Kits",
+   "item": "IRON_CHESTPLATE",
+   "pos": [
+    37.5,
+    101,
+    -28.5,
+    135,
+    0
+   ],
+   "action": "cmd:kit",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "event",
+   "name": "&d&lHerold",
+   "desc": "&7Events & Zeitplan",
+   "item": "BELL",
+   "pos": [
+    -32.5,
+    102,
+    -39.5,
+    0,
+    0
+   ],
+   "action": "cmd:event",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "vote",
+   "name": "&a&lWahlhelfer",
+   "desc": "&7Voten & Schlüssel",
+   "item": "PAPER",
+   "pos": [
+    -37.5,
+    101,
+    -28.5,
+    -135,
+    0
+   ],
+   "action": "cmd:vote",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "cosmetics",
+   "name": "&d&lStylistin",
+   "desc": "&7Spuren & Haustiere",
+   "item": "BLAZE_POWDER",
+   "pos": [
+    -27.5,
+    101,
+    -28.5,
+    135,
+    0
+   ],
+   "action": "cmd:cosmetics",
+   "skin": "slim/alex"
+  },
+  {
+   "id": "keys",
+   "name": "&e&lKistenwärter",
+   "desc": "&7Deine Schlüssel",
+   "item": "TRIPWIRE_HOOK",
+   "pos": [
+    -16.5,
+    101,
+    -26.5,
+    -135,
+    0
+   ],
+   "action": "cmd:keys",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "guide",
+   "name": "&b&lNavigator",
+   "desc": "&7Alle Bereiche & Hilfe",
+   "item": "COMPASS",
+   "pos": [
+    3.5,
+    101,
+    12.5,
+    135,
+    0
+   ],
+   "action": "navi",
+   "skin": "wide/steve"
+  },
+  {
+   "id": "arena",
+   "name": "&c&lDuellmeister",
+   "desc": "&7Duelle: /duel <Spieler>",
+   "item": "DIAMOND_SWORD",
+   "pos": [
+    4.5,
+    101,
+    121.5,
+    135,
+    0
+   ],
+   "action": "msg:&7Fordere jemanden heraus: &b/duel <Spieler> &7- in der Arena darf jeder gegen jeden kämpfen!",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "settings",
+   "name": "&7&lEinstellungen",
+   "desc": "&7Scoreboard, TPA & mehr",
+   "item": "COMPARATOR",
+   "pos": [
+    -3.5,
+    101,
+    12.5,
+    -135,
+    0
+   ],
+   "action": "cmd:settings",
+   "skin": "slim/efe"
+  }
+ ],
+ "holograms": [
+  {
+   "pos": [
+    0.5,
+    107.5,
+    0.5
+   ],
+   "scale": 2.4,
+   "text": [
+    "<g:#55FFFF:#3FA9FF:#FFFFFF>&lMINESMP</g>"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    105.6,
+    0.5
+   ],
+   "scale": 1.0,
+   "text": [
+    "&7Willkommen auf dem Server!",
+    "&b/help &8· &b/discord &8· &b/rules"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    111.5,
+    -30.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#FFD86B:#FF9E2C>&lKISTEN</g>",
+    "&7Rechtsklick öffnen · Linksklick Vorschau"
+   ]
+  },
+  {
+   "pos": [
+    33.5,
+    108.0,
+    0.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#7CFF8A:#2BD46A>&lMARKT</g>",
+    "&7Shop · Verkauf · Auktionen · Warps"
+   ]
+  },
+  {
+   "pos": [
+    -24.0,
+    110.0,
+    0.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#E59BFF:#9B6BFF>&lFORTSCHRITT</g>",
+    "&7Battlepass · Quests · Skills · Erfolge"
+   ]
+  },
+  {
+   "pos": [
+    33.5,
+    111.0,
+    -33.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#7FA6FF:#4F7CFF>&lCLANS</g>",
+    "&7Clans · Kopfgelder · Kits"
+   ]
+  },
+  {
+   "pos": [
+    -33.5,
+    111.0,
+    -33.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#FF8AF0:#B45BFF>&lEVENTS</g>",
+    "&7KOTH · Boss · Turniere · Vote"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    112.0,
+    31.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#55FFFF:#4F7CFF>&lPORTALE</g>",
+    "&7Lauf einfach hinein"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    116.0,
+    150.5
+   ],
+   "scale": 3.0,
+   "text": [
+    "<g:#FF6B6B:#FFB347>&lPVP-ARENA</g>",
+    "&7Jeder gegen jeden · Combat-Tag aktiv"
+   ]
+  },
+  {
+   "pos": [
+    -14.5,
+    109.6,
+    31.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&a&lFarmwelt",
+    "&7Ressourcen abbauen"
+   ]
+  },
+  {
+   "pos": [
+    -4.5,
+    109.6,
+    31.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&b&lSurvival",
+    "&7Zufälliger Ort"
+   ]
+  },
+  {
+   "pos": [
+    5.5,
+    109.6,
+    31.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&c&lNether",
+    "&7Zufälliger Ort"
+   ]
+  },
+  {
+   "pos": [
+    15.5,
+    109.6,
+    31.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&6&lPvP-Arena",
+    "&7Kämpfen"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    109.6,
+    117.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&b&lZurück zum Spawn"
+   ]
+  }
+ ],
+ "portals": [
+  {
+   "name": "Farmwelt",
+   "action": "farmwelt",
+   "box": [
+    -16,
+    101,
+    31,
+    -14,
+    104,
+    31
+   ],
+   "back": [
+    -14.5,
+    101,
+    27.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "Survival",
+   "action": "rtp:world",
+   "box": [
+    -6,
+    101,
+    31,
+    -4,
+    104,
+    31
+   ],
+   "back": [
+    -4.5,
+    101,
+    27.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "Nether",
+   "action": "rtp:world_nether",
+   "box": [
+    4,
+    101,
+    31,
+    6,
+    104,
+    31
+   ],
+   "back": [
+    5.5,
+    101,
+    27.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "PvP-Arena",
+   "action": "warp:arena",
+   "box": [
+    14,
+    101,
+    31,
+    16,
+    104,
+    31
+   ],
+   "back": [
+    15.5,
+    101,
+    27.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "Spawn",
+   "action": "warp:spawn",
+   "box": [
+    -1,
+    101,
+    117,
+    1,
+    104,
+    117
+   ],
+   "back": [
+    0.5,
+    101,
+    120.5,
+    0,
+    0
+   ]
+  }
+ ],
+ "crates": {
+  "vote": [
+   -12,
+   102,
+   -35
+  ],
+  "daily": [
+   -6,
+   102,
+   -33
+  ],
+  "rare": [
+   0,
+   102,
+   -32
+  ],
+  "epic": [
+   6,
+   102,
+   -33
+  ],
+  "legendary": [
+   12,
+   102,
+   -35
+  ]
+ },
+ "duels": {
+  "duell1": {
+   "pos1": [
+    -63.5,
+    101,
+    140.5,
+    0,
+    0
+   ],
+   "pos2": [
+    -63.5,
+    101,
+    160.5,
+    180,
+    0
+   ]
+  },
+  "duell2": {
+   "pos1": [
+    64.5,
+    101,
+    140.5,
+    0,
+    0
+   ],
+   "pos2": [
+    64.5,
+    101,
+    160.5,
+    180,
+    0
+   ]
+  }
+ },
+ "areas": [
+  {
+   "name": "&b&lSpawn",
+   "icon": "BEACON",
+   "desc": "&7Plaza mit Brunnen",
+   "pos": [
+    0.5,
+    101,
+    12.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&6&lKisten",
+   "icon": "CHEST",
+   "desc": "&7Vote, Daily, Rare, Epic, Legendary",
+   "pos": [
+    0.5,
+    101,
+    -24.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&a&lMarkt",
+   "icon": "EMERALD",
+   "desc": "&7Shop, Verkauf, Auktionshaus, Warps",
+   "pos": [
+    24.5,
+    101,
+    0.5,
+    -90,
+    0
+   ]
+  },
+  {
+   "name": "&d&lFortschritt",
+   "icon": "NETHER_STAR",
+   "desc": "&7Battlepass, Quests, Skills, Erfolge",
+   "pos": [
+    -23.5,
+    101,
+    0.5,
+    90,
+    0
+   ]
+  },
+  {
+   "name": "&9&lClanhalle",
+   "icon": "BLUE_BANNER",
+   "desc": "&7Clans, Kopfgelder, Kits",
+   "pos": [
+    27.5,
+    101,
+    -27.5,
+    -135,
+    0
+   ]
+  },
+  {
+   "name": "&5&lEvent-Platz",
+   "icon": "BELL",
+   "desc": "&7Events, Vote, Kosmetik",
+   "pos": [
+    -27.5,
+    101,
+    -27.5,
+    135,
+    0
+   ]
+  },
+  {
+   "name": "&3&lPortale",
+   "icon": "OBSIDIAN",
+   "desc": "&7Survival, Farmwelt, Nether, Arena",
+   "pos": [
+    0.5,
+    101,
+    24.5,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "&c&lPvP-Arena",
+   "icon": "DIAMOND_SWORD",
+   "desc": "&7Jeder gegen jeden",
+   "pos": [
+    0.5,
+    101,
+    121.5,
+    0,
+    0
+   ]
+  }
+ ]
+}

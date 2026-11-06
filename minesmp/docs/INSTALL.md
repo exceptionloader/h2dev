@@ -29,16 +29,24 @@ und die Farmwelt `farmwelt`. MineSMPCore legt `plugins/MineSMPCore/*.yml` und di
 2. Dich selbst zum Owner machen: `lp user DeinName parent set owner`
 3. Befehle aus `scripts/worldguard-setup.txt` ausfuehren (Spawn-Welt geschuetzt, PvP aus).
 
-## 4. Spawn bauen und Punkte setzen (ingame als Owner)
+## 4. Spawn (baut sich automatisch)
+Beim ersten Start baut MineSMPCore den fertigen Spawn in die Spawn-Welt (ca. 280.000 Bloecke, unter 1 Sekunde):
+Plaza mit Leuchtfeuer-Brunnen, Kistenhalle, Markt, Fortschritts-Tempel, Clanhalle, Event-Buehne, vier Portale
+(Survival, Farmwelt, Nether, PvP-Arena), Arena-Insel und zwei Duell-Inseln. Spawn-Punkt, Kisten, Duell-Arenen und
+Arena-Spawn werden automatisch eingetragen. NPCs (Haendler, Pass-Meister, Questgeberin, ...) oeffnen die Menues per Klick.
+Am Spawn sind Abbauen, PvP (ausser in der Arena), Fall- und Hungerschaden aus; wer runterfaellt, landet wieder am Spawn.
+
 | Was | Befehl |
 |---|---|
-| Spawn-Punkt | `/setspawn` (in der Spawn-Welt) |
-| Crate-Kisten | Auf Block schauen: `/crate setblock vote` (daily, rare, epic, legendary) |
-| PvP-Arena (FFA) | Region mit `pvp allow` (siehe worldguard-setup.txt), dann `/duel setffa` |
-| Duell-Arena(en) | Region mit `pvp allow`, dann `/duel setarena duell1 1` und `/duel setarena duell1 2` |
+| Spawn neu bauen (z.B. nach Update) | `/minesmp buildspawn confirm` |
+| Navigator (alle Bereiche) | `/navi` oder NPC "Navigator" |
+| Am Spawn bauen duerfen | Recht `minesmp.spawn.build` (Admins haben es) |
 | KOTH-Huegel | Survival-Welt, zwei Ecken: `/eventadmin setkoth 1` und `/eventadmin setkoth 2` |
 | Boss-Spawn | `/eventadmin setboss` |
 | Welt vorgenerieren | `chunky world world` `chunky radius 5000` `chunky start` (wiederholen fuer farmwelt) |
+
+Der Bauplan wird mit `tools/build_spawn.py` erzeugt (Python + Pillow). Enthaelt die Spawn-Welt schon eigene Bauten
+(mehr als 5.000 Bloecke), wird nicht automatisch gebaut.
 
 ## 5. Optionale Dienste
 - **Discord-Webhooks**: URLs in `plugins/MineSMPCore/config.yml` -> `discord.webhooks` eintragen.

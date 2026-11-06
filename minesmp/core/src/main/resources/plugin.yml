@@ -60,3 +60,9 @@ permissions:
       minesmp.staff.list: true
       minesmp.vote: true
       minesmp.cosmetics: true
+  minesmp.spawn.build:
+    description: Darf am Spawn bauen/abbauen
+    default: op
+  minesmp.admin.spawn:
+    description: Darf den Spawn neu bauen (/minesmp buildspawn)
+    default: op

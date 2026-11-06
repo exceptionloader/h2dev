@@ -37,6 +37,15 @@ public final class StaffCommands implements Listener {
             plugin.audit().log(s, "BROADCAST", String.join(" ", a));
         }, "bc"));
         plugin.command(new SimpleCommand("minesmp", "minesmp.admin.reload", "MineSMP-Verwaltung", (s, l, a) -> {
+            if (a.length > 0 && a[0].equalsIgnoreCase("buildspawn")) {
+                if (!s.hasPermission("minesmp.admin.spawn")) { Msg.send(s, "no-permission", "{prefix}&cDazu hast du keine Berechtigung."); return; }
+                if (a.length < 2 || !a[1].equalsIgnoreCase("confirm")) {
+                    Msg.send(s, "spawn.confirm", "{prefix}&eDer Spawn wird komplett neu gebaut (eigene Aenderungen dort gehen verloren). Bestaetigen: &f/minesmp buildspawn confirm");
+                    return;
+                }
+                plugin.spawn().build(s);
+                return;
+            }
             if (a.length > 0 && a[0].equalsIgnoreCase("reload")) {
                 Msg.load(plugin);
                 plugin.reloadConfig();
@@ -51,7 +60,7 @@ public final class StaffCommands implements Listener {
             } else {
                 Msg.send(s, "minesmp.info", "{prefix}&bMineSMPCore &f{version} &7- &f/minesmp reload", "version", plugin.getPluginMeta().getVersion());
             }
-        }, (s, a) -> List.of("reload"), "msmp"));
+        }, (s, a) -> a.length == 1 ? List.of("reload", "buildspawn") : a.length == 2 && a[0].equalsIgnoreCase("buildspawn") ? List.of("confirm") : List.of(), "msmp"));
     }
 
     private void staff(CommandSender s, String l, String[] a) {

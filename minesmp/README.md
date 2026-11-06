@@ -7,6 +7,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 > Schnellstart: `./scripts/install.sh /opt/minesmp` -> [docs/INSTALL.md](docs/INSTALL.md)
 
 ## Funktionen (MineSMPCore)
+- **Fertiger Spawn**: baut sich selbst - Plaza, Kistenhalle, Markt, Fortschritts-Tempel, Clanhalle, Event-Buehne, Portale, PvP-Arena, Duell-Inseln; klickbare NPCs fuer Shop, Battlepass, Quests, Kits ...; `/navi`
 - **Survival**: Spawn-Welt (Void, geschuetzt), Survival-Welt, Farmwelt mit automatischem Wochen-Reset, /rtp, Homes, TPA, /back, /spawn, Spieler-Warps, Schlafsystem (30 %)
 - **Economy (MineCoins)**: /money /pay /baltop, Vault-Provider, Verdienst durch Mining/Farming/Holz/Fischen/Kampf/Quests, Transaktions-Log
 - **Handel**: Server-Shop-GUI mit Suche, /sell /sellhand /sellall, Auktionshaus mit Gebuehr/Steuer/Abholfach, sicherer /trade, Spieler-Shops per Schild, Verkaufsstab (Verkaufskisten)

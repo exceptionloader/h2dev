@@ -44,6 +44,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /msg | /tell, /w, /whisper, /m | `minesmp.msg` | Private Nachricht | MiscCommands |
 | /msitem | - | `minesmp.admin.items` | Custom Items geben | CustomItemService |
 | /mute | - | `minesmp.staff.mute` | Stummschalten | PunishmentService |
+| /navi | /navigator, /spawnmenu | `minesmp.spawn` | Spawn-Navigator | SpawnService |
 | /pay | /zahlen, /ueberweisen | `minesmp.pay` | Ueberweist MineCoins | EconomyCommands |
 | /playtime | /spielzeit, /pt | `minesmp.playtime` | Spielzeit | MiscCommands |
 | /profile | /profil | `minesmp.profile` | Spielerprofil | ProfileService |

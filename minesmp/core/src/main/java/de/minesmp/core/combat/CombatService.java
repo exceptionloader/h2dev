@@ -101,7 +101,8 @@ public final class CombatService implements Listener {
         else if (e.getDamager() instanceof Projectile pr && pr.getShooter() instanceof Player p) attacker = p;
         else if (e.getDamager() instanceof TNTPrimed tnt && tnt.getSource() instanceof Player p) attacker = p;
         if (attacker == null || attacker.equals(victim)) return;
-        if (!pvpAllowedIn(victim.getWorld()) && !plugin.duels().inDuel(victim)) {
+        boolean arena = plugin.spawn() != null && plugin.spawn().isPvpZone(victim.getLocation()) && plugin.spawn().isPvpZone(attacker.getLocation());
+        if (!pvpAllowedIn(victim.getWorld()) && !plugin.duels().inDuel(victim) && !arena) {
             e.setCancelled(true);
             return;
         }

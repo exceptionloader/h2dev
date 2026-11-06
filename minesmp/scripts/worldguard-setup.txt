@@ -2,7 +2,7 @@
 # Spawn-Welt komplett schuetzen (globale Region der Welt "spawn"):
 rg flag -w spawn __global__ build deny
 rg flag -w spawn __global__ pvp deny
-rg flag -w spawn __global__ mob-spawning deny
+# (Mob-Spawns verhindert MineSMPCore am Spawn selbst - "mob-spawning deny" wuerde auch die NPCs blockieren)
 rg flag -w spawn __global__ tnt deny
 rg flag -w spawn __global__ creeper-explosion deny
 rg flag -w spawn __global__ fire-spread deny

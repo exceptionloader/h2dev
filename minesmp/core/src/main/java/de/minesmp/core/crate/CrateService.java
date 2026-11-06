@@ -72,6 +72,7 @@ public final class CrateService implements Listener {
         }, "crates", "kisten"));
         plugin.command(new SimpleCommand("keys", "minesmp.crate", "Deine Schluessel", (s, l, a) -> { if (s instanceof Player p) openOverview(p); }, "schluessel"));
         Bukkit.getScheduler().runTaskTimer(plugin, this::particles, 40, 20);
+        Bukkit.getScheduler().runTaskTimer(plugin, this::ensureHolograms, 200, 100);
     }
 
     public void reload() {
@@ -232,22 +233,53 @@ public final class CrateService implements Listener {
 
     // ---------------- Bloecke / Hologramme ----------------
 
+    public boolean hasLocations() {
+        return !blockToCrate.isEmpty();
+    }
+
+    public boolean isCrateBlock(Block b) {
+        return blockToCrate.containsKey(key(b.getLocation()));
+    }
+
+    /** Ersetzt alle Kisten-Positionen (Schluessel "welt;x;y;z" -> Kisten-ID), speichert und erneuert Hologramme. */
+    public void setLocations(Map<String, String> locations) {
+        blockToCrate.clear();
+        for (var e : locations.entrySet()) if (crates.containsKey(e.getValue().toLowerCase(Locale.ROOT))) blockToCrate.put(e.getKey(), e.getValue().toLowerCase(Locale.ROOT));
+        saveLocations();
+        spawnHolograms();
+    }
+
+    private final Map<String, java.util.UUID> holoIds = new java.util.HashMap<>();
+
+    /** Hologramme sind nicht dauerhaft gespeichert; fehlen sie in geladenen Chunks, werden sie neu gesetzt. */
+    private void ensureHolograms() {
+        for (var e : blockToCrate.entrySet()) {
+            java.util.UUID id = holoIds.get(e.getKey());
+            Entity ent = id == null ? null : Bukkit.getEntity(id);
+            if (ent != null && ent.isValid()) continue;
+            Location l = PlayerData.locFromString(e.getKey());
+            Crate c = crates.get(e.getValue());
+            if (l == null || c == null || !l.isChunkLoaded()) continue;
+            holoIds.put(e.getKey(), spawnHolo(l, c).getUniqueId());
+        }
+    }
+
+    private TextDisplay spawnHolo(Location base, Crate c) {
+        Location l = base.clone().add(0.5, 1.6, 0.5);
+        return l.getWorld().spawn(l, TextDisplay.class, td -> {
+            td.text(Text.c(c.name + "\n&7Rechtsklick: &fOeffnen\n&7Linksklick: &fVorschau"));
+            td.setBillboard(Display.Billboard.CENTER);
+            td.setPersistent(false);
+            td.getPersistentDataContainer().set(holoTag, PersistentDataType.BYTE, (byte) 1);
+        });
+    }
+
     private void spawnHolograms() {
         for (var w : Bukkit.getWorlds()) {
             for (Entity e : w.getEntitiesByClass(TextDisplay.class)) if (e.getPersistentDataContainer().has(holoTag)) e.remove();
         }
-        for (var e : blockToCrate.entrySet()) {
-            Location l = PlayerData.locFromString(e.getKey());
-            Crate c = crates.get(e.getValue());
-            if (l == null || c == null) continue;
-            l.add(0.5, 1.6, 0.5);
-            l.getWorld().spawn(l, TextDisplay.class, td -> {
-                td.text(Text.c(c.name + "\n&7Rechtsklick: &fOeffnen\n&7Linksklick: &fVorschau"));
-                td.setBillboard(Display.Billboard.CENTER);
-                td.setPersistent(false);
-                td.getPersistentDataContainer().set(holoTag, PersistentDataType.BYTE, (byte) 1);
-            });
-        }
+        holoIds.clear();
+        ensureHolograms();
     }
 
     private void particles() {

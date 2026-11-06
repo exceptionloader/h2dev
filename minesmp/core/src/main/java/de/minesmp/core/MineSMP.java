@@ -95,6 +95,7 @@ public final class MineSMP extends JavaPlugin {
     private WorldService worlds;
     private CustomItemService customItems;
     private CosmeticService cosmetics;
+    private de.minesmp.core.world.SpawnService spawn;
     private Placeholders placeholders;
     private final Set<String> disabledCommands = new HashSet<>();
 
@@ -166,6 +167,7 @@ public final class MineSMP extends JavaPlugin {
         new MiscCommands(this);
         cosmetics = new CosmeticService(this);
         events = new EventManager(this);
+        spawn = new de.minesmp.core.world.SpawnService(this);
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
         pack = new de.minesmp.core.display.ResourcePackService(this);
@@ -262,5 +264,6 @@ public final class MineSMP extends JavaPlugin {
     public WorldService worlds() { return worlds; }
     public CustomItemService customItems() { return customItems; }
     public CosmeticService cosmetics() { return cosmetics; }
+    public de.minesmp.core.world.SpawnService spawn() { return spawn; }
     public Placeholders placeholders() { return placeholders; }
 }

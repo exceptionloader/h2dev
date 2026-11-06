@@ -53,6 +53,7 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 | `minesmp.money.others`, `minesmp.spawn.others` | Fremde Kontostaende / andere zum Spawn |
 
 ## Admin
+`minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn),
 `minesmp.admin.eco` (/eco), `minesmp.admin.crate` (/crate givekey/setblock), `minesmp.admin.duel` (Arenen),
 `minesmp.admin.event` (/eventadmin), `minesmp.admin.farmwelt` (/farmwelt reset), `minesmp.admin.items` (/msitem),
 `minesmp.admin.reload` (/minesmp reload), `minesmp.admin.setspawn`, `minesmp.admin.audit` (/auditlog), `minesmp.admin.vote` (/fakevote),

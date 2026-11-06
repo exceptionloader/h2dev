@@ -63,6 +63,12 @@ worlds:
     reset-day: SUNDAY
     reset-time: '04:00'
 
+# MineSMP-Spawn (Bauplan im Plugin). auto: beim ersten Start automatisch bauen, wenn die Spawn-Welt noch leer ist.
+# Neu bauen: /minesmp buildspawn confirm
+spawn-build:
+  auto: true
+  blocks-per-tick: 30000
+
 spawn-particles:
   enabled: true
 
