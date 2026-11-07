@@ -27,6 +27,11 @@ public final class Text {
         return LEGACY.deserialize(gradients(s));
     }
 
+    /** Fuer alte APIs (z.B. Bukkit-BossBar): Farbcodes als Section-Zeichen. */
+    public static String legacy(String s) {
+        return net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().serialize(c(s));
+    }
+
     /** Ersetzt <g:#55FFFF:#4F7CFF>Text</g> durch einzelne Hex-Farben pro Zeichen. Fuehrende &l/&o usw. bleiben erhalten. */
     public static String gradients(String s) {
         if (s.indexOf("<g:") < 0) return s;

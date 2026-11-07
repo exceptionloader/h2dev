@@ -48,7 +48,7 @@ import java.util.UUID;
  */
 public final class CustomItemService implements Listener {
     private final MineSMP plugin;
-    private final NamespacedKey idKey, usesKey;
+    private final NamespacedKey idKey, usesKey, vacKey;
     private final Map<String, ConfigurationSection> defs = new LinkedHashMap<>();
     private final Map<UUID, BlockFace> lastFace = new HashMap<>();
     private final Set<UUID> breaking = new HashSet<>();
@@ -58,10 +58,24 @@ public final class CustomItemService implements Listener {
         this.plugin = plugin;
         this.idKey = new NamespacedKey(plugin, "custom_item");
         this.usesKey = new NamespacedKey(plugin, "uses");
+        this.vacKey = new NamespacedKey(plugin, "vacuum_on");
         YamlConfiguration y = plugin.yaml("custom-items.yml");
         ConfigurationSection items = y.getConfigurationSection("items");
         if (items != null) for (String id : items.getKeys(false)) defs.put(id.toLowerCase(Locale.ROOT), items.getConfigurationSection(id));
+        // Neue Items/Rezepte aus Updates ergaenzen, ohne eigene Aenderungen zu ueberschreiben
+        YamlConfiguration def = new YamlConfiguration();
+        try (var in = plugin.getResource("custom-items.yml")) {
+            if (in != null) def = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (java.io.IOException ignored) { }
+        ConfigurationSection defItems = def.getConfigurationSection("items");
+        if (defItems != null) for (String id : defItems.getKeys(false)) defs.putIfAbsent(id.toLowerCase(Locale.ROOT), defItems.getConfigurationSection(id));
         loadRecipes(y.getConfigurationSection("recipes"));
+        ConfigurationSection defRec = def.getConfigurationSection("recipes"), ownRec = y.getConfigurationSection("recipes");
+        if (defRec != null) {
+            YamlConfiguration missing = new YamlConfiguration();
+            for (String id : defRec.getKeys(false)) if (ownRec == null || !ownRec.contains(id)) missing.set(id, defRec.getConfigurationSection(id));
+            loadRecipes(missing);
+        }
         plugin.listen(this);
         plugin.command(new SimpleCommand("msitem", "minesmp.admin.items", "Custom Items geben", (s, l, a) -> {
             if (a.length < 2) { Msg.send(s, "usage", "{prefix}&7Benutzung: &b{usage}", "usage", "/msitem <Spieler> <Item> [Anzahl]"); return; }
@@ -74,6 +88,7 @@ public final class CustomItemService implements Listener {
             plugin.audit().log(s, "GIVE_ITEM", t.getName() + " " + n + "x " + a[1]);
             Msg.send(s, "msitem.given", "{prefix}&aItem gegeben.");
         }, (s, a) -> a.length == 2 ? new ArrayList<>(defs.keySet()) : a.length == 1 ? null : List.of()));
+        Bukkit.getScheduler().runTaskTimer(plugin, this::vacuumTick, 10, 10);
     }
 
     public ItemStack create(String id) {
@@ -83,6 +98,7 @@ public final class CustomItemService implements Listener {
         int uses = s.getInt("uses", 0);
         it.editMeta(m -> {
             m.getPersistentDataContainer().set(idKey, PersistentDataType.STRING, id.toLowerCase(Locale.ROOT));
+            if (s.isString("ability") && s.getString("ability", "").equalsIgnoreCase("VACUUM")) m.getPersistentDataContainer().set(vacKey, PersistentDataType.BYTE, (byte) 1);
             if (uses > 0) {
                 m.getPersistentDataContainer().set(usesKey, PersistentDataType.INTEGER, uses);
                 List<net.kyori.adventure.text.Component> lore = m.hasLore() ? new ArrayList<>(m.lore()) : new ArrayList<>();
@@ -90,7 +106,51 @@ public final class CustomItemService implements Listener {
                 m.lore(lore);
             }
         });
+        ConfigurationSection ces = s.getConfigurationSection("custom-enchants");
+        if (ces != null && plugin.enchants() != null) for (String k : ces.getKeys(false)) plugin.enchants().apply(it, k.toLowerCase(Locale.ROOT), ces.getInt(k, 1));
         return it;
+    }
+
+    public String abilityOf(ItemStack it) {
+        return ability(it);
+    }
+
+    /** Zaehlt Custom Items mit dieser ID im Inventar. */
+    public int count(Player p, String id) {
+        int n = 0;
+        for (ItemStack it : p.getInventory().getStorageContents()) if (id.equalsIgnoreCase(idOf(it))) n += it.getAmount();
+        return n;
+    }
+
+    /** Entfernt n Custom Items mit dieser ID (nur wenn genug vorhanden). */
+    public boolean take(Player p, String id, int n) {
+        if (count(p, id) < n) return false;
+        ItemStack[] c = p.getInventory().getStorageContents();
+        for (int i = 0; i < c.length && n > 0; i++) {
+            if (!id.equalsIgnoreCase(idOf(c[i]))) continue;
+            int k = Math.min(n, c[i].getAmount());
+            c[i].setAmount(c[i].getAmount() - k);
+            n -= k;
+        }
+        p.getInventory().setStorageContents(c);
+        return true;
+    }
+
+    /** Verbraucht eine Nutzung (uses) des Items in der Hand. */
+    public void useCharge(Player p, ItemStack hand) {
+        Integer uses = hand.hasItemMeta() ? hand.getItemMeta().getPersistentDataContainer().get(usesKey, PersistentDataType.INTEGER) : null;
+        if (uses == null) return;
+        if (uses <= 1) {
+            hand.setAmount(hand.getAmount() - 1);
+            Msg.send(p, "item.used-up", "{prefix}&7Dein &f{item} &7ist aufgebraucht.", "item", Items.name(hand));
+            return;
+        }
+        hand.editMeta(m -> {
+            m.getPersistentDataContainer().set(usesKey, PersistentDataType.INTEGER, uses - 1);
+            List<net.kyori.adventure.text.Component> lore = m.hasLore() ? new ArrayList<>(m.lore()) : new ArrayList<>();
+            if (!lore.isEmpty()) lore.set(lore.size() - 1, Text.item("&7Verbleibende Nutzungen: &f" + (uses - 1)));
+            m.lore(lore);
+        });
     }
 
     public String idOf(ItemStack it) {
@@ -118,11 +178,11 @@ public final class CustomItemService implements Listener {
                     ShapedRecipe sr = new ShapedRecipe(key, result);
                     sr.shape(r.getStringList("shape").toArray(new String[0]));
                     ConfigurationSection ing = r.getConfigurationSection("ingredients");
-                    for (String k : ing.getKeys(false)) sr.setIngredient(k.charAt(0), Material.valueOf(ing.getString(k).toUpperCase(Locale.ROOT)));
+                    for (String k : ing.getKeys(false)) sr.setIngredient(k.charAt(0), choice(ing.getString(k)));
                     Bukkit.addRecipe(sr);
                 } else {
                     ShapelessRecipe sl = new ShapelessRecipe(key, result);
-                    for (String m : r.getStringList("ingredients")) sl.addIngredient(Material.valueOf(m.toUpperCase(Locale.ROOT)));
+                    for (String m : r.getStringList("ingredients")) sl.addIngredient(choice(m));
                     Bukkit.addRecipe(sl);
                 }
                 recipes.add(key);
@@ -131,6 +191,16 @@ public final class CustomItemService implements Listener {
             }
         }
         if (!recipes.isEmpty()) plugin.getLogger().info(recipes.size() + " eigene Rezepte registriert.");
+    }
+
+    /** Zutat: Material oder "custom:<id>" fuer ein Custom Item. */
+    private org.bukkit.inventory.RecipeChoice choice(String s) {
+        if (s.toLowerCase(Locale.ROOT).startsWith("custom:")) {
+            ItemStack it = create(s.substring(7));
+            if (it == null) throw new IllegalArgumentException("Custom Item " + s + " fehlt");
+            return new org.bukkit.inventory.RecipeChoice.ExactChoice(it);
+        }
+        return new org.bukkit.inventory.RecipeChoice.MaterialChoice(Material.valueOf(s.toUpperCase(Locale.ROOT)));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -153,7 +223,15 @@ public final class CustomItemService implements Listener {
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
         if (breaking.contains(p.getUniqueId())) return;
-        String ab = ability(p.getInventory().getItemInMainHand());
+        ItemStack tool = p.getInventory().getItemInMainHand();
+        crystalDrop(p, e.getBlock());
+        String ab = ability(tool);
+        if (ab == null && plugin.enchants() != null && plugin.enchants().level(tool, "bohrer") > 0) ab = "HAMMER";
+        int ader = plugin.enchants() == null ? 0 : plugin.enchants().level(tool, "ader");
+        if (ader > 0 && p.isSneaking() && isOre(e.getBlock().getType())) {
+            vein(p, e.getBlock(), ader * 8);
+            return;
+        }
         if (ab == null) return;
         if (ab.equals("HAMMER")) {
             BlockFace face = lastFace.getOrDefault(p.getUniqueId(), BlockFace.UP);
@@ -186,6 +264,107 @@ public final class CustomItemService implements Listener {
             }
             breakAll(p, logs);
         }
+    }
+
+    private static boolean isOre(Material m) {
+        return m.name().endsWith("_ORE") || m == Material.ANCIENT_DEBRIS;
+    }
+
+    private void vein(Player p, Block start, int max) {
+        Material type = start.getType();
+        List<Block> found = new ArrayList<>();
+        Deque<Block> q = new ArrayDeque<>();
+        Set<Block> seen = new HashSet<>();
+        q.add(start);
+        seen.add(start);
+        while (!q.isEmpty() && found.size() < max) {
+            Block b = q.poll();
+            for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) for (int dz = -1; dz <= 1; dz++) {
+                Block n = b.getRelative(dx, dy, dz);
+                if (seen.add(n) && n.getType() == type) { found.add(n); q.add(n); }
+            }
+        }
+        breakAll(p, found);
+    }
+
+    private void crystalDrop(Player p, Block b) {
+        if (!isOre(b.getType()) || !defs.containsKey("kristall")) return;
+        ItemStack tool = p.getInventory().getItemInMainHand();
+        if (tool.containsEnchantment(org.bukkit.enchantments.Enchantment.SILK_TOUCH)) return;
+        double chance = b.getType() == Material.ANCIENT_DEBRIS ? plugin.getConfig().getDouble("custom-items.crystal-chance-debris", 0.25)
+                : plugin.getConfig().getDouble("custom-items.crystal-chance-ore", 0.03);
+        if (java.util.concurrent.ThreadLocalRandom.current().nextDouble() >= chance) return;
+        b.getWorld().dropItemNaturally(b.getLocation().add(0.5, 0.5, 0.5), create("kristall"));
+        p.playSound(b.getLocation(), org.bukkit.Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1, 1.3f);
+        Msg.actionbar(p, "item.crystal", "&d&l+1 Mine-Kristall");
+    }
+
+    // ---------------- Staubsauger ----------------
+
+    private boolean vacuumOn(ItemStack it) {
+        if (!"VACUUM".equals(ability(it))) return false;
+        Byte b = it.getItemMeta().getPersistentDataContainer().get(vacKey, PersistentDataType.BYTE);
+        return b == null || b == 1;
+    }
+
+    private void vacuumTick() {
+        double r = plugin.getConfig().getDouble("custom-items.vacuum-radius", 6);
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.getGameMode() == org.bukkit.GameMode.SPECTATOR) continue;
+            boolean has = vacuumOn(p.getInventory().getItemInOffHand());
+            if (!has) for (ItemStack it : p.getInventory().getStorageContents()) if (it != null && it.getType() == Material.HOPPER && vacuumOn(it)) { has = true; break; }
+            if (!has) continue;
+            org.bukkit.Location to = p.getLocation().add(0, 0.5, 0);
+            for (org.bukkit.entity.Entity en : p.getNearbyEntities(r, r, r)) {
+                if (!(en instanceof org.bukkit.entity.Item item) || item.getPickupDelay() > 10 || item.isDead()) continue;
+                if (p.getUniqueId().equals(item.getThrower()) && item.getTicksLived() < 100) continue;
+                item.teleport(to);
+                item.setPickupDelay(0);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onVacuumToggle(PlayerInteractEvent e) {
+        if (e.getHand() != EquipmentSlot.HAND || (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK)) return;
+        ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
+        if (!"VACUUM".equals(ability(hand))) return;
+        e.setCancelled(true);
+        boolean on = !vacuumOn(hand);
+        hand.editMeta(m -> m.getPersistentDataContainer().set(vacKey, PersistentDataType.BYTE, (byte) (on ? 1 : 0)));
+        Msg.actionbar(e.getPlayer(), "item.vacuum", "&d&lStaubsauger: {state}", "state", on ? "&aAN" : "&cAUS");
+        e.getPlayer().playSound(e.getPlayer().getLocation(), org.bukkit.Sound.BLOCK_LEVER_CLICK, 1, on ? 1.4f : 0.8f);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlaceCustom(org.bukkit.event.block.BlockPlaceEvent e) {
+        String id = idOf(e.getItemInHand());
+        if (id != null && defs.containsKey(id) && defs.get(id).getBoolean("no-place", true) && e.getItemInHand().getType() != Material.SPAWNER) e.setCancelled(true);
+    }
+
+    // ---------------- Enterhaken ----------------
+
+    @EventHandler(ignoreCancelled = true)
+    public void onFish(org.bukkit.event.player.PlayerFishEvent e) {
+        Player p = e.getPlayer();
+        ItemStack rod = p.getInventory().getItemInMainHand();
+        if (!"GRAPPLE".equals(ability(rod))) rod = p.getInventory().getItemInOffHand();
+        if (!"GRAPPLE".equals(ability(rod))) return;
+        if (e.getState() != org.bukkit.event.player.PlayerFishEvent.State.IN_GROUND && e.getState() != org.bukkit.event.player.PlayerFishEvent.State.REEL_IN) return;
+        if (e.getState() == org.bukkit.event.player.PlayerFishEvent.State.REEL_IN && !e.getHook().getLocation().subtract(0, 0.3, 0).getBlock().getType().isSolid()) return;
+        if (!plugin.getConfig().getBoolean("custom-items.grapple-in-combat", false) && plugin.combat().isTagged(p)) {
+            Msg.actionbar(p, "item.grapple-combat", "&cIm Kampf nicht nutzbar");
+            return;
+        }
+        if (!plugin.cooldowns().tryUse(p.getUniqueId(), "grapple", plugin.getConfig().getInt("custom-items.grapple-cooldown-ms", 2000))) return;
+        org.bukkit.util.Vector v = e.getHook().getLocation().toVector().subtract(p.getLocation().toVector());
+        double len = v.length();
+        if (len < 1.5) return;
+        org.bukkit.util.Vector vel = v.normalize().multiply(Math.min(2.6, 0.6 + len * 0.12));
+        vel.setY(Math.max(vel.getY(), 0) + 0.45);
+        p.setVelocity(vel);
+        p.setFallDistance(0);
+        p.playSound(p.getLocation(), org.bukkit.Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 1, 0.8f);
     }
 
     private void breakAll(Player p, List<Block> blocks) {

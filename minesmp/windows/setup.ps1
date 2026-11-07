@@ -118,6 +118,8 @@ Get-ModrinthPlugin 'worldedit' 'WorldEdit.jar'
 Get-ModrinthPlugin 'worldguard' 'WorldGuard.jar'
 Get-ModrinthPlugin 'coreprotect' 'CoreProtect.jar'
 Get-ModrinthPlugin 'gsit' 'GSit.jar'
+# Sprachchat (Spieler brauchen die Simple-Voice-Chat-Mod im Client, Port 24454 UDP)
+Get-ModrinthPlugin 'simple-voice-chat' 'VoiceChat.jar'
 $vault = Join-Path $Plugins 'Vault.jar'
 if (-not (Test-Path $vault)) {
     Invoke-WebRequest 'https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar' -OutFile $vault -UseBasicParsing
@@ -194,6 +196,16 @@ if ($firstRun) {
     Start-Sleep -Seconds 6
     if ($ownerName) { $proc.StandardInput.WriteLine("lp user $ownerName parent set owner") }
     Write-NoBom (Join-Path $Server '.minesmp-setup-done') (Get-Date).ToString('s')
+}
+# Neue Raenge aus Updates (z.B. Premium) einmalig nachladen
+$rankMarker = Join-Path $Server '.minesmp-raenge-v2'
+if ($ready -and -not (Test-Path $rankMarker)) {
+    if (-not $firstRun) {
+        Copy-Item (Join-Path $Root 'files\minesmp-raenge.json.gz') (Join-Path $Plugins 'LuckPerms') -Force
+        $proc.StandardInput.WriteLine('lp import minesmp-raenge')
+        Start-Sleep -Seconds 6
+    }
+    Write-NoBom $rankMarker (Get-Date).ToString('s')
 }
 
 Write-Host ''

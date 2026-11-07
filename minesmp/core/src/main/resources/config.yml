@@ -112,6 +112,56 @@ economy:
     vip: 1.1
     mvp: 1.2
     legende: 1.3
+    premium: 1.35
+
+# Zweitwaehrungen: Gems (Store/Events, /gemshop) und Sterne (aktive Spielzeit, /sterneshop)
+tokens:
+  gems:
+    allow-pay: true
+  stars:
+    allow-pay: false
+    minutes-per-reward: 30      # alle X Minuten aktive Spielzeit (AFK zaehlt nicht) ...
+    playtime-reward: 1          # ... gibt es so viele Sterne (+ minesmp.stars.bonus.<n>)
+
+# Keyall: alle Online-Spieler bekommen Schluessel (Countdown im Scoreboard: %keyall%)
+keyall:
+  enabled: true
+  interval-minutes: 60          # ab Mitternacht gerechnet (60 = jede volle Stunde)
+  min-online: 1
+  skip-afk: true
+  warn-seconds: [300, 60, 10, 3, 2, 1]
+  display: '&e1x Vote-Schluessel &7+ &e1 Stern'
+  reward:
+    keys: {vote: 1}
+    stars: 1
+
+# Kaufauftraege (/order)
+orders:
+  max-per-player: 5             # mehr ueber minesmp.orders.limit.<n>
+  max-amount: 100000
+  duration-hours: 72
+  announce-above: 100000
+  blocked-items: [BEDROCK, BARRIER, COMMAND_BLOCK, STRUCTURE_BLOCK, SPAWNER, TRIAL_SPAWNER, VAULT, END_PORTAL_FRAME]
+
+# Mitspieler-Suche (/mitspieler <Text>)
+lfg:
+  minutes: 20
+  cooldown-seconds: 300
+
+# Grundstuecke (/claim) - Chunk-basiert
+claims:
+  worlds: [world, world_nether, world_the_end]
+  default-max: 9                # mehr ueber minesmp.claims.<n>
+  free-chunks: 1
+  cost-per-chunk: 2500
+  min-distance-from-spawn: 150
+  clan-trust: true              # Clan-Mitglieder duerfen automatisch bauen
+  # Raid-Zeit: TNT-Explosionen und fremde Kisten sind in Grundstuecken erlaubt (Format: TAG|DAILY HH:mm-HH:mm)
+  raid:
+    enabled: true
+    allow-explosions: true
+    allow-containers: true
+    windows: ['SATURDAY 19:00-21:00', 'SUNDAY 19:00-21:00']
 
 auction:
   max-listings: 5          # mehr ueber minesmp.ah.limit.<n>
@@ -206,6 +256,7 @@ daily:
     7:
       keys: {rare: 1}
       bp-xp: 100
+      gems: 3
 
 vote:
   links:
@@ -214,6 +265,7 @@ vote:
   party-votes: 50
   reward:
     money: 250
+    gems: 1
     keys: {vote: 1}
   party-reward:
     keys: {rare: 1}
@@ -252,6 +304,14 @@ chat:
 custom-items:
   treefeller-requires-sneak: true
   treefeller-max: 96
+  crystal-chance-ore: 0.03       # Chance auf einen Mine-Kristall pro Erz (ohne Behutsamkeit)
+  crystal-chance-debris: 0.25
+  vacuum-radius: 6
+  grapple-cooldown-ms: 2000
+  grapple-in-combat: false
+
+custom-enchants:
+  max-per-item: 4
 
 discord:
   large-payment: 1000000
@@ -288,6 +348,11 @@ help:
   - '&b/daily, /rewards, /vote &8- &7Belohnungen'
   - '&b/event &8- &7Events (KOTH, Supply Drops, Turniere ...)'
   - '&b/pwarp &8- &7Spieler-Warps  &8| &b/farmwelt &8- &7Ressourcenwelt'
+  - '&b/gems, /gemshop, /sterne, /sterneshop &8- &7Gems & Sterne'
+  - '&b/spawner &8- &7Spawner-Shop  &8| &b/order &8- &7Kaufauftraege'
+  - '&b/claim &8- &7Grundstuecke (trust, raid ...)  &8| &b/keyall &8- &7Naechstes Keyall'
+  - '&b/ce &8- &7Verzauberer  &8| &b/poi &8- &7Meteoriten & Kampfzonen'
+  - '&b/mitspieler <Text> &8- &7Mitspieler suchen'
   - '&b/profile, /stats, /playtime &8- &7Statistiken'
   - '&b/settings &8- &7Einstellungen  &8| &b/cosmetics &8- &7Kosmetik'
   - '&b/msg, /r, /ignore &8- &7Private Nachrichten'

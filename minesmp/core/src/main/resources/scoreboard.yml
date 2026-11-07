@@ -4,9 +4,10 @@
 #  Rechte Spalte im Scoreboard: alles nach <r> steht rechtsbuendig.
 #  Platzhalter: %online% %max_players% %balance% %kills% %deaths% %kd% %killstreak% %level% %clan% %clan_tag%
 #  %clan_level% %rank_short% %bounty% %event% %combat% %bp_tier% %daily_streak% %coords% %direction% %world%
-#  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% ... (PlaceholderAPI geht auch)
+#  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% %gems% %stars% %keyall% %raid%
+#  %claims% %claim_owner% %poi% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 5
+design-version: 6
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -25,36 +26,36 @@ lines:
   - '<g:#55FFFF:#4F7CFF>&lᴘʀᴏꜰɪʟ</g>'
   - ' &8▪ &7ʀᴀɴɢ<r>%rank_text%'
   - ' &8▪ &7ɢᴇʟᴅ<r>&a%balance% &2⛃'
-  - ' &8▪ &7ʟᴇᴠᴇʟ<r>&e%level% &6✦'
+  - ' &8▪ &7ɢᴇᴍs<r>&d%gems% &5◆'
+  - ' &8▪ &7sᴛᴇʀɴᴇ<r>&e%stars% &6✯'
+  - ' &8▪ &7ʟᴇᴠᴇʟ<r>&b%level% &3✦'
   - '&7'
-  - '<g:#55FFFF:#4F7CFF>&lᴋᴀᴍᴘꜰ</g>'
+  - '<g:#55FFFF:#4F7CFF>&lsᴇʀᴠᴇʀ</g>'
+  - ' &8▪ &7ᴋᴇʏᴀʟʟ<r>&6%keyall% &e✪'
   - ' &8▪ &7ᴋɪʟʟs<r>&c%kills% &4⚔'
-  - ' &8▪ &7ᴛᴏᴅᴇ<r>&f%deaths% &8☠'
+  - ' &8▪ &7ᴏɴʟɪɴᴇ<r>&f%online% &8● '
   - '&f'
   - '<g:#55FFFF:#4F7CFF>&lᴄʟᴀɴ</g><r>&8[&b%clan_tag%&8]'
-  - ' &8▪ &f%clan%<r>&8ʟᴠ &b%clan_level%'
-  - '&3'
-  - ' &8▪ &7ᴏɴʟɪɴᴇ<r>&f%online% &8● '
   - '<g:#4F7CFF:#55FFFF:#FFFFFF>ᴍɪɴᴇsᴍᴘ.ᴅᴇ</g>'
 
 # ---- Version mit Ressourcenpaket (Logo, farbige Kaestchen, Icons) ----
 # Kuerzel: :logo: :profil: :kampf: :clan: :server: :event: :daily: :vote: :combat: :web:
-#          :coin: :star: :sword: :skull: :shield: :people: :crown: :pin: :clock: :heart: :bolt: :arrow: :dot:
+#          :coin: :star: :sword: :skull: :shield: :people: :crown: :pin: :clock: :heart: :bolt: :arrow: :dot: :gem: :key:
 # Spieler ohne Paket sehen automatisch die Text-Version oben (lines / combat-lines).
 title-pack: ':board:'
 # Genau 15 Zeilen, damit der Rahmen passt. :sp8: = Abstand zum rechten Rand.
 lines-pack:
   - '&0'
   - ' :coin: &7Geld<r>&a%balance%:sp8:'
-  - ' :star: &7Level<r>&e%level%:sp8:'
+  - ' :gem: &7Gems<r>&d%gems%:sp8:'
+  - ' :star: &7Sterne<r>&e%stars%:sp8:'
+  - ' :arrow: &7Level<r>&b%level%:sp8:'
   - ' :crown: &7Rang<r>%rank_badge%:sp8:'
   - ' :sword: &7Kills<r>&c%kills%:sp8:'
-  - ' :skull: &7Tode<r>&f%deaths%:sp8:'
   - ' :shield: &7Clan<r>&b%clan_tag%:sp8:'
   - ' :people: &7Online<r>&f%online%:sp8:'
-  - ' :bolt: &7Ping<r>&d%ping%ms:sp8:'
+  - ' :key: &7Keyall<r>&6%keyall%:sp8:'
   - ' :clock: &7Event<r>&b%next_event_in%:sp8:'
-  - ' :heart: &7Spielzeit<r>&a%playtime_short%:sp8:'
   - '&1'
   - ' <g:#55FFFF:#4F7CFF>&lMINESMP.DE</g>'
   - ' &f%xp%&7/&f%xp_need% &8XP'
@@ -114,7 +115,7 @@ tab:
     - ' '
 
 # Reihenfolge im Tab (LuckPerms-Gruppen, oben = zuerst)
-sort-groups: [owner, admin, developer, moderator, supporter, builder, legende, mvp, vip, default]
+sort-groups: [owner, admin, developer, moderator, supporter, builder, premium, legende, mvp, vip, default]
 
 # Info-Leiste oben (Bossbar). Eintraege wechseln, die Leiste laeuft pro Eintrag ab.
 # Waehrend Events/Clan-Kriegen wird deren Bossbar gezeigt. Farben: BLUE GREEN PINK PURPLE RED WHITE YELLOW
@@ -125,6 +126,8 @@ infobar:
     - {text: '&d&lᴇᴠᴇɴᴛ &8┃ &f%next_event% &7ɪɴ &d%next_event_in%', text-pack: ':event: &f%next_event% &7in &d%next_event_in%', seconds: 15, color: PURPLE}
     - {text: '&a&lᴅᴀɪʟʏ &8┃ &7ʙᴇʟᴏʜɴᴜɴɢ ᴀʙʜᴏʟᴇɴ &a/daily &8┃ &7sᴛʀᴇᴀᴋ &f%daily_streak%', text-pack: ':daily: &7Belohnung abholen &a/daily &8┃ &7Streak &f%daily_streak%', seconds: 12, color: GREEN}
     - {text: '&b&lᴄʟᴀɴ &8┃ &f%clan% &8┃ &7ʟᴇᴠᴇʟ &e%level% &8┃ &7ʙᴀᴛᴛʟᴇᴘᴀss &d%bp_tier%', text-pack: ':clan: &f%clan% &8┃ :star: &7Level &e%level% &8┃ &7Pass &d%bp_tier%', seconds: 12, color: BLUE}
+    - {text: '&6&lᴋᴇʏᴀʟʟ &8┃ &7ɪɴ &6%keyall% &8┃ &7ɢᴇᴍs &d%gems% &8┃ &7sᴛᴇʀɴᴇ &e%stars%', text-pack: ':key: &7Keyall in &6%keyall% &8┃ :gem: &d%gems% &8┃ :star: &e%stars%', seconds: 12, color: YELLOW}
+    - {text: '&c&lʀᴀɪᴅ-ᴢᴇɪᴛ &8┃ %raid% &8┃ &7ɢʀᴜɴᴅsᴛᴜᴇᴄᴋ &b/claim', text-pack: ':shield: &7Raid-Zeit %raid% &8┃ &7Grundstueck sichern &b/claim', seconds: 10, color: RED}
     - {text: '&e&lᴠᴏᴛᴇ &8┃ &7ꜰʀᴇɪᴇ sᴄʜʟᴜᴇssᴇʟ ᴍɪᴛ &e/vote', text-pack: ':vote: &7Freie Schluessel mit &e/vote', seconds: 12, color: YELLOW}
 
 # Dauerhafte Info ueber der Hotbar (Actionbar). Kampf-, Teleport- und Einnahmen-Meldungen haben Vorrang.

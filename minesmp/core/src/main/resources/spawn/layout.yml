@@ -333,6 +333,96 @@
    ],
    "action": "cmd:settings",
    "skin": "slim/efe"
+  },
+  {
+   "id": "gemshop",
+   "name": "&d&lGem-Händlerin",
+   "desc": "&7Gem-Shop: Ränge, Spawner, Items",
+   "item": "AMETHYST_CLUSTER",
+   "pos": [
+    27.5,
+    101,
+    -6.5,
+    0,
+    0
+   ],
+   "action": "cmd:gemshop",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "sterneshop",
+   "name": "&e&lSternenhändler",
+   "desc": "&7Sterne-Shop",
+   "item": "NETHER_STAR",
+   "pos": [
+    33.5,
+    101,
+    -6.5,
+    0,
+    0
+   ],
+   "action": "cmd:sterneshop",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "ce",
+   "name": "&5&lVerzauberer",
+   "desc": "&7Eigene Verzauberungen",
+   "item": "ENCHANTED_BOOK",
+   "pos": [
+    39.5,
+    101,
+    -6.5,
+    0,
+    0
+   ],
+   "action": "cmd:ce",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "spawner",
+   "name": "&b&lSpawner-Händler",
+   "desc": "&7Spawner kaufen",
+   "item": "SPAWNER",
+   "pos": [
+    27.5,
+    101,
+    7.5,
+    180,
+    0
+   ],
+   "action": "cmd:spawner",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "orders",
+   "name": "&a&lAuftragsbrett",
+   "desc": "&7Kaufaufträge erstellen & liefern",
+   "item": "WRITABLE_BOOK",
+   "pos": [
+    33.5,
+    101,
+    7.5,
+    180,
+    0
+   ],
+   "action": "cmd:order",
+   "skin": "slim/efe"
+  },
+  {
+   "id": "claim",
+   "name": "&3&lLandvermesser",
+   "desc": "&7Grundstücke & Raid-Zeit",
+   "item": "GRASS_BLOCK",
+   "pos": [
+    39.5,
+    101,
+    7.5,
+    180,
+    0
+   ],
+   "action": "cmd:claim info",
+   "skin": "wide/steve"
   }
  ],
  "holograms": [
@@ -380,7 +470,7 @@
    "scale": 2.0,
    "text": [
     "<g:#7CFF8A:#2BD46A>&lMARKT</g>",
-    "&7Shop · Verkauf · Auktionen · Warps"
+    "&7Shop · Gems · Sterne · Spawner · Aufträge"
    ]
   },
   {
@@ -689,7 +779,7 @@
   {
    "name": "&a&lMarkt",
    "icon": "EMERALD",
-   "desc": "&7Shop, Verkauf, Auktionshaus, Warps",
+   "desc": "&7Shop, Gems, Sterne, Spawner, Aufträge",
    "pos": [
     24.5,
     101,

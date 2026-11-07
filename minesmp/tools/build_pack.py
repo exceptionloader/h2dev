@@ -92,6 +92,10 @@ ICONS = {
    ".....ooo.", "....oyyo.", "...oyyo..", "..oyyyooo", ".oyyyyyyo", "ooooyyyo.", "...oyyo..", "..oyyo...", "..ooo...."]),
  'arrow': ({'o':"#0E7490", 'c':"#22C3D6"}, [
    "....o....", "...oco...", "..occco..", ".occccco.", "ooocccooo", "...oco...", "...oco...", "...oco...", "...ooo..."]),
+ 'gem': ({'o':"#6B21A8", 'p':"#C084FC", 'h':"#F5D0FE", 'd':"#9333EA"}, [
+   ".........", "..ooooo..", ".ohpppdo.", "ohppppddo", "ooooooooo", ".oppppdo.", "..oppdo..", "...opo...", "....o...."]),
+ 'key': ({'o':"#92400E", 'y':"#FBBF24", 'h':"#FFF3A3"}, [
+   "...ooo...", "..oyhyo..", "..oy.yo..", "..oyyyo..", "...oyo...", "...oyo...", "...oyyo..", "...oyo...", "...oyyo.."]),
  'dot': ({'g':"#4ADE5A", 'o':"#166534"}, [
    ".........", ".........", "...ooo...", "..oggo...", "..oggo...", "...ooo...", ".........", ".........", "........."]),
 }
@@ -182,7 +186,7 @@ add('board', board(), BOARD_LH + BOARD_F + 3, BOARD_LH + 3)
 
 # Rang-Abzeichen (Namensschild, Chat, Scoreboard)
 RANKS = [('rank_owner', 'OWNER', '#B3261E', '#FFFFFF'), ('rank_admin', 'ADMIN', '#E5484D', '#FFFFFF'),
-         ('rank_dev', 'DEV', '#A855F7', '#FFFFFF'), ('rank_mod', 'MOD', '#F59E0B', '#FFFFFF'),
+         ('rank_dev', 'DEV', '#A855F7', '#FFFFFF'), ('rank_premium', 'PREMIUM', '#F59E0B', '#FFFFFF'), ('rank_mod', 'MOD', '#F59E0B', '#FFFFFF'),
          ('rank_support', 'SUPPORT', '#FACC15', '#1B2733'), ('rank_builder', 'BUILDER', '#22C55E', '#FFFFFF'),
          ('rank_legende', 'LEGENDE', '#4F7CFF', '#FFFFFF'), ('rank_mvp', 'MVP', '#22C3D6', '#FFFFFF'),
          ('rank_vip', 'VIP', '#8FF3FF', '#0B3B44'), ('rank_spieler', 'SPIELER', '#64748B', '#FFFFFF')]

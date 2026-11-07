@@ -35,6 +35,8 @@ crates:
       buch: {chance: 15, display: {material: ENCHANTED_BOOK, name: '&dMending-Buch'}, reward: {items: [{material: ENCHANTED_BOOK, amount: 1, enchantments: {mending: 1}}]}}
       herzen: {chance: 10, display: {material: PINK_DYE, name: '&dSpur: Herzen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.herzen true']}}
       epic_key: {chance: 10, display: {material: TRIPWIRE_HOOK, name: '&5Epic-Schluessel'}, reward: {keys: {epic: 1}}}
+      kristalle: {chance: 12, display: {material: AMETHYST_SHARD, amount: 4, name: '&d4x Mine-Kristall'}, reward: {custom-items: ['kristall:4']}}
+      ce_buch: {chance: 10, display: {material: ENCHANTED_BOOK, name: '&dZufaelliges Verzauberungsbuch'}, reward: {books: ['zufall:1']}}
   epic:
     name: '&5&lEpic-Crate'
     key-material: TRIPWIRE_HOOK
@@ -46,6 +48,9 @@ crates:
       pet: {chance: 10, display: {material: STRING, name: '&fHaustier: Katze'}, reward: {commands: ['lp user {player} permission set minesmp.pet.katze true']}}
       flammen: {chance: 10, display: {material: BLAZE_POWDER, name: '&6Spur: Flammen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.flammen true']}}
       legendary_key: {chance: 10, display: {material: TRIPWIRE_HOOK, name: '&6Legendary-Schluessel'}, reward: {keys: {legendary: 1}}}
+      gems: {chance: 10, display: {material: AMETHYST_CLUSTER, name: '&d15 Gems'}, reward: {gems: 15}}
+      spawner: {chance: 7, display: {material: SPAWNER, name: '&bZombie-Spawner'}, reward: {spawners: {zombie: 1}}, broadcast: true}
+      staubsauger: {chance: 6, display: {material: HOPPER, name: '&dStaubsauger'}, reward: {custom-items: [staubsauger]}}
   legendary:
     name: '&6&lLegendary-Crate'
     key-material: TRIPWIRE_HOOK
@@ -57,6 +62,11 @@ crates:
       fuchs: {chance: 10, display: {material: SWEET_BERRIES, name: '&6Haustier: Fuchs'}, reward: {commands: ['lp user {player} permission set minesmp.pet.fuchs true']}}
       seele: {chance: 10, display: {material: SOUL_LANTERN, name: '&3Spur: Seelen'}, reward: {commands: ['lp user {player} permission set minesmp.trail.seele true']}}
       vip: {chance: 3, display: {material: NETHER_STAR, name: '&e&lVIP-Rang (30 Tage)'}, reward: {commands: ['lp user {player} parent addtemp vip 30d']}, broadcast: true}
+
+      gems: {chance: 8, display: {material: AMETHYST_CLUSTER, amount: 3, name: '&d50 Gems'}, reward: {gems: 50}}
+      blaze_spawner: {chance: 6, display: {material: SPAWNER, name: '&6Blaze-Spawner'}, reward: {spawners: {blaze: 1}}, broadcast: true}
+      donnerklinge: {chance: 5, display: {material: NETHERITE_SWORD, name: '&eDonnerklinge'}, reward: {custom-items: [donnerklinge]}, broadcast: true}
+      phoenix: {chance: 3, display: {material: ELYTRA, name: '&6Phoenix-Fluegel'}, reward: {custom-items: [phoenix]}, broadcast: true}
 
 # Wird mit /crate setblock <crate> verwaltet
 locations: {}

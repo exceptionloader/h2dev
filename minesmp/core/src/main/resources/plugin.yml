@@ -60,6 +60,15 @@ permissions:
       minesmp.staff.list: true
       minesmp.vote: true
       minesmp.cosmetics: true
+      minesmp.gems: true
+      minesmp.stars: true
+      minesmp.tokenshop: true
+      minesmp.keyall: true
+      minesmp.spawners: true
+      minesmp.orders: true
+      minesmp.lfg: true
+      minesmp.claim: true
+      minesmp.ce: true
   minesmp.spawn.build:
     description: Darf am Spawn bauen/abbauen
     default: op
@@ -69,3 +78,27 @@ permissions:
   minesmp.admin.clan:
     description: Clan-Saison zuruecksetzen (/clan season reset)
     default: op
+  minesmp.admin.tokens:
+    description: Gems/Sterne geben, nehmen, setzen (/gems give ...)
+    default: op
+  minesmp.tokens.others:
+    description: Gems/Sterne anderer Spieler ansehen
+    default: op
+  minesmp.admin.spawners:
+    description: Spawner geben und fremde Spawner verwalten
+    default: op
+  minesmp.admin.claims:
+    description: Grundstuecks-Bypass und fremde Chunks freigeben
+    default: op
+  minesmp.admin.ce:
+    description: Verzauberungsbuecher geben (/ce give, /ce add)
+    default: op
+  minesmp.admin.keyall:
+    description: Keyall sofort ausloesen (/keyall now)
+    default: op
+  minesmp.admin.poi:
+    description: Meteorit/Kampfzone starten und stoppen (/poi start|stop)
+    default: op
+  minesmp.joinfull:
+    description: Darf auf den vollen Server (Premium)
+    default: false

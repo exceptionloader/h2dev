@@ -157,3 +157,42 @@ seasonal:
     to: '08-15'
     money-multiplier: 1.2
     join-message: '&e&lSommer auf MineSMP! &7Skill-Einnahmen x1,2!'
+
+# =====================================================================
+#  Orte in der Survival-Welt (/poi): Meteorit (Beutekiste + Waechter) und Kampfzone (Zone halten, PvP)
+#  Erscheinen alle interval-minutes Minuten zur Minute offset-minutes (30 = zur halben Stunde).
+#  Loot: weight + eines von material/custom/key/spawner/book (amount optional)
+# =====================================================================
+pois:
+  enabled: true
+  interval-minutes: 60
+  offset-minutes: 30
+  min-online: 1
+  duration-minutes: 15
+  world: world
+  min-radius: 400
+  max-radius: 2500
+  types: [meteor, kampfzone]
+  meteor:
+    name: '&6&lMeteorit'
+    guards: {ZOMBIE: 3, SKELETON: 2}
+    loot-rolls: 7
+    loot:
+      - {weight: 20, material: DIAMOND, amount: 4}
+      - {weight: 15, material: GOLD_INGOT, amount: 12}
+      - {weight: 15, material: IRON_INGOT, amount: 24}
+      - {weight: 12, custom: kristall, amount: 3}
+      - {weight: 8, material: NETHERITE_SCRAP, amount: 2}
+      - {weight: 8, key: rare, amount: 1}
+      - {weight: 5, key: epic, amount: 1}
+      - {weight: 6, book: 'zufall:1'}
+      - {weight: 4, material: ENCHANTED_GOLDEN_APPLE, amount: 1}
+      - {weight: 3, spawner: zombie, amount: 1}
+      - {weight: 2, custom: spawnerpicke, amount: 1}
+      - {weight: 1, key: legendary, amount: 1}
+  kampfzone:
+    name: '&c&lKampfzone'
+    radius: 5
+    capture-seconds: 90
+    reward: {money: 15000, gems: 5, stars: 5, keys: {epic: 1}, custom-items: ['kristall:4'], bp-xp: 200}
+

@@ -62,3 +62,24 @@ Alle Tests liefen am 05.11.2026 auf einem echten Paper-1.21.11-Server (Build 132
 10. `/msitem <Spieler> hammer` -> 3x3 Abbau, respektiert WorldGuard am Spawn.
 11. Server hart beenden (kill -9) waehrend Duell -> beim naechsten Join kommt Inventar zurueck.
 12. `/ban`, `/tempban 1h`, `/unban`, `/warn` 3x -> automatischer Mute.
+
+## Update 07.11.2026: Gems, Sterne, Spawner, Auftraege, Grundstuecke, Verzauberungen, Spezial-Items, Keyall, Meteoriten
+Testserver wie oben (Paper 1.21.11, Java 25, alle Plugins), zwei Bot-Spieler + RCON.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Build/Start | `mvn package`, Server-Start mit allen Plugins | ✅ keine Exceptions |
+| Gems/Sterne | `/gems give`, `/sterne give` (RCON), `/gems` | ✅ |
+| Menues | `/gemshop`, `/sterneshop`, `/spawner`, `/ce`, `/order`, `/order mine` oeffnen | ✅ |
+| Verzauberung | Buch "Vampir I" im Inventar auf ein Diamantschwert gezogen | ✅ "Verzaubert: Vampir I" |
+| Grundstueck | `/claim`, `/claim info`, `/claim unclaim`; fremder Spieler baut im Grundstueck ab | ✅ Block bleibt |
+| Spawner | Platzieren, mit Schleichen stapeln (12x), fremder Zugriff gesperrt, Drops nach 30 s im Speicher, "Alles verkaufen", fremdes Abbauen gesperrt, Besitzer baut ab und bekommt 12 Spawner zurueck | ✅ |
+| Auftraege | `/order create 64 5 dirt` + Bestaetigung, zweiter Spieler liefert (Geld erhalten), Abholen | ✅ |
+| Keyall | `/keyall`, `/keyall now` -> Vote-Schluessel + Stern fuer beide Spieler | ✅ (Fehler gefunden und behoben: neue Config-Abschnitte wurden bei alten Installationen nicht ganz gelesen) |
+| Mitspieler | `/mitspieler <Text>` -> Nachricht mit [MITMACHEN] beim anderen Spieler | ✅ |
+| Meteorit | `/poi start meteor` -> Ort gefunden, Nachricht mit Koordinaten, `/poi`, `/poi stop` | ✅ |
+
+**Nicht getestet** (nur gebaut): Kampfzone erobern, Meteoriten-Kiste pluendern, Staubsauger, Enterhaken,
+Wirkung der Verzauberungen im Kampf/beim Abbauen, Raid-Zeit (TNT), Premium auf vollem Server, Kauf im Gem-/Sterne-Shop,
+die neuen NPCs am Spawn, die neuen Icons im Ressourcenpaket, Simple Voice Chat. Hinweis: GrimAC sperrt Bot-Aktionen,
+die Bots brauchten `grim.exempt`.

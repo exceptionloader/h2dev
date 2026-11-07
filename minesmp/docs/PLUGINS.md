@@ -6,7 +6,7 @@ Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, si
 | Plugin | Version (getestet) | Aufgabe | Quelle |
 |---|---|---|---|
 | Paper | 1.21.11-132 | Server-Software (Purpur ist moeglich, wurde aber nicht getestet) | papermc.io |
-| **MineSMPCore** | 1.0.0 | Eigenes Plugin: Economy, Shop, AH, Handel, Spieler-Shops, Clans, PvP, Duelle, Kopfgelder, Kits, Crates, Skills, Quests, Erfolge, Battlepass, Events, Scoreboard/Tab/Chat, Homes/TPA/RTP, Strafen, Reports, Audit-Log, Webhooks | `core/` |
+| **MineSMPCore** | 1.0.0 | Eigenes Plugin: Economy (MineCoins, Gems, Sterne), Shop, Gem-/Sterne-Shop, AH, Kaufauftraege, Spawner, Grundstuecke mit Raid-Zeit, eigene Verzauberungen, Spezial-Items, Keyall, Meteoriten/Kampfzonen, Mitspieler-Suche, Handel, Spieler-Shops, Clans, PvP, Duelle, Kopfgelder, Kits, Crates, Skills, Quests, Erfolge, Battlepass, Events, Scoreboard/Tab/Chat, Homes/TPA/RTP, Strafen, Reports, Audit-Log, Webhooks | `core/` |
 | LuckPerms | 5.5.71 | Raenge & Rechte | Modrinth |
 | Vault | 1.7.3 | Economy-/Chat-Schnittstelle (MineCoins fuer andere Plugins, Prefixe) | GitHub |
 | PlaceholderAPI | 2.12.3 | Platzhalter `%minesmp_...%` fuer andere Plugins | Modrinth |
@@ -16,6 +16,7 @@ Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, si
 | GrimAC | 2.3.75 | Anti-Cheat | Modrinth |
 | GSit | 3.8.0 | /sit, /lay, /crawl | Modrinth |
 | Chunky | 1.4.40 | Welt vorgenerieren | Modrinth |
+| Simple Voice Chat | 2.6.27 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 1.21.11 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |
 | Geyser + Floodgate | 2.12.1 / 2.2.5 | Optional: Bedrock-Spieler | geysermc.org |
 | NuVotifier | (manuell) | Optional: Vote-Belohnungen | GitHub |
 

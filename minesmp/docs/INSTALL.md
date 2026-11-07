@@ -84,3 +84,11 @@ Neu laden: `/minesmp reload` (Nachrichten, Shop, Crates, Kits, Events, Scoreboar
 cd h2dev/minesmp/core && mvn -B clean package
 cp target/MineSMPCore-*.jar /opt/minesmp/plugins/   # alte Version vorher loeschen
 ```
+Neue Funktionen aus Updates bringen ihre Standardwerte selbst mit (config.yml, events.yml, custom-items.yml).
+Neue Dateien (`token-shops.yml`, `spawners.yml`, `enchants.yml`) werden beim Start angelegt.
+Fuer den **Premium-Rang**: in `plugins/MineSMPCore/ranks.yml` die Zeile `premium:` aus der mitgelieferten Datei vor `legende:` einfuegen
+und die Rang-Datei neu importieren (`lp import minesmp-raenge`, das Windows-Paket macht das automatisch).
+
+## 10. Sprachchat (optional)
+Simple Voice Chat von Modrinth in `plugins/` legen (das Windows-Paket laedt es automatisch). Der Server braucht zusaetzlich
+**UDP-Port 24454**, jeder Spieler die Simple-Voice-Chat-Mod im Client (Fabric/NeoForge/Forge).

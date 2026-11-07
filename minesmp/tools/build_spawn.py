@@ -531,13 +531,20 @@ npcs = [
     npc("arena", "&c&lDuellmeister", "&7Duelle: /duel <Spieler>", "DIAMOND_SWORD", [4.5, 101, AZ - 28.5, 135, 0],
         "msg:&7Fordere jemanden heraus: &b/duel <Spieler> &7- in der Arena darf jeder gegen jeden kämpfen!", "wide/kai"),
     npc("settings", "&7&lEinstellungen", "&7Scoreboard, TPA & mehr", "COMPARATOR", [-3.5, 101, 12.5, -135, 0], "cmd:settings", "slim/efe"),
+    # Markt, zweite Reihe am Weg
+    npc("gemshop", "&d&lGem-Händlerin", "&7Gem-Shop: Ränge, Spawner, Items", "AMETHYST_CLUSTER", [27.5, 101, -6.5, 0, 0], "cmd:gemshop", "slim/zuri"),
+    npc("sterneshop", "&e&lSternenhändler", "&7Sterne-Shop", "NETHER_STAR", [33.5, 101, -6.5, 0, 0], "cmd:sterneshop", "wide/noor"),
+    npc("ce", "&5&lVerzauberer", "&7Eigene Verzauberungen", "ENCHANTED_BOOK", [39.5, 101, -6.5, 0, 0], "cmd:ce", "wide/makena"),
+    npc("spawner", "&b&lSpawner-Händler", "&7Spawner kaufen", "SPAWNER", [27.5, 101, 7.5, 180, 0], "cmd:spawner", "wide/ari"),
+    npc("orders", "&a&lAuftragsbrett", "&7Kaufaufträge erstellen & liefern", "WRITABLE_BOOK", [33.5, 101, 7.5, 180, 0], "cmd:order", "slim/efe"),
+    npc("claim", "&3&lLandvermesser", "&7Grundstücke & Raid-Zeit", "GRASS_BLOCK", [39.5, 101, 7.5, 180, 0], "cmd:claim info", "wide/steve"),
 ]
 
 holos = [
     {"pos": [0.5, 107.5, 0.5], "scale": 2.4, "text": ["<g:#55FFFF:#3FA9FF:#FFFFFF>&lMINESMP</g>"]},
     {"pos": [0.5, 105.6, 0.5], "scale": 1.0, "text": ["&7Willkommen auf dem Server!", "&b/help &8· &b/discord &8· &b/rules"]},
     {"pos": [0.5, 111.5, -30.5], "scale": 2.0, "text": ["<g:#FFD86B:#FF9E2C>&lKISTEN</g>", "&7Rechtsklick öffnen · Linksklick Vorschau"]},
-    {"pos": [33.5, 108.0, 0.5], "scale": 2.0, "text": ["<g:#7CFF8A:#2BD46A>&lMARKT</g>", "&7Shop · Verkauf · Auktionen · Warps"]},
+    {"pos": [33.5, 108.0, 0.5], "scale": 2.0, "text": ["<g:#7CFF8A:#2BD46A>&lMARKT</g>", "&7Shop · Gems · Sterne · Spawner · Aufträge"]},
     {"pos": [-24.0, 110.0, 0.5], "scale": 2.0, "text": ["<g:#E59BFF:#9B6BFF>&lFORTSCHRITT</g>", "&7Battlepass · Quests · Skills · Erfolge"]},
     {"pos": [33.5, 111.0, -33.5], "scale": 2.0, "text": ["<g:#7FA6FF:#4F7CFF>&lCLANS</g>", "&7Clans · Kopfgelder · Kits"]},
     {"pos": [-33.5, 111.0, -33.5], "scale": 2.0, "text": ["<g:#FF8AF0:#B45BFF>&lEVENTS</g>", "&7KOTH · Boss · Turniere · Vote"]},
@@ -554,7 +561,7 @@ for cid, (x, y, z) in crate_pos.items():
 areas = [
     {"name": "&b&lSpawn", "icon": "BEACON", "desc": "&7Plaza mit Brunnen", "pos": [0.5, 101, 12.5, 180, 0]},
     {"name": "&6&lKisten", "icon": "CHEST", "desc": "&7Vote, Daily, Rare, Epic, Legendary", "pos": [0.5, 101, -24.5, 180, 0]},
-    {"name": "&a&lMarkt", "icon": "EMERALD", "desc": "&7Shop, Verkauf, Auktionshaus, Warps", "pos": [24.5, 101, 0.5, -90, 0]},
+    {"name": "&a&lMarkt", "icon": "EMERALD", "desc": "&7Shop, Gems, Sterne, Spawner, Aufträge", "pos": [24.5, 101, 0.5, -90, 0]},
     {"name": "&d&lFortschritt", "icon": "NETHER_STAR", "desc": "&7Battlepass, Quests, Skills, Erfolge", "pos": [-23.5, 101, 0.5, 90, 0]},
     {"name": "&9&lClanhalle", "icon": "BLUE_BANNER", "desc": "&7Clans, Kopfgelder, Kits", "pos": [27.5, 101, -27.5, -135, 0]},
     {"name": "&5&lEvent-Platz", "icon": "BELL", "desc": "&7Events, Vote, Kosmetik", "pos": [-27.5, 101, -27.5, 135, 0]},

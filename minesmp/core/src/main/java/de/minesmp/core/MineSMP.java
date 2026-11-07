@@ -99,6 +99,14 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.world.SpawnService spawn;
     private de.minesmp.core.clan.ClanBoardService clanBoard;
     private Placeholders placeholders;
+    private de.minesmp.core.economy.TokenService tokens;
+    private de.minesmp.core.shop.TokenShopService tokenShops;
+    private de.minesmp.core.spawner.SpawnerService spawners;
+    private de.minesmp.core.shop.OrderService orders;
+    private de.minesmp.core.world.ClaimService claims;
+    private de.minesmp.core.item.EnchantService enchants;
+    private de.minesmp.core.utility.KeyallService keyall;
+    private de.minesmp.core.events.PoiService poi;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
@@ -109,6 +117,8 @@ public final class MineSMP extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+        // Neue Abschnitte aus Updates (z.B. keyall, claims) sind ueber die Standardwerte vollstaendig lesbar
+        getConfig().options().copyDefaults(true);
         File sbFile = new File(getDataFolder(), "scoreboard.yml");
         int bundled = 1;
         try (var in = getResource("scoreboard.yml")) {
@@ -121,7 +131,8 @@ public final class MineSMP extends JavaPlugin {
             if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
-                "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml"}) {
+                "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml",
+                "token-shops.yml", "spawners.yml", "enchants.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
         }
         Msg.load(this);
@@ -145,16 +156,19 @@ public final class MineSMP extends JavaPlugin {
         worlds = new WorldService(this);
         eco = new EconomyService(this);
         new EconomyCommands(this);
+        tokens = new de.minesmp.core.economy.TokenService(this);
         punish = new PunishmentService(this);
         security = new SecurityService(this);
         reports = new ReportService(this);
         staff = new StaffCommands(this);
+        enchants = new de.minesmp.core.item.EnchantService(this);
         customItems = new CustomItemService(this);
         shop = new ShopService(this);
         auction = new AuctionService(this);
         trade = new TradeService(this);
         chestShops = new ChestShopService(this);
         clans = new ClanService(this);
+        claims = new de.minesmp.core.world.ClaimService(this);
         combat = new CombatService(this);
         bounties = new BountyService(this);
         kits = new KitService(this);
@@ -169,11 +183,18 @@ public final class MineSMP extends JavaPlugin {
         pwarps = new PlayerWarpService(this);
         afk = new AfkService(this);
         rewards = new RewardService(this);
+        tokenShops = new de.minesmp.core.shop.TokenShopService(this);
+        spawners = new de.minesmp.core.spawner.SpawnerService(this);
+        orders = new de.minesmp.core.shop.OrderService(this);
+        keyall = new de.minesmp.core.utility.KeyallService(this);
+        new de.minesmp.core.utility.LfgService(this);
+        new de.minesmp.core.utility.PremiumListener(this);
         profile = new ProfileService(this);
         new VoteService(this);
         new MiscCommands(this);
         cosmetics = new CosmeticService(this);
         events = new EventManager(this);
+        poi = new de.minesmp.core.events.PoiService(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
         clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);
@@ -195,6 +216,8 @@ public final class MineSMP extends JavaPlugin {
     public void onDisable() {
         try {
             if (events != null) events.stopAll();
+            if (poi != null && poi.active()) poi.stop();
+            if (spawners != null) spawners.shutdown();
             if (duels != null) duels.shutdown();
             if (trade != null) trade.cancelAll();
             if (cosmetics != null) cosmetics.shutdown();
@@ -278,4 +301,12 @@ public final class MineSMP extends JavaPlugin {
     public CosmeticService cosmetics() { return cosmetics; }
     public de.minesmp.core.world.SpawnService spawn() { return spawn; }
     public Placeholders placeholders() { return placeholders; }
+    public de.minesmp.core.economy.TokenService tokens() { return tokens; }
+    public de.minesmp.core.shop.TokenShopService tokenShops() { return tokenShops; }
+    public de.minesmp.core.spawner.SpawnerService spawners() { return spawners; }
+    public de.minesmp.core.shop.OrderService orders() { return orders; }
+    public de.minesmp.core.world.ClaimService claims() { return claims; }
+    public de.minesmp.core.item.EnchantService enchants() { return enchants; }
+    public de.minesmp.core.utility.KeyallService keyall() { return keyall; }
+    public de.minesmp.core.events.PoiService poi() { return poi; }
 }

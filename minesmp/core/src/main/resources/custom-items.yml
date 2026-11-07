@@ -1,5 +1,8 @@
-# Custom Items. ability: HAMMER (3x3), TREEFELLER (ganzer Baum, Schleichen), SELLWAND (Rechtsklick auf Truhe = Inhalt verkaufen)
-# uses: Anzahl Nutzungen (nur SELLWAND). Vergabe: /msitem <Spieler> <id>, Crates, Battlepass, Rezepte.
+# Custom Items. ability: HAMMER (3x3), TREEFELLER (ganzer Baum, Schleichen), SELLWAND (Rechtsklick auf Truhe = Inhalt verkaufen),
+#   VACUUM (Staubsauger: saugt Items ein, Rechtsklick an/aus), SPAWNERPICK (natuerlichen Spawner mitnehmen), GRAPPLE (Enterhaken)
+# custom-enchants: eigene Verzauberungen aus enchants.yml (z.B. {vampir: 2})
+# uses: Anzahl Nutzungen (SELLWAND, SPAWNERPICK). Vergabe: /msitem <Spieler> <id>, Crates, Shops, Rezepte.
+# Rezept-Zutat "custom:<id>" = Custom Item (z.B. custom:kristall)
 items:
   hammer:
     material: DIAMOND_PICKAXE
@@ -25,6 +28,76 @@ items:
     name: '&f&lFeder des Wanderers'
     lore: ['&7Ein seltenes Sammlerstueck.', '&8Kosmetisch']
     glow: true
+  kristall:
+    material: AMETHYST_SHARD
+    name: '&d&lMine-Kristall'
+    lore: ['&7Selten beim Erze-Abbauen, in Meteoriten', '&7und bei Events. Fuer Verzauberungen (&f/ce&7)', '&7und besondere Rezepte.']
+    glow: true
+    custom-model-data: 10010
+  staubsauger:
+    material: HOPPER
+    ability: VACUUM
+    name: '&d&lStaubsauger'
+    lore: ['&7Saugt Items im Umkreis von 6 Bloecken ein,', '&7solange er in deinem Inventar ist.', '&eRechtsklick: &7an/aus', '&8MineSMP Custom Item']
+    glow: true
+    custom-model-data: 10011
+  sternenpicke:
+    material: NETHERITE_PICKAXE
+    name: '<g:#FFE66B:#FFB13B>&l✦ Sternen-Spitzhacke</g>'
+    lore: ['&8', '&7Nur im Sterne-Shop.', '&8MineSMP Custom Item']
+    enchantments: {efficiency: 5, unbreaking: 3, fortune: 3}
+    custom-enchants: {bohrer: 1, telekinese: 1, autoschmelze: 1, erfahrung: 2}
+    custom-model-data: 10012
+  spawnerpicke:
+    material: GOLDEN_PICKAXE
+    ability: SPAWNERPICK
+    name: '&c&lSpawner-Spitzhacke'
+    lore: ['&7Baut einen natuerlichen Spawner ab', '&7und gibt ihn dir als Spawner-Item.', '&8MineSMP Custom Item']
+    uses: 1
+    glow: true
+    custom-model-data: 10013
+  phoenix:
+    material: ELYTRA
+    name: '<g:#FF9E2C:#FF4D4D>&lPhoenix-Fluegel</g>'
+    lore: ['&7Eine unzerstoerbare Flugmaschine.', '&8MineSMP Custom Item']
+    unbreakable: true
+    glow: true
+    custom-model-data: 10014
+  enterhaken:
+    material: FISHING_ROD
+    ability: GRAPPLE
+    name: '&b&lEnterhaken'
+    lore: ['&7Haken in einen Block werfen und', '&7einholen zieht dich hinterher.', '&8Nicht im Kampf nutzbar', '&8MineSMP Custom Item']
+    unbreakable: true
+    custom-model-data: 10015
+  donnerklinge:
+    material: NETHERITE_SWORD
+    name: '<g:#FFF36B:#FFB13B>&lDonnerklinge</g>'
+    lore: ['&8', '&8MineSMP Custom Item']
+    enchantments: {sharpness: 5, unbreaking: 3}
+    custom-enchants: {donner: 3, vampir: 1}
+    custom-model-data: 10016
+  frostbogen:
+    material: BOW
+    name: '<g:#B6F7FF:#4F9CFF>&lFrostbogen</g>'
+    lore: ['&8', '&8MineSMP Custom Item']
+    enchantments: {power: 5, unbreaking: 3}
+    custom-enchants: {frost: 3}
+    custom-model-data: 10017
+  blutaxt:
+    material: NETHERITE_AXE
+    name: '<g:#FF4D4D:#8B0000>&lBlutaxt</g>'
+    lore: ['&8', '&8MineSMP Custom Item']
+    enchantments: {sharpness: 5, unbreaking: 3}
+    custom-enchants: {vampir: 3, henker: 2}
+    custom-model-data: 10018
+  windlaeufer:
+    material: DIAMOND_BOOTS
+    name: '&f&lWindlaeufer-Stiefel'
+    lore: ['&8', '&8MineSMP Custom Item']
+    enchantments: {protection: 4, feather_falling: 4, unbreaking: 3}
+    custom-enchants: {tempo: 2, sprung: 1}
+    custom-model-data: 10019
 
 recipes:
   # Eigenes Rezept: Sattel
@@ -46,3 +119,18 @@ recipes:
     result-custom: sellwand
     shape: [' G ', ' B ', ' B ']
     ingredients: {G: GOLD_BLOCK, B: BLAZE_ROD}
+  # Staubsauger aus Kristallen
+  staubsauger:
+    result-custom: staubsauger
+    shape: ['KKK', 'KHK', 'KKK']
+    ingredients: {K: 'custom:kristall', H: HOPPER}
+  # Enterhaken: Angel + Kristalle
+  enterhaken:
+    result-custom: enterhaken
+    shape: [' KK', ' AK', 'K  ']
+    ingredients: {K: 'custom:kristall', A: FISHING_ROD}
+  # Phoenix-Fluegel: Elytra unzerstoerbar machen
+  phoenix:
+    result-custom: phoenix
+    shape: ['KPK', 'KEK', 'KNK']
+    ingredients: {K: 'custom:kristall', P: PHANTOM_MEMBRANE, E: ELYTRA, N: NETHERITE_INGOT}

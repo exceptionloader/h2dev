@@ -62,6 +62,9 @@ public final class PlayerData {
     public final Set<Integer> levelRewards = new HashSet<>();
     /** Gesichertes Inventar (z.B. bei Duell-Absturz), wird beim naechsten Join zurueckgegeben. */
     public String savedInventory = "";
+    /** Zweitwaehrungen: Gems (Premium) und Sterne (Spielzeit/Belohnungen). */
+    public long gems, stars;
+    public int starMinutes;
 
     public transient boolean dirty;
 
@@ -126,6 +129,9 @@ public final class PlayerData {
         y.set("duel.losses", duelLosses);
         y.set("level-rewards", levelRewards.stream().toList());
         y.set("saved-inventory", savedInventory);
+        y.set("tokens.gems", gems);
+        y.set("tokens.stars", stars);
+        y.set("tokens.star-minutes", starMinutes);
         return y.saveToString();
     }
 
@@ -170,6 +176,9 @@ public final class PlayerData {
         duelLosses = y.getInt("duel.losses");
         levelRewards.addAll(y.getIntegerList("level-rewards"));
         savedInventory = y.getString("saved-inventory", "");
+        gems = y.getLong("tokens.gems");
+        stars = y.getLong("tokens.stars");
+        starMinutes = y.getInt("tokens.star-minutes");
     }
 
     private static void section(YamlConfiguration y, String path, java.util.function.BiConsumer<String, ConfigurationSection> c) {

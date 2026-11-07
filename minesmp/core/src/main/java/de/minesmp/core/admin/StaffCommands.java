@@ -49,10 +49,15 @@ public final class StaffCommands implements Listener {
             if (a.length > 0 && a[0].equalsIgnoreCase("reload")) {
                 Msg.load(plugin);
                 plugin.reloadConfig();
+                plugin.getConfig().options().copyDefaults(true);
                 plugin.shop().reload();
                 plugin.crates().reload();
                 plugin.kits().reload();
                 plugin.events().reload();
+                plugin.tokenShops().reload();
+                plugin.spawners().reload();
+                plugin.enchants().reload();
+                plugin.poi().reload();
                 plugin.scoreboard().reload();
                 plugin.infobar().reload();
                 plugin.ranks().reload();

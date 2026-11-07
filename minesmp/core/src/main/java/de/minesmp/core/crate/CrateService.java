@@ -131,6 +131,12 @@ public final class CrateService implements Listener {
         return it;
     }
 
+    /** Physischer Schluessel nach Kisten-ID (null, wenn unbekannt). */
+    public ItemStack keyItem(String crate, int amount) {
+        Crate c = crates.get(crate.toLowerCase(Locale.ROOT));
+        return c == null ? null : keyItem(c, amount);
+    }
+
     /** Virtuelle Schluessel; offline Spieler erhalten physische Schluessel ins Abholfach (/ah collect). */
     public void giveKeys(UUID id, String crate, int n) {
         Crate c = crates.get(crate.toLowerCase(Locale.ROOT));

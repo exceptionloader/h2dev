@@ -16,6 +16,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /bounty | /kopfgeld, /bounties | `minesmp.bounty` | Kopfgelder | BountyService |
 | /broadcast | /bc | `minesmp.staff.broadcast` | Rundnachricht | StaffCommands |
 | /cc | /clanchat | `minesmp.clan` | Clanchat | ClanService |
+| /claim | /gs, /grundstueck | `minesmp.claim` | Grundstuecke | ClaimService |
 | /clan | /c, /gilde | `minesmp.clan` | Clan-System | ClanService |
 | /cosmetics | /kosmetik, /trails, /pets | `minesmp.cosmetics` | Kosmetik | CosmeticService |
 | /craft | /workbench, /wb | `minesmp.craft` | Werkbank | MiscCommands |
@@ -31,22 +32,28 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /eventadmin | /ea | `minesmp.admin.event` | Events verwalten | EventManager |
 | /fakevote | - | `minesmp.admin.vote` | Test-Vote ausloesen | VoteService |
 | /farmwelt | /farmworld, /resource, /fw | `minesmp.farmwelt` | Zur Farmwelt | WorldService |
+| /gems | /gem | `minesmp.gems` | Deine Gems | TokenService |
+| /gemshop | /gemsshop | `minesmp.tokenshop` | Gem-Shop | TokenShopService |
 | /help | /hilfe, /? | `minesmp.info` | Hilfe | MiscCommands |
 | /history | /strafen, /warns | `minesmp.staff.history` | Strafverlauf | PunishmentService |
 | /home | /h, /homes | `minesmp.home` | Zum Home teleportieren | TeleportService |
 | /ignore | /block | `minesmp.ignore` | Spieler ignorieren | MiscCommands |
 | /invsee | - | `minesmp.staff.invsee` | Inventar ansehen | StaffCommands |
+| /keyall | - | `minesmp.keyall` | Naechstes Keyall | KeyallService |
 | /keys | /schluessel | `minesmp.crate` | Deine Schluessel | CrateService |
 | /kick | - | `minesmp.staff.kick` | Kickt einen Spieler | PunishmentService |
 | /kit | /kits | `minesmp.kit` | Kits | KitService |
 | /minesmp | /msmp | `minesmp.admin.reload` | MineSMP-Verwaltung | StaffCommands |
+| /mitspieler | /lfg, /suche | `minesmp.lfg` | Mitspieler suchen | LfgService |
 | /money | /bal, /balance, /geld, /coins | `minesmp.money` | Zeigt deinen Kontostand | EconomyCommands |
 | /msg | /tell, /w, /whisper, /m | `minesmp.msg` | Private Nachricht | MiscCommands |
 | /msitem | - | `minesmp.admin.items` | Custom Items geben | CustomItemService |
 | /mute | - | `minesmp.staff.mute` | Stummschalten | PunishmentService |
 | /navi | /navigator, /spawnmenu | `minesmp.spawn` | Spawn-Navigator | SpawnService |
+| /order | /orders, /auftrag, /auftraege | `minesmp.orders` | Kaufauftraege | OrderService |
 | /pay | /zahlen, /ueberweisen | `minesmp.pay` | Ueberweist MineCoins | EconomyCommands |
 | /playtime | /spielzeit, /pt | `minesmp.playtime` | Spielzeit | MiscCommands |
+| /poi | /meteor, /kampfzone | `minesmp.event` | Meteoriten & Kampfzonen | PoiService |
 | /profile | /profil | `minesmp.profile` | Spielerprofil | ProfileService |
 | /pwarp | /pw, /playerwarp | `minesmp.pwarp` | Spieler-Warps | PlayerWarpService |
 | /quests | /quest, /aufgaben | `minesmp.quests` | Deine Quests | QuestService |
@@ -67,8 +74,11 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /shop | /markt, /store | `minesmp.shop` | Server-Shop | ShopService |
 | /skills | /level, /skill | `minesmp.skills` | Skills & Level | SkillService |
 | /spawn | /lobby, /hub | `minesmp.spawn` | Zum Spawn | TeleportService |
+| /spawner | /spawners, /spawnershop | `minesmp.spawners` | Spawner-Shop | SpawnerService |
 | /staff | /team | `minesmp.staff.list` | Zeigt das Team | StaffCommands |
 | /stats | /statistiken | `minesmp.stats` | Statistiken | ProfileService |
+| /sterne | /stars, /stern | `minesmp.stars` | Deine Sterne | TokenService |
+| /sterneshop | /starshop, /sternshop | `minesmp.tokenshop` | Sterne-Shop | TokenShopService |
 | /tempban | - | `minesmp.staff.tempban` | Bannt temporaer | PunishmentService |
 | /tempmute | - | `minesmp.staff.mute` | Temporaer stummschalten | PunishmentService |
 | /tpa | /tpask | `minesmp.tpa` | Teleport-Anfrage | TeleportService |
@@ -80,5 +90,6 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /unban | /pardon | `minesmp.staff.unban` | Entbannt | PunishmentService |
 | /unmute | - | `minesmp.staff.mute` | Stummschaltung aufheben | PunishmentService |
 | /vanish | /v | `minesmp.staff.vanish` | Unsichtbar werden | StaffCommands |
+| /verzauberungen | /ce, /enchants, /verzaubern | `minesmp.ce` | Eigene Verzauberungen | EnchantService |
 | /vote | /voten, /votes | `minesmp.vote` | Fuer MineSMP voten | VoteService |
 | /warn | - | `minesmp.staff.warn` | Verwarnt einen Spieler | PunishmentService |

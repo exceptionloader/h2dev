@@ -1,0 +1,138 @@
+# =====================================================================
+#  Gem-Shop (/gemshop) und Sterne-Shop (/sterneshop)
+#  price: Preis in der Shop-Waehrung, slot: Platz im Menue, icon: Anzeige-Item
+#  reward: Belohnungsformat (money, gems, stars, keys, items, custom-items, spawners, books, commands, display)
+#  permission: optional - nur mit dieser Berechtigung kaufbar
+#  Gems gibt es im Store, bei Events, Votes und Keyalls. Sterne fuer aktive Spielzeit.
+# =====================================================================
+shops:
+  gems:
+    title: '&8Gem-Shop &d◆'
+    currency: gems
+    rows: 5
+    items:
+      premium:
+        slot: 10
+        price: 400
+        icon: {material: NETHER_STAR, name: '&6&lPremium &7(30 Tage)', glow: true, lore: ['&7Mehr Homes, groessere Clans,', '&7immer ein Platz auf dem Server,', '&7eigenes Abzeichen & Partikel.']}
+        reward: {commands: ['lp user {player} parent addtemp premium 30d accumulate'], display: '&6&lPremium (30 Tage)'}
+      vip:
+        slot: 11
+        price: 150
+        icon: {material: DIAMOND, name: '&b&lVIP &7(30 Tage)', lore: ['&7Rang VIP fuer 30 Tage.']}
+        reward: {commands: ['lp user {player} parent addtemp vip 30d accumulate'], display: '&b&lVIP (30 Tage)'}
+      legendary_key:
+        slot: 13
+        price: 60
+        icon: {material: TRIPWIRE_HOOK, name: '&6&lLegendary-Schluessel', glow: true}
+        reward: {keys: {legendary: 1}}
+      epic_keys:
+        slot: 14
+        price: 75
+        icon: {material: TRIPWIRE_HOOK, amount: 3, name: '&5&l3x Epic-Schluessel', glow: true}
+        reward: {keys: {epic: 3}}
+      spawnerpicke:
+        slot: 15
+        price: 120
+        icon: {material: GOLDEN_PICKAXE, name: '&c&lSpawner-Spitzhacke', glow: true, lore: ['&7Baut einen natuerlichen Spawner ab.']}
+        reward: {custom-items: [spawnerpicke]}
+      staubsauger:
+        slot: 16
+        price: 90
+        icon: {material: HOPPER, name: '&d&lStaubsauger', glow: true, lore: ['&7Saugt Items in deiner Naehe ein.']}
+        reward: {custom-items: [staubsauger]}
+      spawner_eisen:
+        slot: 19
+        price: 250
+        icon: {material: IRON_BLOCK, name: '&f&lEisengolem-Spawner', glow: true}
+        reward: {spawners: {iron_golem: 1}}
+      spawner_blaze:
+        slot: 20
+        price: 150
+        icon: {material: BLAZE_ROD, name: '&6&lBlaze-Spawner', glow: true}
+        reward: {spawners: {blaze: 1}}
+      spawner_enderman:
+        slot: 21
+        price: 140
+        icon: {material: ENDER_PEARL, name: '&5&lEnderman-Spawner', glow: true}
+        reward: {spawners: {enderman: 1}}
+      donnerklinge:
+        slot: 23
+        price: 220
+        icon: {material: NETHERITE_SWORD, name: '&e&lDonnerklinge', glow: true}
+        reward: {custom-items: [donnerklinge]}
+      phoenix:
+        slot: 24
+        price: 300
+        icon: {material: ELYTRA, name: '&6&lPhoenix-Fluegel', glow: true, lore: ['&7Unzerstoerbare Elytra.']}
+        reward: {custom-items: [phoenix]}
+      buch_zufall:
+        slot: 25
+        price: 25
+        icon: {material: ENCHANTED_BOOK, name: '&d&lZufaelliges Verzauberungsbuch'}
+        reward: {books: ['zufall:2']}
+  stars:
+    title: '&8Sterne-Shop &e✯'
+    currency: stars
+    rows: 5
+    items:
+      sternenpicke:
+        slot: 10
+        price: 250
+        icon: {material: NETHERITE_PICKAXE, name: '&e&l✦ Sternen-Spitzhacke', glow: true, lore: ['&73x3, Telekinese, Autoschmelze', '&7und mehr Erfahrung.']}
+        reward: {custom-items: [sternenpicke]}
+      enterhaken:
+        slot: 11
+        price: 80
+        icon: {material: FISHING_ROD, name: '&b&lEnterhaken', glow: true}
+        reward: {custom-items: [enterhaken]}
+      windlaeufer:
+        slot: 12
+        price: 120
+        icon: {material: DIAMOND_BOOTS, name: '&f&lWindlaeufer-Stiefel', glow: true}
+        reward: {custom-items: [windlaeufer]}
+      frostbogen:
+        slot: 13
+        price: 140
+        icon: {material: BOW, name: '&b&lFrostbogen', glow: true}
+        reward: {custom-items: [frostbogen]}
+      blutaxt:
+        slot: 14
+        price: 160
+        icon: {material: NETHERITE_AXE, name: '&4&lBlutaxt', glow: true}
+        reward: {custom-items: [blutaxt]}
+      kristalle:
+        slot: 15
+        price: 30
+        icon: {material: AMETHYST_SHARD, amount: 8, name: '&d&l8x Mine-Kristall', glow: true}
+        reward: {custom-items: ['kristall:8']}
+      hammer:
+        slot: 16
+        price: 90
+        icon: {material: DIAMOND_PICKAXE, name: '&b&lMine-Hammer'}
+        reward: {custom-items: [hammer]}
+      rare_keys:
+        slot: 20
+        price: 40
+        icon: {material: TRIPWIRE_HOOK, amount: 2, name: '&9&l2x Rare-Schluessel'}
+        reward: {keys: {rare: 2}}
+      geld:
+        slot: 21
+        price: 20
+        icon: {material: GOLD_BLOCK, name: '&a&l25.000 MineCoins'}
+        reward: {money: 25000}
+      bp_xp:
+        slot: 22
+        price: 25
+        icon: {material: EXPERIENCE_BOTTLE, name: '&d&l500 Battlepass-XP'}
+        reward: {bp-xp: 500}
+      spawner_zombie:
+        slot: 23
+        price: 60
+        icon: {material: ZOMBIE_HEAD, name: '&2&lZombie-Spawner'}
+        reward: {spawners: {zombie: 1}}
+      spawner_kuh:
+        slot: 24
+        price: 50
+        icon: {material: LEATHER, name: '&6&lKuh-Spawner'}
+        reward: {spawners: {cow: 1}}

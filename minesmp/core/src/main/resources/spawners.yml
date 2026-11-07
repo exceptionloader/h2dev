@@ -1,0 +1,124 @@
+# =====================================================================
+#  Spawner (/spawner): Erzeugen keine Mobs, sondern Drops + XP direkt in einen Speicher.
+#  Rechtsklick = Speicher | gleichen Spawner draufklicken = stapeln (Schleichen = ganzer Stapel)
+#  Natuerliche Spawner: nur mit der Spawner-Spitzhacke mitnehmen.
+#  price: MineCoins im Spawner-Shop (0 = nicht im Shop, nur ueber Gems/Kisten/Events)
+#  drops: MATERIAL: {min, max, chance}  (pro Spawner im Stapel und Durchgang)
+# =====================================================================
+settings:
+  interval-seconds: 30
+  max-stack: 64
+  storage-per-stack: 1728     # max. Items im Speicher je Spawner im Stapel
+  xp-per-stack: 5000
+  player-radius: 0            # 0 = immer, wenn der Chunk geladen ist; sonst nur mit Spieler in diesem Radius
+  worlds: [world, world_nether, world_the_end]
+
+types:
+  pig:
+    name: '&dSchwein'
+    entity: PIG
+    price: 40000
+    xp: 2
+    drops: {PORKCHOP: {min: 1, max: 3}}
+  cow:
+    name: '&6Kuh'
+    entity: COW
+    price: 50000
+    xp: 2
+    drops: {BEEF: {min: 1, max: 3}, LEATHER: {min: 0, max: 2}}
+  chicken:
+    name: '&fHuhn'
+    entity: CHICKEN
+    price: 35000
+    xp: 2
+    drops: {CHICKEN: {min: 1, max: 1}, FEATHER: {min: 0, max: 2}, EGG: {min: 1, max: 1, chance: 0.3}}
+  sheep:
+    name: '&fSchaf'
+    entity: SHEEP
+    price: 40000
+    xp: 2
+    drops: {MUTTON: {min: 1, max: 2}, WHITE_WOOL: {min: 1, max: 1}}
+  zombie:
+    name: '&2Zombie'
+    entity: ZOMBIE
+    price: 75000
+    xp: 5
+    drops: {ROTTEN_FLESH: {min: 0, max: 2}, IRON_INGOT: {min: 1, max: 1, chance: 0.025}, CARROT: {min: 1, max: 1, chance: 0.025}, POTATO: {min: 1, max: 1, chance: 0.025}}
+  skeleton:
+    name: '&7Skelett'
+    entity: SKELETON
+    price: 90000
+    xp: 5
+    drops: {BONE: {min: 0, max: 2}, ARROW: {min: 0, max: 2}}
+  spider:
+    name: '&8Spinne'
+    entity: SPIDER
+    price: 85000
+    xp: 5
+    drops: {STRING: {min: 0, max: 2}, SPIDER_EYE: {min: 1, max: 1, chance: 0.33}}
+  creeper:
+    name: '&aCreeper'
+    entity: CREEPER
+    price: 120000
+    xp: 5
+    drops: {GUNPOWDER: {min: 0, max: 2}}
+  slime:
+    name: '&aSchleim'
+    entity: SLIME
+    price: 150000
+    xp: 4
+    drops: {SLIME_BALL: {min: 0, max: 2}}
+  witch:
+    name: '&5Hexe'
+    entity: WITCH
+    price: 180000
+    xp: 5
+    drops: {REDSTONE: {min: 0, max: 2}, GLOWSTONE_DUST: {min: 0, max: 2}, SUGAR: {min: 0, max: 2}, GLASS_BOTTLE: {min: 0, max: 2}}
+  zombified_piglin:
+    name: '&6Zombie-Piglin'
+    entity: ZOMBIFIED_PIGLIN
+    price: 200000
+    xp: 5
+    drops: {ROTTEN_FLESH: {min: 0, max: 1}, GOLD_NUGGET: {min: 0, max: 1}, GOLD_INGOT: {min: 1, max: 1, chance: 0.025}}
+  magma_cube:
+    name: '&cMagmawuerfel'
+    entity: MAGMA_CUBE
+    price: 220000
+    xp: 4
+    drops: {MAGMA_CREAM: {min: 0, max: 1}}
+  enderman:
+    name: '&5Enderman'
+    entity: ENDERMAN
+    price: 0
+    xp: 5
+    drops: {ENDER_PEARL: {min: 0, max: 1}}
+  blaze:
+    name: '&6Blaze'
+    entity: BLAZE
+    price: 0
+    xp: 10
+    drops: {BLAZE_ROD: {min: 0, max: 1}}
+  guardian:
+    name: '&3Waechter'
+    entity: GUARDIAN
+    price: 0
+    xp: 10
+    drops: {PRISMARINE_SHARD: {min: 0, max: 2}, PRISMARINE_CRYSTALS: {min: 1, max: 1, chance: 0.4}, COD: {min: 1, max: 1, chance: 0.4}}
+  iron_golem:
+    name: '&fEisengolem'
+    entity: IRON_GOLEM
+    price: 0
+    xp: 0
+    drops: {IRON_INGOT: {min: 3, max: 5}, POPPY: {min: 0, max: 2}}
+  cave_spider:
+    name: '&8Hoehlenspinne'
+    entity: CAVE_SPIDER
+    price: 0
+    xp: 5
+    drops: {STRING: {min: 0, max: 2}, SPIDER_EYE: {min: 1, max: 1, chance: 0.33}}
+  silverfish:
+    name: '&7Silberfischchen'
+    entity: SILVERFISH
+    price: 0
+    xp: 5
+    drops: {}

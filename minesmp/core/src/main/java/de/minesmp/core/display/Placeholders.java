@@ -75,6 +75,13 @@ public final class Placeholders {
             case "time" -> java.time.LocalTime.now(de.minesmp.core.utility.RewardService.ZONE).withSecond(0).withNano(0).toString();
             case "next_event" -> { var n = plugin.events().nextEvent(); yield n == null ? "-" : n.name(); }
             case "next_event_in" -> { var n = plugin.events().nextEvent(); yield n == null ? "-" : TimeUtil.format(n.inMillis() >= 3_600_000 ? n.inMillis() - n.inMillis() % 60_000 : n.inMillis()); }
+            case "gems" -> plugin.tokens() == null ? "0" : Text.compact(d.gems);
+            case "stars", "sterne" -> plugin.tokens() == null ? "0" : Text.compact(d.stars);
+            case "keyall" -> plugin.keyall() == null ? "-" : plugin.keyall().remainingText();
+            case "raid" -> plugin.claims() == null ? "-" : plugin.claims().raidText();
+            case "claims" -> plugin.claims() == null ? "-" : plugin.claims().claimsText(p);
+            case "claim_owner" -> { var cl = plugin.claims() == null ? null : plugin.claims().at(p.getLocation()); yield cl == null ? "Wildnis" : cl.ownerName(); }
+            case "poi" -> plugin.poi() == null ? "-" : plugin.poi().text();
             default -> null;
         };
     }

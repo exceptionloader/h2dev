@@ -1,0 +1,116 @@
+# =====================================================================
+#  Eigene Verzauberungen (/ce = Verzauberer-Menue)
+#  Buch auf das Item im Inventar ziehen. Gleiche Stufe nochmal drauf = +1 Stufe (bis max-level).
+#  targets: SWORD AXE PICKAXE SHOVEL HOE TOOL BOW TRIDENT MACE HELMET CHESTPLATE LEGGINGS BOOTS ARMOR
+#  crystal-cost: Preis fuer ein Buch Stufe I im Verzauberer (Mine-Kristalle)
+#  Die Effekte sind fest im Plugin; Name, Stufen, Ziele und Preise sind hier einstellbar.
+# =====================================================================
+enchants:
+  vampir:
+    name: '&4Vampir'
+    max-level: 3
+    targets: [SWORD, AXE]
+    crystal-cost: 12
+    description: ['Chance, bei Treffern Leben zu heilen.']
+  donner:
+    name: '&eDonner'
+    max-level: 3
+    targets: [SWORD, AXE, BOW]
+    crystal-cost: 14
+    description: ['Chance auf einen Blitz mit Extraschaden.']
+  frost:
+    name: '&bFrost'
+    max-level: 3
+    targets: [SWORD, BOW]
+    crystal-cost: 10
+    description: ['Chance, das Ziel zu verlangsamen.']
+  gift:
+    name: '&2Gift'
+    max-level: 3
+    targets: [SWORD, BOW]
+    crystal-cost: 10
+    description: ['Chance, das Ziel zu vergiften.']
+  wither:
+    name: '&8Verdorren'
+    max-level: 2
+    targets: [SWORD, AXE]
+    crystal-cost: 14
+    description: ['Chance auf Wither-Effekt.']
+  henker:
+    name: '&cHenker'
+    max-level: 3
+    targets: [SWORD, AXE]
+    crystal-cost: 12
+    description: ['Mehr Schaden gegen Ziele mit', 'weniger als 35% Leben.']
+  telekinese:
+    name: '&dTelekinese'
+    max-level: 1
+    targets: [TOOL]
+    crystal-cost: 10
+    description: ['Drops landen direkt im Inventar.']
+  autoschmelze:
+    name: '&6Autoschmelze'
+    max-level: 1
+    targets: [PICKAXE]
+    crystal-cost: 14
+    description: ['Erze werden sofort geschmolzen.']
+  erfahrung:
+    name: '&aErfahrung'
+    max-level: 3
+    targets: [TOOL]
+    crystal-cost: 8
+    description: ['Mehr XP beim Abbauen.']
+  ader:
+    name: '&9Ader'
+    max-level: 3
+    targets: [PICKAXE]
+    crystal-cost: 16
+    description: ['Schleichen + Erz abbauen baut die', 'ganze Erzader ab (8/16/24 Bloecke).']
+  bohrer:
+    name: '&3Bohrer'
+    max-level: 1
+    targets: [PICKAXE, SHOVEL]
+    crystal-cost: 24
+    description: ['Baut 3x3 Bloecke auf einmal ab.']
+  tempo:
+    name: '&fTempo'
+    max-level: 2
+    targets: [BOOTS]
+    crystal-cost: 12
+    description: ['Dauerhafte Schnelligkeit.']
+  sprung:
+    name: '&aSprung'
+    max-level: 2
+    targets: [BOOTS]
+    crystal-cost: 8
+    description: ['Dauerhafte Sprungkraft.']
+  nachtsicht:
+    name: '&9Nachtsicht'
+    max-level: 1
+    targets: [HELMET]
+    crystal-cost: 8
+    description: ['Dauerhafte Nachtsicht.']
+  feuerfest:
+    name: '&6Feuerfest'
+    max-level: 1
+    targets: [CHESTPLATE]
+    crystal-cost: 14
+    description: ['Dauerhafte Feuerresistenz.']
+  panzer:
+    name: '&7Panzer'
+    max-level: 3
+    targets: [ARMOR]
+    crystal-cost: 12
+    description: ['Weniger Schaden (3% pro Stufe', 'und Teil, max. 40%).']
+
+# Autoschmelze: Rohstoff -> Ergebnis
+autoschmelze:
+  RAW_IRON: IRON_INGOT
+  RAW_GOLD: GOLD_INGOT
+  RAW_COPPER: COPPER_INGOT
+  ANCIENT_DEBRIS: NETHERITE_SCRAP
+  IRON_ORE: IRON_INGOT
+  GOLD_ORE: GOLD_INGOT
+  COBBLESTONE: STONE
+  COBBLED_DEEPSLATE: DEEPSLATE
+  SAND: GLASS

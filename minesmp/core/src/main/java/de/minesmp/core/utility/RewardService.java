@@ -31,6 +31,9 @@ import java.util.Map;
  *   clan-xp: 10
  *   items: [ {material: DIAMOND, amount: 3} ]
  *   custom-items: [hammer]
+ *   gems: 10 / stars: 5
+ *   spawners: {zombie: 1}
+ *   books: ["vampir:2", "zufall:1"]
  *   commands: ["lp user {player} permission set xyz"]
  */
 public final class RewardService {
@@ -60,6 +63,21 @@ public final class RewardService {
                 parts.add("&e" + n + "x " + plugin.crates().displayName(k) + "-Schluessel");
             }
         }
+        long gems = r.getLong("gems");
+        if (gems > 0 && plugin.tokens() != null) { plugin.tokens().give(p.getUniqueId(), de.minesmp.core.economy.TokenService.Kind.GEMS, gems, reason); parts.add("&d" + gems + " Gems"); }
+        long stars = r.getLong("stars");
+        if (stars > 0 && plugin.tokens() != null) { plugin.tokens().give(p.getUniqueId(), de.minesmp.core.economy.TokenService.Kind.STARS, stars, reason); parts.add("&e" + stars + " Sterne"); }
+        ConfigurationSection sp = r.getConfigurationSection("spawners");
+        if (sp != null && plugin.spawners() != null) {
+            for (String type : sp.getKeys(false)) {
+                ItemStack it = plugin.spawners().item(type, Math.max(1, sp.getInt(type)));
+                if (it != null) { Items.giveOrDrop(p, it); parts.add("&b" + it.getAmount() + "x " + Items.name(it)); }
+            }
+        }
+        for (String book : r.getStringList("books")) {
+            ItemStack it = plugin.enchants() == null ? null : plugin.enchants().bookFromSpec(book);
+            if (it != null) { Items.giveOrDrop(p, it); parts.add(Items.name(it)); }
+        }
         int bp = r.getInt("bp-xp");
         if (bp > 0) { plugin.battlepass().addXp(p, bp); parts.add("&d" + bp + " Battlepass-XP"); }
         double cxp = r.getDouble("clan-xp");
@@ -73,8 +91,11 @@ public final class RewardService {
             parts.add("&f" + it.getAmount() + "x " + Items.name(it));
         }
         for (String ci : r.getStringList("custom-items")) {
-            ItemStack it = plugin.customItems().create(ci);
-            if (it != null) { items.add(it); parts.add("&f" + Items.name(it)); }
+            String[] cs = ci.split(":");
+            int n = 1;
+            try { if (cs.length > 1) n = Math.max(1, Math.min(64, Integer.parseInt(cs[1]))); } catch (NumberFormatException ignored) { }
+            ItemStack it = plugin.customItems().create(cs[0]);
+            if (it != null) { it.setAmount(Math.min(n, it.getMaxStackSize())); items.add(it); parts.add("&f" + (n > 1 ? n + "x " : "") + Items.name(it)); }
         }
         if (!items.isEmpty()) Items.giveOrDrop(p, items.toArray(new ItemStack[0]));
         for (String cmd : r.getStringList("commands")) {

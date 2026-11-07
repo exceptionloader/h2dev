@@ -129,8 +129,18 @@ public final class ClanService implements Listener {
         return ca == cb || ca.allies.contains(cb.id);
     }
 
+    private final Map<String, Integer> slotBonus = new java.util.HashMap<>();
+
     public int maxMembers(Clan c) {
-        return cfg().getInt("clans.base-members", 8) + (c.level - 1) * cfg().getInt("clans.members-per-level", 2);
+        // Zusatzplaetze ueber den Rang des Clan-Leaders (minesmp.clan.bonus.<n>, z.B. Premium)
+        UUID leader = c.leader();
+        org.bukkit.entity.Player lp = leader == null ? null : org.bukkit.Bukkit.getPlayer(leader);
+        if (lp != null) {
+            int b = 0;
+            for (int i = 30; i >= 1; i--) if (lp.hasPermission("minesmp.clan.bonus." + i)) { b = i; break; }
+            slotBonus.put(c.id, b);
+        }
+        return cfg().getInt("clans.base-members", 8) + (c.level - 1) * cfg().getInt("clans.members-per-level", 2) + slotBonus.getOrDefault(c.id, 0);
     }
 
     public double xpForNext(Clan c) {

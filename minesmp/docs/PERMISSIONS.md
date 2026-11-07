@@ -12,8 +12,9 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 `minesmp.event` `minesmp.home` `minesmp.tpa` `minesmp.back` `minesmp.spawn` `minesmp.rtp` `minesmp.farmwelt` `minesmp.pwarp`
 `minesmp.afk` `minesmp.trash` `minesmp.msg` `minesmp.ignore` `minesmp.playtime` `minesmp.info` `minesmp.profile` `minesmp.stats`
 `minesmp.settings` `minesmp.report` `minesmp.staff.list` `minesmp.vote` `minesmp.cosmetics`
+`minesmp.gems` `minesmp.stars` `minesmp.tokenshop` `minesmp.keyall` `minesmp.spawners` `minesmp.orders` `minesmp.lfg` `minesmp.claim` `minesmp.ce`
 
-## Rang-Vorteile (VIP/MVP/Legende)
+## Rang-Vorteile (VIP/MVP/Legende/Premium)
 | Recht | Wirkung |
 |---|---|
 | `minesmp.homes.<n>` | Max. Homes (Standard 3) |
@@ -33,6 +34,11 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 | `minesmp.rtp.nocooldown`, `minesmp.kit.nocooldown` | Keine Cooldowns |
 | `minesmp.crate.anywhere` | Crates ueberall oeffnen (wenn open-anywhere=false) |
 | `minesmp.playershop.unlimited` | Unbegrenzt Spieler-Shops |
+| `minesmp.joinfull` | Auch auf den vollen Server (Premium) |
+| `minesmp.clan.bonus.<n>` | n zusaetzliche Clan-Plaetze, wenn der Spieler Clan-Leader ist (Premium: 4) |
+| `minesmp.claims.<n>` | Max. Grundstuecks-Chunks (Standard 9) |
+| `minesmp.orders.limit.<n>` | Max. aktive Kaufauftraege (Standard 5) |
+| `minesmp.stars.bonus.<n>` | n Extra-Sterne pro Spielzeit-Belohnung |
 
 ## Team
 | Recht | Wirkung |
@@ -57,4 +63,7 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 `minesmp.admin.eco` (/eco), `minesmp.admin.crate` (/crate givekey/setblock), `minesmp.admin.duel` (Arenen),
 `minesmp.admin.event` (/eventadmin), `minesmp.admin.farmwelt` (/farmwelt reset), `minesmp.admin.items` (/msitem),
 `minesmp.admin.reload` (/minesmp reload), `minesmp.admin.setspawn`, `minesmp.admin.audit` (/auditlog), `minesmp.admin.vote` (/fakevote),
-`minesmp.playershop.admin`, `minesmp.pwarp.admin`, `minesmp.admin` (Bypass bei Strafen gegen Team).
+`minesmp.playershop.admin`, `minesmp.pwarp.admin`, `minesmp.admin` (Bypass bei Strafen gegen Team),
+`minesmp.admin.tokens` (/gems give, /sterne give), `minesmp.tokens.others`, `minesmp.admin.spawners` (/spawner give, fremde Spawner),
+`minesmp.admin.claims` (/claim bypass, /claim adminremove), `minesmp.admin.ce` (/ce give, /ce add), `minesmp.admin.keyall` (/keyall now),
+`minesmp.admin.poi` (/poi start, /poi stop).
