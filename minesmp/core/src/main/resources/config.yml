@@ -143,6 +143,24 @@ clans:
     per-1000-deposit: 5
     war-win: 500
   blocked-names: [admin, mod, team, minesmp, nazi, hitler]
+  # Clan-Saison (Rangliste am Spawn). Punkte: Krieg gewonnen 3, unentschieden 1. Neue Saison: /clan season reset
+  season:
+    name: 'Saison 1'
+    end: '2026-12-31 20:00'
+    tiers:
+      - {points: 0, name: 'Bronze', color: '&6'}
+      - {points: 3, name: 'Silber', color: '&7'}
+      - {points: 6, name: 'Gold', color: '&e'}
+      - {points: 10, name: 'Platin', color: '&b'}
+      - {points: 15, name: 'Diamant', color: '&3'}
+      - {points: 22, name: 'Meister', color: '&d'}
+      - {points: 30, name: 'Grossmeister', color: '&5'}
+      - {points: 45, name: 'Champion', color: '&c'}
+  board:
+    enabled: true
+    location: ''      # leer = Platz am Spawn aus dem Bauplan (Format welt;x;y;z)
+    scale: 1.0
+    range: 40
   war:
     enabled: true
     duration-minutes: 30

@@ -576,6 +576,7 @@ layout = {
     "crates": crate_pos,
     "duels": duels,
     "areas": areas,
+    "clan-board": [17.5, 102.6, -17.5],
 }
 
 # ================================================================ Ausgabe

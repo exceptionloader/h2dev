@@ -124,6 +124,62 @@ for name, text, fill, fg in [('profil', 'PROFIL', '#22C3D6', '#FFFFFF'), ('kampf
 for name in ICONS:
     add(name, icon(ICONS[name]), 9, 8)
 
+# ---------------------------------------------------------------- Scoreboard-Rahmen mit Logo
+# Passt genau auf die Vanilla-Sidebar mit 15 Zeilen: Rahmen beginnt mitten in der Titelzeile und endet 2px unter der letzten Zeile.
+BOARD_W, BOARD_LH, BOARD_F = 132, 16, 15 * 9 + 7
+
+
+def big_pill(text, fill, fg, px=2, pad=5, h=20):
+    H, P = h * S, px * S
+    W = text_width(text, P) + pad * 2 * S
+    img = Image.new('RGBA', (W, H + S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([0, S, W - 1, H + S - 1], radius=H // 2 - 2, fill=(0, 0, 0, 110))
+    d.rounded_rectangle([0, 0, W - 1, H - 1], radius=H // 2 - 2, fill=hexc(fill))
+    gl = Image.new('RGBA', img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(gl).rounded_rectangle([3 * S, S, W - 1 - 3 * S, H // 2 - S], radius=H // 4, fill=(255, 255, 255, 50))
+    img.alpha_composite(gl)
+    draw_text(ImageDraw.Draw(img), text, pad * S, (H - 7 * P) // 2, P, hexc(fg))
+    return img
+
+
+def gem(d, cx, cy, col, r=2):
+    for k in range(-r, r + 1):
+        w = r - abs(k)
+        d.rectangle([(cx - w) * S, (cy + k) * S, (cx + w + 1) * S - 1, (cy + k + 1) * S - 1], fill=hexc(col))
+
+
+def board():
+    W, Lh, F = BOARD_W, BOARD_LH, BOARD_F
+    img = Image.new('RGBA', (W * S, (Lh + F + 3) * S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    top, bot = Lh, Lh + F - 1
+    R = lambda x1, y1, x2, y2, c: d.rectangle([x1 * S, y1 * S, (x2 + 1) * S - 1, (y2 + 1) * S - 1], fill=c)
+    R(1, top + 1, W - 2, bot - 1, (8, 24, 32, 85))                       # leicht getoente Flaeche
+    R(2, top, W - 3, top, hexc('#0B2A33')); R(2, bot, W - 3, bot, hexc('#0B2A33'))
+    R(0, top + 2, 0, bot - 2, hexc('#0B2A33')); R(W - 1, top + 2, W - 1, bot - 2, hexc('#0B2A33'))
+    R(1, top + 1, 1, top + 1, hexc('#0B2A33')); R(W - 2, top + 1, W - 2, top + 1, hexc('#0B2A33'))
+    R(1, bot - 1, 1, bot - 1, hexc('#0B2A33')); R(W - 2, bot - 1, W - 2, bot - 1, hexc('#0B2A33'))
+    R(2, top + 1, W - 3, top + 1, hexc('#22C3D6')); R(2, bot - 1, W - 3, bot - 1, hexc('#22C3D6'))   # tuerkiser Rand
+    R(1, top + 2, 1, bot - 2, hexc('#22C3D6')); R(W - 2, top + 2, W - 2, bot - 2, hexc('#22C3D6'))
+    R(3, top + 2, W - 4, top + 2, hexc('#4F7CFF')); R(3, bot - 2, W - 4, bot - 2, hexc('#4F7CFF'))   # blaue Innenlinie
+    R(2, top + 3, 2, bot - 3, hexc('#4F7CFF')); R(W - 3, top + 3, W - 3, bot - 3, hexc('#4F7CFF'))
+    for x in (4, W - 5):                                                    # Eck-Edelsteine
+        gem(d, x, top + 1, '#B6F7FF', 1); gem(d, x, bot - 1, '#B6F7FF', 1)
+    a, b = big_pill("MINE", "#22C3D6", "#FFFFFF"), big_pill("SMP", "#FFFFFF", "#1B2733")
+    lw = a.width + b.width + 2 * S
+    x0 = (W * S - lw) // 2
+    y0 = (top - 14) * S
+    for gx in (x0 // S - 7, (x0 + lw) // S + 6):                           # Funkeln neben dem Logo
+        gem(d, gx, top - 4, '#55FFFF', 2); gem(d, gx + (3 if gx > W // 2 else -3), top - 9, '#FFFFFF', 1)
+    img.alpha_composite(a, (x0, y0)); img.alpha_composite(b, (x0 + a.width + 2 * S, y0))
+    for i, x in enumerate(range(10, W - 9, 9)):                             # Deko unten
+        gem(d, x, bot + 1, '#22C3D6' if i % 2 else '#B6F7FF', 1 if i % 3 else 2)
+    return img
+
+
+add('board', board(), BOARD_LH + BOARD_F + 3, BOARD_LH + 3)
+
 # Rang-Abzeichen (Namensschild, Chat, Scoreboard)
 RANKS = [('rank_owner', 'OWNER', '#B3261E', '#FFFFFF'), ('rank_admin', 'ADMIN', '#E5484D', '#FFFFFF'),
          ('rank_dev', 'DEV', '#A855F7', '#FFFFFF'), ('rank_mod', 'MOD', '#F59E0B', '#FFFFFF'),
@@ -141,7 +197,7 @@ def build():
     for name, c, img, h, asc in GLYPHS:
         img.save(TEX / f"{name}.png")
         providers.append({"type": "bitmap", "file": f"minesmp:font/{name}.png", "ascent": asc, "height": h, "chars": [chr(c)]})
-    providers.append({"type": "space", "advances": {"\ue0f0": -1, "\ue0f1": 1, "\ue0f2": 3, "\ue0f3": 6}})
+    providers.append({"type": "space", "advances": {"\ue0f0": -1, "\ue0f1": 1, "\ue0f2": 3, "\ue0f3": 6, "\ue0f4": 8, "\ue0f5": 2}})
     (OUT / "assets/minecraft/font").mkdir(parents=True)
     (OUT / "assets/minecraft/font/default.json").write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
     (OUT / "pack.mcmeta").write_text(json.dumps({"pack": {"description": "§b§lMINE§f§lSMP §7Ressourcenpaket",
@@ -158,7 +214,8 @@ def build():
     # Kuerzel-Tabelle fuer das Plugin
     (ROOT / "core/src/main/resources/glyphs.yml").write_text(
         "# Automatisch erzeugt von tools/build_pack.py - Kuerzel :name: -> Zeichen im Ressourcenpaket\n" +
-        "".join(f'{n}: "\\u{c:04X}"\n' for n, c, *_ in GLYPHS))
+        "".join(f'{n}: "\\u{c:04X}"\n' for n, c, *_ in GLYPHS)
+        + 'sp-1: "\\uE0F0"\nsp1: "\\uE0F1"\nsp2: "\\uE0F5"\nsp3: "\\uE0F2"\nsp6: "\\uE0F3"\nsp8: "\\uE0F4"\n')
     print(len(GLYPHS), "Zeichen,", z.stat().st_size, "Bytes")
 
 if __name__ == "__main__":

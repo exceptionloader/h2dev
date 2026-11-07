@@ -66,3 +66,6 @@ permissions:
   minesmp.admin.spawn:
     description: Darf den Spawn neu bauen (/minesmp buildspawn)
     default: op
+  minesmp.admin.clan:
+    description: Clan-Saison zuruecksetzen (/clan season reset)
+    default: op

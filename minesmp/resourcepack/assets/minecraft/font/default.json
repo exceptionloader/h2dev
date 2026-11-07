@@ -209,16 +209,16 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_owner.png",
-   "ascent": 8,
-   "height": 10,
+   "file": "minesmp:font/board.png",
+   "ascent": 19,
+   "height": 161,
    "chars": [
     "\ue017"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_admin.png",
+   "file": "minesmp:font/rank_owner.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -227,7 +227,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_dev.png",
+   "file": "minesmp:font/rank_admin.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -236,7 +236,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_mod.png",
+   "file": "minesmp:font/rank_dev.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -245,7 +245,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_support.png",
+   "file": "minesmp:font/rank_mod.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -254,7 +254,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_builder.png",
+   "file": "minesmp:font/rank_support.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -263,7 +263,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_legende.png",
+   "file": "minesmp:font/rank_builder.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -272,7 +272,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_mvp.png",
+   "file": "minesmp:font/rank_legende.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -281,7 +281,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_vip.png",
+   "file": "minesmp:font/rank_mvp.png",
    "ascent": 8,
    "height": 10,
    "chars": [
@@ -290,11 +290,20 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_spieler.png",
+   "file": "minesmp:font/rank_vip.png",
    "ascent": 8,
    "height": 10,
    "chars": [
     "\ue020"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_spieler.png",
+   "ascent": 8,
+   "height": 10,
+   "chars": [
+    "\ue021"
    ]
   },
   {
@@ -303,7 +312,9 @@
     "\ue0f0": -1,
     "\ue0f1": 1,
     "\ue0f2": 3,
-    "\ue0f3": 6
+    "\ue0f3": 6,
+    "\ue0f4": 8,
+    "\ue0f5": 2
    }
   }
  ]

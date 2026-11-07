@@ -6,7 +6,7 @@
 #  %clan_level% %rank_short% %bounty% %event% %combat% %bp_tier% %daily_streak% %coords% %direction% %world%
 #  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 4
+design-version: 5
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -41,34 +41,40 @@ lines:
 # Kuerzel: :logo: :profil: :kampf: :clan: :server: :event: :daily: :vote: :combat: :web:
 #          :coin: :star: :sword: :skull: :shield: :people: :crown: :pin: :clock: :heart: :bolt: :arrow: :dot:
 # Spieler ohne Paket sehen automatisch die Text-Version oben (lines / combat-lines).
-title-pack: ':logo:'
+title-pack: ':board:'
+# Genau 15 Zeilen, damit der Rahmen passt. :sp8: = Abstand zum rechten Rand.
 lines-pack:
-  - '&8'
-  - ':profil:'
-  - ' :crown: &7Rang<r>%rank_badge%'
-  - ' :coin: &7Geld<r>&a%balance%'
-  - ' :star: &7Level<r>&e%level%'
-  - '&7'
-  - ':kampf:'
-  - ' :sword: &7Kills<r>&c%kills%'
-  - ' :skull: &7Tode<r>&f%deaths%'
-  - '&f'
-  - ':clan:<r>&8[&b%clan_tag%&8]'
-  - ' :shield: &f%clan%<r>&7Lv &b%clan_level%'
-  - '&3'
-  - ' :people: &7Online<r>&f%online%'
-  - ':web:'
+  - '&0'
+  - ' :coin: &7Geld<r>&a%balance%:sp8:'
+  - ' :star: &7Level<r>&e%level%:sp8:'
+  - ' :crown: &7Rang<r>%rank_badge%:sp8:'
+  - ' :sword: &7Kills<r>&c%kills%:sp8:'
+  - ' :skull: &7Tode<r>&f%deaths%:sp8:'
+  - ' :shield: &7Clan<r>&b%clan_tag%:sp8:'
+  - ' :people: &7Online<r>&f%online%:sp8:'
+  - ' :bolt: &7Ping<r>&d%ping%ms:sp8:'
+  - ' :clock: &7Event<r>&b%next_event_in%:sp8:'
+  - ' :heart: &7Spielzeit<r>&a%playtime_short%:sp8:'
+  - '&1'
+  - ' <g:#55FFFF:#4F7CFF>&lMINESMP.DE</g>'
+  - ' &f%xp%&7/&f%xp_need% &8XP'
+  - '&2'
 combat-lines-pack:
-  - '&8'
-  - ':combat:'
-  - ' :clock: &7Noch<r>&c%combat%'
-  - ' :bolt: &7Streak<r>&6%killstreak%'
-  - ' :sword: &7Kills<r>&c%kills%'
-  - ' :coin: &7Kopfgeld<r>&a%bounty%'
-  - '&7'
-  - '&c&oNicht ausloggen!'
+  - '&0'
+  - ' :combat:'
+  - '&1'
+  - ' :clock: &7Noch<r>&c%combat%:sp8:'
+  - ' :bolt: &7Streak<r>&6%killstreak%:sp8:'
+  - ' :sword: &7Kills<r>&c%kills%:sp8:'
+  - ' :coin: &7Kopfgeld<r>&a%bounty%:sp8:'
+  - ' :heart: &7Leben<r>&c%health%:sp8:'
+  - '&2'
+  - ' &c&oNicht ausloggen!'
   - '&3'
-  - ':web:'
+  - '&4'
+  - ' <g:#55FFFF:#4F7CFF>&lMINESMP.DE</g>'
+  - '&5'
+  - '&6'
 
 # Waehrend Combat-Tag
 combat-lines:

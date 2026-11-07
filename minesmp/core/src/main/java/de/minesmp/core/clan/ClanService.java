@@ -163,6 +163,14 @@ public final class ClanService implements Listener {
         return list;
     }
 
+    /** Saison-Rangliste: Punkte, dann Siege, dann Clan-Level. */
+    public List<Clan> seasonTop() {
+        List<Clan> list = new ArrayList<>(clans.values());
+        list.sort(Comparator.comparingInt(Clan::seasonPoints).thenComparingInt(c -> c.seasonWins)
+                .thenComparingInt(c -> c.level).thenComparingDouble(c -> c.xp).reversed());
+        return list;
+    }
+
     public int position(Clan c) {
         return top().indexOf(c) + 1;
     }
@@ -212,6 +220,15 @@ public final class ClanService implements Listener {
             case "unrival" -> rival(p, a, false);
             case "war", "krieg" -> war(p, a);
             case "disband", "aufloesen" -> disband(p);
+            case "season", "saison" -> {
+                if (a.length >= 2 && a[1].equalsIgnoreCase("reset") && p.hasPermission("minesmp.admin.clan")) {
+                    for (Clan c : clans.values()) { c.seasonWins = 0; c.seasonDraws = 0; c.seasonLosses = 0; save(c); }
+                    plugin.audit().log(p, "CLAN_SEASON_RESET", "alle Clans");
+                    Msg.broadcast("clan.season-reset", "{prefix}&b&lNEUE CLAN-SAISON! &7Alle Saison-Punkte wurden zurueckgesetzt.");
+                } else {
+                    Msg.send(p, "clan.season-info", "{prefix}&7Die Clan-Rangliste steht am Spawn. Punkte: &aSieg 3 &8| &7Unentschieden 1 &8| &cNiederlage 0");
+                }
+            }
             case "transfer" -> transfer(p, a);
             case "ff" -> {
                 Clan c = require(p, Rank.CO_LEADER);
@@ -621,11 +638,13 @@ public final class ClanService implements Listener {
         }
         if (w.killsA == w.killsB) {
             w.a.bank += w.pot / 2; w.b.bank += w.pot / 2;
+            w.a.seasonDraws++; w.b.seasonDraws++;
             Msg.broadcast("clan.war-draw", "{prefix}&7Der Krieg &f{a} &7vs &f{b} &7endet unentschieden ({k}:{k}). Einsaetze zurueck.", "a", w.a.name, "b", w.b.name, "k", String.valueOf(w.killsA));
         } else {
             Clan win = w.killsA > w.killsB ? w.a : w.b, lose = win == w.a ? w.b : w.a;
             win.bank += w.pot;
             win.warsWon++; lose.warsLost++;
+            win.seasonWins++; lose.seasonLosses++;
             addXp(win, cfg().getDouble("clans.xp.war-win", 500));
             Msg.broadcast("clan.war-end", "{prefix}&6&lSIEG! &f{win} &7gewinnt den Krieg gegen &f{lose} &7({ka}:{kb}) und erhaelt &a{pot}&7!",
                     "win", win.name, "lose", lose.name, "ka", String.valueOf(Math.max(w.killsA, w.killsB)), "kb", String.valueOf(Math.min(w.killsA, w.killsB)), "pot", plugin.eco().format(w.pot));

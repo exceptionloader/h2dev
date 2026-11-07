@@ -97,6 +97,7 @@ public final class MineSMP extends JavaPlugin {
     private CustomItemService customItems;
     private CosmeticService cosmetics;
     private de.minesmp.core.world.SpawnService spawn;
+    private de.minesmp.core.clan.ClanBoardService clanBoard;
     private Placeholders placeholders;
     private final Set<String> disabledCommands = new HashSet<>();
 
@@ -109,7 +110,12 @@ public final class MineSMP extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         File sbFile = new File(getDataFolder(), "scoreboard.yml");
-        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < 4) {
+        int bundled = 1;
+        try (var in = getResource("scoreboard.yml")) {
+            if (in != null) bundled = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getInt("design-version", 1);
+        } catch (java.io.IOException ignored) {
+        }
+        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < bundled) {
             File old = new File(getDataFolder(), "scoreboard-alt.yml");
             if (old.exists()) old.delete();
             if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
@@ -169,6 +175,7 @@ public final class MineSMP extends JavaPlugin {
         cosmetics = new CosmeticService(this);
         events = new EventManager(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
+        clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
         pack = new de.minesmp.core.display.ResourcePackService(this);
@@ -193,6 +200,7 @@ public final class MineSMP extends JavaPlugin {
             if (cosmetics != null) cosmetics.shutdown();
             if (pack != null) pack.shutdown();
             if (ranks != null) ranks.shutdown();
+            if (clanBoard != null) clanBoard.shutdown();
             if (clans != null) clans.saveAll();
             if (bounties != null) bounties.save();
             if (data != null) data.saveAll();

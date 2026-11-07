@@ -11,7 +11,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 - **Survival**: Spawn-Welt (Void, geschuetzt), Survival-Welt, Farmwelt mit automatischem Wochen-Reset, /rtp, Homes, TPA, /back, /spawn, Spieler-Warps, Schlafsystem (30 %)
 - **Economy (MineCoins)**: /money /pay /baltop, Vault-Provider, Verdienst durch Mining/Farming/Holz/Fischen/Kampf/Quests, Transaktions-Log
 - **Handel**: Server-Shop-GUI mit Suche, /sell /sellhand /sellall, Auktionshaus mit Gebuehr/Steuer/Abholfach, sicherer /trade, Spieler-Shops per Schild, Verkaufsstab (Verkaufskisten)
-- **Clans**: Raenge, Einladungen, Bank, Home, Level/XP, Allianzen, Rivalen, Kriege mit Einsatz, Clanchat, Rangliste, GUI, Tags in Chat/Tab/Nametag
+- **Clans**: Clan-Saison mit Rangliste am Spawn (TOP 100, Rang-Stufen, Siege/Unentschieden/Niederlagen, Countdown, eigener Clan), Raenge, Einladungen, Bank, Home, Level/XP, Allianzen, Rivalen, Kriege mit Einsatz, Clanchat, Rangliste, GUI, Tags in Chat/Tab/Nametag
 - **PvP**: Combat-Tag (Logout = Tod), Killstreaks, Kill-Belohnung mit Farm-Schutz, Kopfgelder, Duelle mit Kits, FFA-Arena, optional Lifesteal
 - **Crates**: Vote/Daily/Rare/Epic/Legendary, Roll-Animation, Vorschau mit Chancen, virtuelle + physische Schluessel, Hologramme, Broadcast bei seltenen Gewinnen
 - **Fortschritt**: Spielerlevel + 5 Skills, Level-Belohnungen, taegliche/woechentliche Quests, Erfolge, Battlepass (Free/Premium)

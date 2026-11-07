@@ -98,7 +98,7 @@ public final class SpawnService implements Listener {
     private final NamespacedKey npcKey, holoKey;
     private int version;
     private String worldName = "spawn";
-    private double[] spawnPos, arenaArrival;
+    private double[] spawnPos, arenaArrival, clanBoard;
     private int voidY = 55;
     private final List<Zone> zones = new ArrayList<>();
     private final List<Npc> npcs = new ArrayList<>();
@@ -158,6 +158,7 @@ public final class SpawnService implements Listener {
         worldName = plugin.getConfig().getString("worlds.spawn", y.getString("world", "spawn"));
         spawnPos = d(y.getList("spawn"));
         arenaArrival = d(y.getList("arena-arrival"));
+        clanBoard = d(y.getList("clan-board"));
         voidY = y.getInt("void-y", 55);
         for (Map<?, ?> m : y.getMapList("pvp-zones")) {
             double[] c = d(m.get("center")), yy = d(m.get("y"));
@@ -707,5 +708,8 @@ public final class SpawnService implements Listener {
     }
 
     public boolean isBuilt() { return built; }
+
+    /** Position der Clan-Rangliste (aus dem Bauplan), nur wenn der Spawn gebaut ist. */
+    public Location clanBoardLocation() { return built ? loc(clanBoard) : null; }
 
 }

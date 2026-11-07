@@ -30,6 +30,7 @@ public final class Clan {
     public final Set<String> rivals = new HashSet<>();
     public long created;
     public int kills, warsWon, warsLost;
+    public int seasonWins, seasonDraws, seasonLosses;
     public boolean friendlyFire;
 
     public Clan(String id, String name, String tag) {
@@ -41,6 +42,11 @@ public final class Clan {
     public UUID leader() {
         for (var e : members.entrySet()) if (e.getValue() == Rank.LEADER) return e.getKey();
         return members.keySet().stream().findFirst().orElse(null);
+    }
+
+    /** Saison-Punkte: Sieg 3, Unentschieden 1. */
+    public int seasonPoints() {
+        return seasonWins * 3 + seasonDraws;
     }
 
     public Rank rank(UUID id) {
@@ -63,6 +69,9 @@ public final class Clan {
         y.set("kills", kills);
         y.set("wars-won", warsWon);
         y.set("wars-lost", warsLost);
+        y.set("season.wins", seasonWins);
+        y.set("season.draws", seasonDraws);
+        y.set("season.losses", seasonLosses);
         y.set("friendly-fire", friendlyFire);
         return y.saveToString();
     }
@@ -95,6 +104,9 @@ public final class Clan {
         kills = y.getInt("kills");
         warsWon = y.getInt("wars-won");
         warsLost = y.getInt("wars-lost");
+        seasonWins = y.getInt("season.wins");
+        seasonDraws = y.getInt("season.draws");
+        seasonLosses = y.getInt("season.losses");
         friendlyFire = y.getBoolean("friendly-fire");
     }
 }
