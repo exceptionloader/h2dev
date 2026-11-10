@@ -11,11 +11,11 @@
 #             | helix (Doppelspirale) | crown (Flammenkrone)
 #  colors:    zwei Hex-Farben fuer die Partikel
 # =====================================================================
-design-version: 2
+design-version: 3
 ranks:
   owner:     {badge: rank_owner,   text: '&4&lOWNER',   name: '<g:#FF6B6B:#FFC46B>&l{name}</g>', particles: crown,   colors: ['#FF4D4D', '#FFC46B']}
   admin:     {badge: rank_admin,   text: '&c&lADMIN',   name: '<g:#FF5555:#FF9A9A>{name}</g>',   particles: halo,    colors: ['#FF5555', '#FFB4B4']}
-  developer: {badge: rank_dev,     text: '&d&lDEV',     name: '<g:#C084FC:#F0ABFC>{name}</g>',   particles: halo,    colors: ['#C084FC', '#F0ABFC']}
+  developer: {badge: rank_dev,     text: '&b&lENTWICKLER', name: '<g:#2F9BE0:#8FF3FF>{name}</g>', particles: halo,    colors: ['#2F9BE0', '#8FF3FF']}
   moderator: {badge: rank_mod,     text: '&6&lMOD',     name: '&6{name}',                        particles: ring,    colors: ['#F59E0B', '#FDE68A']}
   supporter: {badge: rank_support, text: '&e&lSUPPORT', name: '&e{name}',                        particles: ring,    colors: ['#FACC15', '#FFF3A3']}
   builder:   {badge: rank_builder, text: '&a&lBUILDER', name: '&a{name}',                        particles: sparkle, colors: ['#22C55E', '#BBF7D0']}

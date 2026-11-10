@@ -206,7 +206,7 @@ def tag(text, fill, fg='#FFFFFF', h=9, pad=2):
 
 GEM = ["....o....", "...ohо...".replace('о', 'o'), "..ohhpo..", ".ohhpppo.", "ohhpppddo", ".oppdddo.", "..opddo..", "...odo...", "....o...."]
 
-RANKS = [('owner', 'OWNER', '#B91C1C'), ('admin', 'ADMIN', '#E02B2B'), ('dev', 'DEV', '#9333EA'), ('mod', 'MOD', '#EA580C'),
+RANKS = [('owner', 'OWNER', '#B91C1C'), ('admin', 'ADMIN', '#E02B2B'), ('dev', 'ENTWICKLER', '#2F9BE0'), ('mod', 'MOD', '#EA580C'),
          ('support', 'SUPPORT', '#CA8A04'), ('builder', 'BUILDER', '#16A34A'), ('premium', 'PREMIUM', '#D99A00'),
          ('legende', 'LEGENDE', '#3B5BDB'), ('mvp', 'MVP', '#0E9FB3'), ('vip', 'VIP', '#2F9BE0'), ('spieler', 'SPIELER', '#5B6472')]
 for rid, text, fill in RANKS:

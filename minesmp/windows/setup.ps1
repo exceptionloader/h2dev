@@ -198,10 +198,12 @@ if ($firstRun) {
     Write-NoBom (Join-Path $Server '.minesmp-setup-done') (Get-Date).ToString('s')
 }
 # Neue Raenge aus Updates (z.B. Premium) einmalig nachladen
-$rankMarker = Join-Path $Server '.minesmp-raenge-v2'
+$rankMarker = Join-Path $Server '.minesmp-raenge-v3'
 if ($ready -and -not (Test-Path $rankMarker)) {
     if (-not $firstRun) {
         Copy-Item (Join-Path $Root 'files\minesmp-raenge.json.gz') (Join-Path $Plugins 'LuckPerms') -Force
+        $proc.StandardInput.WriteLine('lp group developer meta removeprefix 70')
+        Start-Sleep -Seconds 2
         $proc.StandardInput.WriteLine('lp import minesmp-raenge')
         Start-Sleep -Seconds 6
     }

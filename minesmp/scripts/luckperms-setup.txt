@@ -31,7 +31,7 @@ lp group legende meta setprefix 30 "&9&lLEGENDE &8| &9"
 lp group builder meta setprefix 40 "&a&lBUILDER &8| &a"
 lp group supporter meta setprefix 50 "&e&lSUPPORT &8| &e"
 lp group moderator meta setprefix 60 "&6&lMOD &8| &6"
-lp group developer meta setprefix 70 "&d&lDEV &8| &d"
+lp group developer meta setprefix 70 "&b&lENTWICKLER &8| &b"
 lp group admin meta setprefix 80 "&c&lADMIN &8| &c"
 lp group owner meta setprefix 100 "&4&lOWNER &8| &4"
 
