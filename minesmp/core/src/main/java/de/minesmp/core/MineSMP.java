@@ -111,6 +111,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.clan.ClanLeagueService league;
     private de.minesmp.core.combat.PvpService pvp;
     private de.minesmp.core.events.PveService pve;
+    private de.minesmp.core.world.SpawnCompass compass;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
@@ -206,6 +207,7 @@ public final class MineSMP extends JavaPlugin {
         events = new EventManager(this);
         poi = new de.minesmp.core.events.PoiService(this);
         pve = new de.minesmp.core.events.PveService(this);
+        compass = new de.minesmp.core.world.SpawnCompass(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
         clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);
@@ -229,6 +231,7 @@ public final class MineSMP extends JavaPlugin {
             if (events != null) events.stopAll();
             if (poi != null && poi.active()) poi.stop();
             if (spawners != null) spawners.shutdown();
+            if (compass != null) compass.shutdown();
             if (league != null) league.shutdown();
             if (pvp != null) pvp.shutdown();
             if (pve != null) pve.shutdown();

@@ -764,6 +764,8 @@ public final class SpawnService implements Listener {
         return false;
     }
 
+    public boolean isSpawnWorld(World w) { return inSpawn(w); }
+
     private boolean inSpawn(World w) {
         return w != null && w.getName().equals(worldName);
     }

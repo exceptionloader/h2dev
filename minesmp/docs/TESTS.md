@@ -136,3 +136,12 @@ Aussehen von Map, Menues und Liga-Symbolen im echten Client (die Map wurde nur i
 
 **Nicht getestet:** der automatische Download der Karten-Datei durch das Plugin auf einem frischen Server (im Test lag die Datei schon im
 Ordner; der Download-Link selbst wurde geprueft), jeder einzelne der 26 NPC-Plaetze im echten Client, das neue Scoreboard im echten Client.
+
+## Update 10.11.2026 (3): Navigator-Kompass am Spawn
+| Test | Ergebnis |
+|---|---|
+| Survival-Welt: kein Kompass; eigene Spitzhacke auf Hotbar-Platz 9 bleibt | ✅ |
+| Am Spawn: Kompass liegt auf Platz 9, die Spitzhacke wurde ins Inventar verschoben | ✅ |
+| Rechtsklick oeffnet den Navigator mit 7 Zielen | ✅ |
+| Wegwerfen und Verschieben des Kompasses werden verhindert | ✅ |
+| In der PvP-Arena und zurueck in der Survival-Welt: Kompass weg, Spitzhacke wieder auf Platz 9 | ✅ |
