@@ -89,7 +89,8 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /trash | /muell, /disposal | `minesmp.trash` | Muelleimer | MiscCommands |
 | /unban | /pardon | `minesmp.staff.unban` | Entbannt | PunishmentService |
 | /unmute | - | `minesmp.staff.mute` | Stummschaltung aufheben | PunishmentService |
-| /vanish | /v | `minesmp.staff.vanish` | Unsichtbar werden | StaffCommands |
+| /vanish | /v | `minesmp.staff.vanish` | Komplett unsichtbar (auch dein eigener Skin) | VanishService |
+| /vanishultra | /vu, /ultravanish | `minesmp.staff.vanish` | Unsichtbar fuer Spieler, du siehst deinen Skin | VanishService |
 | /verzauberungen | /ce, /enchants, /verzaubern | `minesmp.ce` | Eigene Verzauberungen | EnchantService |
 | /vote | /voten, /votes | `minesmp.vote` | Fuer MineSMP voten | VoteService |
 | /warn | - | `minesmp.staff.warn` | Verwarnt einen Spieler | PunishmentService |

@@ -97,6 +97,8 @@ tab:
   prefix-pack: '{icon}{check}{badge} &8| '
   prefix: '{check}{text} &8| '
   suffix: '{clan}{afk}'
+  # Eintrag fuer Teammitglieder im Vanish (sieht nur das Team)
+  vanish-format: '&8[&7V&8] {text} &8| &7&o{player}'
   frame-count: 1
   header-frames:
     0:

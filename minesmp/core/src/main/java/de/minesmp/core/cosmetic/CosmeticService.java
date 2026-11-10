@@ -108,7 +108,9 @@ public final class CosmeticService implements Listener {
     private void tick() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerData d = plugin.data().get(p);
-            if (!d.trail.isEmpty() && !p.isInvisible() && !plugin.duels().inDuel(p)) {
+            boolean hidden = plugin.vanish() != null && plugin.vanish().isVanished(p);
+            if (hidden && activePets.containsKey(p.getUniqueId())) despawnPet(p);
+            if (!d.trail.isEmpty() && !hidden && !p.isInvisible() && !plugin.duels().inDuel(p)) {
                 Trail t = trails.get(d.trail);
                 if (t != null && p.hasPermission("minesmp.trail." + t.id)) p.getWorld().spawnParticle(t.particle, p.getLocation().add(0, 0.2, 0), 2, 0.25, 0.1, 0.25, 0);
             }
@@ -124,10 +126,17 @@ public final class CosmeticService implements Listener {
         }
     }
 
+    /** Haustier neu setzen (z.B. nach Vanish an/aus). */
+    public void refresh(Player p) {
+        despawnPet(p);
+        spawnPet(p);
+    }
+
     private void spawnPet(Player p) {
         PlayerData d = plugin.data().get(p);
         Pet pet = pets.get(d.pet);
         if (pet == null || !p.hasPermission("minesmp.pet." + pet.id) || plugin.duels().inDuel(p)) return;
+        if (plugin.vanish() != null && plugin.vanish().isVanished(p)) return;
         Location l = p.getLocation().add(p.getLocation().getDirection().setY(0).normalize().multiply(-1.5));
         Entity e = p.getWorld().spawnEntity(l, pet.type, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.CUSTOM, en -> {
             en.getPersistentDataContainer().set(petKey, PersistentDataType.STRING, p.getUniqueId().toString());

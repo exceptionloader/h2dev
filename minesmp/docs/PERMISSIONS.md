@@ -58,6 +58,11 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 | `minesmp.combat.bypass` | Kein Combat-Tag |
 | `minesmp.money.others`, `minesmp.spawn.others` | Fremde Kontostaende / andere zum Spawn |
 
+### Vanish
+`minesmp.staff.vanish` erlaubt `/vanish` (komplett unsichtbar, auch der eigene Skin) und `/vanishultra` (du siehst deinen Skin, Spieler nicht).
+Wer `minesmp.staff.member` oder `minesmp.staff.vanish` hat, sieht Teammitglieder im Vanish immer
+(im `/vanish` als durchsichtige Figur, im `/vanishultra` normal, jeweils mit Hinweis am Namensschild und `[V]` in der Tab-Liste).
+
 ## Admin
 `minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn),
 `minesmp.admin.eco` (/eco), `minesmp.admin.crate` (/crate givekey/setblock), `minesmp.admin.duel` (Arenen),

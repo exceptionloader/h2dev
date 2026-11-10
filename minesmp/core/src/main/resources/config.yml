@@ -276,6 +276,13 @@ afk:
   kick-minutes: 30
   kick-min-online: 30
 
+# Vanish fuer das Team: /vanish (komplett unsichtbar, auch der eigene Skin) und /vanishultra (du siehst deinen Skin, Spieler nicht).
+# Teammitglieder (minesmp.staff.member oder minesmp.staff.vanish) sehen sich gegenseitig immer.
+vanish:
+  fake-messages: true      # beim An-/Ausschalten sehen Spieler "hat verlassen" / "ist beigetreten"
+  pickup-items: true       # im Vanish Items aufheben
+  remember: true           # nach dem Neu-Einloggen weiter im Vanish
+
 punishments:
   # Automatische Strafe ab X aktiven Verwarnungen
   warn-escalation:

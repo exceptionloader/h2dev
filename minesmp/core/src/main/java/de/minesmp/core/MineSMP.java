@@ -107,6 +107,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.item.EnchantService enchants;
     private de.minesmp.core.utility.KeyallService keyall;
     private de.minesmp.core.events.PoiService poi;
+    private de.minesmp.core.admin.VanishService vanish;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
@@ -164,6 +165,7 @@ public final class MineSMP extends JavaPlugin {
         security = new SecurityService(this);
         reports = new ReportService(this);
         staff = new StaffCommands(this);
+        vanish = new de.minesmp.core.admin.VanishService(this);
         enchants = new de.minesmp.core.item.EnchantService(this);
         customItems = new CustomItemService(this);
         shop = new ShopService(this);
@@ -312,4 +314,5 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.item.EnchantService enchants() { return enchants; }
     public de.minesmp.core.utility.KeyallService keyall() { return keyall; }
     public de.minesmp.core.events.PoiService poi() { return poi; }
+    public de.minesmp.core.admin.VanishService vanish() { return vanish; }
 }

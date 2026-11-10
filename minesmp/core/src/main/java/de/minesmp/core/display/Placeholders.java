@@ -34,7 +34,7 @@ public final class Placeholders {
         if (k.startsWith("keys_")) return String.valueOf(d.keys(k.substring(5)));
         if (k.startsWith("skill_")) return String.valueOf(plugin.skills().skillLevel(d, k.substring(6)));
         return switch (k) {
-            case "online" -> String.valueOf(Bukkit.getOnlinePlayers().size());
+            case "online" -> String.valueOf(Math.max(0, Bukkit.getOnlinePlayers().size() - (plugin.vanish() == null ? 0 : plugin.vanish().count())));
             case "max_players" -> String.valueOf(Bukkit.getMaxPlayers());
             case "player", "name" -> p.getName();
             case "balance", "money" -> Text.compact(d.balance);

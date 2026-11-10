@@ -28,7 +28,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 - **Ränge**: eckige Abzeichen (OWNER, ADMIN, ENTWICKLER, MOD, SUPPORT, BUILDER, PREMIUM, LEGENDE, MVP, VIP) als Grafik in Namensschild, Tab-Liste, Chat und Scoreboard; Namensschild über dem Kopf (auch selbst in F5 sichtbar) im Format `◆ [✔] ADMIN | Name [Clan]` mit zweiter Zeile `Coins: … , Gems: …`; Tab-Liste im selben Format; Rang-Partikel (Ring, Heiligenschein, Spirale, Flammenkrone, Funkeln) - alles in `ranks.yml`
 - **Anzeige**: animiertes Scoreboard, Info-Leiste oben (wechselnde, ablaufende Bossbar), Info-Zeile ueber der Hotbar (Geld, Koordinaten, Richtung, Welt, Uhrzeit), animierte Tablist, Rang-Prefixe (LuckPerms), Nametags, Bossbars, Actionbars, alle Texte in `messages.yml`
 - **Komfort**: /trash /craft /ec /repair /msg /r /ignore /profile /stats /playtime /daily /rewards /quests /settings /discord /rules /help /report /staff /vote, AFK-System, Custom Items, eigene Rezepte, Partikel-Spuren, Haustiere
-- **Sicherheit/Team**: Ban/Tempban/Mute/Warn (mit Eskalation)/Kick + Verlauf, Reports-GUI, Teamchat, Vanish, Invsee, Audit-Log, Discord-Webhooks, Anti-Spam/Links, Anti-Bot, Schutz vor Namespace-/Plugin-Befehlen, Dupe-Schutz in allen GUIs
+- **Sicherheit/Team**: Ban/Tempban/Mute/Warn (mit Eskalation)/Kick + Verlauf, Reports-GUI, Teamchat, /vanish (komplett unsichtbar, auch der eigene Skin) und /vanishultra (eigener Skin sichtbar) - das Team sieht sich gegenseitig immer, Invsee, Audit-Log, Discord-Webhooks, Anti-Spam/Links, Anti-Bot, Schutz vor Namespace-/Plugin-Befehlen, Dupe-Schutz in allen GUIs
 - **Technik**: SQLite oder MariaDB (HikariCP), alle DB-Zugriffe asynchron, PlaceholderAPI-Erweiterung `%minesmp_...%`
 
 ## Projektstruktur

@@ -184,6 +184,12 @@ public final class RankService implements Listener {
 
     private String[] tagTexts(Player p) {
         String a = format(p, line1Pack, true), b = format(p, line1, false);
+        de.minesmp.core.admin.VanishService.Mode vm = plugin.vanish() == null ? null : plugin.vanish().mode(p);
+        if (vm != null) {
+            String mark = vm.color + "&l" + vm.display.toUpperCase(Locale.ROOT) + "\n";
+            a = mark + a;
+            b = mark + b;
+        }
         String l2a = format(p, line2, true), l2b = format(p, line2, false);
         return new String[]{l2a.isBlank() ? a : a + "\n" + l2a, l2b.isBlank() ? b : b + "\n" + l2b};
     }
@@ -214,8 +220,10 @@ public final class RankService implements Listener {
     }
 
     private boolean showTagOf(Player p) {
-        return tagsEnabled && p.isOnline() && !p.isDead() && p.getGameMode() != GameMode.SPECTATOR
-                && !p.isInvisible() && !p.hasPotionEffect(PotionEffectType.INVISIBILITY);
+        if (!tagsEnabled || !p.isOnline() || p.isDead() || p.getGameMode() == GameMode.SPECTATOR) return false;
+        // Im Vanish bleibt das Schild fuer das Team sichtbar
+        if (plugin.vanish() != null && plugin.vanish().isVanished(p)) return true;
+        return !p.isInvisible() && !p.hasPotionEffect(PotionEffectType.INVISIBILITY);
     }
 
     private void syncTags() {
@@ -229,7 +237,8 @@ public final class RankService implements Listener {
             for (Player o : online) {
                 Tag t = tags.get(o.getUniqueId());
                 if (t == null) continue;
-                boolean see = v.equals(o) ? vd == null || vd.setting("nametag-self", true) : v.canSee(o) && v.getWorld().equals(o.getWorld());
+                boolean fullVanish = plugin.vanish() != null && plugin.vanish().mode(o) == de.minesmp.core.admin.VanishService.Mode.FULL;
+                boolean see = v.equals(o) ? !fullVanish && (vd == null || vd.setting("nametag-self", true)) : v.canSee(o) && v.getWorld().equals(o.getWorld());
                 visible(v, t.pack, see && wantPack);
                 visible(v, t.text, see && !wantPack);
             }

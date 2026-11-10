@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,6 +151,13 @@ public final class ScoreboardService implements Listener {
     }
 
     public void refreshTabName(Player p) {
+        if (plugin.vanish() != null && plugin.vanish().isVanished(p)) {
+            // Im Vanish sieht nur das Team den Eintrag: fester Text mit Hinweis
+            String fmt = cfg.getString("tab.vanish-format", "&8[&7V&8] {text} &8| &7&o{player}");
+            p.playerListName(Text.c(plugin.ranks() != null ? plugin.ranks().format(p, fmt, false) : "&8[&7V&8] &7&o" + p.getName()));
+            refreshNametags();
+            return;
+        }
         if (tabPerViewer()) {
             p.playerListName(null);
             refreshNametags();
@@ -161,10 +169,25 @@ public final class ScoreboardService implements Listener {
                 "afk", plugin.afk().isAfk(p) ? " &7[AFK]" : "")));
     }
 
-    /** Teams fuer Nametags und Tab-Sortierung (nach Rang-Reihenfolge in scoreboard.yml -> sort-groups). */
+    /**
+     * Teams fuer Tab-Sortierung, Tab-Praefix und (ausgeblendete) Vanilla-Namensschilder; pro Betrachter ein eigenes Scoreboard.
+     * Teammitglieder sehen Spieler im /vanish (unsichtbar) als durchsichtige Figur: dafuer steckt der Unsichtbare
+     * auf dem Scoreboard des Betrachters im selben Team wie der Betrachter.
+     */
     public void refreshNametags() {
         List<String> order = cfg.getStringList("sort-groups");
-        for (Player viewer : Bukkit.getOnlinePlayers()) {
+        boolean perViewer = tabPerViewer();
+        boolean customTags = plugin.ranks() != null && plugin.ranks().nametagsEnabled();
+        List<Player> online = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Map<UUID, String> teamNames = new HashMap<>();
+        for (Player target : online) {
+            int idx = order.size();
+            if (plugin.ranks() != null) idx = plugin.ranks().order(target);
+            else for (int i = 0; i < order.size(); i++) if (target.hasPermission("group." + order.get(i))) { idx = i; break; }
+            String teamName = String.format("%03d", idx) + target.getName();
+            teamNames.put(target.getUniqueId(), teamName.length() > 64 ? teamName.substring(0, 64) : teamName);
+        }
+        for (Player viewer : online) {
             Scoreboard sb = boards.get(viewer.getUniqueId());
             if (sb == null) continue;
             for (Team t : sb.getTeams()) {
@@ -172,28 +195,39 @@ public final class ScoreboardService implements Listener {
                 for (String e : t.getEntries()) if (Bukkit.getPlayerExact(e) != null) { stillOnline = true; break; }
                 if (!stillOnline) t.unregister();
             }
-            for (Player target : Bukkit.getOnlinePlayers()) {
-                int idx = order.size();
-                if (plugin.ranks() != null) idx = plugin.ranks().order(target);
-                else for (int i = 0; i < order.size(); i++) if (target.hasPermission("group." + order.get(i))) { idx = i; break; }
-                String teamName = String.format("%03d", idx) + target.getName();
-                if (teamName.length() > 64) teamName = teamName.substring(0, 64);
+            boolean pack = plugin.pack() != null && plugin.pack().has(viewer);
+            boolean seesVanished = plugin.vanish() != null && plugin.vanish().sees(viewer);
+            String ownTeam = teamNames.get(viewer.getUniqueId());
+            boolean ghosts = false;
+            for (Player target : online) {
+                boolean ghost = seesVanished && !target.equals(viewer)
+                        && plugin.vanish().mode(target) == de.minesmp.core.admin.VanishService.Mode.FULL;
+                ghosts |= ghost;
+                String teamName = ghost ? ownTeam : teamNames.get(target.getUniqueId());
                 Team old = sb.getEntryTeam(target.getName());
-                if (old != null && !old.getName().equals(teamName)) old.unregister();
+                if (old != null && !old.getName().equals(teamName)) {
+                    old.removeEntry(target.getName());
+                    if (old.getEntries().isEmpty()) old.unregister();
+                }
                 Team t = sb.getTeam(teamName);
                 if (t == null) t = sb.registerNewTeam(teamName);
-                if (tabPerViewer()) {
-                    boolean pack = plugin.pack() != null && plugin.pack().has(viewer);
-                    String pre = pack ? cfg.getString("tab.prefix-pack", cfg.getString("tab.prefix", "")) : cfg.getString("tab.prefix", "{check}{text} &8| ");
-                    t.prefix(Text.c(plugin.ranks().format(target, pre, pack)));
-                    t.suffix(Text.c(plugin.ranks().format(target, cfg.getString("tab.suffix", "{clan}{afk}"), pack)));
-                } else {
-                    t.prefix(Text.c(plugin.chat().prefix(target) + plugin.clans().tag(target)));
+                if (!ghost) {
+                    if (perViewer) {
+                        String pre = pack ? cfg.getString("tab.prefix-pack", cfg.getString("tab.prefix", "")) : cfg.getString("tab.prefix", "{check}{text} &8| ");
+                        t.prefix(Text.c(plugin.ranks().format(target, pre, pack)));
+                        t.suffix(Text.c(plugin.ranks().format(target, cfg.getString("tab.suffix", "{clan}{afk}"), pack)));
+                    } else {
+                        t.prefix(Text.c(plugin.chat().prefix(target) + plugin.clans().tag(target)));
+                    }
                 }
                 // Eigenes Namensschild (RankService) ersetzt das normale
-                t.setOption(Team.Option.NAME_TAG_VISIBILITY, plugin.ranks() != null && plugin.ranks().nametagsEnabled()
-                        ? Team.OptionStatus.NEVER : Team.OptionStatus.ALWAYS);
+                t.setOption(Team.Option.NAME_TAG_VISIBILITY, customTags ? Team.OptionStatus.NEVER : Team.OptionStatus.ALWAYS);
                 if (!t.hasEntry(target.getName())) t.addEntry(target.getName());
+            }
+            // Ohne "seeFriendlyInvisibles" ist ein unsichtbarer Spieler auch fuer sich selbst komplett unsichtbar (F5)
+            for (Team t : sb.getTeams()) {
+                boolean want = ghosts && t.getName().equals(ownTeam);
+                if (t.canSeeFriendlyInvisibles() != want) t.setCanSeeFriendlyInvisibles(want);
             }
         }
     }

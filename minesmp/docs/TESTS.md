@@ -92,3 +92,17 @@ die Bots brauchten `grim.exempt`.
 | Tab-Liste | Team-Praefix pro Betrachter (mit/ohne Ressourcenpaket), Spieler ohne Rang ohne Haken | ✅ |
 
 **Nicht getestet:** Aussehen im echten Minecraft-Client (nur die uebertragenen Texte und Grafiken wurden geprueft).
+
+## Update 10.11.2026: /vanish und /vanishultra
+Drei Bot-Spieler (Admin, Supporter, Spieler ohne Rang).
+
+| Test | Ergebnis |
+|---|---|
+| `/vanish`: Spieler ohne Rang sieht den Admin nicht mehr (weder Figur noch Tab-Liste) und liest `[-] Name` | ✅ |
+| `/vanish`: Supporter sieht den Admin weiter, Tab-Eintrag `[V] ADMIN \| Name`, Team-Nachricht | ✅ |
+| `/vanish`: Unsichtbar-Kennzeichen am Admin gesetzt (eigener Skin weg); beim Supporter steckt der Admin im selben Team (Voraussetzung fuer die durchsichtige Figur) | ✅ |
+| `/vanishultra`: Spieler sieht den Admin nicht, Unsichtbar-Kennzeichen aus (eigener Skin sichtbar), Supporter sieht ihn normal | ✅ |
+| Ausschalten: Spieler sieht den Admin wieder und liest `[+] Name`; `/vanish list` | ✅ |
+
+**Nicht getestet:** Aussehen im echten Client (durchsichtige Figur beim Team, eigener Skin in F5), Vanish nach Neu-Einloggen,
+Haustiere/Spuren im Vanish, Mobs ignorieren Spieler im Vanish.

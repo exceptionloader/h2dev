@@ -21,14 +21,12 @@ import java.util.UUID;
 /** /staff, /sc (Teamchat), /vanish, /invsee, /ecsee, /broadcast, /minesmp reload */
 public final class StaffCommands implements Listener {
     private final MineSMP plugin;
-    private final Set<UUID> vanished = new HashSet<>();
 
     public StaffCommands(MineSMP plugin) {
         this.plugin = plugin;
         plugin.listen(this);
         plugin.command(new SimpleCommand("staff", "minesmp.staff.list", "Zeigt das Team", this::staff, "team"));
         plugin.command(new SimpleCommand("sc", "minesmp.staff.chat", "Teamchat", this::staffChat, "teamchat"));
-        plugin.command(new SimpleCommand("vanish", "minesmp.staff.vanish", "Unsichtbar werden", this::vanish, "v"));
         plugin.command(new SimpleCommand("invsee", "minesmp.staff.invsee", "Inventar ansehen", this::invsee));
         plugin.command(new SimpleCommand("ecsee", "minesmp.staff.invsee", "Enderchest ansehen", this::ecsee));
         plugin.command(new SimpleCommand("broadcast", "minesmp.staff.broadcast", "Rundnachricht", (s, l, a) -> {
@@ -72,7 +70,7 @@ public final class StaffCommands implements Listener {
     private void staff(CommandSender s, String l, String[] a) {
         List<String> names = new ArrayList<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.hasPermission("minesmp.staff.member") && (!vanished.contains(p.getUniqueId()) || s.hasPermission("minesmp.staff.vanish"))) {
+            if (p.hasPermission("minesmp.staff.member") && (!isVanished(p) || !(s instanceof Player sp) || plugin.vanish().sees(sp))) {
                 names.add(plugin.chat().prefix(p) + p.getName());
             }
         }
@@ -89,21 +87,8 @@ public final class StaffCommands implements Listener {
         Bukkit.getConsoleSender().sendMessage("[Teamchat] " + s.getName() + ": " + msg);
     }
 
-    private void vanish(CommandSender s, String l, String[] a) {
-        if (!(s instanceof Player p)) return;
-        if (vanished.remove(p.getUniqueId())) {
-            for (Player o : Bukkit.getOnlinePlayers()) o.showPlayer(plugin, p);
-            Msg.send(p, "vanish.off", "{prefix}&7Du bist wieder &fsichtbar&7.");
-        } else {
-            vanished.add(p.getUniqueId());
-            for (Player o : Bukkit.getOnlinePlayers()) if (!o.hasPermission("minesmp.staff.vanish")) o.hidePlayer(plugin, p);
-            Msg.send(p, "vanish.on", "{prefix}&7Du bist jetzt &bunsichtbar&7.");
-        }
-        plugin.audit().log(p, "VANISH", vanished.contains(p.getUniqueId()) ? "an" : "aus");
-    }
-
     public boolean isVanished(Player p) {
-        return vanished.contains(p.getUniqueId());
+        return plugin.vanish() != null && plugin.vanish().isVanished(p);
     }
 
     private void invsee(CommandSender s, String l, String[] a) {
@@ -140,20 +125,5 @@ public final class StaffCommands implements Listener {
             for (int i = 0; i < contents.length; i++) if (contents[i] != null) m.set(i, contents[i].clone());
             m.open(p);
         }
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        if (p.hasPermission("minesmp.staff.vanish")) return;
-        for (UUID id : vanished) {
-            Player v = Bukkit.getPlayer(id);
-            if (v != null) p.hidePlayer(plugin, v);
-        }
-    }
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        vanished.remove(e.getPlayer().getUniqueId());
     }
 }
