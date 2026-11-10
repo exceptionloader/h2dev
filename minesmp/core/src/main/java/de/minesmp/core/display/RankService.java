@@ -48,7 +48,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * und als Text (ohne Paket). Jeder Betrachter sieht nur das passende.
  */
 public final class RankService implements Listener {
-    public record Rank(String id, String badge, String text, String nameFormat, String style, Color c1, Color c2) {}
+    public record Rank(String id, String badge, String text, String nameFormat, String style, Color c1, Color c2, String icon, boolean verified) {}
 
     private record Pt(Particle particle, Location loc, Object data) {}
 
@@ -62,7 +62,7 @@ public final class RankService implements Listener {
     private final List<Rank> ranks = new ArrayList<>();
     private Rank fallback;
     private boolean tagsEnabled, particlesEnabled;
-    private String line1Pack, line1, line2, clanFormat, afkFormat;
+    private String line1Pack, line1, line2, clanFormat, afkFormat, checkPack, checkText;
     private float height, viewRange;
     private int range;
     private final Map<UUID, Tag> tags = new HashMap<>();
@@ -99,17 +99,20 @@ public final class RankService implements Listener {
                 List<String> cols = r.getStringList("colors");
                 Rank rank = new Rank(id.toLowerCase(Locale.ROOT), r.getString("badge", "rank_spieler"), r.getString("text", "&7" + id),
                         r.getString("name", "&f{name}"), r.getString("particles", "none").toLowerCase(Locale.ROOT),
-                        color(cols.isEmpty() ? "#FFFFFF" : cols.get(0), Color.WHITE), color(cols.size() < 2 ? "#FFFFFF" : cols.get(1), Color.WHITE));
+                        color(cols.isEmpty() ? "#FFFFFF" : cols.get(0), Color.WHITE), color(cols.size() < 2 ? "#FFFFFF" : cols.get(1), Color.WHITE),
+                        r.getString("icon", r.getString("badge", "rank_spieler").replace("rank_", "icon_")), r.getBoolean("verified", !id.equalsIgnoreCase("default")));
                 if (rank.id.equals("default")) fallback = rank;
                 else ranks.add(rank);
             }
         }
-        if (fallback == null) fallback = new Rank("default", "rank_spieler", "&7Spieler", "&f{name}", "none", Color.WHITE, Color.WHITE);
+        if (fallback == null) fallback = new Rank("default", "rank_spieler", "&7Spieler", "&f{name}", "none", Color.WHITE, Color.WHITE, "icon_spieler", false);
         tagsEnabled = y.getBoolean("nametag.enabled", true);
-        line1Pack = y.getString("nametag.line1-pack", "{badge} {name}{afk}");
-        line1 = y.getString("nametag.line1", "{text} &8| {name}{afk}");
-        line2 = y.getString("nametag.line2", "{clan}&7Lvl &e{level}");
-        clanFormat = y.getString("nametag.clan-format", "&8[&b{tag}&8] ");
+        line1Pack = y.getString("nametag.line1-pack", "{icon}{check}{badge} &8| &f{player}{clan}{afk}");
+        line1 = y.getString("nametag.line1", "{check}{text} &8| &f{player}{clan}{afk}");
+        line2 = y.getString("nametag.line2", "&7Coins: &b%balance%&7, Gems: &b%gems%");
+        clanFormat = y.getString("nametag.clan-format", " &8[&b{tag}&8]");
+        checkPack = y.getString("check.pack", "&8[&f:check:&8] ");
+        checkText = y.getString("check.text", "&8[&a\u2714&8] ");
         afkFormat = y.getString("nametag.afk-format", " &7[AFK]");
         height = (float) y.getDouble("nametag.height", 0.28);
         viewRange = (float) y.getDouble("nametag.view-range", 0.7);
@@ -156,18 +159,33 @@ public final class RankService implements Listener {
     }
 
     // ================================================================ Namensschild
-    private String[] tagTexts(Player p) {
+    /**
+     * Ersetzt {icon} {check} {badge} {text} {name} {player} {clan} {afk} {level} und %platzhalter%.
+     * pack = Variante fuer Spieler mit Ressourcenpaket (Abzeichen als Grafik), sonst reiner Text.
+     */
+    public String format(Player p, String fmt, boolean pack) {
+        if (fmt == null || fmt.isEmpty()) return "";
         Rank r = rankOf(p);
         Clan c = plugin.clans().of(p);
         PlayerData d = plugin.data().getIfLoaded(p.getUniqueId());
-        String clan = c == null ? "" : Text.replace(clanFormat, "tag", c.tag);
-        String afk = plugin.afk() != null && plugin.afk().isAfk(p) ? afkFormat : "";
-        String l2 = Text.replace(line2, "clan", clan, "level", d == null ? "1" : String.valueOf(d.level));
-        String name = name(p);
-        String badgeGlyph = plugin.pack() == null ? r.text : plugin.pack().glyphs(":" + r.badge + ":");
-        String a = Text.replace(line1Pack, "badge", badgeGlyph, "text", r.text, "name", name, "afk", afk);
-        String b = Text.replace(line1, "badge", "", "text", r.text, "name", name, "afk", afk);
-        return new String[]{l2.isBlank() ? a : a + "\n" + l2, l2.isBlank() ? b : b + "\n" + l2};
+        boolean packOk = pack && plugin.pack() != null;
+        boolean verified = r.verified || p.hasPermission("minesmp.verified");
+        String s = Text.replace(fmt,
+                "icon", packOk && !r.icon.isEmpty() ? "&f:" + r.icon + ": " : "",
+                "check", verified ? (packOk ? checkPack : checkText) : "",
+                "badge", packOk ? "&f:" + r.badge + ":" : r.text,
+                "text", r.text, "name", name(p), "player", p.getName(),
+                "clan", c == null ? "" : Text.replace(clanFormat, "tag", c.tag),
+                "afk", plugin.afk() != null && plugin.afk().isAfk(p) ? afkFormat : "",
+                "level", d == null ? "1" : String.valueOf(d.level));
+        if (d != null && s.indexOf('%') >= 0 && plugin.placeholders() != null) s = plugin.placeholders().apply(p, s);
+        return packOk ? plugin.pack().glyphs(s) : s;
+    }
+
+    private String[] tagTexts(Player p) {
+        String a = format(p, line1Pack, true), b = format(p, line1, false);
+        String l2a = format(p, line2, true), l2b = format(p, line2, false);
+        return new String[]{l2a.isBlank() ? a : a + "\n" + l2a, l2b.isBlank() ? b : b + "\n" + l2b};
     }
 
     private TextDisplay spawnTag(Player p) {

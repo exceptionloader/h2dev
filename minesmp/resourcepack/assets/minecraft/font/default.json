@@ -218,7 +218,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/dot.png",
+   "file": "minesmp:font/check.png",
    "ascent": 8,
    "height": 9,
    "chars": [
@@ -227,45 +227,45 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/board.png",
-   "ascent": 19,
-   "height": 161,
+   "file": "minesmp:font/dot.png",
+   "ascent": 8,
+   "height": 9,
    "chars": [
     "\ue019"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_owner.png",
-   "ascent": 8,
-   "height": 10,
+   "file": "minesmp:font/board.png",
+   "ascent": 19,
+   "height": 161,
    "chars": [
     "\ue01a"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_admin.png",
+   "file": "minesmp:font/rank_owner.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue01b"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_dev.png",
+   "file": "minesmp:font/rank_admin.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue01c"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_premium.png",
+   "file": "minesmp:font/rank_dev.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue01d"
    ]
@@ -274,7 +274,7 @@
    "type": "bitmap",
    "file": "minesmp:font/rank_mod.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue01e"
    ]
@@ -283,7 +283,7 @@
    "type": "bitmap",
    "file": "minesmp:font/rank_support.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue01f"
    ]
@@ -292,45 +292,153 @@
    "type": "bitmap",
    "file": "minesmp:font/rank_builder.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue020"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_legende.png",
+   "file": "minesmp:font/rank_premium.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue021"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_mvp.png",
+   "file": "minesmp:font/rank_legende.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue022"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_vip.png",
+   "file": "minesmp:font/rank_mvp.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue023"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/rank_spieler.png",
+   "file": "minesmp:font/rank_vip.png",
    "ascent": 8,
-   "height": 10,
+   "height": 9,
    "chars": [
     "\ue024"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_spieler.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue025"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_owner.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue026"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_admin.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue027"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_dev.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue028"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_mod.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue029"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_support.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_builder.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_premium.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_legende.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_mvp.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_vip.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue02f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_spieler.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue030"
    ]
   },
   {

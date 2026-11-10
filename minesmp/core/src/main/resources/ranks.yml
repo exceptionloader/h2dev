@@ -1,14 +1,17 @@
 # =====================================================================
-#  MineSMP - Raenge: Abzeichen, Namensfarbe, Namensschild (auch selbst in F5 sichtbar) und Rang-Partikel
+#  MineSMP - Raenge: Abzeichen, Namensschild (auch selbst in F5 sichtbar), Tab-Eintrag und Rang-Partikel
 #  Reihenfolge = Prioritaet (oben zuerst). Erkannt ueber die LuckPerms-Gruppe (Recht group.<id>).
 #  badge:     Abzeichen aus dem Ressourcenpaket (rank_owner, rank_admin, rank_dev, rank_mod, rank_support,
 #             rank_builder, rank_premium, rank_legende, rank_mvp, rank_vip, rank_spieler)
+#  icon:      kleiner Edelstein vor dem Abzeichen (Standard: icon_<wie badge>), '' = keiner
+#  verified:  Haken [✔] vor dem Rang (Standard: true, bei default false; oder Recht minesmp.verified)
 #  text:      Ersatz fuer Spieler ohne Ressourcenpaket
-#  name:      Format des Namens ({name}); Farbverlauf: <g:#AAAAAA:#BBBBBB>{name}</g>
+#  name:      Format des Namens im Chat ({name}); Farbverlauf: <g:#AAAAAA:#BBBBBB>{name}</g>
 #  particles: none | sparkle (Funkeln) | ring (Ring um die Huefte) | halo (Heiligenschein)
 #             | helix (Doppelspirale) | crown (Flammenkrone)
 #  colors:    zwei Hex-Farben fuer die Partikel
 # =====================================================================
+design-version: 2
 ranks:
   owner:     {badge: rank_owner,   text: '&4&lOWNER',   name: '<g:#FF6B6B:#FFC46B>&l{name}</g>', particles: crown,   colors: ['#FF4D4D', '#FFC46B']}
   admin:     {badge: rank_admin,   text: '&c&lADMIN',   name: '<g:#FF5555:#FF9A9A>{name}</g>',   particles: halo,    colors: ['#FF5555', '#FFB4B4']}
@@ -22,14 +25,21 @@ ranks:
   vip:       {badge: rank_vip,     text: '&b&lVIP',     name: '&b{name}',                        particles: sparkle, colors: ['#8FF3FF', '#FFFFFF']}
   default:   {badge: rank_spieler, text: '&7Spieler',   name: '&f{name}',                        particles: none}
 
+# Haken vor dem Rang ({check})
+check:
+  pack: '&8[&f:check:&8] '
+  text: '&8[&a✔&8] '
+
 # Namensschild ueber dem Kopf (ersetzt das normale Minecraft-Namensschild)
-# {badge} {text} {name} {clan} {level} {afk}
+# {icon} {check} {badge} {text} {player} (Name, weiss) {name} (Name im Rang-Format) {clan} {level} {afk}
+# sowie alle %platzhalter% (z.B. %balance% %gems% %stars% %kills% %level%)
+# Vor Grafiken (:kuerzel:) immer &f setzen, sonst werden sie eingefaerbt.
 nametag:
   enabled: true
-  line1-pack: '{badge} {name}{afk}'
-  line1: '{text} &8| {name}{afk}'
-  line2: '{clan}&7Lvl &e{level}'
-  clan-format: '&8[&b{tag}&8] '
+  line1-pack: '{icon}{check}{badge} &8| &f{player}{clan}{afk}'
+  line1: '{check}{text} &8| &f{player}{clan}{afk}'
+  line2: '&7Coins: &b%balance%&7, Gems: &b%gems%'
+  clan-format: ' &8[&b{tag}&8]'
   afk-format: ' &7[AFK]'
   height: 0.28
   view-range: 0.7

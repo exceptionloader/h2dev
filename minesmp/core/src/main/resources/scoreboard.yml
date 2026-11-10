@@ -7,7 +7,7 @@
 #  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% %gems% %stars% %keyall% %raid%
 #  %claims% %claim_owner% %poi% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 6
+design-version: 7
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -92,26 +92,30 @@ combat-lines:
   - '<g:#4F7CFF:#55FFFF:#FFFFFF>ᴍɪɴᴇsᴍᴘ.ᴅᴇ</g>'
 
 tab:
-  name-format: '{prefix}{clan}{name}{afk}'
+  # Eintrag in der Spielerliste: <prefix><Name><suffix>. Spieler mit Ressourcenpaket sehen prefix-pack (Abzeichen als Grafik).
+  # Platzhalter wie im Namensschild (ranks.yml): {icon} {check} {badge} {text} {clan} {afk}
+  prefix-pack: '{icon}{check}{badge} &8| '
+  prefix: '{check}{text} &8| '
+  suffix: '{clan}{afk}'
   frame-count: 1
   header-frames:
     0:
       - ' '
       - '<g:#55FFFF:#3FA9FF:#FFFFFF>&lᴍɪɴᴇsᴍᴘ</g>'
-      - '&7ᴅᴇᴜᴛsᴄʜᴇʀ sᴜʀᴠɪᴠᴀʟ-sᴇʀᴠᴇʀ'
       - ' '
-      - '&7ᴡɪʟʟᴋᴏᴍᴍᴇɴ, &f%player% &8┃ &7ᴏɴʟɪɴᴇ &b%online%'
+      - '&7Online: &b%online%&7/&b%max_players%'
       - ' '
   header-pack:
     - ' '
     - ':logo:'
     - ' '
-    - '&7Willkommen, &f%player% &8┃ :people: &f%online% &7online'
+    - '&7Online: &b%online%&7/&b%max_players%'
     - ' '
   footer:
     - ' '
-    - '&7ᴘɪɴɢ &f%ping%ms &8┃ &7ᴛᴘs &f%tps% &8┃ &7ᴜʜʀᴢᴇɪᴛ &f%time%'
-    - '&7ᴅɪsᴄᴏʀᴅ &b/discord &8┃ &7sʜᴏᴘ &bstore.minesmp.de'
+    - '&7Discord: &bdiscord.gg/minesmp'
+    - '&7Bei Fragen: &b/help &8┃ &7Shop: &bstore.minesmp.de'
+    - '&7Regelbrecher gefunden? &b/report'
     - ' '
 
 # Reihenfolge im Tab (LuckPerms-Gruppen, oben = zuerst)

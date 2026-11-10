@@ -144,7 +144,17 @@ public final class ScoreboardService implements Listener {
         refreshTabName(p);
     }
 
+    /** Tab-Eintrag pro Betrachter (Abzeichen als Grafik oder Text) ueber Team-Praefix/-Suffix statt festem Listennamen. */
+    private boolean tabPerViewer() {
+        return plugin.ranks() != null && (cfg.isString("tab.prefix") || cfg.isString("tab.prefix-pack"));
+    }
+
     public void refreshTabName(Player p) {
+        if (tabPerViewer()) {
+            p.playerListName(null);
+            refreshNametags();
+            return;
+        }
         String fmt = cfg.getString("tab.name-format", "{prefix}{clan}&f{name}{afk}");
         p.playerListName(Text.c(Text.replace(fmt, "prefix", plugin.chat().prefix(p), "clan", plugin.clans().tag(p),
                 "name", plugin.ranks() != null ? plugin.ranks().name(p) : p.getName(),
@@ -172,7 +182,14 @@ public final class ScoreboardService implements Listener {
                 if (old != null && !old.getName().equals(teamName)) old.unregister();
                 Team t = sb.getTeam(teamName);
                 if (t == null) t = sb.registerNewTeam(teamName);
-                t.prefix(Text.c(plugin.chat().prefix(target) + plugin.clans().tag(target)));
+                if (tabPerViewer()) {
+                    boolean pack = plugin.pack() != null && plugin.pack().has(viewer);
+                    String pre = pack ? cfg.getString("tab.prefix-pack", cfg.getString("tab.prefix", "")) : cfg.getString("tab.prefix", "{check}{text} &8| ");
+                    t.prefix(Text.c(plugin.ranks().format(target, pre, pack)));
+                    t.suffix(Text.c(plugin.ranks().format(target, cfg.getString("tab.suffix", "{clan}{afk}"), pack)));
+                } else {
+                    t.prefix(Text.c(plugin.chat().prefix(target) + plugin.clans().tag(target)));
+                }
                 // Eigenes Namensschild (RankService) ersetzt das normale
                 t.setOption(Team.Option.NAME_TAG_VISIBILITY, plugin.ranks() != null && plugin.ranks().nametagsEnabled()
                         ? Team.OptionStatus.NEVER : Team.OptionStatus.ALWAYS);

@@ -96,6 +96,8 @@ ICONS = {
    ".........", "..ooooo..", ".ohpppdo.", "ohppppddo", "ooooooooo", ".oppppdo.", "..oppdo..", "...opo...", "....o...."]),
  'key': ({'o':"#92400E", 'y':"#FBBF24", 'h':"#FFF3A3"}, [
    "...ooo...", "..oyhyo..", "..oy.yo..", "..oyyyo..", "...oyo...", "...oyo...", "...oyyo..", "...oyo...", "...oyyo.."]),
+ 'check': ({'g':"#4ADE5A", 'd':"#15803D"}, [
+   ".........", "........g", ".......gg", "......ggd", "g....ggd.", "gg..ggd..", "dggggd...", ".dggd....", "..dd....."]),
  'dot': ({'g':"#4ADE5A", 'o':"#166534"}, [
    ".........", ".........", "...ooo...", "..oggo...", "..oggo...", "...ooo...", ".........", ".........", "........."]),
 }
@@ -184,14 +186,36 @@ def board():
 
 add('board', board(), BOARD_LH + BOARD_F + 3, BOARD_LH + 3)
 
-# Rang-Abzeichen (Namensschild, Chat, Scoreboard)
-RANKS = [('rank_owner', 'OWNER', '#B3261E', '#FFFFFF'), ('rank_admin', 'ADMIN', '#E5484D', '#FFFFFF'),
-         ('rank_dev', 'DEV', '#A855F7', '#FFFFFF'), ('rank_premium', 'PREMIUM', '#F59E0B', '#FFFFFF'), ('rank_mod', 'MOD', '#F59E0B', '#FFFFFF'),
-         ('rank_support', 'SUPPORT', '#FACC15', '#1B2733'), ('rank_builder', 'BUILDER', '#22C55E', '#FFFFFF'),
-         ('rank_legende', 'LEGENDE', '#4F7CFF', '#FFFFFF'), ('rank_mvp', 'MVP', '#22C3D6', '#FFFFFF'),
-         ('rank_vip', 'VIP', '#8FF3FF', '#0B3B44'), ('rank_spieler', 'SPIELER', '#64748B', '#FFFFFF')]
-for name, text, fill, fg in RANKS:
-    add(name, pill(text, fill, fg), 10, 8)
+# Rang-Abzeichen (Namensschild, Tab, Chat, Scoreboard): eckiges, flaches Kaestchen mit weisser Schrift
+def mix(h, other, t):
+    a, b = hexc(h), hexc(other)
+    return tuple(round(a[i] * (1 - t) + b[i] * t) for i in range(3)) + (255,)
+
+def tag(text, fill, fg='#FFFFFF', h=9, pad=2):
+    H = h * S
+    W = text_width(text, S) + pad * 2 * S
+    img = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rectangle([0, 0, W - 1, H - 1], fill=hexc(fill))
+    d.rectangle([0, 0, W - 1, S // 2 - 1 if S > 1 else 0], fill=mix(fill, '#FFFFFF', 0.25))   # feine helle Oberkante
+    d.rectangle([0, H - S, W - 1, H - 1], fill=mix(fill, '#000000', 0.28))                    # dunkle Unterkante
+    y = (H - S - 7 * S) // 2 + S // 2
+    draw_text(d, text, pad * S + S // 2, y + S // 2, S, mix(fill, '#000000', 0.45))            # Schatten
+    draw_text(d, text, pad * S, y, S, hexc(fg))
+    return img
+
+GEM = ["....o....", "...ohо...".replace('о', 'o'), "..ohhpo..", ".ohhpppo.", "ohhpppddo", ".oppdddo.", "..opddo..", "...odo...", "....o...."]
+
+RANKS = [('owner', 'OWNER', '#B91C1C'), ('admin', 'ADMIN', '#E02B2B'), ('dev', 'DEV', '#9333EA'), ('mod', 'MOD', '#EA580C'),
+         ('support', 'SUPPORT', '#CA8A04'), ('builder', 'BUILDER', '#16A34A'), ('premium', 'PREMIUM', '#D99A00'),
+         ('legende', 'LEGENDE', '#3B5BDB'), ('mvp', 'MVP', '#0E9FB3'), ('vip', 'VIP', '#2F9BE0'), ('spieler', 'SPIELER', '#5B6472')]
+for rid, text, fill in RANKS:
+    add('rank_' + rid, tag(text, fill), 9, 8)
+# Kleiner Edelstein in Rangfarbe (steht vor dem Abzeichen)
+for rid, text, fill in RANKS:
+    pal = {'o': '#%02X%02X%02X' % mix(fill, '#000000', 0.5)[:3], 'p': fill, 'h': '#%02X%02X%02X' % mix(fill, '#FFFFFF', 0.6)[:3],
+           'd': '#%02X%02X%02X' % mix(fill, '#000000', 0.22)[:3]}
+    add('icon_' + rid, icon((pal, GEM)), 9, 8)
 
 def build():
     import shutil

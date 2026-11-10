@@ -102,3 +102,6 @@ permissions:
   minesmp.joinfull:
     description: Darf auf den vollen Server (Premium)
     default: false
+  minesmp.verified:
+    description: Haken vor dem Rang im Namensschild und in der Tab-Liste (Raenge haben ihn automatisch)
+    default: false

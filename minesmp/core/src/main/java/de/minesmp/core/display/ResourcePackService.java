@@ -106,7 +106,7 @@ public final class ResourcePackService implements Listener {
     public void onStatus(PlayerResourcePackStatusEvent e) {
         Player p = e.getPlayer();
         switch (e.getStatus()) {
-            case SUCCESSFULLY_LOADED -> { loaded.add(p.getUniqueId()); plugin.scoreboard().update(p); }
+            case SUCCESSFULLY_LOADED -> { loaded.add(p.getUniqueId()); plugin.scoreboard().update(p); plugin.scoreboard().refreshNametags(); }
             case DECLINED, FAILED_DOWNLOAD, FAILED_RELOAD, INVALID_URL, DISCARDED -> {
                 loaded.remove(p.getUniqueId());
                 if (e.getStatus() != PlayerResourcePackStatusEvent.Status.DECLINED)

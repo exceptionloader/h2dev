@@ -83,3 +83,12 @@ Testserver wie oben (Paper 1.21.11, Java 25, alle Plugins), zwei Bot-Spieler + R
 Wirkung der Verzauberungen im Kampf/beim Abbauen, Raid-Zeit (TNT), Premium auf vollem Server, Kauf im Gem-/Sterne-Shop,
 die neuen NPCs am Spawn, die neuen Icons im Ressourcenpaket, Simple Voice Chat. Hinweis: GrimAC sperrt Bot-Aktionen,
 die Bots brauchten `grim.exempt`.
+
+## Update 10.11.2026: neue Rang-Abzeichen, Namensschild und Tab-Liste
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Migration | Start mit alter `ranks.yml`/`scoreboard.yml` -> als `*-alt.yml` gesichert, neue angelegt | ✅ |
+| Namensschild | Text des Namensschilds per Bot gelesen: mit Paket `<Edelstein> [<Haken>] <Abzeichen> \| Name` + Zeile `Coins: ..., Gems: ...`; ohne Paket `[✔] ADMIN \| Name` | ✅ |
+| Tab-Liste | Team-Praefix pro Betrachter (mit/ohne Ressourcenpaket), Spieler ohne Rang ohne Haken | ✅ |
+
+**Nicht getestet:** Aussehen im echten Minecraft-Client (nur die uebertragenen Texte und Grafiken wurden geprueft).

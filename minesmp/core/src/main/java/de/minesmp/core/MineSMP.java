@@ -119,16 +119,19 @@ public final class MineSMP extends JavaPlugin {
         saveDefaultConfig();
         // Neue Abschnitte aus Updates (z.B. keyall, claims) sind ueber die Standardwerte vollstaendig lesbar
         getConfig().options().copyDefaults(true);
-        File sbFile = new File(getDataFolder(), "scoreboard.yml");
-        int bundled = 1;
-        try (var in = getResource("scoreboard.yml")) {
-            if (in != null) bundled = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getInt("design-version", 1);
-        } catch (java.io.IOException ignored) {
-        }
-        if (sbFile.exists() && YamlConfiguration.loadConfiguration(sbFile).getInt("design-version", 1) < bundled) {
-            File old = new File(getDataFolder(), "scoreboard-alt.yml");
-            if (old.exists()) old.delete();
-            if (sbFile.renameTo(old)) getLogger().info("Neues Scoreboard-Design: alte Datei als scoreboard-alt.yml gesichert.");
+        // Neues Design in einem Update: alte Datei sichern (<name>-alt.yml) und die neue anlegen
+        for (String name : new String[]{"scoreboard", "ranks"}) {
+            File file = new File(getDataFolder(), name + ".yml");
+            int bundled = 1;
+            try (var in = getResource(name + ".yml")) {
+                if (in != null) bundled = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getInt("design-version", 1);
+            } catch (java.io.IOException ignored) {
+            }
+            if (file.exists() && YamlConfiguration.loadConfiguration(file).getInt("design-version", 1) < bundled) {
+                File old = new File(getDataFolder(), name + "-alt.yml");
+                if (old.exists()) old.delete();
+                if (file.renameTo(old)) getLogger().info("Neues Design: alte " + name + ".yml als " + name + "-alt.yml gesichert.");
+            }
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
                 "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml",
