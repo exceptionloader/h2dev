@@ -69,6 +69,7 @@ permissions:
       minesmp.lfg: true
       minesmp.claim: true
       minesmp.ce: true
+      minesmp.pve: true
   minesmp.spawn.build:
     description: Darf am Spawn bauen/abbauen
     default: op

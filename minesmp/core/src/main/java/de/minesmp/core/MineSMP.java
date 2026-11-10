@@ -108,6 +108,9 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.utility.KeyallService keyall;
     private de.minesmp.core.events.PoiService poi;
     private de.minesmp.core.admin.VanishService vanish;
+    private de.minesmp.core.clan.ClanLeagueService league;
+    private de.minesmp.core.combat.PvpService pvp;
+    private de.minesmp.core.events.PveService pve;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
@@ -178,6 +181,8 @@ public final class MineSMP extends JavaPlugin {
         bounties = new BountyService(this);
         kits = new KitService(this);
         duels = new DuelService(this);
+        league = new de.minesmp.core.clan.ClanLeagueService(this);
+        pvp = new de.minesmp.core.combat.PvpService(this);
         listen(new StatsListener(this));
         skills = new SkillService(this);
         quests = new QuestService(this);
@@ -200,6 +205,7 @@ public final class MineSMP extends JavaPlugin {
         cosmetics = new CosmeticService(this);
         events = new EventManager(this);
         poi = new de.minesmp.core.events.PoiService(this);
+        pve = new de.minesmp.core.events.PveService(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
         clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);
@@ -223,6 +229,9 @@ public final class MineSMP extends JavaPlugin {
             if (events != null) events.stopAll();
             if (poi != null && poi.active()) poi.stop();
             if (spawners != null) spawners.shutdown();
+            if (league != null) league.shutdown();
+            if (pvp != null) pvp.shutdown();
+            if (pve != null) pve.shutdown();
             if (duels != null) duels.shutdown();
             if (trade != null) trade.cancelAll();
             if (cosmetics != null) cosmetics.shutdown();
@@ -315,4 +324,7 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.utility.KeyallService keyall() { return keyall; }
     public de.minesmp.core.events.PoiService poi() { return poi; }
     public de.minesmp.core.admin.VanishService vanish() { return vanish; }
+    public de.minesmp.core.clan.ClanLeagueService league() { return league; }
+    public de.minesmp.core.combat.PvpService pvp() { return pvp; }
+    public de.minesmp.core.events.PveService pve() { return pve; }
 }

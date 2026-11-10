@@ -99,6 +99,9 @@ public final class SpawnService implements Listener {
     private int version;
     private String worldName = "spawn";
     private double[] spawnPos, arenaArrival, clanBoard;
+    private YamlConfiguration layout;
+    private final Map<String, double[]> points = new LinkedHashMap<>();
+    private int builtVersion;
     private int voidY = 55;
     private final List<Zone> zones = new ArrayList<>();
     private final List<Npc> npcs = new ArrayList<>();
@@ -123,7 +126,8 @@ public final class SpawnService implements Listener {
                 "navigator", "spawnmenu"));
         try {
             String v = plugin.db().kvGet("spawn-built").get(5, TimeUnit.SECONDS);
-            built = v != null && Integer.parseInt(v) >= version;
+            builtVersion = v == null ? 0 : Integer.parseInt(v);
+            built = v != null && builtVersion >= version;
         } catch (Exception ignored) {
         }
         Bukkit.getScheduler().runTaskLater(plugin, this::startup, 60);
@@ -154,7 +158,10 @@ public final class SpawnService implements Listener {
             if (in == null) { plugin.getLogger().warning("spawn/layout.yml fehlt im Plugin."); return; }
             y = YamlConfiguration.loadConfiguration(new InputStreamReader(in, StandardCharsets.UTF_8));
         }
+        layout = y;
         version = y.getInt("version", 1);
+        var ps = y.getConfigurationSection("points");
+        if (ps != null) for (String k : ps.getKeys(false)) points.put(k, d(ps.getList(k)));
         worldName = plugin.getConfig().getString("worlds.spawn", y.getString("world", "spawn"));
         spawnPos = d(y.getList("spawn"));
         arenaArrival = d(y.getList("arena-arrival"));
@@ -218,6 +225,12 @@ public final class SpawnService implements Listener {
             return;
         }
         if (!plugin.getConfig().getBoolean("spawn-build.auto", true)) return;
+        // Der Spawn wurde von einer aelteren Plugin-Version gebaut: neuen Bauplan automatisch uebernehmen
+        if (builtVersion > 0 && builtVersion < version && plugin.getConfig().getBoolean("spawn-build.auto-update", true)) {
+            plugin.getLogger().info("Neuer Spawn-Bauplan (Version " + version + ") - der Spawn wird neu gebaut ...");
+            build(Bukkit.getConsoleSender());
+            return;
+        }
         int blocks = countBlocks(w, 5000);
         if (blocks < 5000) {
             plugin.getLogger().info("Baue den MineSMP-Spawn (erster Start) ...");
@@ -374,6 +387,19 @@ public final class SpawnService implements Listener {
         }
         if (arenaArrival != null && (force || cfg.getString("duels.ffa-spawn", "").isEmpty())) {
             cfg.set("duels.ffa-spawn", locString(worldName, arenaArrival));
+            changed = true;
+        }
+        // Clan-Arena, Sumo-Plattformen
+        for (String[] t : new String[][]{{"clan-arenas", "clans.league.arenas"}, {"sumo", "pvp.sumo.arenas"}}) {
+            var src = layout == null ? null : layout.getConfigurationSection(t[0]);
+            var cur2 = cfg.getConfigurationSection(t[1]);
+            if (src == null || !(force || cur2 == null || cur2.getKeys(false).isEmpty())) continue;
+            cfg.set(t[1], null);
+            for (String k : src.getKeys(false)) {
+                cfg.set(t[1] + "." + k + ".pos1", locString(worldName, d(src.getList(k + ".pos1"))));
+                cfg.set(t[1] + "." + k + ".pos2", locString(worldName, d(src.getList(k + ".pos2"))));
+                if (src.contains(k + ".min-y")) cfg.set(t[1] + "." + k + ".min-y", src.getDouble(k + ".min-y"));
+            }
             changed = true;
         }
         if (changed) plugin.saveConfig();
@@ -708,6 +734,20 @@ public final class SpawnService implements Listener {
     }
 
     public boolean isBuilt() { return built; }
+
+    /** Benannter Punkt aus dem Bauplan (layout.yml -> points), nur wenn der Spawn gebaut ist. */
+    public Location point(String name) {
+        double[] p = points.get(name);
+        return built && p != null ? loc(p) : null;
+    }
+
+    /** Bauplan-Daten (z.B. PvE-Arenen) und Umrechnung einer Koordinatenliste in einen Ort der Spawn-Welt. */
+    public YamlConfiguration layout() { return layout; }
+
+    public Location toLocation(Object coords) {
+        double[] p = d(coords);
+        return p == null ? null : loc(p);
+    }
 
     /** Position der Clan-Rangliste (aus dem Bauplan), nur wenn der Spawn gebaut ist. */
     public Location clanBoardLocation() { return built ? loc(clanBoard) : null; }

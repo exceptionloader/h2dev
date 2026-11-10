@@ -72,6 +72,13 @@ public final class ClanBoardService implements Listener {
         return l;
     }
 
+    /** Rang-Spalte: Liga-Rang (mit Symbol), ohne Liga die alten Punkte-Stufen. */
+    private String rank(Clan c, boolean pack) {
+        if (plugin.league() != null && plugin.league().enabled()) return plugin.league().rankText(c, pack);
+        Tier t = tier(c);
+        return t.color + "✦ " + t.name;
+    }
+
     private Tier tier(Clan c) {
         int pts = c.seasonPoints();
         for (Tier t : tiers) if (pts >= t.points) return t;
@@ -124,7 +131,7 @@ public final class ClanBoardService implements Listener {
                 case '\uE0F4' -> { w += 8; continue; }
                 default -> { }
             }
-            if (c >= 0xE000 && c <= 0xF8FF) continue;
+            if (c >= 0xE000 && c <= 0xF8FF) { w += 10; continue; } // Icons aus dem Ressourcenpaket: 9 Pixel + 1 Abstand
             w += charWidth(c) + (bold ? 1 : 0);
         }
         return w;
@@ -166,9 +173,8 @@ public final class ClanBoardService implements Listener {
             int idx = page * PER_PAGE + i;
             if (idx >= total) { out.add("&8" + (idx + 1) + "."); continue; }
             Clan c = ranking.get(idx);
-            Tier t = tier(c);
             String col = idx == 0 ? "&6" : idx == 1 ? "&f" : idx == 2 ? "&#CD7F32" : "&7";
-            out.add(row(col + (idx + 1) + ".", "&f" + c.name, t.color + "✦ " + t.name, "&a" + c.seasonWins, "&7" + c.seasonDraws, "&c" + c.seasonLosses, pack));
+            out.add(row(col + (idx + 1) + ".", "&f" + c.name, rank(c, pack), "&a" + c.seasonWins, "&7" + c.seasonDraws, "&c" + c.seasonLosses, pack));
         }
         out.add("&8&m                                                                    ");
         out.add("&8« &7Schleichen+Klick   &7Seite &f" + (page + 1) + "&7/&f" + pagesTotal + "   &7Klick &8»");
@@ -179,11 +185,11 @@ public final class ClanBoardService implements Listener {
             out.add("&7Du bist in keinem Clan. &b/clan create");
         } else {
             int pos = ranking.indexOf(mine) + 1;
-            Tier t = tier(mine);
-            out.add(row(pos > 0 && pos <= MAX ? "&b" + pos + "." : "&7-", "&f" + mine.name, t.color + "✦ " + t.name,
+            out.add(row(pos > 0 && pos <= MAX ? "&b" + pos + "." : "&7-", "&f" + mine.name, rank(mine, pack),
                     "&a" + mine.seasonWins, "&7" + mine.seasonDraws, "&c" + mine.seasonLosses, pack));
         }
         out.add("&a▲ &7Siege   &7= Unentschieden   &c▼ &7Niederlagen");
+        if (plugin.league() != null && plugin.league().enabled()) out.add("&dGewertete Clan-Duelle: &f/clanduell");
         return String.join("\n", out);
     }
 

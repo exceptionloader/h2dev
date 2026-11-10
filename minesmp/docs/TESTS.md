@@ -106,3 +106,20 @@ Drei Bot-Spieler (Admin, Supporter, Spieler ohne Rang).
 
 **Nicht getestet:** Aussehen im echten Client (durchsichtige Figur beim Team, eigener Skin in F5), Vanish nach Neu-Einloggen,
 Haustiere/Spuren im Vanish, Mobs ignorieren Spieler im Vanish.
+
+## Update 10.11.2026: Clan-Liga, PvP-Platz (Sumo, Kit-Editor, Kronen), Kristallgruft (PvE), neue Spawn-Map
+Zwei Bot-Spieler + RCON auf dem Testserver. Fuer den Test war die Clan-Liga auf 1 gegen 1 und 1 Platzierungsmatch gestellt.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Spawn | Alter Spawn (Bauplan 1) wird beim Start automatisch durch Bauplan 2 ersetzt (398.747 Bloecke in 4 s) | ✅ |
+| Clan-Liga | Zwei Clans: Aufstellung per Menue, Match-Suche, Teleport in die Arena mit Kit, Sieg -> Wertung +30/-30, "PLATZIERT" mit Rang, Rangliste zeigt beide | ✅ |
+| Clan-Liga | Nach dem Match: beide Spieler wieder am alten Ort, eigenes Inventar unveraendert | ✅ |
+| Sumo | `/sumo` fuer beide -> Plattform, Inventar leer; ein Spieler faellt -> der andere gewinnt, beide zurueck mit Inventar | ✅ |
+| Kit-Editor | Kit waehlen, zwei Plaetze tauschen, speichern | ✅ |
+| Kristallgruft | Kompletter Lauf: 3 Wellen (inkl. "Lichter aus"), Laternenmasten, Boss, Belohnung, Rueckkehr zum Tor | ✅ |
+| Kristallgruft | Spieler stirbt zweimal -> "Zweite Chance", danach "Gescheitert in Welle 1 von 4", Rueckkehr | ✅ |
+
+**Nicht getestet:** echtes 3 gegen 3 mit sechs Spielern, Match-Suche mit mehr als zwei Clans, Zeitlimit/Unentschieden, Kronen-Aufstieg,
+Duell-Warteschlange mit Kit, Gruppe in der Gruft (Einladen/Annehmen), Schwierigkeit der Gruft mit echten Spielern,
+Aussehen von Map, Menues und Liga-Symbolen im echten Client (die Map wurde nur in einem vereinfachten 3D-Betrachter geprueft).

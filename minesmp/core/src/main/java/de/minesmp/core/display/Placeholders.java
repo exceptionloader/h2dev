@@ -81,6 +81,11 @@ public final class Placeholders {
             case "raid" -> plugin.claims() == null ? "-" : plugin.claims().raidText();
             case "claims" -> plugin.claims() == null ? "-" : plugin.claims().claimsText(p);
             case "claim_owner" -> { var cl = plugin.claims() == null ? null : plugin.claims().at(p.getLocation()); yield cl == null ? "Wildnis" : cl.ownerName(); }
+            case "crown", "krone" -> plugin.pvp() == null ? "-" : plugin.pvp().crownText(p);
+            case "duel_wins" -> String.valueOf(d.duelWins);
+            case "pve_wins" -> String.valueOf(d.pveWins);
+            case "clan_rank" -> c == null || plugin.league() == null ? "-" : plugin.league().rankText(c, plugin.pack() != null && plugin.pack().has(p));
+            case "clan_rating" -> c == null ? "-" : String.valueOf(c.rating);
             case "poi" -> plugin.poi() == null ? "-" : plugin.poi().text();
             default -> null;
         };

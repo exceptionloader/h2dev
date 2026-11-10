@@ -48,6 +48,10 @@ Am Spawn sind Abbauen, PvP (ausser in der Arena), Fall- und Hungerschaden aus; w
 Der Bauplan wird mit `tools/build_spawn.py` erzeugt (Python + Pillow). Enthaelt die Spawn-Welt schon eigene Bauten
 (mehr als 5.000 Bloecke), wird nicht automatisch gebaut.
 
+**Neuer Bauplan nach einem Update:** Hat das Plugin den Spawn selbst gebaut, baut es bei einem neuen Bauplan automatisch neu
+(`spawn-build.auto-update: true`). Dabei wird der alte Spawn-Bereich ueberschrieben - eigene Umbauten am Spawn gehen verloren.
+Wer das nicht moechte, setzt `auto-update: false` und baut bei Bedarf mit `/minesmp buildspawn confirm`.
+
 ## 5. Optionale Dienste
 - **Discord-Webhooks**: URLs in `plugins/MineSMPCore/config.yml` -> `discord.webhooks` eintragen.
 - **Votes**: NuVotifier installieren, Vote-Seiten-Links in `config.yml -> vote.links`. Test: `/fakevote <Spieler>`.

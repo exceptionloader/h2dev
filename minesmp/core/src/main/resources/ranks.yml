@@ -39,6 +39,8 @@ nametag:
   line1-pack: '{icon}{check}{badge} &8| &f{player}{clan}{afk}'
   line1: '{check}{text} &8| &f{player}{clan}{afk}'
   line2: '&7Coins: &b%balance%&7, Gems: &b%gems%'
+  # Zweite Zeile im PvP-Bereich (Arena, Duell, Sumo); '' = immer line2
+  line2-pvp: '&c%kd% K/D &8| &d%ping%ms'
   clan-format: ' &8[&b{tag}&8]'
   afk-format: ' &7[AFK]'
   height: 0.28

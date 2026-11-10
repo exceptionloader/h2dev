@@ -62,7 +62,7 @@ public final class RankService implements Listener {
     private final List<Rank> ranks = new ArrayList<>();
     private Rank fallback;
     private boolean tagsEnabled, particlesEnabled;
-    private String line1Pack, line1, line2, clanFormat, afkFormat, checkPack, checkText;
+    private String line1Pack, line1, line2, line2Pvp, clanFormat, afkFormat, checkPack, checkText;
     private float height, viewRange;
     private int range;
     private final Map<UUID, Tag> tags = new HashMap<>();
@@ -110,6 +110,7 @@ public final class RankService implements Listener {
         line1Pack = y.getString("nametag.line1-pack", "{icon}{check}{badge} &8| &f{player}{clan}{afk}");
         line1 = y.getString("nametag.line1", "{check}{text} &8| &f{player}{clan}{afk}");
         line2 = y.getString("nametag.line2", "&7Coins: &b%balance%&7, Gems: &b%gems%");
+        line2Pvp = y.getString("nametag.line2-pvp", "&c%kd% K/D &8| &d%ping%ms");
         clanFormat = y.getString("nametag.clan-format", " &8[&b{tag}&8]");
         checkPack = y.getString("check.pack", "&8[&f:check:&8] ");
         checkText = y.getString("check.text", "&8[&a\u2714&8] ");
@@ -184,7 +185,10 @@ public final class RankService implements Listener {
 
     private String[] tagTexts(Player p) {
         String a = format(p, line1Pack, true), b = format(p, line1, false);
-        String l2a = format(p, line2, true), l2b = format(p, line2, false);
+        // Im PvP-Bereich (Arena, Duell, Sumo) steht statt Coins die K/D und der Ping
+        boolean pvp = !line2Pvp.isEmpty() && (plugin.duels().inDuel(p) || (plugin.spawn() != null && plugin.spawn().isPvpZone(p.getLocation())));
+        String second = pvp ? line2Pvp : line2;
+        String l2a = format(p, second, true), l2b = format(p, second, false);
         return new String[]{l2a.isBlank() ? a : a + "\n" + l2a, l2b.isBlank() ? b : b + "\n" + l2b};
     }
 

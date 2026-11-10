@@ -67,6 +67,7 @@ worlds:
 # Neu bauen: /minesmp buildspawn confirm
 spawn-build:
   auto: true
+  auto-update: true       # neuen Spawn-Bauplan aus einem Plugin-Update automatisch bauen (ueberschreibt den alten Spawn)
   blocks-per-tick: 30000
 
 spawn-particles:
@@ -192,6 +193,7 @@ clans:
     quest: 20
     per-1000-deposit: 5
     war-win: 500
+    league-win: 150
   blocked-names: [admin, mod, team, minesmp, nazi, hitler]
   # Clan-Saison (Rangliste am Spawn). Punkte: Krieg gewonnen 3, unentschieden 1. Neue Saison: /clan season reset
   season:
@@ -206,6 +208,31 @@ clans:
       - {points: 22, name: 'Meister', color: '&d'}
       - {points: 30, name: 'Grossmeister', color: '&5'}
       - {points: 45, name: 'Champion', color: '&c'}
+  # Clan-Liga (/clanduell): gewertete Clan-Duelle mit Wertung, Raengen, Aufstellung und Match-Suche.
+  # Die Arena-Positionen kommen aus dem Spawn-Bauplan (oder: clans.league.arenas.<name>.pos1 / pos2 im Format welt;x;y;z;yaw;pitch).
+  league:
+    enabled: true
+    team-size: 3              # Spieler pro Clan im Match
+    placement-matches: 5      # so viele Matches bis zum ersten Rang
+    start-rating: 1000
+    k-factor: 32              # wie stark ein Match die Wertung aendert
+    k-factor-placement: 60
+    kit: duel_netherite       # festes Kit aus kits.yml (das eigene Inventar wird gesichert)
+    max-minutes: 6
+    rematch-cooldown-minutes: 10
+    ranks:
+      - {rating: 0,    name: 'Bronze I',      color: '&#C8813C', icon: league_1,  material: COPPER_INGOT}
+      - {rating: 900,  name: 'Bronze II',     color: '&#C8813C', icon: league_2,  material: COPPER_BLOCK}
+      - {rating: 980,  name: 'Silber I',      color: '&#C9D1D9', icon: league_3,  material: IRON_INGOT}
+      - {rating: 1060, name: 'Silber II',     color: '&#C9D1D9', icon: league_4,  material: IRON_BLOCK}
+      - {rating: 1140, name: 'Gold I',        color: '&#FFC83D', icon: league_5,  material: GOLD_INGOT}
+      - {rating: 1230, name: 'Gold II',       color: '&#FFC83D', icon: league_6,  material: GOLD_BLOCK}
+      - {rating: 1320, name: 'Gold III',      color: '&#FFC83D', icon: league_7,  material: RAW_GOLD_BLOCK}
+      - {rating: 1420, name: 'Kristall I',    color: '&#C084FC', icon: league_8,  material: AMETHYST_SHARD}
+      - {rating: 1540, name: 'Kristall II',   color: '&#C084FC', icon: league_9,  material: AMETHYST_CLUSTER}
+      - {rating: 1680, name: 'Kristall III',  color: '&#C084FC', icon: league_10, material: AMETHYST_BLOCK}
+      - {rating: 1850, name: 'Mine-Champion', color: '&#55FFFF', icon: league_11, material: NETHER_STAR}
+    arenas: {}
   board:
     enabled: true
     location: ''      # leer = Platz am Spawn aus dem Bauplan (Format welt;x;y;z)
@@ -231,6 +258,40 @@ combat:
   streak-announce: [5, 10, 15, 20, 25, 50]
   same-victim-cooldown-minutes: 10
   player-kill-xp: 25
+
+# PvP-Bereich: Warteschlange (/queue) fuer Duelle und Sumo, Kit-Editor (/kiteditor), Kronen nach Siegen (/kronen)
+pvp:
+  sumo:
+    max-seconds: 180
+    arenas: {}                # kommt aus dem Spawn-Bauplan (pos1, pos2, min-y)
+  crowns:
+    - {wins: 5,   name: 'Krone I',        color: '&#C8813C'}
+    - {wins: 15,  name: 'Krone II',       color: '&#C9D1D9'}
+    - {wins: 30,  name: 'Krone III',      color: '&#FFC83D'}
+    - {wins: 60,  name: 'Krone IV',       color: '&#55FFFF'}
+    - {wins: 100, name: 'Krone V',        color: '&#C084FC'}
+    - {wins: 200, name: 'Kronen-Legende', color: '&#FF5555'}
+  crown-reward: {gems: 5, stars: 5}
+
+# PvE-Modus (/gruft): Wellen ueberleben, Laternen entzuenden, Boss besiegen - allein oder als Gruppe.
+# Kreaturen: kriecher, grubenschreck, schattenwache, lichtfresser. modifier: darkness = "Lichter aus"
+pve:
+  enabled: true
+  name: '<g:#C084FC:#55FFFF>&lDie Kristallgruft</g>'
+  max-players: 4
+  rewarded-runs-per-day: 3
+  reward-after-limit-money: 1000
+  reward-display: '&a15.000 MC, 8 Gems, 5 Sterne, 6 Kristalle, Epic-Schluessel'
+  waves:
+    - {mobs: {kriecher: 7, grubenschreck: 3}}
+    - {title: 'Lichter aus', modifier: darkness, mobs: {kriecher: 8, grubenschreck: 5, schattenwache: 2}}
+    - {mobs: {kriecher: 9, grubenschreck: 6, schattenwache: 4}}
+  boss: {name: '&5&lGruftwaechter', health: 260, damage: 10, shockwave-damage: 7}
+  reward: {money: 15000, gems: 8, stars: 5, keys: {epic: 1}, custom-items: ['kristall:6'], bp-xp: 300}
+  bonus-rewards:
+    - {chance: 0.10, reward: {spawners: {zombie: 1}}, broadcast: '&bZombie-Spawner'}
+    - {chance: 0.15, reward: {books: ['zufall:2']}}
+    - {chance: 0.04, reward: {custom-items: [gruftlaterne]}, broadcast: '&dGruftlaterne'}
 
 lifesteal:
   enabled: false
@@ -360,6 +421,8 @@ help:
   - '&b/claim &8- &7Grundstuecke (trust, raid ...)  &8| &b/keyall &8- &7Naechstes Keyall'
   - '&b/ce &8- &7Verzauberer  &8| &b/poi &8- &7Meteoriten & Kampfzonen'
   - '&b/mitspieler <Text> &8- &7Mitspieler suchen'
+  - '&b/clanduell &8- &7Clan-Liga (3 gegen 3)  &8| &b/queue, /sumo, /kiteditor, /kronen &8- &7PvP'
+  - '&b/gruft &8- &7PvE: Die Kristallgruft'
   - '&b/profile, /stats, /playtime &8- &7Statistiken'
   - '&b/settings &8- &7Einstellungen  &8| &b/cosmetics &8- &7Kosmetik'
   - '&b/msg, /r, /ignore &8- &7Private Nachrichten'

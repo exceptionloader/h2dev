@@ -130,6 +130,28 @@ for name, text, fill, fg in [('profil', 'PROFIL', '#22C3D6', '#FFFFFF'), ('kampf
 for name in ICONS:
     add(name, icon(ICONS[name]), 9, 8)
 
+# ---------------------------------------------------------------- Clan-Liga: 11 Rang-Symbole (Schild mit Winkeln)
+def league_icon(outline, fill, pip, chevrons, star=False):
+    rows = ["ooooooooo", "obbbbbbbo", "obbbbbbbo", "obbbbbbbo", "obbbbbbbo", ".obbbbbo.", "..obbbo..", "...obo...", "....o...."]
+    g = [list(r) for r in rows]
+    if star:
+        for x, y in [(4, 1), (3, 2), (4, 2), (5, 2), (2, 3), (3, 3), (4, 3), (5, 3), (6, 3), (3, 4), (4, 4), (5, 4), (3, 5), (5, 5)]:
+            g[y][x] = 'h'
+    else:
+        tops = {1: [2], 2: [1, 3], 3: [1, 3, 5]}[chevrons]
+        for t in tops:
+            for x, y in [(2, t), (6, t), (3, t + 1), (5, t + 1), (4, t + 2)] if chevrons < 3 else [(2, t), (6, t), (3, t + 1), (5, t + 1)]:
+                if y < 9 and g[y][x] == 'b': g[y][x] = 'h'
+        if chevrons == 3: g[7][4] = 'h'
+    return icon(({'o': outline, 'b': fill, 'h': pip}, ["".join(r) for r in g]))
+
+LEAGUE = [('#6B3F16', '#9C6130', '#F0B27A', 1), ('#6B3F16', '#9C6130', '#F0B27A', 2), ('#4B5563', '#8A94A3', '#F8FAFC', 1), ('#4B5563', '#8A94A3', '#F8FAFC', 2),
+          ('#8A5A00', '#D99A00', '#FFF7B8', 1), ('#8A5A00', '#D99A00', '#FFF7B8', 2), ('#8A5A00', '#D99A00', '#FFF7B8', 3),
+          ('#4C1D95', '#9333EA', '#F5D0FE', 1), ('#4C1D95', '#9333EA', '#F5D0FE', 2), ('#4C1D95', '#9333EA', '#F5D0FE', 3)]
+for i, (o, f, p, n) in enumerate(LEAGUE):
+    add('league_%d' % (i + 1), league_icon(o, f, p, n), 9, 8)
+add('league_11', league_icon('#0E7490', '#22C3D6', '#FFFFFF', 0, star=True), 9, 8)
+
 # ---------------------------------------------------------------- Scoreboard-Rahmen mit Logo
 # Passt genau auf die Vanilla-Sidebar mit 15 Zeilen: Rahmen beginnt mitten in der Titelzeile und endet 2px unter der letzten Zeile.
 BOARD_W, BOARD_LH, BOARD_F = 132, 16, 15 * 9 + 7

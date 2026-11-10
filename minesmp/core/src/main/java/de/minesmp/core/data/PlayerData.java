@@ -63,6 +63,11 @@ public final class PlayerData {
     /** Gesichertes Inventar (z.B. bei Duell-Absturz), wird beim naechsten Join zurueckgegeben. */
     public String savedInventory = "";
     /** Zweitwaehrungen: Gems (Premium) und Sterne (Spielzeit/Belohnungen). */
+    /** Eigene Anordnung der Kit-Items (Kit-Editor): Kit -> Inventar-Slot je Item, kommagetrennt. */
+    public final Map<String, String> kitLayouts = new HashMap<>();
+    /** PvE: Abschluesse und heute belohnte Laeufe ("Tag:Anzahl"). */
+    public int pveWins;
+    public String pveRewarded = "";
     public long gems, stars;
     public int starMinutes;
 
@@ -129,6 +134,9 @@ public final class PlayerData {
         y.set("duel.losses", duelLosses);
         y.set("level-rewards", levelRewards.stream().toList());
         y.set("saved-inventory", savedInventory);
+        kitLayouts.forEach((k, v) -> y.set("kit-layouts." + k, v));
+        y.set("pve.wins", pveWins);
+        y.set("pve.rewarded", pveRewarded);
         y.set("tokens.gems", gems);
         y.set("tokens.stars", stars);
         y.set("tokens.star-minutes", starMinutes);
@@ -176,6 +184,9 @@ public final class PlayerData {
         duelLosses = y.getInt("duel.losses");
         levelRewards.addAll(y.getIntegerList("level-rewards"));
         savedInventory = y.getString("saved-inventory", "");
+        section(y, "kit-layouts", (k, s) -> kitLayouts.put(k, s.getString(k)));
+        pveWins = y.getInt("pve.wins");
+        pveRewarded = y.getString("pve.rewarded", "");
         gems = y.getLong("tokens.gems");
         stars = y.getLong("tokens.stars");
         starMinutes = y.getInt("tokens.star-minutes");

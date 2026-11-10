@@ -7,7 +7,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 > Schnellstart: `./scripts/install.sh /opt/minesmp` -> [docs/INSTALL.md](docs/INSTALL.md)
 
 ## Funktionen (MineSMPCore)
-- **Fertiger Spawn**: baut sich selbst - Plaza, Kistenhalle, Markt, Fortschritts-Tempel, Clanhalle, Event-Buehne, Portale, PvP-Arena, Duell-Inseln; klickbare NPCs fuer Shop, Battlepass, Quests, Kits ...; `/navi`
+- **Fertiger Spawn**: baut sich selbst (und aktualisiert sich bei neuem Bauplan) - Kristall-Monument ueber dem Brunnen, schwebender MINESMP-Schriftzug, kleine Inseln und Wasserfaelle, Clan-Kolosseum mit Bruecke, PvP-Platz, Sumo-Plattformen, Tor zur Kristallgruft, Plaza, Kistenhalle, Markt, Fortschritts-Tempel, Clanhalle, Event-Buehne, Portale, PvP-Arena, Duell-Inseln; klickbare NPCs fuer Shop, Battlepass, Quests, Kits ...; `/navi`
 - **Survival**: Spawn-Welt (Void, geschuetzt), Survival-Welt, Farmwelt mit automatischem Wochen-Reset, /rtp, Homes, TPA, /back, /spawn, Spieler-Warps, Schlafsystem (30 %)
 - **Economy (MineCoins)**: /money /pay /baltop, Vault-Provider, Verdienst durch Mining/Farming/Holz/Fischen/Kampf/Quests, Transaktions-Log
 - **Gems & Sterne**: zweite und dritte Waehrung (Gems aus Store/Votes/Events, Sterne fuer aktive Spielzeit), Gem-Shop (Premium, Raenge, Spawner, Waffen) und Sterne-Shop (Sternen-Spitzhacke, Enterhaken ...)
@@ -21,6 +21,9 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 - **Premium-Rang**: mehr Homes, groessere Clans, Platz auf vollem Server, eigenes Abzeichen; **Mitspieler-Suche** (/mitspieler)
 - **Handel**: Server-Shop-GUI mit Suche, /sell /sellhand /sellall, Auktionshaus mit Gebuehr/Steuer/Abholfach, sicherer /trade, Spieler-Shops per Schild, Verkaufsstab (Verkaufskisten)
 - **Clans**: Clan-Saison mit Rangliste am Spawn (TOP 100, Rang-Stufen, Siege/Unentschieden/Niederlagen, Countdown, eigener Clan), Raenge, Einladungen, Bank, Home, Level/XP, Allianzen, Rivalen, Kriege mit Einsatz, Clanchat, Rangliste, GUI, Tags in Chat/Tab/Nametag
+- **Clan-Liga** (/clanduell): gewertete Clan-Duelle 3 gegen 3 im Clan-Kolosseum, Wertung (Elo), 11 Raenge mit eigenen Symbolen, Platzierungsmatches, Aufstellung, Match-Suche, Rangliste (aktuelle + vorherige Saison), Aufstieg/Abstieg, TOP-100-Tafel am Kolosseum
+- **PvP-Platz**: Warteschlange fuer Duelle und **Sumo** (/queue, /sumo), **Kit-Editor** (/kiteditor: eigene Anordnung der Kit-Items), **Kronen** nach Siegen (/kronen) mit persoenlicher Tafel, K/D + Ping im Namensschild
+- **PvE "Die Kristallgruft"** (/gruft): allein oder zu viert 3 Wellen + Boss - Kreaturen besiegen, Laternenmasten entzuenden (Lichtfresser stoeren), "Lichter aus", Zweite Chance, Belohnungen mit Tageslimit
 - **PvP**: Combat-Tag (Logout = Tod), Killstreaks, Kill-Belohnung mit Farm-Schutz, Kopfgelder, Duelle mit Kits, FFA-Arena, optional Lifesteal
 - **Crates**: Vote/Daily/Rare/Epic/Legendary, Roll-Animation, Vorschau mit Chancen, virtuelle + physische Schluessel, Hologramme, Broadcast bei seltenen Gewinnen
 - **Fortschritt**: Spielerlevel + 5 Skills, Level-Belohnungen, taegliche/woechentliche Quests, Erfolge, Battlepass (Free/Premium)

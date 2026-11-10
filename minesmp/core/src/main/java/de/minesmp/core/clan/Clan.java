@@ -32,6 +32,11 @@ public final class Clan {
     public int kills, warsWon, warsLost;
     public int seasonWins, seasonDraws, seasonLosses;
     public boolean friendlyFire;
+    /** Clan-Liga: Wertung (Elo), gewertete Matches der Saison, Aufstellung (UUIDs), letzte Ergebnisse ("W|+28|TAG|Zeit"). */
+    public int rating = 1000;
+    public int leagueMatches;
+    public final java.util.List<String> lineup = new java.util.ArrayList<>();
+    public final java.util.List<String> history = new java.util.ArrayList<>();
 
     public Clan(String id, String name, String tag) {
         this.id = id;
@@ -73,6 +78,10 @@ public final class Clan {
         y.set("season.draws", seasonDraws);
         y.set("season.losses", seasonLosses);
         y.set("friendly-fire", friendlyFire);
+        y.set("league.rating", rating);
+        y.set("league.matches", leagueMatches);
+        y.set("league.lineup", lineup);
+        y.set("league.history", history);
         return y.saveToString();
     }
 
@@ -108,5 +117,9 @@ public final class Clan {
         seasonDraws = y.getInt("season.draws");
         seasonLosses = y.getInt("season.losses");
         friendlyFire = y.getBoolean("friendly-fire");
+        rating = y.getInt("league.rating", 1000);
+        leagueMatches = y.getInt("league.matches");
+        lineup.addAll(y.getStringList("league.lineup"));
+        history.addAll(y.getStringList("league.history"));
     }
 }

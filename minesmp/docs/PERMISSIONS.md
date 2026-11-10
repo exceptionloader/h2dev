@@ -12,7 +12,7 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 `minesmp.event` `minesmp.home` `minesmp.tpa` `minesmp.back` `minesmp.spawn` `minesmp.rtp` `minesmp.farmwelt` `minesmp.pwarp`
 `minesmp.afk` `minesmp.trash` `minesmp.msg` `minesmp.ignore` `minesmp.playtime` `minesmp.info` `minesmp.profile` `minesmp.stats`
 `minesmp.settings` `minesmp.report` `minesmp.staff.list` `minesmp.vote` `minesmp.cosmetics`
-`minesmp.gems` `minesmp.stars` `minesmp.tokenshop` `minesmp.keyall` `minesmp.spawners` `minesmp.orders` `minesmp.lfg` `minesmp.claim` `minesmp.ce`
+`minesmp.pve` `minesmp.gems` `minesmp.stars` `minesmp.tokenshop` `minesmp.keyall` `minesmp.spawners` `minesmp.orders` `minesmp.lfg` `minesmp.claim` `minesmp.ce`
 
 ## Rang-Vorteile (VIP/MVP/Legende/Premium)
 | Recht | Wirkung |

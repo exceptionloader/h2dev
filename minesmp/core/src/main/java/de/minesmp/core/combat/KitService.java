@@ -74,13 +74,37 @@ public final class KitService {
             inv.setLeggings(clone(k.legs));
             inv.setBoots(clone(k.boots));
             inv.setItemInOffHand(clone(k.offhand));
-            for (ItemStack it : k.items) inv.addItem(it.clone());
+            int[] layout = layout(p, k);
+            if (layout != null) {
+                for (int i = 0; i < k.items.size(); i++) inv.setItem(layout[i], k.items.get(i).clone());
+            } else {
+                for (ItemStack it : k.items) inv.addItem(it.clone());
+            }
         } else {
             List<ItemStack> all = new ArrayList<>();
             for (ItemStack it : new ItemStack[]{k.helmet, k.chest, k.legs, k.boots, k.offhand}) if (it != null) all.add(it.clone());
             for (ItemStack it : k.items) all.add(it.clone());
             Items.giveOrDrop(p, all.toArray(new ItemStack[0]));
         }
+    }
+
+    /** Eigene Anordnung aus dem Kit-Editor (Inventar-Slot je Kit-Item) oder null fuer die Standard-Reihenfolge. */
+    public int[] layout(Player p, Kit k) {
+        String raw = plugin.data().get(p).kitLayouts.get(k.id.toLowerCase(Locale.ROOT));
+        if (raw == null || raw.isEmpty()) return null;
+        String[] parts = raw.split(",");
+        if (parts.length != k.items.size()) return null;
+        int[] out = new int[parts.length];
+        java.util.Set<Integer> seen = new java.util.HashSet<>();
+        try {
+            for (int i = 0; i < parts.length; i++) {
+                out[i] = Integer.parseInt(parts[i].trim());
+                if (out[i] < 0 || out[i] > 35 || !seen.add(out[i])) return null;
+            }
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return out;
     }
 
     private static ItemStack clone(ItemStack i) {

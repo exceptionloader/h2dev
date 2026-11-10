@@ -17,7 +17,8 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /broadcast | /bc | `minesmp.staff.broadcast` | Rundnachricht | StaffCommands |
 | /cc | /clanchat | `minesmp.clan` | Clanchat | ClanService |
 | /claim | /gs, /grundstueck | `minesmp.claim` | Grundstuecke | ClaimService |
-| /clan | /c, /gilde | `minesmp.clan` | Clan-System | ClanService |
+| /clan | /c, /cl, /gilde | `minesmp.clan` | Clan-System | ClanService |
+| /clanduell | /cd, /liga, /clanduel, /clanliga | `minesmp.clan` | Clan-Liga: gewertete Clan-Duelle | ClanLeagueService |
 | /cosmetics | /kosmetik, /trails, /pets | `minesmp.cosmetics` | Kosmetik | CosmeticService |
 | /craft | /workbench, /wb | `minesmp.craft` | Werkbank | MiscCommands |
 | /crate | /crates, /kisten | `minesmp.crate` | Kisten | CrateService |
@@ -34,6 +35,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /farmwelt | /farmworld, /resource, /fw | `minesmp.farmwelt` | Zur Farmwelt | WorldService |
 | /gems | /gem | `minesmp.gems` | Deine Gems | TokenService |
 | /gemshop | /gemsshop | `minesmp.tokenshop` | Gem-Shop | TokenShopService |
+| /gruft | /pve, /kristallgruft | `minesmp.pve` | PvE: Die Kristallgruft | PveService |
 | /help | /hilfe, /? | `minesmp.info` | Hilfe | MiscCommands |
 | /history | /strafen, /warns | `minesmp.staff.history` | Strafverlauf | PunishmentService |
 | /home | /h, /homes | `minesmp.home` | Zum Home teleportieren | TeleportService |
@@ -43,6 +45,8 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /keys | /schluessel | `minesmp.crate` | Deine Schluessel | CrateService |
 | /kick | - | `minesmp.staff.kick` | Kickt einen Spieler | PunishmentService |
 | /kit | /kits | `minesmp.kit` | Kits | KitService |
+| /kiteditor | /kiteditieren, /kitedit | `minesmp.duel` | Kit-Anordnung bearbeiten | PvpService |
+| /kronen | /crown, /krone | `minesmp.duel` | Deine Krone | PvpService |
 | /minesmp | /msmp | `minesmp.admin.reload` | MineSMP-Verwaltung | StaffCommands |
 | /mitspieler | /lfg, /suche | `minesmp.lfg` | Mitspieler suchen | LfgService |
 | /money | /bal, /balance, /geld, /coins | `minesmp.money` | Zeigt deinen Kontostand | EconomyCommands |
@@ -57,6 +61,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /profile | /profil | `minesmp.profile` | Spielerprofil | ProfileService |
 | /pwarp | /pw, /playerwarp | `minesmp.pwarp` | Spieler-Warps | PlayerWarpService |
 | /quests | /quest, /aufgaben | `minesmp.quests` | Deine Quests | QuestService |
+| /queue | /q, /warteschlange | `minesmp.duel` | Warteschlange fuer Duelle und Sumo | PvpService |
 | /repair | /fix | `minesmp.repair` | Item reparieren | MiscCommands |
 | /reply | /r | `minesmp.msg` | Antworten | MiscCommands |
 | /report | /melden | `minesmp.report` | Meldet einen Spieler | ReportService |
@@ -79,6 +84,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /stats | /statistiken | `minesmp.stats` | Statistiken | ProfileService |
 | /sterne | /stars, /stern | `minesmp.stars` | Deine Sterne | TokenService |
 | /sterneshop | /starshop, /sternshop | `minesmp.tokenshop` | Sterne-Shop | TokenShopService |
+| /sumo | - | `minesmp.duel` | Sumo-Warteschlange | PvpService |
 | /tempban | - | `minesmp.staff.tempban` | Bannt temporaer | PunishmentService |
 | /tempmute | - | `minesmp.staff.mute` | Temporaer stummschalten | PunishmentService |
 | /tpa | /tpask | `minesmp.tpa` | Teleport-Anfrage | TeleportService |

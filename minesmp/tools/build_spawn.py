@@ -9,13 +9,16 @@ Ausgabe:
 Koordinaten: Welt "spawn", Mitte (0, 100, 0). Boden-Oberkante y=100, Spieler stehen auf y=101.
   Norden (z-): Kistenhalle      Osten (x+): Markt            Westen (x-): Fortschritt (Battlepass, Quests ...)
   Nordost:     Clanhalle        Nordwest:  Event-Platz       Sueden (z+): Portale
-  Arena-Insel bei z=150 (PvP), Duell-Inseln bei x=+-64, z=150
+  Arena-Insel bei z=150 (PvP, davor der PvP-Platz), Duell-Inseln bei x=+-64, z=150, Sumo-Plattformen bei x=+-34, z=92
+  Clan-Kolosseum (Clan-Liga) auf eigener Insel im Osten (x=112), Bruecke vom Markt
+  Kristallgruft (PvE): Tor im Suedwesten, die Grueften selbst liegen weit westlich (x=-260) unter y=100
+  Ueber dem Brunnen: Kristall-Monument, im Norden schwebt der Schriftzug MINESMP, rundherum kleine Inseln
 """
 import gzip, json, math, pathlib, random
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "core/src/main/resources/spawn"
-VERSION = 1
+VERSION = 2
 rng = random.Random(1907)
 
 W = {}  # (x,y,z) -> Blockdaten
@@ -489,6 +492,305 @@ for name, dcx in [("duell1", -64), ("duell2", 64)]:
         put(x, 100, z, "sea_lantern")
     duels[name] = {"pos1": [dcx + 0.5, 101, AZ - 9.5, 0, 0], "pos2": [dcx + 0.5, 101, AZ + 10.5, 180, 0]}
 
+# ================================================================ Kristall-Monument ueber dem Brunnen
+GLASS = ["light_blue_stained_glass", "cyan_stained_glass", "light_blue_stained_glass", "white_stained_glass"]
+
+
+def crystal(cx, cy, cz, r, h, core="sea_lantern"):
+    """Hohle Doppelpyramide aus Glas mit leuchtendem Kern; die Mittelachse bleibt frei (Leuchtfeuer-Strahl)."""
+    for dy in range(-h, h + 1):
+        rad = r * (1 - abs(dy) / (h + 0.5))
+        ri = int(math.ceil(rad))
+        for dx in range(-ri, ri + 1):
+            for dz in range(-ri, ri + 1):
+                m = abs(dx) + abs(dz)
+                if m > rad:
+                    continue
+                if m > rad - 1.0:
+                    put(cx + dx, cy + dy, cz + dz, "cyan_stained_glass" if dx == 0 or dz == 0 else GLASS[(dx * 3 + dz * 5 + dy) % len(GLASS)])
+                elif (dx or dz) and m <= rad - 2.2 and abs(dy) < h * 0.55 and (dx + dz + dy) % 2 == 0:
+                    put(cx + dx, cy + dy, cz + dz, core)
+
+
+crystal(0, 125, 0, 6, 11)
+for i in range(8):  # acht Boegen tragen den Kristall
+    a = math.radians(22.5 + i * 45)
+    mat = "quartz_bricks" if i % 2 == 0 else "prismarine_bricks"
+    for k in range(0, 181):
+        phi = math.radians(k / 2)
+        r, y = 5 + 8 * math.cos(phi), 101 + 12 * math.sin(phi)
+        put(round(math.cos(a) * r), round(y), round(math.sin(a) * r), mat)
+    put(round(math.cos(a) * 13), 101, round(math.sin(a) * 13), "chiseled_quartz_block")
+    put(round(math.cos(a) * 13), 102, round(math.sin(a) * 13), "sea_lantern")
+for x in range(-6, 7):  # Krone unter dem Kristall
+    for z in range(-6, 7):
+        d = math.hypot(x, z)
+        if 4.4 < d <= 5.6:
+            put(x, 113, z, "smooth_quartz" if (x + z) % 2 else "sea_lantern")
+for i in range(6):  # kleine Splitter umkreisen das Monument
+    a = math.radians(i * 60 + 10)
+    crystal(round(math.cos(a) * 11), 119 + (i % 3) * 4, round(math.sin(a) * 11), 2, 3, core="amethyst_block")
+
+# ================================================================ Schwebender Schriftzug MINESMP (Norden)
+LETTERS = {
+    'M': ["10001", "11011", "10101", "10001", "10001", "10001", "10001"], 'I': ["111", "010", "010", "010", "010", "010", "111"],
+    'N': ["10001", "11001", "10101", "10011", "10001", "10001", "10001"], 'E': ["11111", "10000", "11110", "10000", "10000", "10000", "11111"],
+    'S': ["01111", "10000", "10000", "01110", "00001", "00001", "11110"], 'P': ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+}
+
+
+def block_text(text, x0, y0, z, scale, colors, depth=2, back="sea_lantern"):
+    """Schrift aus Bloecken in der x/y-Ebene (Blick von Sueden). colors: Liste je Buchstabe."""
+    x = x0
+    for i, ch in enumerate(text):
+        g = LETTERS[ch]
+        for r, row in enumerate(g):
+            for c, v in enumerate(row):
+                if v != '1':
+                    continue
+                for sx in range(scale):
+                    for sy in range(scale):
+                        put(x + c * scale + sx, y0 + (6 - r) * scale + sy, z, colors[i])
+                        for dz in range(1, depth):
+                            put(x + c * scale + sx, y0 + (6 - r) * scale + sy, z - dz, back)
+        x += (len(g[0]) + 1) * scale
+    return x - scale - x0
+
+
+LOGO_W = sum((len(LETTERS[c][0]) + 1) * 2 for c in "MINESMP") - 2
+block_text("MINESMP", -LOGO_W // 2, 126, -62, 2, ["cyan_concrete"] * 4 + ["white_concrete"] * 3)
+for x in range(-LOGO_W // 2 - 2, LOGO_W // 2 + 3):  # leuchtende Leiste darunter
+    put(x, 123, -62, "prismarine_bricks" if x % 4 else "sea_lantern")
+    put(x, 124, -62, "smooth_quartz_slab[type=bottom]")
+
+
+# ================================================================ Kristall-Spitzen am Inselrand, kleine Inseln, Wasserfaelle
+def spike(x, z, h, y0=101):
+    for k in range(h):
+        rad = (1 - k / h) * (1.7 if h > 9 else 1.15)
+        for dx in range(-2, 3):
+            for dz in range(-2, 3):
+                if math.hypot(dx, dz) <= rad + 0.25:
+                    core = dx == 0 and dz == 0 and k % 3 == 1 and k < h - 2
+                    put(x + dx, y0 + k, z + dz, "sea_lantern" if core else "amethyst_block" if k == 0 else GLASS[(dx + dz + k) % len(GLASS)])
+    put(x, y0 + h, z, "end_rod[facing=up]")
+
+
+for i in range(14):
+    a = math.radians(i * 360 / 14 + 9)
+    x, z = round(math.cos(a) * 52), round(math.sin(a) * 52)
+    if get(x, 100, z) == "grass_block" and get(x, 101, z) is None and not (abs(z) < 6 and x > 0) and math.hypot(x + 47, z - 34) > 16:
+        spike(x, z, rng.randint(6, 13))
+
+
+def waterfall(x, z, top, length):
+    for y in range(top - length, top + 1):
+        put(x, y, z, "water")
+
+
+ISLETS = [(-88, -34, 109, 7), (-80, 44, 95, 6), (72, -66, 113, 7), (58, 76, 104, 6), (-46, -86, 117, 6), (22, -90, 101, 5), (-98, 6, 121, 6), (86, 50, 111, 6)]
+for i, (ix, iz, top, rad) in enumerate(ISLETS):
+    island(ix, iz, rad, 9, top=top, wobble=1.5)
+    if i % 3 == 0:
+        spike(ix, iz, rng.randint(7, 11), y0=top + 1)
+    elif i % 3 == 1:
+        cherry_tree(ix, iz, y=top + 1)
+    else:
+        oak_tree(ix, iz, y=top + 1)
+    if i % 2 == 0:  # stehender Wasserfall vom Rand in die Tiefe
+        put(ix + rad - 2, top, iz, "water")
+        waterfall(ix + rad - 1, iz, top, 22 + i * 2)
+for x, z in [(-57, -12), (-56, 18), (57, -22), (12, 58)]:  # Wasserfaelle an der Hauptinsel
+    if get(x, 100, z):
+        put(x, 100, z, "water")
+        sx = 1 if x > 0 else -1 if abs(x) > abs(z) else 0
+        sz = 0 if sx else (1 if z > 0 else -1)
+        for k in range(1, 5):
+            if get(x + sx * k, 100, z + sz * k) is None:
+                waterfall(x + sx * k, z + sz * k, 100, 30)
+                break
+            put(x + sx * k, 100, z + sz * k, "water")
+
+# ================================================================ Clan-Kolosseum (Clan-Liga) im Osten
+KX, KZ = 112, 0
+island(KX, KZ, 37, 26)
+for x in range(KX - 34, KX + 35):
+    for z in range(KZ - 34, KZ + 35):
+        d = math.hypot(x - KX, z - KZ)
+        if d <= 14.5:  # Kampfflaeche
+            b = "smooth_sandstone"
+            if 9.5 < d <= 10.5 or d <= 1.5:
+                b = "cut_sandstone"
+            if abs(z - KZ) <= 3 and x < KX - 6:
+                b = "light_blue_concrete"   # Startfeld Team 1
+            if abs(z - KZ) <= 3 and x > KX + 6:
+                b = "red_concrete"          # Startfeld Team 2
+            put(x, 100, z, b)
+            put(x, 99, z, "sandstone")
+        elif d <= 16.5:  # Ringmauer, darueber unsichtbare Sperre
+            for y in range(100, 104):
+                put(x, y, z, "polished_blackstone_bricks" if y < 103 else "polished_blackstone_brick_wall" if (x + z) % 2 else "polished_blackstone_bricks")
+            if d <= 15.5:
+                for y in range(104, 112):
+                    put(x, y, z, "barrier")
+        elif d <= 26.5:  # Tribuene: unten ein Rundgang, darueber Stufen (je 1 Block, begehbar)
+            tier = int(d - 16.5)
+            base = 103 if tier <= 1 else 102 + tier
+            gate = abs(z - KZ) <= 2 and x < KX and tier >= 2
+            side = "light_blue" if x < KX else "red"
+            for y in range(100, base + 1):
+                if gate and 100 < y < 106:
+                    continue
+                b = "quartz_bricks" if (tier + y) % 3 == 0 else "smooth_quartz" if tier % 2 else "stone_bricks"
+                if tier == 9 and 104 <= y <= 108 and int(math.degrees(math.atan2(z - KZ, x - KX)) // 6) % 2 == 0:
+                    b = f"{side}_stained_glass"   # Fensterband in der Aussenmauer
+                put(x, y, z, b)
+            if gate:  # Treppe vom Eingang hinauf zum Rundgang
+                step = int((KX - x) - 16.5)
+                if step in (2, 3, 4):
+                    for y in range(101, 101 + (4 - step)):
+                        put(x, y, z, "quartz_bricks")
+                    put(x, 101 + (4 - step), z, "quartz_stairs[facing=east,half=bottom]")
+            elif tier in (3, 6):
+                put(x, base + 1, z, f"{side}_carpet")
+            if tier == 9:
+                put(x, base + 1, z, "quartz_bricks"); put(x, base + 2, z, "polished_blackstone_brick_wall" if (x + z) % 3 else "quartz_pillar[axis=y]")
+for i in range(12):  # Feuerschalen-Tuerme auf der Tribuene
+    a = math.radians(i * 30 + 15)
+    x, z = KX + round(math.cos(a) * 26), KZ + round(math.sin(a) * 26)
+    top = max(k[1] for k in W if k[0] == x and k[2] == z)
+    box(x, top + 1, z, x, top + 5, z, "quartz_pillar[axis=y]")
+    put(x, top + 6, z, "polished_blackstone"); put(x, top + 7, z, "soul_campfire[lit=true]" if i % 2 else "campfire[lit=true]")
+    put(x, top + 4, z + (1 if z < KZ else -1), ("light_blue" if x < KX else "red") + "_wall_banner[facing=" + ("south" if z < KZ else "north") + "]")
+# Vorplatz im Westen der Insel + Bruecke zum Markt
+checker(KX - 36, KZ - 9, KX - 27, KZ + 9, "smooth_quartz", "light_blue_terracotta", size=2)
+box(KX - 26, 100, KZ - 2, KX - 17, 100, KZ + 2, "polished_andesite")
+for x in range(46, KX - 35):
+    for z in range(-3, 4):
+        e = abs(z) == 3
+        put(x, 100, z, "polished_deepslate" if e else path_tile(x, z))
+        put(x, 99, z, "stone_bricks")
+        if e and x % 2 == 0:
+            put(x, 101, z, "stone_brick_wall")
+        if not e and x % 6 == 0:
+            for k in range(1, 4 - abs(z)):
+                put(x, 99 - k, z, "stone_bricks")
+    if x % 8 == 4:
+        lamp(x, -3, y=102, h=2); lamp(x, 3, y=102, h=2)
+for z in (KZ - 9, KZ + 9):
+    box(KX - 36, 101, z, KX - 36, 106, z, "quartz_pillar[axis=y]"); put(KX - 36, 107, z, "sea_lantern")
+    box(KX - 27, 101, z, KX - 27, 106, z, "quartz_pillar[axis=y]"); put(KX - 27, 107, z, "sea_lantern")
+clan_arena = {"main": {"pos1": [KX - 9.5, 101, KZ + 0.5, -90, 0], "pos2": [KX + 10.5, 101, KZ + 0.5, 90, 0]}}
+clan_board = [KX - 31.5, 102.8, KZ - 6.5]
+
+# ================================================================ PvP-Platz (vor der Arena) und Sumo-Plattformen
+checker(-13, AZ - 37, 13, AZ - 27, "smooth_quartz", "red_terracotta", size=2)
+for x in (-13, 13):
+    for z in (AZ - 37, AZ - 27):
+        box(x, 101, z, x, 105, z, "polished_blackstone_bricks"); put(x, 106, z, "campfire[lit=true]")
+for x in (-9, 9):
+    for z in (AZ - 30, AZ - 35):
+        disc(x, z, 1.3, 100, "chiseled_polished_blackstone")
+SUMO = {}
+for name, sx in [("a", -34), ("b", 34)]:
+    SZ = 92
+    for x in range(sx - 9, sx + 10):
+        for z in range(SZ - 9, SZ + 10):
+            d = math.hypot(x - sx, z - SZ)
+            if d <= 6.5:
+                put(x, 100, z, "red_concrete" if 5.5 < d else "white_concrete" if d > 1.5 else "red_concrete")
+                for k in range(1, int(7 - d) + 1):
+                    put(x, 100 - k, z, "smooth_quartz" if k == 1 else "stone")
+            elif d <= 8.5 and (x + z) % 3 == 0:
+                put(x, 96, z, "sea_lantern")  # leuchtender Ring unter der Plattform
+    put(sx - 2, 100, SZ, "black_concrete"); put(sx + 2, 100, SZ, "black_concrete")
+    SUMO[name] = {"pos1": [sx - 2.5, 101, SZ + 0.5, -90, 0], "pos2": [sx + 3.5, 101, SZ + 0.5, 90, 0], "min-y": 98.5}
+
+# ================================================================ Tor zur Kristallgruft (Suedwesten)
+TX, TZ = -47, 34
+box(TX - 3, 92, TZ - 5, TX + 5, 99, TZ + 5, "stone")
+box(TX - 3, 100, TZ - 5, TX + 5, 100, TZ + 5, "deepslate_tiles")
+for z in range(TZ - 4, TZ + 5):
+    for y in range(101, 110):
+        arch = abs(z - TZ) <= 2 and y <= 106 - (1 if abs(z - TZ) == 2 else 0)
+        put(TX - 2, y, z, "black_stained_glass" if arch else "deepslate_bricks" if (y + z) % 3 else "cracked_deepslate_bricks")
+        if not arch and abs(z - TZ) in (3, 4):
+            put(TX - 1, y, z, "polished_deepslate")
+    put(TX - 2, 110, z, "deepslate_tile_slab[type=bottom]")
+box(TX - 3, 101, TZ - 4, TX - 3, 109, TZ + 4, "deepslate")
+for z in (TZ - 3, TZ + 3):
+    put(TX, 101, z, "amethyst_block"); put(TX, 102, z, "amethyst_cluster[facing=up]")
+    put(TX - 1, 110, z, "soul_lantern[hanging=false]")
+for z in (TZ - 2, TZ + 2):
+    put(TX - 1, 107, z, "crying_obsidian")
+put(TX - 1, 108, TZ, "amethyst_block"); put(TX - 1, 109, TZ, "amethyst_cluster[facing=up]")
+for t in range(0, 31):  # Weg vom Garten zum Tor
+    x, z = round(-21 + (TX + 5 + 21) * t / 30), round(21 + (TZ - 21) * t / 30)
+    for o in (-1, 0, 1):
+        if get(x, 100, z + o) in ("grass_block", "dirt_path"):
+            put(x, 100, z + o, "deepslate_tiles" if rng.random() < 0.6 else "cobbled_deepslate")
+            W.pop((x, 101, z + o), None)
+pve_lobby = [TX + 3.5, 101, TZ + 0.5, 90, 0]
+
+
+# ================================================================ Die Grueften (PvE-Arenen), weit weg vom Spawn
+def crypt(cx, cz, y0=80, R=26):
+    lanterns, mobs = [], []
+    for x in range(cx - R - 3, cx + R + 4):
+        for z in range(cz - R - 3, cz + R + 4):
+            d = math.hypot(x - cx, z - cz)
+            if d > R + 2.6:
+                continue
+            put(x, y0 - 1, z, "deepslate")
+            if d >= R - 0.5:  # Wand
+                for y in range(y0, y0 + 13):
+                    put(x, y, z, "deepslate" if rock_n(x + y, z - y) > -0.3 else "cobbled_deepslate")
+                continue
+            n = rock_n(x * 1.7, z * 1.7)
+            floor = "deepslate_tiles" if n > 0.35 else "cobbled_deepslate" if n > -0.1 else "deepslate" if n > -0.55 else "moss_block"
+            if 12.5 < d <= 13.5 or d <= 2.5:
+                floor = "polished_deepslate"
+            if abs(d - 7.5) < 0.5 and (x + z) % 4 == 0:
+                floor = "amethyst_block"
+            put(x, y0, z, floor)
+            ceil = y0 + 5 + int(14 * math.sqrt(max(0.0, 1 - (d / R) ** 2)))
+            for y in range(ceil, ceil + 3):
+                put(x, y, z, "deepslate" if (x * 7 + z * 13 + y) % 11 else "amethyst_block")
+            if (x * 31 + z * 17) % 97 == 0 and d < R - 3:
+                put(x, ceil - 1, z, "ochre_froglight[axis=y]" if (x + z) % 2 else "sea_lantern")
+            if floor == "moss_block" and rng.random() < 0.25:
+                put(x, y0 + 1, z, "moss_carpet")
+    for i in range(4):  # Laternenmasten
+        a = math.radians(i * 90)
+        x, z = cx + round(math.cos(a) * 13), cz + round(math.sin(a) * 13)
+        put(x, y0, z, "chiseled_deepslate")
+        for k in range(1, 4):
+            put(x, y0 + k, z, "deepslate_brick_wall")
+        put(x, y0 + 4, z, "waxed_copper_bulb[lit=false,powered=false]")
+        put(x, y0 + 5, z, "deepslate_tile_slab[type=bottom]")
+        lanterns.append([x, y0 + 4, z])
+    for i in range(8):  # Kristall-Stalagmiten und Stellen, an denen Kreaturen erscheinen
+        a = math.radians(i * 45 + 22.5)
+        x, z = cx + round(math.cos(a) * 21), cz + round(math.sin(a) * 21)
+        mobs.append([x, y0 + 1, z])
+        sx, sz = cx + round(math.cos(a) * 17), cz + round(math.sin(a) * 17)
+        for k in range(1, 4 + i % 3):
+            put(sx, y0 + k, sz, "amethyst_block" if k < 2 + i % 3 else "amethyst_cluster[facing=up]")
+        put(cx + round(math.cos(a) * 24), y0 + 2, cz + round(math.sin(a) * 24), "soul_lantern[hanging=false]")
+        put(cx + round(math.cos(a) * 24), y0 + 1, cz + round(math.sin(a) * 24), "polished_deepslate_wall")
+    for i in range(6):  # Saeulen
+        a = math.radians(i * 60 + 30)
+        x, z = cx + round(math.cos(a) * 9), cz + round(math.sin(a) * 9)
+        ceil = y0 + 5 + int(14 * math.sqrt(1 - (9 / R) ** 2))
+        for y in range(y0 + 1, ceil):
+            put(x, y, z, "deepslate_bricks" if y % 4 else "chiseled_deepslate")
+    return {"spawn": [cx + 0.5, y0 + 1, cz + 21.5, 180, 0], "center": [cx + 0.5, y0 + 1, cz + 0.5], "radius": R + 4,
+            "mobs": mobs, "lanterns": lanterns, "boss": [cx, y0 + 1, cz]}
+
+
+GX = -260
+pve_arenas = {"a": crypt(GX, 0), "b": crypt(GX, 110)}
+
 # ================================================================ Blumen & Gras auf freien Grasflaechen
 FLOWERS = ["poppy", "dandelion", "cornflower", "azure_bluet", "oxeye_daisy", "allium", "lily_of_the_valley"]
 for (x, y, z), b in list(W.items()):
@@ -528,8 +830,11 @@ npcs = [
     npc("cosmetics", "&d&lStylistin", "&7Spuren & Haustiere", "BLAZE_POWDER", [ex + 5.5, 101, ez + 4.5, 135, 0], "cmd:cosmetics", "slim/alex"),
     npc("keys", "&e&lKistenwärter", "&7Deine Schlüssel", "TRIPWIRE_HOOK", [-16.5, 101, -26.5, -135, 0], "cmd:keys", "wide/makena"),
     npc("guide", "&b&lNavigator", "&7Alle Bereiche & Hilfe", "COMPASS", [3.5, 101, 12.5, 135, 0], "navi", "wide/steve"),
-    npc("arena", "&c&lDuellmeister", "&7Duelle: /duel <Spieler>", "DIAMOND_SWORD", [4.5, 101, AZ - 28.5, 135, 0],
-        "msg:&7Fordere jemanden heraus: &b/duel <Spieler> &7- in der Arena darf jeder gegen jeden kämpfen!", "wide/kai"),
+    npc("arena", "&c&lDuellmeister", "&7Warteschlange: Duell & Sumo", "DIAMOND_SWORD", [-8.5, 101, AZ - 29.5, 0, 0], "cmd:queue", "wide/kai"),
+    npc("sumo", "&e&lSumo-Meister", "&7Sumo-Warteschlange", "SLIME_BALL", [9.5, 101, AZ - 29.5, 0, 0], "cmd:sumo", "wide/noor"),
+    npc("kiteditor", "&b&lKit-Schmied", "&7Kit-Editor: Items anordnen", "CRAFTING_TABLE", [-8.5, 101, AZ - 34.5, 0, 0], "cmd:kiteditor", "slim/sunny"),
+    npc("liga", "&d&lLiga-Meisterin", "&7Clan-Duell: 3 gegen 3, gewertet", "NETHERITE_SWORD", [KX - 31.5, 101, KZ + 6.5, 90, 0], "cmd:clanduell", "slim/zuri"),
+    npc("gruft", "&5&lGrubenmeister Torin", "&7PvE: Die Kristallgruft", "AMETHYST_CLUSTER", [TX + 0.5, 101, TZ + 0.5, -90, 0], "cmd:gruft", "wide/ari"),
     npc("settings", "&7&lEinstellungen", "&7Scoreboard, TPA & mehr", "COMPARATOR", [-3.5, 101, 12.5, -135, 0], "cmd:settings", "slim/efe"),
     # Markt, zweite Reihe am Weg
     npc("gemshop", "&d&lGem-Händlerin", "&7Gem-Shop: Ränge, Spawner, Items", "AMETHYST_CLUSTER", [27.5, 101, -6.5, 0, 0], "cmd:gemshop", "slim/zuri"),
@@ -551,6 +856,15 @@ holos = [
     {"pos": [0.5, 112.0, 31.5], "scale": 2.0, "text": ["<g:#55FFFF:#4F7CFF>&lPORTALE</g>", "&7Lauf einfach hinein"]},
     {"pos": [0.5, 116.0, AZ + 0.5], "scale": 3.0, "text": ["<g:#FF6B6B:#FFB347>&lPVP-ARENA</g>", "&7Jeder gegen jeden · Combat-Tag aktiv"]},
 ]
+holos += [
+    {"pos": [KX - 31.5, 109.5, KZ + 0.5], "scale": 2.2, "text": ["<g:#FF8AF0:#B45BFF>&lCLAN-KOLOSSEUM</g>", "&7Gewertete Clan-Duelle · 3 gegen 3 · &d/clanduell"]},
+    {"pos": [KX + 0.5, 122.0, KZ + 0.5], "scale": 3.0, "text": ["<g:#55FFFF:#4F7CFF>&lCLAN-LIGA</g>", "&711 Ränge · Saison-Rangliste"]},
+    {"pos": [0.5, 108.5, AZ - 31.5], "scale": 2.0, "text": ["<g:#FF6B6B:#FFB347>&lPVP-PLATZ</g>", "&7Duell · Sumo · Kit-Editor · Kronen"]},
+    {"pos": [-33.5, 106.0, 92.5], "scale": 1.6, "text": ["&e&lSUMO", "&7/sumo"]},
+    {"pos": [34.5, 106.0, 92.5], "scale": 1.6, "text": ["&e&lSUMO", "&7/sumo"]},
+    {"pos": [TX + 1.5, 112.5, TZ + 0.5], "scale": 2.0, "text": ["<g:#C084FC:#55FFFF>&lDIE KRISTALLGRUFT</g>", "&7Überlebe 4 Wellen und besiege den Gruftwächter",
+                                                                    "&7allein oder mit bis zu 3 Freunden · &d/gruft"]},
+]
 for cx, name, action, col in PORTALS:
     holos.append({"pos": [cx + 0.5, 109.6, PZ + 0.5], "scale": 1.3, "text": [{"Farmwelt": "&a&l", "Survival": "&b&l", "Nether": "&c&l", "PvP-Arena": "&6&l"}[name] + name,
                   {"Farmwelt": "&7Ressourcen abbauen", "Survival": "&7Zufälliger Ort", "Nether": "&7Zufälliger Ort", "PvP-Arena": "&7Kämpfen"}[name]]})
@@ -566,7 +880,9 @@ areas = [
     {"name": "&9&lClanhalle", "icon": "BLUE_BANNER", "desc": "&7Clans, Kopfgelder, Kits", "pos": [27.5, 101, -27.5, -135, 0]},
     {"name": "&5&lEvent-Platz", "icon": "BELL", "desc": "&7Events, Vote, Kosmetik", "pos": [-27.5, 101, -27.5, 135, 0]},
     {"name": "&3&lPortale", "icon": "OBSIDIAN", "desc": "&7Survival, Farmwelt, Nether, Arena", "pos": [0.5, 101, 24.5, 0, 0]},
-    {"name": "&c&lPvP-Arena", "icon": "DIAMOND_SWORD", "desc": "&7Jeder gegen jeden", "pos": arena_arrival},
+    {"name": "&c&lPvP-Arena", "icon": "DIAMOND_SWORD", "desc": "&7Jeder gegen jeden · Duell · Sumo · Kit-Editor", "pos": arena_arrival},
+    {"name": "&d&lClan-Kolosseum", "icon": "NETHERITE_SWORD", "desc": "&7Clan-Liga, Rangliste TOP 100", "pos": [KX - 33.5, 101, KZ + 0.5, -90, 0]},
+    {"name": "&5&lKristallgruft", "icon": "AMETHYST_CLUSTER", "desc": "&7PvE: Wellen & Boss", "pos": pve_lobby},
 ]
 
 layout = {
@@ -576,14 +892,18 @@ layout = {
     "arena-arrival": arena_arrival,
     "void-y": 55,
     "pvp-zones": [{"center": [0.5, AZ + 0.5], "radius": 18.5, "y": [99, 120]}],
-    "clear-boxes": [[-72, 60, -72, 72, 140, 72], [-86, 60, AZ - 42, 86, 140, AZ + 42]],
+    "clear-boxes": [[-112, 60, -112, 152, 150, 108], [-86, 60, AZ - 42, 86, 140, AZ + 42], [GX - 32, 74, -32, GX + 32, 104, 142]],
     "npcs": npcs,
     "holograms": holos,
     "portals": portal_defs,
     "crates": crate_pos,
     "duels": duels,
     "areas": areas,
-    "clan-board": [17.5, 102.6, -17.5],
+    "clan-board": clan_board,
+    "clan-arenas": clan_arena,
+    "sumo": SUMO,
+    "points": {"crown-board": [9.5, 103.0, AZ - 34.5], "pve-lobby": pve_lobby},
+    "pve": {"arenas": pve_arenas},
 }
 
 # ================================================================ Ausgabe

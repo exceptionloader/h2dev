@@ -68,7 +68,7 @@ public final class ClanService implements Listener {
         this.plugin = plugin;
         load();
         plugin.listen(this);
-        plugin.command(new SimpleCommand("clan", "minesmp.clan", "Clan-System", this::cmd, this::complete, "c", "gilde"));
+        plugin.command(new SimpleCommand("clan", "minesmp.clan", "Clan-System", this::cmd, this::complete, "c", "cl", "gilde"));
         plugin.command(new SimpleCommand("cc", "minesmp.clan", "Clanchat", (s, l, a) -> {
             if (s instanceof Player p) chat(p, String.join(" ", a));
         }, "clanchat"));
@@ -175,6 +175,7 @@ public final class ClanService implements Listener {
 
     /** Saison-Rangliste: Punkte, dann Siege, dann Clan-Level. */
     public List<Clan> seasonTop() {
+        if (plugin.league() != null && plugin.league().enabled()) return plugin.league().ranking();
         List<Clan> list = new ArrayList<>(clans.values());
         list.sort(Comparator.comparingInt(Clan::seasonPoints).thenComparingInt(c -> c.seasonWins)
                 .thenComparingInt(c -> c.level).thenComparingDouble(c -> c.xp).reversed());
@@ -221,7 +222,8 @@ public final class ClanService implements Listener {
                     Msg.send(p, "clan.chat-toggle", "{prefix}&7Clanchat-Modus: {state}", "state", clanChatToggle.contains(p.getUniqueId()) ? "&aan" : "&caus");
                 } else chat(p, String.join(" ", Arrays.copyOfRange(a, 1, a.length)));
             }
-            case "top" -> top(p);
+            case "top" -> { if (plugin.league() != null && plugin.league().enabled()) plugin.league().openLeaderboard(p, false); else top(p); }
+            case "duell", "duel", "liga" -> { if (plugin.league() != null) plugin.league().openMain(p); }
             case "info" -> info(p, a.length > 1 ? byName(a[1]) : of(p));
             case "bank" -> bank(p, a);
             case "ally" -> ally(p, a);
@@ -232,11 +234,12 @@ public final class ClanService implements Listener {
             case "disband", "aufloesen" -> disband(p);
             case "season", "saison" -> {
                 if (a.length >= 2 && a[1].equalsIgnoreCase("reset") && p.hasPermission("minesmp.admin.clan")) {
+                    if (plugin.league() != null) plugin.league().resetSeason();
                     for (Clan c : clans.values()) { c.seasonWins = 0; c.seasonDraws = 0; c.seasonLosses = 0; save(c); }
                     plugin.audit().log(p, "CLAN_SEASON_RESET", "alle Clans");
                     Msg.broadcast("clan.season-reset", "{prefix}&b&lNEUE CLAN-SAISON! &7Alle Saison-Punkte wurden zurueckgesetzt.");
                 } else {
-                    Msg.send(p, "clan.season-info", "{prefix}&7Die Clan-Rangliste steht am Spawn. Punkte: &aSieg 3 &8| &7Unentschieden 1 &8| &cNiederlage 0");
+                    Msg.send(p, "clan.season-info2", "{prefix}&7Die Clan-Rangliste steht am Spawn. Gewertete Clan-Duelle: &b/clanduell");
                 }
             }
             case "transfer" -> transfer(p, a);
@@ -695,7 +698,7 @@ public final class ClanService implements Listener {
         if (c == null) {
             Menu m = new Menu(3, "&8Clans") {};
             m.set(11, Items.of(Material.WHITE_BANNER, 1, "&bClan gruenden", List.of("&7/clan create <Name> <Tag>", "&7Kosten: &a" + plugin.eco().format(cfg().getDouble("clans.create-cost", 10000)))));
-            m.set(13, Items.of(Material.GOLDEN_HELMET, 1, "&eRangliste", List.of("&7Die besten Clans")), e -> { Menu.close(p); top(p); });
+            m.set(13, Items.of(Material.GOLDEN_HELMET, 1, "&eRangliste", List.of("&7Die besten Clans")), e -> { if (plugin.league() != null && plugin.league().enabled()) plugin.league().openLeaderboard(p, false); else { Menu.close(p); top(p); } });
             m.set(15, Items.of(Material.BOOK, 1, "&7Hilfe", List.of("&7Alle Befehle")), e -> { Menu.close(p); help(p); });
             m.fillEmpty();
             m.open(p);
@@ -719,7 +722,8 @@ public final class ClanService implements Listener {
             if (!clanChatToggle.remove(p.getUniqueId())) clanChatToggle.add(p.getUniqueId());
             openMenu(p);
         });
-        m.set(49, Items.of(Material.GOLDEN_HELMET, "&eRangliste"), e -> { Menu.close(p); top(p); });
+        m.set(49, Items.of(Material.GOLDEN_HELMET, "&eRangliste"), e -> { if (plugin.league() != null && plugin.league().enabled()) plugin.league().openLeaderboard(p, false); else { Menu.close(p); top(p); } });
+        if (plugin.league() != null && plugin.league().enabled()) m.set(48, Items.glow(Items.of(Material.NETHERITE_SWORD, 1, "&d&lClan-Duell", List.of("&7Gewertete Matches, Aufstellung,", "&7Raenge und Rangliste ›"))), e -> plugin.league().openMain(p));
         m.set(51, Items.of(Material.SHIELD, 1, "&aVerbuendete", List.of("&f" + names(c.allies))));
         m.set(52, Items.of(Material.IRON_SWORD, 1, "&cRivalen", List.of("&f" + names(c.rivals))));
         m.set(53, Items.of(Material.OAK_DOOR, 1, "&cClan verlassen", List.of("&7/clan leave")), e -> { Menu.close(p); leave(p); });

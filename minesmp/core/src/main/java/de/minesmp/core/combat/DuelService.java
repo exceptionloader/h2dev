@@ -64,6 +64,7 @@ public final class DuelService implements Listener {
     private final Map<UUID, Request> requests = new HashMap<>();
     private final Set<String> busyArenas = new HashSet<>();
     private final Set<UUID> restoreOnRespawn = new HashSet<>();
+    private final Set<UUID> busy = new HashSet<>();
 
     public DuelService(MineSMP plugin) {
         this.plugin = plugin;
@@ -83,7 +84,32 @@ public final class DuelService implements Listener {
     }
 
     public boolean inDuel(Player p) {
-        return duels.containsKey(p.getUniqueId());
+        return duels.containsKey(p.getUniqueId()) || busy.contains(p.getUniqueId());
+    }
+
+    /** Fuer andere Kampf-Modi (Clan-Duell, Sumo): Spieler gilt als "im Duell" (PvP am Spawn erlaubt, Befehle/Droppen gesperrt). */
+    public void setBusy(Player p, boolean value) {
+        if (value) busy.add(p.getUniqueId()); else busy.remove(p.getUniqueId());
+    }
+
+    /** Sichert Inventar, Position, Leben (absturzsicher) - danach darf das Inventar geleert werden. */
+    public void saveState(Player p) { snapshot(p); }
+
+    /** Stellt den gesicherten Zustand wieder her und teleportiert zurueck. */
+    public void restoreState(Player p) { restore(p); }
+
+    /** Nach dem Tod: beim Respawn zuruecksetzen und an den alten Ort bringen. */
+    public void restoreAfterRespawn(Player p) { restoreOnRespawn.add(p.getUniqueId()); }
+
+    /** Bereitet einen Spieler fuer einen Kampf vor (Inventar leeren, heilen, Effekte entfernen). */
+    public void prepare(Player p) {
+        p.getInventory().clear();
+        p.setGameMode(GameMode.SURVIVAL);
+        p.setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
+        p.setFoodLevel(20);
+        p.setSaturation(20);
+        p.setFireTicks(0);
+        p.getActivePotionEffects().forEach(pe -> p.removePotionEffect(pe.getType()));
     }
 
     private void cmd(CommandSender s, String l, String[] a) {
@@ -249,8 +275,10 @@ public final class DuelService implements Listener {
         busyArenas.remove(d.arena);
         if (winner != null) {
             PlayerData wd = plugin.data().get(winner), ld = plugin.data().get(loser);
+            PvpService.Crown crownBefore = plugin.pvp() == null ? null : plugin.pvp().crownOf(wd.duelWins);
             wd.duelWins++; ld.duelLosses++;
             wd.dirty = ld.dirty = true;
+            if (plugin.pvp() != null) plugin.pvp().checkCrown(winner, crownBefore);
             Msg.broadcast("duel.result", "{prefix}&f{winner} &7hat das Duell gegen &f{loser} &7gewonnen! &8({hp}❤ uebrig)",
                     "winner", winner.getName(), "loser", loser.getName(), "hp", String.valueOf(Math.round(winner.getHealth()) / 2.0));
             plugin.quests().progress(winner, "DUEL_WIN", null, 1);
@@ -298,6 +326,7 @@ public final class DuelService implements Listener {
             end(d, d.other(p), p);
         }
         restoreOnRespawn.remove(p.getUniqueId());
+        busy.remove(p.getUniqueId());
         if (!plugin.data().get(p).savedInventory.isEmpty()) restore(p, true);
     }
 

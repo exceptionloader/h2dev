@@ -1,6 +1,6 @@
 # Automatisch erzeugt von tools/build_spawn.py
 {
- "version": 1,
+ "version": 2,
  "world": "spawn",
  "spawn": [
   0.5,
@@ -32,12 +32,12 @@
  ],
  "clear-boxes": [
   [
-   -72,
+   -112,
    60,
-   -72,
-   72,
-   140,
-   72
+   -112,
+   152,
+   150,
+   108
   ],
   [
    -86,
@@ -46,6 +46,14 @@
    86,
    140,
    192
+  ],
+  [
+   -292,
+   74,
+   -32,
+   -228,
+   104,
+   142
   ]
  ],
  "npcs": [
@@ -307,17 +315,77 @@
   {
    "id": "arena",
    "name": "&c&lDuellmeister",
-   "desc": "&7Duelle: /duel <Spieler>",
+   "desc": "&7Warteschlange: Duell & Sumo",
    "item": "DIAMOND_SWORD",
    "pos": [
-    4.5,
+    -8.5,
     101,
-    121.5,
-    135,
+    120.5,
+    0,
     0
    ],
-   "action": "msg:&7Fordere jemanden heraus: &b/duel <Spieler> &7- in der Arena darf jeder gegen jeden kämpfen!",
+   "action": "cmd:queue",
    "skin": "wide/kai"
+  },
+  {
+   "id": "sumo",
+   "name": "&e&lSumo-Meister",
+   "desc": "&7Sumo-Warteschlange",
+   "item": "SLIME_BALL",
+   "pos": [
+    9.5,
+    101,
+    120.5,
+    0,
+    0
+   ],
+   "action": "cmd:sumo",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "kiteditor",
+   "name": "&b&lKit-Schmied",
+   "desc": "&7Kit-Editor: Items anordnen",
+   "item": "CRAFTING_TABLE",
+   "pos": [
+    -8.5,
+    101,
+    115.5,
+    0,
+    0
+   ],
+   "action": "cmd:kiteditor",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "liga",
+   "name": "&d&lLiga-Meisterin",
+   "desc": "&7Clan-Duell: 3 gegen 3, gewertet",
+   "item": "NETHERITE_SWORD",
+   "pos": [
+    80.5,
+    101,
+    6.5,
+    90,
+    0
+   ],
+   "action": "cmd:clanduell",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "gruft",
+   "name": "&5&lGrubenmeister Torin",
+   "desc": "&7PvE: Die Kristallgruft",
+   "item": "AMETHYST_CLUSTER",
+   "pos": [
+    -46.5,
+    101,
+    34.5,
+    -90,
+    0
+   ],
+   "action": "cmd:gruft",
+   "skin": "wide/ari"
   },
   {
    "id": "settings",
@@ -531,6 +599,79 @@
    "text": [
     "<g:#FF6B6B:#FFB347>&lPVP-ARENA</g>",
     "&7Jeder gegen jeden · Combat-Tag aktiv"
+   ]
+  },
+  {
+   "pos": [
+    80.5,
+    109.5,
+    0.5
+   ],
+   "scale": 2.2,
+   "text": [
+    "<g:#FF8AF0:#B45BFF>&lCLAN-KOLOSSEUM</g>",
+    "&7Gewertete Clan-Duelle · 3 gegen 3 · &d/clanduell"
+   ]
+  },
+  {
+   "pos": [
+    112.5,
+    122.0,
+    0.5
+   ],
+   "scale": 3.0,
+   "text": [
+    "<g:#55FFFF:#4F7CFF>&lCLAN-LIGA</g>",
+    "&711 Ränge · Saison-Rangliste"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    108.5,
+    118.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#FF6B6B:#FFB347>&lPVP-PLATZ</g>",
+    "&7Duell · Sumo · Kit-Editor · Kronen"
+   ]
+  },
+  {
+   "pos": [
+    -33.5,
+    106.0,
+    92.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "&e&lSUMO",
+    "&7/sumo"
+   ]
+  },
+  {
+   "pos": [
+    34.5,
+    106.0,
+    92.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "&e&lSUMO",
+    "&7/sumo"
+   ]
+  },
+  {
+   "pos": [
+    -45.5,
+    112.5,
+    34.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#C084FC:#55FFFF>&lDIE KRISTALLGRUFT</g>",
+    "&7Überlebe 4 Wellen und besiege den Gruftwächter",
+    "&7allein oder mit bis zu 3 Freunden · &d/gruft"
    ]
   },
   {
@@ -839,7 +980,7 @@
   {
    "name": "&c&lPvP-Arena",
    "icon": "DIAMOND_SWORD",
-   "desc": "&7Jeder gegen jeden",
+   "desc": "&7Jeder gegen jeden · Duell · Sumo · Kit-Editor",
    "pos": [
     0.5,
     101,
@@ -847,11 +988,275 @@
     0,
     0
    ]
+  },
+  {
+   "name": "&d&lClan-Kolosseum",
+   "icon": "NETHERITE_SWORD",
+   "desc": "&7Clan-Liga, Rangliste TOP 100",
+   "pos": [
+    78.5,
+    101,
+    0.5,
+    -90,
+    0
+   ]
+  },
+  {
+   "name": "&5&lKristallgruft",
+   "icon": "AMETHYST_CLUSTER",
+   "desc": "&7PvE: Wellen & Boss",
+   "pos": [
+    -43.5,
+    101,
+    34.5,
+    90,
+    0
+   ]
   }
  ],
  "clan-board": [
-  17.5,
-  102.6,
-  -17.5
- ]
+  80.5,
+  102.8,
+  -6.5
+ ],
+ "clan-arenas": {
+  "main": {
+   "pos1": [
+    102.5,
+    101,
+    0.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    122.5,
+    101,
+    0.5,
+    90,
+    0
+   ]
+  }
+ },
+ "sumo": {
+  "a": {
+   "pos1": [
+    -36.5,
+    101,
+    92.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    -30.5,
+    101,
+    92.5,
+    90,
+    0
+   ],
+   "min-y": 98.5
+  },
+  "b": {
+   "pos1": [
+    31.5,
+    101,
+    92.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    37.5,
+    101,
+    92.5,
+    90,
+    0
+   ],
+   "min-y": 98.5
+  }
+ },
+ "points": {
+  "crown-board": [
+   9.5,
+   103.0,
+   115.5
+  ],
+  "pve-lobby": [
+   -43.5,
+   101,
+   34.5,
+   90,
+   0
+  ]
+ },
+ "pve": {
+  "arenas": {
+   "a": {
+    "spawn": [
+     -259.5,
+     81,
+     21.5,
+     180,
+     0
+    ],
+    "center": [
+     -259.5,
+     81,
+     0.5
+    ],
+    "radius": 30,
+    "mobs": [
+     [
+      -241,
+      81,
+      8
+     ],
+     [
+      -252,
+      81,
+      19
+     ],
+     [
+      -268,
+      81,
+      19
+     ],
+     [
+      -279,
+      81,
+      8
+     ],
+     [
+      -279,
+      81,
+      -8
+     ],
+     [
+      -268,
+      81,
+      -19
+     ],
+     [
+      -252,
+      81,
+      -19
+     ],
+     [
+      -241,
+      81,
+      -8
+     ]
+    ],
+    "lanterns": [
+     [
+      -247,
+      84,
+      0
+     ],
+     [
+      -260,
+      84,
+      13
+     ],
+     [
+      -273,
+      84,
+      0
+     ],
+     [
+      -260,
+      84,
+      -13
+     ]
+    ],
+    "boss": [
+     -260,
+     81,
+     0
+    ]
+   },
+   "b": {
+    "spawn": [
+     -259.5,
+     81,
+     131.5,
+     180,
+     0
+    ],
+    "center": [
+     -259.5,
+     81,
+     110.5
+    ],
+    "radius": 30,
+    "mobs": [
+     [
+      -241,
+      81,
+      118
+     ],
+     [
+      -252,
+      81,
+      129
+     ],
+     [
+      -268,
+      81,
+      129
+     ],
+     [
+      -279,
+      81,
+      118
+     ],
+     [
+      -279,
+      81,
+      102
+     ],
+     [
+      -268,
+      81,
+      91
+     ],
+     [
+      -252,
+      81,
+      91
+     ],
+     [
+      -241,
+      81,
+      102
+     ]
+    ],
+    "lanterns": [
+     [
+      -247,
+      84,
+      110
+     ],
+     [
+      -260,
+      84,
+      123
+     ],
+     [
+      -273,
+      84,
+      110
+     ],
+     [
+      -260,
+      84,
+      97
+     ]
+    ],
+    "boss": [
+     -260,
+     81,
+     110
+    ]
+   }
+  }
+ }
 }

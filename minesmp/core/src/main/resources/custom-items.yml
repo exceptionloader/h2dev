@@ -28,6 +28,12 @@ items:
     name: '&f&lFeder des Wanderers'
     lore: ['&7Ein seltenes Sammlerstueck.', '&8Kosmetisch']
     glow: true
+  gruftlaterne:
+    material: SOUL_LANTERN
+    name: '<g:#C084FC:#55FFFF>&lGruftlaterne</g>'
+    lore: ['&7Eine seltene Trophaee aus der', '&7Kristallgruft. Sie erlischt nie.', '&8Sammlerstueck']
+    glow: true
+    custom-model-data: 10020
   kristall:
     material: AMETHYST_SHARD
     name: '&d&lMine-Kristall'
