@@ -1,0 +1,1548 @@
+# Automatisch erzeugt von tools/build_spawn.py aus tools/maps/high-crown.json
+{
+ "version": 3,
+ "world": "spawn",
+ "spawn": [
+  -19.5,
+  100,
+  0.5,
+  180,
+  0
+ ],
+ "arena-arrival": [
+  0.5,
+  101,
+  121.5,
+  0,
+  0
+ ],
+ "void-y": 55,
+ "pvp-zones": [
+  {
+   "center": [
+    0.5,
+    150.5
+   ],
+   "radius": 18.5,
+   "y": [
+    99,
+    120
+   ]
+  }
+ ],
+ "clear-boxes": [
+  [
+   -112,
+   60,
+   -112,
+   152,
+   150,
+   108
+  ],
+  [
+   -86,
+   60,
+   108,
+   86,
+   140,
+   192
+  ],
+  [
+   -292,
+   74,
+   -32,
+   -228,
+   104,
+   142
+  ],
+  [
+   -114,
+   20,
+   -181,
+   79,
+   219,
+   85
+  ]
+ ],
+ "npcs": [
+  {
+   "id": "arena",
+   "name": "&c&lDuellmeister",
+   "desc": "&7Warteschlange: Duell & Sumo",
+   "item": "DIAMOND_SWORD",
+   "pos": [
+    -8.5,
+    101,
+    120.5,
+    0,
+    0
+   ],
+   "action": "cmd:queue",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "sumo",
+   "name": "&e&lSumo-Meister",
+   "desc": "&7Sumo-Warteschlange",
+   "item": "SLIME_BALL",
+   "pos": [
+    9.5,
+    101,
+    120.5,
+    0,
+    0
+   ],
+   "action": "cmd:sumo",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "kiteditor",
+   "name": "&b&lKit-Schmied",
+   "desc": "&7Kit-Editor: Items anordnen",
+   "item": "CRAFTING_TABLE",
+   "pos": [
+    -8.5,
+    101,
+    115.5,
+    0,
+    0
+   ],
+   "action": "cmd:kiteditor",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "liga",
+   "name": "&d&lLiga-Meisterin",
+   "desc": "&7Clan-Duell: 3 gegen 3, gewertet",
+   "item": "NETHERITE_SWORD",
+   "pos": [
+    80.5,
+    101,
+    6.5,
+    90,
+    0
+   ],
+   "action": "cmd:clanduell",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "guide",
+   "name": "&b&lNavigator",
+   "desc": "&7Alle Bereiche & Hilfe",
+   "item": "COMPASS",
+   "pos": [
+    -22.5,
+    98,
+    -9.5,
+    -177,
+    0
+   ],
+   "action": "navi",
+   "skin": "wide/steve"
+  },
+  {
+   "id": "settings",
+   "name": "&7&lEinstellungen",
+   "desc": "&7Scoreboard, TPA & mehr",
+   "item": "COMPARATOR",
+   "pos": [
+    -14.5,
+    99,
+    -8.5,
+    159,
+    0
+   ],
+   "action": "cmd:settings",
+   "skin": "slim/efe"
+  },
+  {
+   "id": "cosmetics",
+   "name": "&d&lStylistin",
+   "desc": "&7Spuren & Haustiere",
+   "item": "BLAZE_POWDER",
+   "pos": [
+    -14.5,
+    98,
+    -17.5,
+    142,
+    0
+   ],
+   "action": "cmd:cosmetics",
+   "skin": "slim/alex"
+  },
+  {
+   "id": "ah",
+   "name": "&6&lAuktionator",
+   "desc": "&7Auktionshaus",
+   "item": "GOLDEN_HELMET",
+   "pos": [
+    -42.5,
+    96.5,
+    -40.5,
+    -56,
+    0
+   ],
+   "action": "cmd:ah",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "orders",
+   "name": "&a&lAuftragsbrett",
+   "desc": "&7Kaufaufträge erstellen & liefern",
+   "item": "WRITABLE_BOOK",
+   "pos": [
+    -40.5,
+    96,
+    -46.5,
+    -44,
+    0
+   ],
+   "action": "cmd:order",
+   "skin": "slim/efe"
+  },
+  {
+   "id": "pwarp",
+   "name": "&b&lReiseführer",
+   "desc": "&7Spieler-Warps",
+   "item": "ENDER_PEARL",
+   "pos": [
+    -39.5,
+    96,
+    -32.5,
+    -72,
+    0
+   ],
+   "action": "cmd:pwarp",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "claim",
+   "name": "&3&lLandvermesser",
+   "desc": "&7Grundstücke & Raid-Zeit",
+   "item": "GRASS_BLOCK",
+   "pos": [
+    -44.5,
+    98,
+    -21.5,
+    -102,
+    0
+   ],
+   "action": "cmd:claim info",
+   "skin": "wide/steve"
+  },
+  {
+   "id": "shop",
+   "name": "&a&lHändler",
+   "desc": "&7Server-Shop",
+   "item": "EMERALD",
+   "pos": [
+    8.5,
+    99.5,
+    -24.5,
+    94,
+    0
+   ],
+   "action": "cmd:shop",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "sell",
+   "name": "&e&lAnkäufer",
+   "desc": "&7Items verkaufen",
+   "item": "GOLD_INGOT",
+   "pos": [
+    -3.5,
+    98,
+    -24.5,
+    96,
+    0
+   ],
+   "action": "cmd:sell",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "gemshop",
+   "name": "&d&lGem-Händlerin",
+   "desc": "&7Gem-Shop: Ränge, Spawner, Items",
+   "item": "AMETHYST_CLUSTER",
+   "pos": [
+    -4.5,
+    98,
+    -28.5,
+    83,
+    0
+   ],
+   "action": "cmd:gemshop",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "sterneshop",
+   "name": "&e&lSternenhändler",
+   "desc": "&7Sterne-Shop",
+   "item": "NETHER_STAR",
+   "pos": [
+    -5.5,
+    97,
+    -34.5,
+    63,
+    0
+   ],
+   "action": "cmd:sterneshop",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "spawner",
+   "name": "&b&lSpawner-Händler",
+   "desc": "&7Spawner kaufen",
+   "item": "SPAWNER",
+   "pos": [
+    -6.5,
+    99,
+    -40.5,
+    47,
+    0
+   ],
+   "action": "cmd:spawner",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "ce",
+   "name": "&5&lVerzauberer",
+   "desc": "&7Eigene Verzauberungen",
+   "item": "ENCHANTED_BOOK",
+   "pos": [
+    -8.5,
+    97,
+    -45.5,
+    34,
+    0
+   ],
+   "action": "cmd:ce",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "rewards",
+   "name": "&a&lBelohnungen",
+   "desc": "&7Daily, Vote & mehr",
+   "item": "SUNFLOWER",
+   "pos": [
+    -19.5,
+    99,
+    -59.5,
+    0,
+    0
+   ],
+   "action": "cmd:rewards",
+   "skin": "slim/efe"
+  },
+  {
+   "id": "battlepass",
+   "name": "&d&lPass-Meister",
+   "desc": "&7Battlepass",
+   "item": "NETHER_STAR",
+   "pos": [
+    -24.5,
+    98,
+    -67.5,
+    -51,
+    0
+   ],
+   "action": "cmd:battlepass",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "quests",
+   "name": "&b&lQuestgeberin",
+   "desc": "&7Tägliche & wöchentliche Quests",
+   "item": "WRITABLE_BOOK",
+   "pos": [
+    -14.5,
+    98,
+    -67.5,
+    51,
+    0
+   ],
+   "action": "cmd:quests",
+   "skin": "slim/alex"
+  },
+  {
+   "id": "skills",
+   "name": "&e&lLehrmeister",
+   "desc": "&7Skills & Level",
+   "item": "EXPERIENCE_BOTTLE",
+   "pos": [
+    -29.5,
+    98,
+    -62.5,
+    -96,
+    0
+   ],
+   "action": "cmd:skills",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "achievements",
+   "name": "&6&lChronist",
+   "desc": "&7Erfolge",
+   "item": "GOLDEN_APPLE",
+   "pos": [
+    -9.5,
+    98,
+    -62.5,
+    96,
+    0
+   ],
+   "action": "cmd:achievements",
+   "skin": "wide/steve"
+  },
+  {
+   "id": "vote",
+   "name": "&a&lWahlhelfer",
+   "desc": "&7Voten & Schlüssel",
+   "item": "PAPER",
+   "pos": [
+    -30.5,
+    98,
+    -55.5,
+    -126,
+    0
+   ],
+   "action": "cmd:vote",
+   "skin": "slim/zuri"
+  },
+  {
+   "id": "event",
+   "name": "&d&lHerold",
+   "desc": "&7Events & Zeitplan",
+   "item": "BELL",
+   "pos": [
+    -8.5,
+    98,
+    -55.5,
+    126,
+    0
+   ],
+   "action": "cmd:event",
+   "skin": "slim/sunny"
+  },
+  {
+   "id": "clan",
+   "name": "&9&lClanmeister",
+   "desc": "&7Clans gründen & verwalten",
+   "item": "BLUE_BANNER",
+   "pos": [
+    -34.5,
+    98,
+    -69.5,
+    -68,
+    0
+   ],
+   "action": "cmd:clan",
+   "skin": "wide/kai"
+  },
+  {
+   "id": "bounty",
+   "name": "&c&lKopfgeldjäger",
+   "desc": "&7Kopfgelder",
+   "item": "IRON_SWORD",
+   "pos": [
+    -5.5,
+    98,
+    -69.5,
+    67,
+    0
+   ],
+   "action": "cmd:bounty",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "kits",
+   "name": "&7&lWaffenmeister",
+   "desc": "&7Kits",
+   "item": "IRON_CHESTPLATE",
+   "pos": [
+    -6.5,
+    98,
+    -76.5,
+    45,
+    0
+   ],
+   "action": "cmd:kit",
+   "skin": "wide/noor"
+  },
+  {
+   "id": "keys",
+   "name": "&e&lKistenwärter",
+   "desc": "&7Deine Schlüssel",
+   "item": "TRIPWIRE_HOOK",
+   "pos": [
+    -41.5,
+    98,
+    -65.5,
+    -85,
+    0
+   ],
+   "action": "cmd:keys",
+   "skin": "wide/makena"
+  },
+  {
+   "id": "gruft",
+   "name": "&5&lGrubenmeister Torin",
+   "desc": "&7PvE: Die Kristallgruft",
+   "item": "AMETHYST_CLUSTER",
+   "pos": [
+    -20.5,
+    99,
+    -80.5,
+    -3,
+    0
+   ],
+   "action": "cmd:gruft",
+   "skin": "wide/ari"
+  },
+  {
+   "id": "fischer",
+   "name": "&3&lFischer Ole",
+   "desc": "&7Angeln & Wettbewerbe",
+   "item": "FISHING_ROD",
+   "action": "cmd:event",
+   "skin": "wide/steve",
+   "pos": [
+    21.5,
+    101,
+    -63.5,
+    90,
+    0
+   ]
+  }
+ ],
+ "holograms": [
+  {
+   "pos": [
+    0.5,
+    116.0,
+    150.5
+   ],
+   "scale": 3.0,
+   "text": [
+    "<g:#FF6B6B:#FFB347>&lPVP-ARENA</g>",
+    "&7Jeder gegen jeden · Combat-Tag aktiv"
+   ]
+  },
+  {
+   "pos": [
+    80.5,
+    109.5,
+    0.5
+   ],
+   "scale": 2.2,
+   "text": [
+    "<g:#FF8AF0:#B45BFF>&lCLAN-KOLOSSEUM</g>",
+    "&7Gewertete Clan-Duelle · 3 gegen 3 · &d/clanduell"
+   ]
+  },
+  {
+   "pos": [
+    112.5,
+    122.0,
+    0.5
+   ],
+   "scale": 3.0,
+   "text": [
+    "<g:#55FFFF:#4F7CFF>&lCLAN-LIGA</g>",
+    "&711 Ränge · Saison-Rangliste"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    108.5,
+    118.5
+   ],
+   "scale": 2.0,
+   "text": [
+    "<g:#FF6B6B:#FFB347>&lPVP-PLATZ</g>",
+    "&7Duell · Sumo · Kit-Editor · Kronen"
+   ]
+  },
+  {
+   "pos": [
+    -33.5,
+    106.0,
+    92.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "&e&lSUMO",
+    "&7/sumo"
+   ]
+  },
+  {
+   "pos": [
+    34.5,
+    106.0,
+    92.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "&e&lSUMO",
+    "&7/sumo"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    109.6,
+    117.5
+   ],
+   "scale": 1.3,
+   "text": [
+    "&b&lZurück zum Spawn"
+   ]
+  },
+  {
+   "pos": [
+    -19.5,
+    104.2,
+    -8.5
+   ],
+   "scale": 2.2,
+   "text": [
+    "<g:#55FFFF:#3FA9FF:#FFFFFF>&lMINESMP</g>",
+    "&7Willkommen! &b/help &8· &b/discord &8· &b/navi"
+   ]
+  },
+  {
+   "pos": [
+    -19.5,
+    105.6,
+    2.4
+   ],
+   "scale": 1.5,
+   "text": [
+    "&b&lSURVIVAL",
+    "&7Lauf ins Portal: zufälliger Ort"
+   ]
+  },
+  {
+   "pos": [
+    -19.5,
+    101.4,
+    2.2
+   ],
+   "scale": 0.6,
+   "text": [
+    "&8Spawn: High Crown Medieval Spawn",
+    "&8von OrioniX · SchemsFactory"
+   ]
+  },
+  {
+   "pos": [
+    -3.5,
+    103.6,
+    -29.5
+   ],
+   "scale": 1.8,
+   "text": [
+    "<g:#7CFF8A:#2BD46A>&lMARKT</g>",
+    "&7Shop · Verkauf · Gems · Sterne · Spawner"
+   ]
+  },
+  {
+   "pos": [
+    -40.5,
+    101.5,
+    -39.5
+   ],
+   "scale": 1.5,
+   "text": [
+    "<g:#FFD86B:#FF9E2C>&lHANDEL</g>",
+    "&7Auktionen · Aufträge · Warps"
+   ]
+  },
+  {
+   "pos": [
+    -45.5,
+    103.4,
+    -67.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "<g:#FFD86B:#FF9E2C>&lKISTEN</g>",
+    "&7Rechtsklick öffnen · Linksklick Vorschau"
+   ]
+  },
+  {
+   "pos": [
+    -19.5,
+    104.8,
+    -64.5
+   ],
+   "scale": 1.8,
+   "text": [
+    "<g:#E59BFF:#9B6BFF>&lFORTSCHRITT</g>",
+    "&7Battlepass · Quests · Skills · Erfolge"
+   ]
+  },
+  {
+   "pos": [
+    -19.5,
+    104.6,
+    -83.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "<g:#C084FC:#55FFFF>&lDIE KRISTALLGRUFT</g>",
+    "&7PvE: Wellen & Boss · &d/gruft"
+   ]
+  }
+ ],
+ "portals": [
+  {
+   "name": "Spawn",
+   "action": "warp:spawn",
+   "box": [
+    -1,
+    101,
+    117,
+    1,
+    104,
+    117
+   ],
+   "back": [
+    0.5,
+    101,
+    120.5,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Survival",
+   "action": "rtp:world",
+   "box": [
+    -25,
+    100,
+    3,
+    -15,
+    104,
+    3
+   ],
+   "back": [
+    -19.5,
+    100,
+    -1.5,
+    180,
+    0
+   ]
+  }
+ ],
+ "crates": {
+  "vote": [
+   -51,
+   103,
+   -74
+  ],
+  "daily": [
+   -54,
+   103,
+   -74
+  ],
+  "rare": [
+   -55,
+   103,
+   -71
+  ],
+  "epic": [
+   -55,
+   103,
+   -66
+  ],
+  "legendary": [
+   -54,
+   103,
+   -63
+  ]
+ },
+ "duels": {
+  "duell1": {
+   "pos1": [
+    -63.5,
+    101,
+    140.5,
+    0,
+    0
+   ],
+   "pos2": [
+    -63.5,
+    101,
+    160.5,
+    180,
+    0
+   ]
+  },
+  "duell2": {
+   "pos1": [
+    64.5,
+    101,
+    140.5,
+    0,
+    0
+   ],
+   "pos2": [
+    64.5,
+    101,
+    160.5,
+    180,
+    0
+   ]
+  }
+ },
+ "areas": [
+  {
+   "name": "&b&lSpawn",
+   "icon": "BEACON",
+   "desc": "&7Burg-Insel mit Portal",
+   "pos": [
+    -19.5,
+    100,
+    0.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&a&lMarkt",
+   "icon": "EMERALD",
+   "desc": "&7Shop, Gems, Sterne, Spawner, Auktionen",
+   "pos": [
+    -12.5,
+    98,
+    -27.5,
+    -90,
+    0
+   ]
+  },
+  {
+   "name": "&6&lKisten",
+   "icon": "CHEST",
+   "desc": "&7Vote, Daily, Rare, Epic, Legendary",
+   "pos": [
+    -44.5,
+    98,
+    -67.5,
+    90,
+    0
+   ]
+  },
+  {
+   "name": "&d&lFortschritt",
+   "icon": "NETHER_STAR",
+   "desc": "&7Battlepass, Quests, Skills, Clans",
+   "pos": [
+    -19.5,
+    98,
+    -54.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&5&lKristallgruft",
+   "icon": "AMETHYST_CLUSTER",
+   "desc": "&7PvE: Wellen & Boss",
+   "pos": [
+    -19.5,
+    99,
+    -78.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&c&lPvP-Arena",
+   "icon": "DIAMOND_SWORD",
+   "desc": "&7Jeder gegen jeden · Duell · Sumo · Kit-Editor",
+   "pos": [
+    0.5,
+    101,
+    121.5,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "&d&lClan-Kolosseum",
+   "icon": "NETHERITE_SWORD",
+   "desc": "&7Clan-Liga, Rangliste TOP 100",
+   "pos": [
+    78.5,
+    101,
+    0.5,
+    -90,
+    0
+   ]
+  }
+ ],
+ "clan-board": [
+  -19.5,
+  100.6,
+  -71.5
+ ],
+ "clan-arenas": {
+  "main": {
+   "pos1": [
+    102.5,
+    101,
+    0.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    122.5,
+    101,
+    0.5,
+    90,
+    0
+   ]
+  }
+ },
+ "sumo": {
+  "a": {
+   "pos1": [
+    -36.5,
+    101,
+    92.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    -30.5,
+    101,
+    92.5,
+    90,
+    0
+   ],
+   "min-y": 98.5
+  },
+  "b": {
+   "pos1": [
+    31.5,
+    101,
+    92.5,
+    -90,
+    0
+   ],
+   "pos2": [
+    37.5,
+    101,
+    92.5,
+    90,
+    0
+   ],
+   "min-y": 98.5
+  }
+ },
+ "points": {
+  "crown-board": [
+   9.5,
+   103.0,
+   115.5
+  ],
+  "pve-lobby": [
+   -19.5,
+   99,
+   -78.5,
+   180,
+   0
+  ]
+ },
+ "pve": {
+  "arenas": {
+   "a": {
+    "spawn": [
+     -259.5,
+     81,
+     21.5,
+     180,
+     0
+    ],
+    "center": [
+     -259.5,
+     81,
+     0.5
+    ],
+    "radius": 30,
+    "mobs": [
+     [
+      -241,
+      81,
+      8
+     ],
+     [
+      -252,
+      81,
+      19
+     ],
+     [
+      -268,
+      81,
+      19
+     ],
+     [
+      -279,
+      81,
+      8
+     ],
+     [
+      -279,
+      81,
+      -8
+     ],
+     [
+      -268,
+      81,
+      -19
+     ],
+     [
+      -252,
+      81,
+      -19
+     ],
+     [
+      -241,
+      81,
+      -8
+     ]
+    ],
+    "lanterns": [
+     [
+      -247,
+      84,
+      0
+     ],
+     [
+      -260,
+      84,
+      13
+     ],
+     [
+      -273,
+      84,
+      0
+     ],
+     [
+      -260,
+      84,
+      -13
+     ]
+    ],
+    "boss": [
+     -260,
+     81,
+     0
+    ]
+   },
+   "b": {
+    "spawn": [
+     -259.5,
+     81,
+     131.5,
+     180,
+     0
+    ],
+    "center": [
+     -259.5,
+     81,
+     110.5
+    ],
+    "radius": 30,
+    "mobs": [
+     [
+      -241,
+      81,
+      118
+     ],
+     [
+      -252,
+      81,
+      129
+     ],
+     [
+      -268,
+      81,
+      129
+     ],
+     [
+      -279,
+      81,
+      118
+     ],
+     [
+      -279,
+      81,
+      102
+     ],
+     [
+      -268,
+      81,
+      91
+     ],
+     [
+      -252,
+      81,
+      91
+     ],
+     [
+      -241,
+      81,
+      102
+     ]
+    ],
+    "lanterns": [
+     [
+      -247,
+      84,
+      110
+     ],
+     [
+      -260,
+      84,
+      123
+     ],
+     [
+      -273,
+      84,
+      110
+     ],
+     [
+      -260,
+      84,
+      97
+     ]
+    ],
+    "boss": [
+     -260,
+     81,
+     110
+    ]
+   }
+  }
+ },
+ "blueprint": "spawn/blueprint-extras.txt.gz",
+ "schematic": {
+  "file": "high-crown-medieval-spawn.schem",
+  "url": "https://schemsfactory.com/f/builds/high-crown-medieval-spawn/high-crown-medieval-spawn.schem",
+  "page": "https://schemsfactory.com/schematics/high-crown-medieval-spawn/",
+  "credit": "High Crown Medieval Spawn von OrioniX (SchemsFactory)",
+  "origin": [
+   -20,
+   100,
+   0
+  ]
+ },
+ "blocks": [
+  [
+   -43,
+   97,
+   -41,
+   "minecraft:air"
+  ],
+  [
+   -16,
+   98,
+   -71,
+   "minecraft:air"
+  ],
+  [
+   -45,
+   98,
+   -22,
+   "minecraft:air"
+  ],
+  [
+   -15,
+   98,
+   -18,
+   "minecraft:air"
+  ],
+  [
+   -24,
+   99,
+   -71,
+   "minecraft:air"
+  ],
+  [
+   -20,
+   99,
+   -60,
+   "minecraft:air"
+  ],
+  [
+   -7,
+   99,
+   -41,
+   "minecraft:air"
+  ],
+  [
+   -25,
+   99,
+   -10,
+   "minecraft:air"
+  ],
+  [
+   -20,
+   100,
+   -72,
+   "minecraft:air"
+  ],
+  [
+   8,
+   100,
+   -25,
+   "minecraft:air"
+  ],
+  [
+   21,
+   101,
+   -64,
+   "minecraft:air"
+  ],
+  [
+   -36,
+   100,
+   -73,
+   "minecraft:air"
+  ],
+  [
+   0,
+   101,
+   -62,
+   "minecraft:air"
+  ],
+  [
+   -33,
+   116,
+   24,
+   "minecraft:air"
+  ],
+  [
+   -51,
+   103,
+   -63,
+   "minecraft:air"
+  ],
+  [
+   -51,
+   102,
+   -63,
+   "minecraft:air"
+  ],
+  [
+   -25,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -24,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -23,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -22,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -21,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -20,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -19,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -18,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -17,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -16,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -15,
+   100,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -25,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -24,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -23,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -22,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -21,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -20,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -19,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -18,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -17,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -16,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -15,
+   101,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -25,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -24,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -23,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -22,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -21,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -20,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -19,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -18,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -17,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -16,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -15,
+   102,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -25,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -24,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -23,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -22,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -21,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -20,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -19,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -18,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -17,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -16,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -15,
+   103,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -23,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -22,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -21,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -20,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -19,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -18,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -17,
+   104,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ]
+ ]
+}

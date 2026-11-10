@@ -123,3 +123,16 @@ Zwei Bot-Spieler + RCON auf dem Testserver. Fuer den Test war die Clan-Liga auf 
 **Nicht getestet:** echtes 3 gegen 3 mit sechs Spielern, Match-Suche mit mehr als zwei Clans, Zeitlimit/Unentschieden, Kronen-Aufstieg,
 Duell-Warteschlange mit Kit, Gruppe in der Gruft (Einladen/Annehmen), Schwierigkeit der Gruft mit echten Spielern,
 Aussehen von Map, Menues und Liga-Symbolen im echten Client (die Map wurde nur in einem vereinfachten 3D-Betrachter geprueft).
+
+## Update 10.11.2026 (2): Scoreboard im neuen Aufbau, Spawn-Karte "High Crown" aus dem Internet
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Karte | Schematic (1.16-Format, 190x196x263) wird mit WorldEdit eingefuegt, danach der Zusatz-Bauplan (Kolosseum, Arena, Sumo, Gruft) | ✅ 7 s |
+| Karte | Umstieg vom eingebauten Spawn: alter Spawn wird geloescht, neue Karte gebaut | ✅ |
+| Stationen | `/spawn` fuehrt auf den Goldblock am Portal; 12 NPCs in Sichtweite; Klick auf NPC oeffnet das richtige Menue | ✅ |
+| Kisten | Linksklick auf die Kiste im Pavillon oeffnet "Vorschau: Vote-Crate" | ✅ |
+| Portal | Ins Portal laufen -> Zufalls-Teleport in die Survival-Welt; Portal-Bloecke bleiben auch nach Block-Updates stehen | ✅ |
+| Aufraeumen | Platzhalter-Schilder des Erbauers und die sechste, unbenutzte Kiste sind entfernt | ✅ |
+
+**Nicht getestet:** der automatische Download der Karten-Datei durch das Plugin auf einem frischen Server (im Test lag die Datei schon im
+Ordner; der Download-Link selbst wurde geprueft), jeder einzelne der 26 NPC-Plaetze im echten Client, das neue Scoreboard im echten Client.

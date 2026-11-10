@@ -1,0 +1,843 @@
+{
+ "schematic": {
+  "file": "high-crown-medieval-spawn.schem",
+  "url": "https://schemsfactory.com/f/builds/high-crown-medieval-spawn/high-crown-medieval-spawn.schem",
+  "page": "https://schemsfactory.com/schematics/high-crown-medieval-spawn/",
+  "credit": "High Crown Medieval Spawn von OrioniX (SchemsFactory)",
+  "origin": [
+   -20,
+   100,
+   0
+  ]
+ },
+ "box": [
+  -94,
+  -80,
+  -181,
+  99,
+  119,
+  85
+ ],
+ "spawn": [
+  0.5,
+  0,
+  0.5,
+  180,
+  0
+ ],
+ "npcs": {
+  "guide": [
+   -2.5,
+   -2,
+   -9.5,
+   -177,
+   0
+  ],
+  "settings": [
+   5.5,
+   -1,
+   -8.5,
+   159,
+   0
+  ],
+  "cosmetics": [
+   5.5,
+   -2,
+   -17.5,
+   142,
+   0
+  ],
+  "ah": [
+   -22.5,
+   -3.5,
+   -40.5,
+   -56,
+   0
+  ],
+  "orders": [
+   -20.5,
+   -4,
+   -46.5,
+   -44,
+   0
+  ],
+  "pwarp": [
+   -19.5,
+   -4,
+   -32.5,
+   -72,
+   0
+  ],
+  "claim": [
+   -24.5,
+   -2,
+   -21.5,
+   -102,
+   0
+  ],
+  "shop": [
+   28.5,
+   -0.5,
+   -24.5,
+   94,
+   0
+  ],
+  "sell": [
+   16.5,
+   -2,
+   -24.5,
+   96,
+   0
+  ],
+  "gemshop": [
+   15.5,
+   -2,
+   -28.5,
+   83,
+   0
+  ],
+  "sterneshop": [
+   14.5,
+   -3,
+   -34.5,
+   63,
+   0
+  ],
+  "spawner": [
+   13.5,
+   -1,
+   -40.5,
+   47,
+   0
+  ],
+  "ce": [
+   11.5,
+   -3,
+   -45.5,
+   34,
+   0
+  ],
+  "rewards": [
+   0.5,
+   -1,
+   -59.5,
+   0,
+   0
+  ],
+  "battlepass": [
+   -4.5,
+   -2,
+   -67.5,
+   -51,
+   0
+  ],
+  "quests": [
+   5.5,
+   -2,
+   -67.5,
+   51,
+   0
+  ],
+  "skills": [
+   -9.5,
+   -2,
+   -62.5,
+   -96,
+   0
+  ],
+  "achievements": [
+   10.5,
+   -2,
+   -62.5,
+   96,
+   0
+  ],
+  "vote": [
+   -10.5,
+   -2,
+   -55.5,
+   -126,
+   0
+  ],
+  "event": [
+   11.5,
+   -2,
+   -55.5,
+   126,
+   0
+  ],
+  "clan": [
+   -14.5,
+   -2,
+   -69.5,
+   -68,
+   0
+  ],
+  "bounty": [
+   14.5,
+   -2,
+   -69.5,
+   67,
+   0
+  ],
+  "kits": [
+   13.5,
+   -2,
+   -76.5,
+   45,
+   0
+  ],
+  "keys": [
+   -21.5,
+   -2,
+   -65.5,
+   -85,
+   0
+  ],
+  "gruft": [
+   -0.5,
+   -1,
+   -80.5,
+   -3,
+   0
+  ],
+  "fischer": [
+   41.5,
+   1,
+   -63.5,
+   90,
+   0,
+   "&3&lFischer Ole",
+   "&7Angeln & Wettbewerbe",
+   "FISHING_ROD",
+   "cmd:event",
+   "wide/steve"
+  ]
+ },
+ "holograms": [
+  {
+   "pos": [
+    0.5,
+    4.2,
+    -8.5
+   ],
+   "scale": 2.2,
+   "text": [
+    "<g:#55FFFF:#3FA9FF:#FFFFFF>&lMINESMP</g>",
+    "&7Willkommen! &b/help &8· &b/discord &8· &b/navi"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    5.6,
+    2.4
+   ],
+   "scale": 1.5,
+   "text": [
+    "&b&lSURVIVAL",
+    "&7Lauf ins Portal: zufälliger Ort"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    1.4,
+    2.2
+   ],
+   "scale": 0.6,
+   "text": [
+    "&8Spawn: High Crown Medieval Spawn",
+    "&8von OrioniX · SchemsFactory"
+   ]
+  },
+  {
+   "pos": [
+    16.5,
+    3.6,
+    -29.5
+   ],
+   "scale": 1.8,
+   "text": [
+    "<g:#7CFF8A:#2BD46A>&lMARKT</g>",
+    "&7Shop · Verkauf · Gems · Sterne · Spawner"
+   ]
+  },
+  {
+   "pos": [
+    -20.5,
+    1.5,
+    -39.5
+   ],
+   "scale": 1.5,
+   "text": [
+    "<g:#FFD86B:#FF9E2C>&lHANDEL</g>",
+    "&7Auktionen · Aufträge · Warps"
+   ]
+  },
+  {
+   "pos": [
+    -25.5,
+    3.4,
+    -67.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "<g:#FFD86B:#FF9E2C>&lKISTEN</g>",
+    "&7Rechtsklick öffnen · Linksklick Vorschau"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    4.8,
+    -64.5
+   ],
+   "scale": 1.8,
+   "text": [
+    "<g:#E59BFF:#9B6BFF>&lFORTSCHRITT</g>",
+    "&7Battlepass · Quests · Skills · Erfolge"
+   ]
+  },
+  {
+   "pos": [
+    0.5,
+    4.6,
+    -83.5
+   ],
+   "scale": 1.6,
+   "text": [
+    "<g:#C084FC:#55FFFF>&lDIE KRISTALLGRUFT</g>",
+    "&7PvE: Wellen & Boss · &d/gruft"
+   ]
+  }
+ ],
+ "portals": [
+  {
+   "name": "Survival",
+   "action": "rtp:world",
+   "box": [
+    -5,
+    0,
+    3,
+    5,
+    4,
+    3
+   ],
+   "back": [
+    0.5,
+    0,
+    -1.5,
+    180,
+    0
+   ]
+  }
+ ],
+ "crates": {
+  "vote": [
+   -31,
+   3,
+   -74
+  ],
+  "daily": [
+   -34,
+   3,
+   -74
+  ],
+  "rare": [
+   -35,
+   3,
+   -71
+  ],
+  "epic": [
+   -35,
+   3,
+   -66
+  ],
+  "legendary": [
+   -34,
+   3,
+   -63
+  ]
+ },
+ "areas": [
+  {
+   "name": "&b&lSpawn",
+   "icon": "BEACON",
+   "desc": "&7Burg-Insel mit Portal",
+   "pos": [
+    0.5,
+    0,
+    0.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&a&lMarkt",
+   "icon": "EMERALD",
+   "desc": "&7Shop, Gems, Sterne, Spawner, Auktionen",
+   "pos": [
+    7.5,
+    -2,
+    -27.5,
+    -90,
+    0
+   ]
+  },
+  {
+   "name": "&6&lKisten",
+   "icon": "CHEST",
+   "desc": "&7Vote, Daily, Rare, Epic, Legendary",
+   "pos": [
+    -24.5,
+    -2,
+    -67.5,
+    90,
+    0
+   ]
+  },
+  {
+   "name": "&d&lFortschritt",
+   "icon": "NETHER_STAR",
+   "desc": "&7Battlepass, Quests, Skills, Clans",
+   "pos": [
+    0.5,
+    -2,
+    -54.5,
+    180,
+    0
+   ]
+  },
+  {
+   "name": "&5&lKristallgruft",
+   "icon": "AMETHYST_CLUSTER",
+   "desc": "&7PvE: Wellen & Boss",
+   "pos": [
+    0.5,
+    -1,
+    -78.5,
+    180,
+    0
+   ]
+  }
+ ],
+ "clan-board": [
+  0.5,
+  0.6,
+  -71.5
+ ],
+ "points": {
+  "pve-lobby": [
+   0.5,
+   -1,
+   -78.5,
+   180,
+   0
+  ]
+ },
+ "blocks": [
+  [
+   -23,
+   -3,
+   -41,
+   "minecraft:air"
+  ],
+  [
+   4,
+   -2,
+   -71,
+   "minecraft:air"
+  ],
+  [
+   -25,
+   -2,
+   -22,
+   "minecraft:air"
+  ],
+  [
+   5,
+   -2,
+   -18,
+   "minecraft:air"
+  ],
+  [
+   -4,
+   -1,
+   -71,
+   "minecraft:air"
+  ],
+  [
+   0,
+   -1,
+   -60,
+   "minecraft:air"
+  ],
+  [
+   13,
+   -1,
+   -41,
+   "minecraft:air"
+  ],
+  [
+   -5,
+   -1,
+   -10,
+   "minecraft:air"
+  ],
+  [
+   0,
+   0,
+   -72,
+   "minecraft:air"
+  ],
+  [
+   28,
+   0,
+   -25,
+   "minecraft:air"
+  ],
+  [
+   41,
+   1,
+   -64,
+   "minecraft:air"
+  ],
+  [
+   -16,
+   0,
+   -73,
+   "minecraft:air"
+  ],
+  [
+   20,
+   1,
+   -62,
+   "minecraft:air"
+  ],
+  [
+   -13,
+   16,
+   24,
+   "minecraft:air"
+  ],
+  [
+   -31,
+   3,
+   -63,
+   "minecraft:air"
+  ],
+  [
+   -31,
+   2,
+   -63,
+   "minecraft:air"
+  ],
+  [
+   -5,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -4,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -3,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -2,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -1,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   0,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   1,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   2,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   3,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   4,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   5,
+   0,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -5,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -4,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -3,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -2,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -1,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   0,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   1,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   2,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   3,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   4,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   5,
+   1,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -5,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -4,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -3,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -2,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -1,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   0,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   1,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   2,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   3,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   4,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   5,
+   2,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -5,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -4,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -3,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -2,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -1,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   0,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   1,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   2,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   3,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   4,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   5,
+   3,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -3,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -2,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   -1,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   0,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   1,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   2,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ],
+  [
+   3,
+   4,
+   3,
+   "minecraft:nether_portal[axis=x]"
+  ]
+ ]
+}

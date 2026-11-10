@@ -55,7 +55,7 @@ public final class Placeholders {
             case "rank_short" -> { String pre = plugin.chat().prefix(p); int cut = pre.indexOf(" &8|"); String r = (cut > 0 ? pre.substring(0, cut) : pre).trim(); yield Text.strip(r).isBlank() ? "&7Spieler" : r; }
             case "playtime" -> TimeUtil.format(p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L * 1000L);
             case "ping" -> String.valueOf(p.getPing());
-            case "playtime_short" -> { long m = p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L / 60L; yield m >= 60 ? (m / 60) + "h " + (m % 60) + "m" : m + "m"; }
+            case "playtime_short" -> { long m = p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20L / 60L; yield m >= 1440 ? (m / 1440) + "d " + (m % 1440 / 60) + "h" : m >= 60 ? (m / 60) + "h " + (m % 60) + "m" : m + "m"; }
             case "xp" -> Text.money(Math.floor(d.xp));
             case "xp_need" -> Text.money(Math.floor(plugin.skills().xpForPlayerLevel(d.level)));
             case "tps" -> String.format(Locale.US, "%.1f", Math.min(20.0, Bukkit.getTPS()[0]));

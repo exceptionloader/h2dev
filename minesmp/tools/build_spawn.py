@@ -18,7 +18,7 @@ import gzip, json, math, pathlib, random
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "core/src/main/resources/spawn"
-VERSION = 2
+VERSION = 3
 rng = random.Random(1907)
 
 W = {}  # (x,y,z) -> Blockdaten
@@ -909,29 +909,82 @@ layout = {
 # ================================================================ Ausgabe
 OUT.mkdir(parents=True, exist_ok=True)
 W2 = {k: v for k, v in W.items() if v != "air"}
-palette, ids = [], {}
-rows = {}
-for (x, y, z), b in W2.items():
-    if b not in ids:
-        ids[b] = len(palette); palette.append(b)
-    rows.setdefault((y, z), []).append((x, ids[b]))
-lines = [f"#VERSION {VERSION}"]
-lines += [f"#P {i} minecraft:{b}" for i, b in enumerate(palette)]
-count = 0
-# Reihenfolge: von unten nach oben (Stuetzbloecke zuerst)
-for (y, z) in sorted(rows):
-    xs = sorted(rows[(y, z)])
-    run = None
-    for x, pid in xs + [(None, None)]:
-        if run and x == run[1] + 1 and pid == run[2]:
-            run[1] = x; continue
-        if run:
-            lines.append(f"{run[2]} {y} {z} {run[0]} {run[1]}"); count += 1
-        run = [x, x, pid] if x is not None else None
-data = ("\n".join(lines) + "\n").encode()
-(OUT / "blueprint.txt.gz").write_bytes(gzip.compress(data, 9))
+
+
+def write_blueprint(blocks, path):
+    palette, ids, rows = [], {}, {}
+    for (x, y, z), b in blocks.items():
+        if b not in ids:
+            ids[b] = len(palette); palette.append(b)
+        rows.setdefault((y, z), []).append((x, ids[b]))
+    lines = [f"#VERSION {VERSION}"]
+    lines += [f"#P {i} minecraft:{b}" for i, b in enumerate(palette)]
+    count = 0
+    for (y, z) in sorted(rows):  # von unten nach oben (Stuetzbloecke zuerst)
+        run = None
+        for x, pid in sorted(rows[(y, z)]) + [(None, None)]:
+            if run and x == run[1] + 1 and pid == run[2]:
+                run[1] = x; continue
+            if run:
+                lines.append(f"{run[2]} {y} {z} {run[0]} {run[1]}"); count += 1
+            run = [x, x, pid] if x is not None else None
+    data = ("\n".join(lines) + "\n").encode()
+    path.write_bytes(gzip.compress(data, 9))
+    print(f"{path.name}: {len(blocks)} Bloecke, {len(palette)} Blocktypen, {count} Zeilen, {len(gzip.compress(data, 9)) // 1024} KB")
+
+
+write_blueprint(W2, OUT / "blueprint.txt.gz")
 (OUT / "layout.yml").write_text("# Automatisch erzeugt von tools/build_spawn.py\n" + json.dumps(layout, ensure_ascii=False, indent=1), encoding="utf-8")
-print(f"{len(W2)} Bloecke, {len(palette)} Blocktypen, {count} Zeilen, {len(gzip.compress(data, 9)) // 1024} KB")
+
+
+# ---------------------------------------------------------------- Karten aus dem Internet (tools/maps/<id>.json)
+# Die Hauptinsel kommt dann aus einer Schematic-Datei (wird vom Server von der Seite des Erbauers geladen, nicht mitgeliefert).
+# Aus dem eigenen Bauplan bleiben nur die Zusatz-Bauten: Clan-Kolosseum, PvP-Arena mit Platz, Duell-Inseln, Sumo, Grueften.
+def extra(x, z):
+    if x <= -200:
+        return True
+    if 74 <= x <= 152 and -42 <= z <= 42:
+        return True
+    return z >= 83 and math.hypot(x - 58, z - 76) > 10
+
+
+write_blueprint({k: v for k, v in W2.items() if extra(k[0], k[2])}, OUT / "blueprint-extras.txt.gz")
+MAPS = ROOT / "tools/maps"
+(OUT / "maps").mkdir(exist_ok=True)
+for mf in sorted(MAPS.glob("*.json")) if MAPS.exists() else []:
+    m = json.loads(mf.read_text(encoding="utf-8"))
+    ox, oy, oz = m["schematic"]["origin"]
+
+    def shift(p):  # Positionen in der Karten-Datei sind relativ zum Ursprung der Schematic angegeben
+        return [p[0] + ox, p[1] + oy, p[2] + oz] + list(p[3:])
+
+    lay = {k: v for k, v in layout.items()}
+    lay["blueprint"] = "spawn/blueprint-extras.txt.gz"
+    lay["schematic"] = m["schematic"]
+    lay["spawn"] = shift(m["spawn"])
+    lay["npcs"] = [n for n in npcs if extra(n["pos"][0], n["pos"][2])]
+    done = {n["id"] for n in lay["npcs"]}
+    by_id = {n["id"]: n for n in npcs}
+    for nid, pos in m["npcs"].items():
+        if nid in done:
+            continue
+        n = dict(by_id[nid]) if nid in by_id else {"id": nid, "name": pos[5], "desc": pos[6], "item": pos[7], "action": pos[8], "skin": pos[9]}
+        n["pos"] = shift(pos[:5])
+        lay["npcs"].append(n)
+    lay["holograms"] = [h for h in holos if extra(h["pos"][0], h["pos"][2])] + [dict(h, pos=shift(h["pos"])) for h in m.get("holograms", [])]
+    lay["portals"] = [p for p in portal_defs if extra(p["box"][0], p["box"][2])] + [
+        {"name": p["name"], "action": p["action"], "box": shift(p["box"][:3]) + shift(p["box"][3:6]), "back": shift(p["back"])} for p in m.get("portals", [])]
+    lay["crates"] = {k: shift(v) for k, v in m.get("crates", {}).items()}
+    lay["areas"] = [dict(a, pos=shift(a["pos"])) for a in m.get("areas", [])] + [a for a in areas if extra(a["pos"][0], a["pos"][2])]
+    lay["clan-board"] = shift(m["clan-board"]) if "clan-board" in m else clan_board
+    pts = dict(layout["points"])
+    for k, v in m.get("points", {}).items():
+        pts[k] = shift(v)
+    lay["points"] = pts
+    lay["clear-boxes"] = layout["clear-boxes"] + [shift(m["box"][:3]) + shift(m["box"][3:6])]
+    lay["blocks"] = [shift(b[:3]) + [b[3]] for b in m.get("blocks", [])]   # nach dem Einfuegen setzen (z.B. Platzhalter-Schilder entfernen)
+    (OUT / "maps" / (mf.stem + ".yml")).write_text("# Automatisch erzeugt von tools/build_spawn.py aus tools/maps/" + mf.name + "\n" + json.dumps(lay, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("Karte", mf.stem, "-", len(lay["npcs"]), "NPCs,", len(lay["holograms"]), "Hologramme")
 
 # Draufsicht
 try:

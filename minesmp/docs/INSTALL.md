@@ -48,6 +48,13 @@ Am Spawn sind Abbauen, PvP (ausser in der Arena), Fall- und Hungerschaden aus; w
 Der Bauplan wird mit `tools/build_spawn.py` erzeugt (Python + Pillow). Enthaelt die Spawn-Welt schon eigene Bauten
 (mehr als 5.000 Bloecke), wird nicht automatisch gebaut.
 
+**Spawn-Karte:** Standard ist `spawn-build.map: auto`. Ist WorldEdit installiert, laedt der Server beim ersten Start die Burg-Insel
+"High Crown Medieval Spawn" von OrioniX direkt von [SchemsFactory](https://schemsfactory.com/schematics/high-crown-medieval-spawn/)
+(frei nutzbar auf eigenen Servern, die Datei darf aber nicht weitergegeben werden - deshalb liegt sie nicht im Paket) und setzt
+NPCs, Kisten, Portal und Rangliste an die vom Erbauer vorgesehenen Plaetze. Klappt der Download nicht, die Datei von der Seite laden,
+nach `plugins/MineSMPCore/schematics/high-crown-medieval-spawn.schem` legen und neu starten. Mit `map: builtin` bleibt der eingebaute Spawn.
+Eigene Karten: Stationen in `plugins/MineSMPCore/spawn-layout.yml` eintragen (Vorlage: `spawn/maps/high-crown.yml` im Plugin).
+
 **Neuer Bauplan nach einem Update:** Hat das Plugin den Spawn selbst gebaut, baut es bei einem neuen Bauplan automatisch neu
 (`spawn-build.auto-update: true`). Dabei wird der alte Spawn-Bereich ueberschrieben - eigene Umbauten am Spawn gehen verloren.
 Wer das nicht moechte, setzt `auto-update: false` und baut bei Bedarf mit `/minesmp buildspawn confirm`.

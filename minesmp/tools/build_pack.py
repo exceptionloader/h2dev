@@ -102,6 +102,20 @@ ICONS = {
    ".........", ".........", "...ooo...", "..oggo...", "..oggo...", "...ooo...", ".........", ".........", "........."]),
 }
 
+ICONS['dollar'] = ({'g': "#4ADE5A", 'd': "#15803D"}, [
+   "....g....", "..gggggd.", ".gg.g....", ".gg.g....", "..ggggg..", "....g.gg.", "....g.gg.", ".dggggg..", "....g...."])
+ICONS['swords'] = ({'w': "#E5E7EB", 's': "#9CA3AF", 'b': "#8B5A2B"}, [
+   "w.......w", "sw.....ws", ".sw...ws.", "..sw.ws..", "...sws...", "..ws.sw..", ".bw...wb.", ".bb...bb.", "b.......b"])
+ICONS['skullred'] = ({'o': "#7F1D1D", 'w': "#EF4444", 'g': "#450A0A"}, ICONS['skull'][1])
+ICONS['clanicon'] = ({'o': "#7C2D12", 'b': "#C2410C", 'c': "#FDBA74", 'h': "#FED7AA"}, ICONS['shield'][1])
+ICONS['wifi'] = ({'p': "#F472B6", 'd': "#BE185D"}, [
+   ".........", ".ppppppp.", "pd.....dp", "..ppppp..", ".pd...dp.", "...ppp...", "..pd.dp..", "....p....", "........."])
+ICONS['keyblue'] = ({'o': "#1E3A8A", 'y': "#60A5FA", 'h': "#DBEAFE"}, ICONS['key'][1])
+ICONS['clockgreen'] = ({'o': "#166534", 'w': "#DCFCE7", 'b': "#16A34A"}, ICONS['clock'][1])
+ICONS['rubin'] = ({'o': "#7F1D1D", 'p': "#EF4444", 'h': "#FCA5A5", 'd': "#B91C1C"}, [
+   "....o....", "...oho...", "..ohhpo..", ".ohhpppo.", "ohhpppddo", ".oppdddo.", "..opddo..", "...odo...", "....o...."])
+
+
 def icon(spec):
     pal, rows = spec
     img = Image.new('RGBA', (9 * S, 9 * S), (0, 0, 0, 0))
@@ -183,7 +197,7 @@ def board():
     d = ImageDraw.Draw(img)
     top, bot = Lh, Lh + F - 1
     R = lambda x1, y1, x2, y2, c: d.rectangle([x1 * S, y1 * S, (x2 + 1) * S - 1, (y2 + 1) * S - 1], fill=c)
-    R(1, top + 1, W - 2, bot - 1, (8, 24, 32, 85))                       # leicht getoente Flaeche
+    R(1, top + 1, W - 2, bot - 1, (6, 14, 22, 120))                      # dunkle Flaeche wie im Vorbild
     R(2, top, W - 3, top, hexc('#0B2A33')); R(2, bot, W - 3, bot, hexc('#0B2A33'))
     R(0, top + 2, 0, bot - 2, hexc('#0B2A33')); R(W - 1, top + 2, W - 1, bot - 2, hexc('#0B2A33'))
     R(1, top + 1, 1, top + 1, hexc('#0B2A33')); R(W - 2, top + 1, W - 2, top + 1, hexc('#0B2A33'))

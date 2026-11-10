@@ -102,6 +102,8 @@ public final class SpawnService implements Listener {
     private YamlConfiguration layout;
     private final Map<String, double[]> points = new LinkedHashMap<>();
     private int builtVersion;
+    /** Gewaehlte Spawn-Karte: "builtin" (eigener Bauplan) oder eine Vorlage aus spawn/maps/<id>.yml mit Schematic-Datei. */
+    private String mapId = "builtin", builtMap = "builtin";
     private int voidY = 55;
     private final List<Zone> zones = new ArrayList<>();
     private final List<Npc> npcs = new ArrayList<>();
@@ -127,7 +129,7 @@ public final class SpawnService implements Listener {
         try {
             String v = plugin.db().kvGet("spawn-built").get(5, TimeUnit.SECONDS);
             builtVersion = v == null ? 0 : Integer.parseInt(v);
-            built = v != null && builtVersion >= version;
+            built = v != null && builtVersion >= version && builtMap.equals(mapId);
         } catch (Exception ignored) {
         }
         Bukkit.getScheduler().runTaskLater(plugin, this::startup, 60);
@@ -149,14 +151,68 @@ public final class SpawnService implements Listener {
     }
 
     @SuppressWarnings("unchecked")
+    private File schematicFile(YamlConfiguration preset) {
+        return new File(new File(plugin.getDataFolder(), "schematics"), preset.getString("schematic.file", "spawn.schem"));
+    }
+
+    /** Laedt die Karten-Datei von der Seite des Erbauers, falls sie noch fehlt (einmalig). */
+    private boolean ensureSchematic(YamlConfiguration preset) {
+        File f = schematicFile(preset);
+        if (f.isFile() && f.length() > 1000) return true;
+        String url = preset.getString("schematic.url", "");
+        if (url.isEmpty() || !plugin.getConfig().getBoolean("spawn-build.download-map", true)) return false;
+        f.getParentFile().mkdirs();
+        try {
+            java.net.HttpURLConnection c = (java.net.HttpURLConnection) java.net.URI.create(url).toURL().openConnection();
+            c.setConnectTimeout(8000);
+            c.setReadTimeout(20000);
+            c.setRequestProperty("User-Agent", "Mozilla/5.0 (MineSMP-Server)");
+            if (c.getResponseCode() != 200) throw new java.io.IOException("HTTP " + c.getResponseCode());
+            File tmp = new File(f.getParentFile(), f.getName() + ".tmp");
+            try (InputStream in = c.getInputStream()) {
+                java.nio.file.Files.copy(in, tmp.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+            // gueltig ist nur eine gzip-Datei (Schematic), keine Fehlerseite
+            try (InputStream in = new java.io.FileInputStream(tmp)) {
+                if (in.read() != 0x1f || in.read() != 0x8b) throw new java.io.IOException("keine Schematic-Datei");
+            }
+            java.nio.file.Files.move(tmp.toPath(), f.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            plugin.getLogger().info("Spawn-Karte geladen: " + f.getName() + " (" + preset.getString("schematic.credit", "") + ")");
+            return true;
+        } catch (Exception e) {
+            plugin.getLogger().warning("Spawn-Karte konnte nicht geladen werden (" + e.getMessage() + "). Datei von " + preset.getString("schematic.page", url)
+                    + " herunterladen und nach plugins/MineSMPCore/schematics/" + f.getName() + " legen - bis dahin wird der eingebaute Spawn genutzt.");
+            return false;
+        }
+    }
+
+    private YamlConfiguration resource(String path) {
+        InputStream in = plugin.getResource(path);
+        return in == null ? null : YamlConfiguration.loadConfiguration(new InputStreamReader(in, StandardCharsets.UTF_8));
+    }
+
     private void loadLayout() {
-        YamlConfiguration y;
+        YamlConfiguration y = null;
+        try {
+            String m = plugin.db().kvGet("spawn-map").get(5, TimeUnit.SECONDS);
+            if (m != null && !m.isBlank()) builtMap = m;
+        } catch (Exception ignored) {
+        }
         File custom = new File(plugin.getDataFolder(), "spawn-layout.yml");
         if (custom.exists()) y = YamlConfiguration.loadConfiguration(custom);
         else {
-            InputStream in = plugin.getResource("spawn/layout.yml");
-            if (in == null) { plugin.getLogger().warning("spawn/layout.yml fehlt im Plugin."); return; }
-            y = YamlConfiguration.loadConfiguration(new InputStreamReader(in, StandardCharsets.UTF_8));
+            // Vorlage mit Karte aus dem Internet (braucht WorldEdit und die Schematic-Datei), sonst der eingebaute Spawn
+            String want = plugin.getConfig().getString("spawn-build.map", "auto").toLowerCase(java.util.Locale.ROOT);
+            String id = want.equals("auto") ? "high-crown" : want;
+            YamlConfiguration preset = want.equals("builtin") ? null : resource("spawn/maps/" + id + ".yml");
+            if (preset != null) {
+                boolean we = Bukkit.getPluginManager().getPlugin("WorldEdit") != null || Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null;
+                if (we && ensureSchematic(preset)) { y = preset; mapId = id; }
+                else if (builtMap.equals(id)) { y = preset; mapId = id; } // schon gebaut: Layout behalten, auch wenn die Datei fehlt
+                else if (!we) plugin.getLogger().info("Ohne WorldEdit wird der eingebaute Spawn genutzt (Karte '" + id + "' braucht WorldEdit).");
+            }
+            if (y == null) y = resource("spawn/layout.yml");
+            if (y == null) { plugin.getLogger().warning("spawn/layout.yml fehlt im Plugin."); return; }
         }
         layout = y;
         version = y.getInt("version", 1);
@@ -226,8 +282,8 @@ public final class SpawnService implements Listener {
         }
         if (!plugin.getConfig().getBoolean("spawn-build.auto", true)) return;
         // Der Spawn wurde von einer aelteren Plugin-Version gebaut: neuen Bauplan automatisch uebernehmen
-        if (builtVersion > 0 && builtVersion < version && plugin.getConfig().getBoolean("spawn-build.auto-update", true)) {
-            plugin.getLogger().info("Neuer Spawn-Bauplan (Version " + version + ") - der Spawn wird neu gebaut ...");
+        if (builtVersion > 0 && (builtVersion < version || !builtMap.equals(mapId)) && plugin.getConfig().getBoolean("spawn-build.auto-update", true)) {
+            plugin.getLogger().info("Neuer Spawn (Karte '" + mapId + "', Version " + version + ") - der Spawn wird neu gebaut ...");
             build(Bukkit.getConsoleSender());
             return;
         }
@@ -277,7 +333,7 @@ public final class SpawnService implements Listener {
         List<BlockData> palette = new ArrayList<>();
         List<int[]> runs = new ArrayList<>();
         int bad = 0;
-        try (InputStream raw = plugin.getResource("spawn/blueprint.txt.gz");
+        try (InputStream raw = plugin.getResource(layout == null ? "spawn/blueprint.txt.gz" : layout.getString("blueprint", "spawn/blueprint.txt.gz"));
              BufferedReader r = new BufferedReader(new InputStreamReader(new GZIPInputStream(raw), StandardCharsets.UTF_8))) {
             String line;
             while ((line = r.readLine()) != null) {
@@ -334,12 +390,26 @@ public final class SpawnService implements Listener {
         new BukkitRunnable() {
             int runIdx = 0;
             long placed = 0;
+            boolean pasted = layout == null || !layout.isConfigurationSection("schematic");
             @Override public void run() {
                 int budget = plugin.getConfig().getInt("spawn-build.blocks-per-tick", 30000);
                 while (budget > 0 && !toClear.isEmpty()) {
                     int[] p = toClear.poll();
                     w.getBlockAt(p[0], p[1], p[2]).setBlockData(air, false);
                     budget--;
+                }
+                if (toClear.isEmpty() && !pasted) {
+                    // Karte aus der Schematic-Datei einfuegen (WorldEdit), danach die eigenen Bauten
+                    pasted = true;
+                    try {
+                        List<Integer> o = layout.getIntegerList("schematic.origin");
+                        pasteSchematic(schematicFile(layout), w, o.get(0), o.get(1), o.get(2));
+                        plugin.getLogger().info("Karte eingefuegt: " + layout.getString("schematic.file") + " - " + layout.getString("schematic.credit", ""));
+                    } catch (Throwable t) {
+                        plugin.getLogger().log(java.util.logging.Level.WARNING, "Karte konnte nicht eingefuegt werden", t);
+                        Msg.send(by, "spawn.map-error", "{prefix}&cDie Spawn-Karte konnte nicht eingefuegt werden: &f{err}", "err", String.valueOf(t.getCause() != null ? t.getCause() : t));
+                    }
+                    return;
                 }
                 while (budget > 0 && runIdx < total) {
                     int[] r = runs.get(runIdx++);
@@ -348,10 +418,22 @@ public final class SpawnService implements Listener {
                 }
                 if (toClear.isEmpty() && runIdx >= total) {
                     cancel();
+                    // Einzelne Bloecke aus der Vorlage (z.B. Platzhalter-Schilder der Karte entfernen)
+                    for (Object o : layout == null ? List.of() : layout.getList("blocks", List.of())) {
+                        if (!(o instanceof List<?> b) || b.size() < 4) continue;
+                        try {
+                            w.getBlockAt(((Number) b.get(0)).intValue(), ((Number) b.get(1)).intValue(), ((Number) b.get(2)).intValue())
+                                    .setBlockData(Bukkit.createBlockData(String.valueOf(b.get(3))), false);
+                        } catch (IllegalArgumentException ignored) {
+                        }
+                    }
                     for (Chunk ch : held) ch.removePluginChunkTicket(plugin);
                     building = false;
                     built = true;
                     plugin.db().kvSet("spawn-built", String.valueOf(version));
+                    plugin.db().kvSet("spawn-map", mapId);
+                    builtMap = mapId;
+                    builtVersion = version;
                     applyConfig(true);
                     ensureEntities();
                     Location sp = loc(spawnPos);
@@ -365,6 +447,48 @@ public final class SpawnService implements Listener {
             }
         }.runTaskTimer(plugin, 1, 1);
     }
+
+    /**
+     * Fuegt eine Schematic-Datei (.schem) mit WorldEdit ein; der Kopier-Ursprung landet auf (x, y, z), Luft wird ausgelassen.
+     * Ueber Reflection, damit das Plugin auch ohne WorldEdit laeuft und gebaut werden kann.
+     */
+    private long pasteSchematic(File file, World w, int x, int y, int z) throws Exception {
+        Class<?> formats = Class.forName("com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats");
+        Class<?> formatC = Class.forName("com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat");
+        Class<?> readerC = Class.forName("com.sk89q.worldedit.extent.clipboard.io.ClipboardReader");
+        Class<?> clipboardC = Class.forName("com.sk89q.worldedit.extent.clipboard.Clipboard");
+        Class<?> holderC = Class.forName("com.sk89q.worldedit.session.ClipboardHolder");
+        Class<?> extentC = Class.forName("com.sk89q.worldedit.extent.Extent");
+        Class<?> vecC = Class.forName("com.sk89q.worldedit.math.BlockVector3");
+        Class<?> pasteC = Class.forName("com.sk89q.worldedit.session.PasteBuilder");
+        Class<?> opC = Class.forName("com.sk89q.worldedit.function.operation.Operation");
+        Class<?> weWorldC = Class.forName("com.sk89q.worldedit.world.World");
+        Object format = formats.getMethod("findByFile", File.class).invoke(null, file);
+        if (format == null) throw new IllegalStateException("unbekanntes Dateiformat: " + file.getName());
+        Object clipboard;
+        try (InputStream in = new java.io.FileInputStream(file); java.io.Closeable reader = (java.io.Closeable) formatC.getMethod("getReader", InputStream.class).invoke(format, in)) {
+            clipboard = readerC.getMethod("read").invoke(reader);
+        }
+        Object region = clipboardC.getMethod("getRegion").invoke(clipboard);
+        long volume = ((Number) region.getClass().getMethod("getVolume").invoke(region)).longValue();
+        Object weWorld = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter").getMethod("adapt", World.class).invoke(null, w);
+        Object we = Class.forName("com.sk89q.worldedit.WorldEdit").getMethod("getInstance").invoke(null);
+        Object session = we.getClass().getMethod("newEditSession", weWorldC).invoke(we, weWorld);
+        try {
+            Object holder = holderC.getConstructor(clipboardC).newInstance(clipboard);
+            Object builder = holderC.getMethod("createPaste", extentC).invoke(holder, session);
+            builder = pasteC.getMethod("to", vecC).invoke(builder, vecC.getMethod("at", int.class, int.class, int.class).invoke(null, x, y, z));
+            builder = pasteC.getMethod("ignoreAirBlocks", boolean.class).invoke(builder, true);
+            Object op = pasteC.getMethod("build").invoke(builder);
+            Class.forName("com.sk89q.worldedit.function.operation.Operations").getMethod("complete", opC).invoke(null, op);
+        } finally {
+            ((AutoCloseable) session).close();
+        }
+        return volume;
+    }
+
+    /** Welche Karte gerade genutzt wird ("builtin" oder eine Vorlage). */
+    public String mapId() { return mapId; }
 
     /** Spawn-Punkt, Kisten, Duell-Arenen und Arena-Spawn in die Konfiguration uebernehmen. */
     private void applyConfig(boolean force) {
@@ -681,6 +805,12 @@ public final class SpawnService implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockExplode(BlockExplodeEvent e) { if (inSpawn(e.getBlock().getWorld())) e.blockList().clear(); }
+
+    /** Deko-Portale (ohne Obsidian-Rahmen) in Karten duerfen nicht zerfallen. */
+    @EventHandler(ignoreCancelled = true)
+    public void onPortalPhysics(org.bukkit.event.block.BlockPhysicsEvent e) {
+        if (e.getBlock().getType() == Material.NETHER_PORTAL && inSpawn(e.getBlock().getWorld())) e.setCancelled(true);
+    }
 
     @EventHandler(ignoreCancelled = true)
     public void onDecay(LeavesDecayEvent e) { if (inSpawn(e.getBlock().getWorld())) e.setCancelled(true); }

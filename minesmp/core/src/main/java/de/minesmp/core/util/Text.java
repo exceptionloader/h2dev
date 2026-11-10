@@ -17,6 +17,7 @@ public final class Text {
             .character('&').hexColors().useUnusualXRepeatedCharacterHexFormat().build();
     private static final DecimalFormat MONEY = new DecimalFormat("#,##0.##", DecimalFormatSymbols.getInstance(Locale.GERMANY));
     private static final DecimalFormat SHORT = new DecimalFormat("0.#", DecimalFormatSymbols.getInstance(Locale.GERMANY));
+    private static final DecimalFormat COMPACT2 = new DecimalFormat("0.##", DecimalFormatSymbols.getInstance(Locale.GERMANY));
 
     private Text() {}
 
@@ -98,8 +99,8 @@ public final class Text {
     }
 
     public static synchronized String compact(double v) {
-        if (v >= 1_000_000_000) return SHORT.format(v / 1_000_000_000) + "Mrd";
-        if (v >= 1_000_000) return SHORT.format(v / 1_000_000) + "Mio";
+        if (v >= 1_000_000_000) return COMPACT2.format(v / 1_000_000_000) + "Mrd";
+        if (v >= 1_000_000) return COMPACT2.format(v / 1_000_000) + "M";
         if (v >= 10_000) return SHORT.format(v / 1_000) + "k";
         return MONEY.format(v);
     }

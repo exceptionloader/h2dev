@@ -59,7 +59,7 @@ public final class KeyallService {
     public String remainingText() {
         if (!enabled()) return "-";
         long s = remaining() / 1000;
-        return s >= 3600 ? (s / 3600) + "h " + (s % 3600 / 60) + "m" : String.format("%02d:%02d", s / 60, s % 60);
+        return s >= 3600 ? (s / 3600) + "h " + (s % 3600 / 60) + "m" : s >= 60 ? (s / 60) + "m " + (s % 60) + "s" : s + "s";
     }
 
     private String rewardText() {

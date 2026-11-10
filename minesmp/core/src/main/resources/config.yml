@@ -67,6 +67,13 @@ worlds:
 # Neu bauen: /minesmp buildspawn confirm
 spawn-build:
   auto: true
+  # Spawn-Karte: auto = Burg-Insel "High Crown Medieval Spawn" (von OrioniX, SchemsFactory), wenn WorldEdit da ist und die
+  #   Datei geladen werden kann - sonst der eingebaute Spawn. builtin = immer der eingebaute Spawn.
+  #   Die Karten-Datei wird nicht mitgeliefert (Weitergabe ist nicht erlaubt), sondern beim ersten Start von der Seite
+  #   des Erbauers geladen: https://schemsfactory.com/schematics/high-crown-medieval-spawn/
+  #   Manuell: Datei nach plugins/MineSMPCore/schematics/high-crown-medieval-spawn.schem legen.
+  map: auto
+  download-map: true
   auto-update: true       # neuen Spawn-Bauplan aus einem Plugin-Update automatisch bauen (ueberschreibt den alten Spawn)
   blocks-per-tick: 30000
 

@@ -10,7 +10,7 @@ Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, si
 | LuckPerms | 5.5.71 | Raenge & Rechte | Modrinth |
 | Vault | 1.7.3 | Economy-/Chat-Schnittstelle (MineCoins fuer andere Plugins, Prefixe) | GitHub |
 | PlaceholderAPI | 2.12.3 | Platzhalter `%minesmp_...%` fuer andere Plugins | Modrinth |
-| WorldEdit | 7.4.6 | Bauen, Regionen markieren | Modrinth |
+| WorldEdit | 7.4.6 | Bauen, Regionen markieren; fuegt die Spawn-Karte (Schematic) ein | Modrinth |
 | WorldGuard | 7.0.17 | Spawn-Schutz, PvP-Zonen/Safezones | Modrinth |
 | CoreProtect CE | 24.1 | Block-Logging & Rollbacks | Modrinth |
 | GrimAC | 2.3.75 | Anti-Cheat | Modrinth |

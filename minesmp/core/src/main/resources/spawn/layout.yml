@@ -1,6 +1,6 @@
 # Automatisch erzeugt von tools/build_spawn.py
 {
- "version": 2,
+ "version": 3,
  "world": "spawn",
  "spawn": [
   0.5,
