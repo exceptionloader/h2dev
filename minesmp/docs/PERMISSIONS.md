@@ -61,7 +61,8 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 ### Vanish
 `minesmp.staff.vanish` erlaubt `/vanish` (komplett unsichtbar, auch der eigene Skin) und `/vanishultra` (du siehst deinen Skin, Spieler nicht).
 Wer `minesmp.staff.member` oder `minesmp.staff.vanish` hat, sieht Teammitglieder im Vanish immer
-(im `/vanish` als durchsichtige Figur, im `/vanishultra` normal, jeweils mit Hinweis am Namensschild und `[V]` in der Tab-Liste).
+(im `/vanish` als durchsichtige Figur, im `/vanishultra` normal). Namensschild und Tab-Eintrag sehen fuer das Team aus wie immer;
+wer gerade im Vanish ist, zeigt `/vanish list`.
 
 ## Admin
 `minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn),

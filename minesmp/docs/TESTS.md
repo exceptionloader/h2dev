@@ -99,7 +99,7 @@ Drei Bot-Spieler (Admin, Supporter, Spieler ohne Rang).
 | Test | Ergebnis |
 |---|---|
 | `/vanish`: Spieler ohne Rang sieht den Admin nicht mehr (weder Figur noch Tab-Liste) und liest `[-] Name` | ✅ |
-| `/vanish`: Supporter sieht den Admin weiter, Tab-Eintrag `[V] ADMIN \| Name`, Team-Nachricht | ✅ |
+| `/vanish`: Supporter sieht den Admin weiter; Namensschild und Tab-Eintrag unveraendert (`[✔] ADMIN \| Name`, kein Vanish-Hinweis), Team-Nachricht | ✅ |
 | `/vanish`: Unsichtbar-Kennzeichen am Admin gesetzt (eigener Skin weg); beim Supporter steckt der Admin im selben Team (Voraussetzung fuer die durchsichtige Figur) | ✅ |
 | `/vanishultra`: Spieler sieht den Admin nicht, Unsichtbar-Kennzeichen aus (eigener Skin sichtbar), Supporter sieht ihn normal | ✅ |
 | Ausschalten: Spieler sieht den Admin wieder und liest `[+] Name`; `/vanish list` | ✅ |

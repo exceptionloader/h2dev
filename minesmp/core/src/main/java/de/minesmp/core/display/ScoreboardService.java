@@ -73,6 +73,7 @@ public final class ScoreboardService implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         boards.remove(e.getPlayer().getUniqueId());
+        vanishListNames.remove(e.getPlayer().getUniqueId());
         Map<String, BossBar> b = bars.remove(e.getPlayer().getUniqueId());
         if (b != null) b.values().forEach(bar -> e.getPlayer().hideBossBar(bar));
         Bukkit.getScheduler().runTask(plugin, this::refreshNametags);
@@ -150,15 +151,33 @@ public final class ScoreboardService implements Listener {
         return plugin.ranks() != null && (cfg.isString("tab.prefix") || cfg.isString("tab.prefix-pack"));
     }
 
+    private final Map<UUID, String> vanishListNames = new HashMap<>();
+
+    /**
+     * Im /vanish (unsichtbar) steckt der Spieler bei Teammitgliedern in deren Team, damit sie ihn als durchsichtige Figur sehen.
+     * Sein Tab-Eintrag kann deshalb nicht ueber das Team-Praefix kommen und wird als fester Listenname im normalen Aussehen gesetzt
+     * (mit Abzeichen-Grafik, wenn alle, die ihn sehen, das Ressourcenpaket haben - sonst als Text).
+     * Rueckgabe: true, wenn der Spieler im /vanish ist.
+     */
+    public boolean updateVanishListName(Player p) {
+        if (plugin.vanish() == null || plugin.ranks() == null || plugin.vanish().mode(p) != de.minesmp.core.admin.VanishService.Mode.FULL) return false;
+        boolean pack = plugin.pack() != null;
+        if (pack) for (Player v : Bukkit.getOnlinePlayers()) {
+            if ((v.equals(p) || plugin.vanish().sees(v)) && !plugin.pack().has(v)) { pack = false; break; }
+        }
+        String pre = pack ? cfg.getString("tab.prefix-pack", cfg.getString("tab.prefix", "")) : cfg.getString("tab.prefix", "{check}{text} &8| ");
+        String name = plugin.ranks().format(p, pre + "&f{player}" + cfg.getString("tab.suffix", "{clan}{afk}"), pack);
+        if (!name.equals(vanishListNames.put(p.getUniqueId(), name))) p.playerListName(Text.c(name));
+        return true;
+    }
+
     public void refreshTabName(Player p) {
-        if (plugin.vanish() != null && plugin.vanish().isVanished(p)) {
-            // Im Vanish sieht nur das Team den Eintrag: fester Text mit Hinweis
-            String fmt = cfg.getString("tab.vanish-format", "&8[&7V&8] {text} &8| &7&o{player}");
-            p.playerListName(Text.c(plugin.ranks() != null ? plugin.ranks().format(p, fmt, false) : "&8[&7V&8] &7&o" + p.getName()));
+        if (tabPerViewer() && updateVanishListName(p)) {
             refreshNametags();
             return;
         }
         if (tabPerViewer()) {
+            vanishListNames.remove(p.getUniqueId());
             p.playerListName(null);
             refreshNametags();
             return;

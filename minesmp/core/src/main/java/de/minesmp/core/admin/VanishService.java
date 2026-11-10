@@ -36,7 +36,7 @@ import java.util.UUID;
  * /vanishultra  - Spieler sehen dich nicht, du selbst siehst deinen Skin ganz normal.
  * In beiden Modi kann man alles tun (bauen, Kisten oeffnen, kaempfen). Teammitglieder
  * (minesmp.staff.member oder minesmp.staff.vanish) sehen andere Teammitglieder immer:
- * im /vanish als durchsichtige Figur, im /vanishultra ganz normal - jeweils mit Hinweis am Namensschild.
+ * im /vanish als durchsichtige Figur, im /vanishultra ganz normal. Namensschild und Tab-Eintrag bleiben unveraendert.
  */
 public final class VanishService implements Listener {
     public enum Mode {
@@ -170,6 +170,7 @@ public final class VanishService implements Listener {
             if (!p.hasPermission("minesmp.staff.vanish")) { disable(p, true); continue; }
             refreshVisibility(p);
             if (en.getValue() == Mode.FULL && !p.isInvisible() && !p.isDead()) p.setInvisible(true);
+            plugin.scoreboard().updateVanishListName(p);
         }
     }
 

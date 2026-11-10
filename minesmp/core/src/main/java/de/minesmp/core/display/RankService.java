@@ -184,12 +184,6 @@ public final class RankService implements Listener {
 
     private String[] tagTexts(Player p) {
         String a = format(p, line1Pack, true), b = format(p, line1, false);
-        de.minesmp.core.admin.VanishService.Mode vm = plugin.vanish() == null ? null : plugin.vanish().mode(p);
-        if (vm != null) {
-            String mark = vm.color + "&l" + vm.display.toUpperCase(Locale.ROOT) + "\n";
-            a = mark + a;
-            b = mark + b;
-        }
         String l2a = format(p, line2, true), l2b = format(p, line2, false);
         return new String[]{l2a.isBlank() ? a : a + "\n" + l2a, l2b.isBlank() ? b : b + "\n" + l2b};
     }
