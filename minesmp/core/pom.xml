@@ -10,6 +10,9 @@
 
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
+    <!-- Gebaut gegen die Paper-Schnittstelle 1.21.11 (Java 21); laeuft auch auf Paper 26.3.
+         Pruefung gegen 26.3 (dessen Schnittstelle ist Java-25-Bytecode): mvn -P paper26 compile -->
+    <paper.version>1.21.11-R0.1-SNAPSHOT</paper.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -23,7 +26,7 @@
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
-      <version>1.21.11-R0.1-SNAPSHOT</version>
+      <version>${paper.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -62,4 +65,26 @@
       <resource><directory>src/main/resources</directory><filtering>false</filtering><excludes><exclude>plugin.yml</exclude></excludes></resource>
     </resources>
   </build>
+
+  <profiles>
+    <!-- Kompatibilitaetspruefung gegen Paper 26.3: der Eclipse-Compiler liest Java-25-Klassen, erzeugt aber Java-21-Bytecode -->
+    <profile>
+      <id>paper26</id>
+      <properties><paper.version>26.3.build.249-stable</paper.version></properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration><compilerId>eclipse</compilerId><release>21</release></configuration>
+            <dependencies>
+              <dependency><groupId>org.codehaus.plexus</groupId><artifactId>plexus-compiler-eclipse</artifactId><version>2.15.0</version></dependency>
+              <dependency><groupId>org.eclipse.jdt</groupId><artifactId>ecj</artifactId><version>3.43.0</version></dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

@@ -12,7 +12,7 @@ $Host.UI.RawUI.WindowTitle = 'MineSMP Server'
 $Root    = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Server  = Join-Path $Root 'server'
 $Plugins = Join-Path $Server 'plugins'
-$McVersion = '1.21.11'
+$McVersion = '26.3'
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
 
 function Info($t)  { Write-Host "  $t" -ForegroundColor Cyan }
@@ -90,6 +90,29 @@ Ok "Java: $Java"
 New-Item -ItemType Directory -Force -Path $Plugins, (Join-Path $Server 'config'), (Join-Path $Plugins 'LuckPerms') | Out-Null
 
 $paperJar = Join-Path $Server 'paper.jar'
+
+# Versionswechsel (z.B. 1.21.11 -> 26.3): Welten sichern, Paper und Plugins in der passenden Version neu laden.
+# Paper baut beim ersten Start auf 26.x die Speicherstruktur der Welten um (world/dimensions/...) - daher vorher sichern.
+$versionFile = Join-Path $Server '.minesmp-mc-version'
+$oldVersion = ''
+if (Test-Path $versionFile) { $oldVersion = (Get-Content $versionFile -Raw).Trim() }
+elseif (Test-Path $paperJar) { $oldVersion = '1.21.11' }
+if ($oldVersion -and $oldVersion -ne $McVersion) {
+    Info "Wechsel von Minecraft $oldVersion auf $McVersion ..."
+    $stamp = Get-Date -Format 'yyyy-MM-dd_HH-mm'
+    $backup = Join-Path $Root "backups\vor-$McVersion-$stamp"
+    New-Item -ItemType Directory -Force -Path $backup | Out-Null
+    foreach ($w in @('world', 'world_nether', 'world_the_end', 'spawn', 'farmwelt')) {
+        $src = Join-Path $Server $w
+        if (Test-Path $src) { Copy-Item $src (Join-Path $backup $w) -Recurse -Force }
+    }
+    Ok "Welten gesichert: $backup"
+    Remove-Item $paperJar -Force -ErrorAction SilentlyContinue
+    foreach ($f in @('LuckPerms.jar', 'PlaceholderAPI.jar', 'WorldEdit.jar', 'WorldGuard.jar', 'CoreProtect.jar', 'GSit.jar', 'VoiceChat.jar')) {
+        Remove-Item (Join-Path $Plugins $f) -Force -ErrorAction SilentlyContinue
+    }
+}
+
 if (-not (Test-Path $paperJar)) {
     Info "Lade Paper $McVersion ..."
     $build = Invoke-RestMethod "https://fill.papermc.io/v3/projects/paper/versions/$McVersion/builds/latest"
@@ -104,10 +127,13 @@ function Get-ModrinthPlugin($slug, $file) {
     try {
         $versions = Invoke-RestMethod $url -Headers @{ 'User-Agent' = 'MineSMP-Installer/1.0' }
         if (-not $versions -or $versions.Count -eq 0) { Warn "$slug hat keine Version fuer $McVersion - uebersprungen."; return }
-        $f = $versions[0].files | Where-Object { $_.primary } | Select-Object -First 1
-        if (-not $f) { $f = $versions[0].files[0] }
+        # Stabile Version bevorzugen (Beta nur, wenn es fuer diese Minecraft-Version noch keine gibt)
+        $v = $versions | Where-Object { $_.version_type -eq 'release' } | Select-Object -First 1
+        if (-not $v) { $v = $versions[0] }
+        $f = $v.files | Where-Object { $_.primary } | Select-Object -First 1
+        if (-not $f) { $f = $v.files[0] }
         Invoke-WebRequest $f.url -OutFile $target -UseBasicParsing
-        Ok "$file ($($versions[0].version_number))"
+        Ok "$file ($($v.version_number))"
     } catch { Warn "$slug konnte nicht geladen werden: $($_.Exception.Message)" }
 }
 
@@ -138,6 +164,7 @@ if (-not (Test-Path $vault)) {
     Ok 'Vault.jar'
 }
 Copy-Item (Join-Path $Root 'files\MineSMPCore-1.0.0.jar') $Plugins -Force
+Write-NoBom $versionFile $McVersion
 Ok 'MineSMPCore-1.0.0.jar'
 
 foreach ($f in @('server.properties', 'bukkit.yml', 'spigot.yml')) {
@@ -233,7 +260,7 @@ if ($ready -and -not (Test-Path $rankMarker)) {
 
 Write-Host ''
 Write-Host '  ======================================================' -ForegroundColor Cyan
-Write-Host '   Server laeuft!  Minecraft Java 1.21.11 starten:'        -ForegroundColor Cyan
+Write-Host '   Server laeuft!  Minecraft Java 26.3 starten:'           -ForegroundColor Cyan
 Write-Host '   Mehrspieler -> Direktverbindung -> localhost'            -ForegroundColor White
 Write-Host '   Befehle hier eintippen (z.B. op Name). Beenden: stop'    -ForegroundColor Cyan
 Write-Host '  ======================================================' -ForegroundColor Cyan

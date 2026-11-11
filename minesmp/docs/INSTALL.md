@@ -12,7 +12,7 @@ git clone <dieses Repository>
 cd h2dev/minesmp
 ./scripts/install.sh /opt/minesmp        # Zielordner frei waehlbar; BEDROCK=0 ohne Geyser/Floodgate
 ```
-Das Skript laedt Paper 1.21.11, alle Plugins (passend zu 1.21.11 von Modrinth), baut `MineSMPCore`
+Das Skript laedt Paper 26.3, alle Plugins (passend zu 26.3 von Modrinth), baut `MineSMPCore`
 und kopiert `server.properties`, `bukkit.yml`, `spigot.yml` und `config/paper-*.yml` (ueberschreibt nichts).
 
 ## 2. Erster Start
@@ -184,3 +184,14 @@ als vergroessertes Monster (Verwuester, Hexe, Eisengolem, Spinne) mit denselben 
 das ist nicht getestet. Wer das Ressourcenpaket ablehnt, sieht statt der Fantasy-Skins ein Fehlermuster. Die Bosse sind auf
 etwa ein Drittel der Originalgroesse gesetzt (8-11 Bloecke hoch); `model-scale` in `bosses.yml` aendert das.
 Die Original-Pakete fuer Bedrock (`.mcaddon`) gehoeren nicht zum Server - Bedrock-Welten koennen sie direkt importieren.
+
+## 14. Update von Minecraft 1.21.11 auf 26.3
+Das Windows-Paket erledigt das beim naechsten Start von "MineSMP starten.bat" selbst:
+1. Es sichert die Welten (`world`, `world_nether`, `world_the_end`, `spawn`, `farmwelt`) nach `backups\vor-26.3-<Datum>`.
+2. Es laedt Paper 26.3 und die Plugins in der passenden Version neu (LuckPerms, PlaceholderAPI, WorldEdit, WorldGuard, GSit, Voice Chat).
+3. Paper baut beim ersten Start die Speicherstruktur der Welten um (alles liegt danach unter `world/dimensions/minecraft/...`)
+   und wartet dabei 30 Sekunden - das ist normal. Der gebaute Spawn, Grundstuecke, Clans, Raenge und Geld bleiben erhalten.
+
+Spieler brauchen danach **Minecraft Java 26.3**. Aeltere Versionen koennen nur mit dem Plugin ViaBackwards beitreten
+(nicht im Paket enthalten). CoreProtect fehlt, bis es eine Version fuer 26.3 gibt (siehe PLUGINS.md).
+Zurueck auf 1.21.11 geht nur mit der Sicherung - eine umgebaute Welt laesst sich nicht mehr mit 1.21.11 oeffnen.

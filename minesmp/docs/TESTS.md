@@ -228,3 +228,24 @@ Knoepfen ausgefuehrt), mehrere Seiten bei sehr vielen Reports oder Spielern, Bed
 Ob die 3D-Modelle im Spiel richtig aussehen, sich bewegen, wie die Angriffs-Animation wirkt und ob das zweite Ressourcenpaket
 bei Spielern ankommt, ist daher offen. Ebenso offen: echte Spieler im Bosskampf (Balance), Bedrock-Spieler, der Gruftwaechter mit Modell,
 Leistung bei vielen Spielern.
+
+## Update 11.11.2026 (6): Umstellung auf Minecraft 26.3
+Kopie des Testservers (Welten von 1.21.11) mit Paper 26.3 Build 249 und den 26.3-Plugin-Versionen gestartet.
+Die Test-Bots koennen nur bis 26.1 und kamen ueber ViaVersion/ViaBackwards 5.12.2 auf den Server (nur auf dem Testserver).
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Bauen | MineSMPCore gegen die Paper-26.3-Schnittstelle uebersetzt (`mvn -P paper26 compile`): 0 Fehler, nur Hinweise auf veraltete, noch vorhandene Funktionen | ✅ |
+| Start | Paper 26.3, LuckPerms, PlaceholderAPI, WorldEdit, WorldGuard 7.0.21, GrimAC 2.3.74, GSit, Chunky, Vault und MineSMPCore starten ohne Fehler | ✅ |
+| Welten | Umbau der Speicherstruktur: Oberwelt, Nether, End, Spawn- und Farmwelt uebernommen, gebauter Spawn unveraendert; Spielregeln der Spawn-Welt wirken | ✅ |
+| Menues | Alle 27 Menues oeffnen sich (Navigator, Report, Shop, Clan, Battlepass, Spawner ...) | ✅ |
+| Bosse | Alle 5 Bosse, alle 15 Faehigkeiten wirken (Feuer, Frost, Gift, Wither, Finsternis, Totengeister, Felswurf, Spinnennetze, Spinnenbrut ...) | ✅ |
+| Report | Report per Befehl -> Team-Nachricht mit [Annehmen]/[Ablehnen] | ✅ |
+| Spawn | Winter (Schnee, Baum) und NPC-Skins nach dem Umbau vorhanden | ✅ |
+| Neubau | Eigener Spawn (133 Blocksorten): 0 unbekannte Bloecke. Burg-Karte: WorldEdit setzt die 31 Betten nicht -> jetzt von MineSMPCore gesetzt, danach alle 3 Stichproben-Betten vorhanden | ✅ |
+| Paket | Ressourcenpaket gilt fuer Format 75 bis 97.1 (1.21.11 bis 26.3) | ✅ |
+| CoreProtect | 24.1 schaltet sich auf 26.3 ab ("not supported") | ❌ (wartet auf Update) |
+
+**Nicht getestet:** ein echter 26.3-Client (Aussehen von Menues, Scoreboard-Glyphen, Skins), der Anti-Cheat-Waechter mit Bots auf 26.3
+(die Bots wurden ueber die Protokoll-Uebersetzung staendig getrennt; gleiche Paper-Funktionen wie unter 1.21.11),
+BetterModel, Geyser/Floodgate und Simple Voice Chat auf 26.3, das Windows-Setup selbst (kein Windows vorhanden).

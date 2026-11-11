@@ -1,6 +1,6 @@
 # MineSMP
 
-Deutscher Minecraft-Survival-Server (Java 1.21.11, Paper) - **minesmp.de**.
+Deutscher Minecraft-Survival-Server (Java 26.3, Paper) - **minesmp.de**.
 Eigenes Kern-Plugin **MineSMPCore** + bewaehrte Plugins (LuckPerms, WorldGuard, CoreProtect, GrimAC, GSit ...).
 Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 

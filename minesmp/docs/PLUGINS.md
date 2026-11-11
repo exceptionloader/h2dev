@@ -1,28 +1,28 @@
 # Plugins & Versionen
 
-Stand: 05.11.2026. Zielversion **Minecraft Java 1.21.11** mit **Paper** (Build 132).
-Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, siehe [TESTS.md](TESTS.md)).
+Stand: 11.11.2026. Zielversion **Minecraft Java 26.3** mit **Paper** (Build 249).
+Die Versionen unten wurden zusammen auf einem Paper-26.3-Testserver gestartet (Java 25, siehe [TESTS.md](TESTS.md)), sofern nicht anders vermerkt.
 
 | Plugin | Version (getestet) | Aufgabe | Quelle |
 |---|---|---|---|
-| Paper | 1.21.11-132 | Server-Software (Purpur ist moeglich, wurde aber nicht getestet) | papermc.io |
+| Paper | 26.3-249 | Server-Software (Purpur ist moeglich, wurde aber nicht getestet). Beim ersten Start nach 1.21.11 baut Paper die Speicherstruktur der Welten um (`world/dimensions/...`) - vorher sichern (das Windows-Setup macht das selbst) | papermc.io |
 | **MineSMPCore** | 1.0.0 | Eigenes Plugin: Economy (MineCoins, Gems, Sterne), Shop, Gem-/Sterne-Shop, AH, Kaufauftraege, Spawner, Grundstuecke mit Raid-Zeit, eigene Verzauberungen, Spezial-Items, Keyall, Meteoriten/Kampfzonen, Mitspieler-Suche, Handel, Spieler-Shops, Clans, PvP, Duelle, Kopfgelder, Kits, Crates, Skills, Quests, Erfolge, Battlepass, Events, Scoreboard/Tab/Chat, Homes/TPA/RTP, Strafen, Reports, Audit-Log, Webhooks | `core/` |
 | LuckPerms | 5.5.71 | Raenge & Rechte | Modrinth |
 | Vault | 1.7.3 | Economy-/Chat-Schnittstelle (MineCoins fuer andere Plugins, Prefixe) | GitHub |
 | PlaceholderAPI | 2.12.3 | Platzhalter `%minesmp_...%` fuer andere Plugins | Modrinth |
-| WorldEdit | 7.4.6 | Bauen, Regionen markieren; fuegt die Spawn-Karte (Schematic) ein | Modrinth |
-| WorldGuard | 7.0.17 | Spawn-Schutz, PvP-Zonen/Safezones | Modrinth |
-| CoreProtect CE | 24.1 | Block-Logging & Rollbacks | Modrinth |
-| GrimAC | 2.3.75 | Anti-Cheat; meldet Alarme an den Waechter von MineSMPCore (Eintrag in `punishments.yml` erfolgt automatisch, getestet mit 2.3.75) | Modrinth |
+| WorldEdit | 7.4.6 | Bauen, Regionen markieren; fuegt die Spawn-Karte (Schematic) ein. Auf 26.3 setzt es Betten aus Schematics nicht (Meldung `Unsupported key: minecraft:bed`); MineSMPCore setzt die 31 Betten der Burg danach selbst | Modrinth |
+| WorldGuard | 7.0.21 | Spawn-Schutz, PvP-Zonen/Safezones | Modrinth |
+| CoreProtect CE | - | Block-Logging & Rollbacks. **Fuer 26.3 gibt es noch keine Version**: 24.1 meldet "Minecraft 26.3 is not supported" und schaltet sich ab. Das Setup laedt CoreProtect automatisch, sobald es eine 26.3-Version auf Modrinth gibt (einfach neu starten) | Modrinth |
+| GrimAC | 2.3.74 | Anti-Cheat; meldet Alarme an den Waechter von MineSMPCore (Eintrag in `punishments.yml` erfolgt automatisch). Auf 26.3 gestartet; das Zusammenspiel mit dem Waechter wurde unter 1.21.11 getestet | Modrinth |
 | GSit | 3.8.0 | /sit, /lay, /crawl | Modrinth |
-| Chunky | 1.4.40 | Welt vorgenerieren | Modrinth |
+| Chunky | 1.5.66 | Welt vorgenerieren | Modrinth |
 | BetterModel | 3.6.0 (paper) | Optional: zeigt die 3D-Modelle der NPCs und Bosse (Blockbench) ueber Display-Entities, baut dafuer ein eigenes Ressourcenpaket. MineSMPCore spricht die Schnittstelle von 3.6.0 an (gegen die Klassendateien geprueft), **auf dem Testserver nicht gestartet** - siehe TESTS.md. Braucht Java 25 | Modrinth |
-| Simple Voice Chat | 2.6.27 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 1.21.11 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |
-| Geyser + Floodgate | 2.12.1 / 2.2.5 | Optional: Bedrock-Spieler | geysermc.org |
+| Simple Voice Chat | 2.6.25 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 26.3 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |
+| Geyser + Floodgate | 2.12.1 (Build 1299) | Optional: Bedrock-Spieler. Auf 26.3 **nicht** getestet | geysermc.org |
 | NuVotifier | (manuell) | Optional: Vote-Belohnungen | GitHub |
 
 ## Wichtig: Java-Version
-**WorldEdit 7.4.6 und WorldGuard 7.0.17 benoetigen Java 25** (im Test mit Java 21 nicht ladbar:
+**Minecraft 26.3, WorldEdit 7.4.6 und WorldGuard 7.0.21 benoetigen Java 25** (im Test mit Java 21 nicht ladbar:
 `UnsupportedClassVersionError`, Klassenversion 69). Deshalb: **Java 25 verwenden** (z.B. Eclipse Temurin 25).
 MineSMPCore selbst ist fuer Java 21 kompiliert und laeuft auf Java 21 und 25.
 
