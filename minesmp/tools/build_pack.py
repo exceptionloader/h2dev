@@ -266,6 +266,11 @@ def build():
     (OUT / "assets/minecraft/font/default.json").write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
     (OUT / "pack.mcmeta").write_text(json.dumps({"pack": {"description": "§b§lMINE§f§lSMP §7Ressourcenpaket",
         "pack_format": 75, "min_format": [75, 0], "max_format": [75, 0]}}, ensure_ascii=False, indent=1))
+    # Skins der Fantasy-NPCs (tools/models-src/npc/skins) - werden als Mannequin-Skin "minesmp:entity/npc/<name>" genutzt
+    skins = OUT / "assets/minesmp/textures/entity/npc"
+    skins.mkdir(parents=True)
+    for f in sorted((ROOT / "tools/models-src/npc/skins").glob("*.png")):
+        shutil.copyfile(f, skins / f.name)
     # Vorschaubild fuer den Paket-Bildschirm
     logo().resize((logo().width * 2, logo().height * 2), Image.NEAREST).save(OUT / "pack.png")
     z = ROOT / "core/src/main/resources/minesmp-pack.zip"

@@ -5,7 +5,7 @@ api-version: '1.21'
 description: Kern-Plugin des deutschen SMP-Servers MineSMP (Economy, Clans, PvP, Crates, Quests, Events u.v.m.)
 author: MineSMP
 website: https://minesmp.de
-softdepend: [Vault, PlaceholderAPI, LuckPerms, Votifier, WorldEdit, FastAsyncWorldEdit, WorldGuard]
+softdepend: [Vault, PlaceholderAPI, LuckPerms, Votifier, WorldEdit, FastAsyncWorldEdit, WorldGuard, BetterModel]
 # Wird beim Start von Maven Central geladen (Paper Library Loader)
 libraries:
   - com.zaxxer:HikariCP:6.2.1

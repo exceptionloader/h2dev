@@ -67,6 +67,7 @@ public final class StaffCommands implements Listener {
                 plugin.spawners().reload();
                 plugin.enchants().reload();
                 plugin.poi().reload();
+                plugin.bosses().reload();
                 plugin.league().reload();
                 plugin.pvp().reload();
                 plugin.scoreboard().reload();

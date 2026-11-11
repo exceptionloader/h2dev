@@ -542,7 +542,11 @@ public final class SpawnService implements Listener {
         for (Npc n : npcs) {
             UUID id = npcEntities.get(n.id);
             Entity e = id == null ? null : Bukkit.getEntity(id);
-            if (e != null && e.isValid()) continue;
+            String model = plugin.models() == null ? null : plugin.models().npcModel(n.id);
+            if (e != null && e.isValid()) {
+                if (model != null) plugin.models().ensure(e, model, 1.0);
+                continue;
+            }
             Location l = loc(n.pos);
             if (l == null || !w.isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) continue;
             Mannequin m = w.spawn(l, Mannequin.class, mq -> {
@@ -556,11 +560,22 @@ public final class SpawnService implements Listener {
                 mq.setCustomNameVisible(true);
                 mq.setDescription(Text.c(n.desc));
                 try {
-                    boolean slim = n.skin.startsWith("slim");
-                    mq.setProfile(ResolvableProfile.resolvableProfile().skinPatch(sp -> sp
-                            .body(Key.key("minecraft", "entity/player/" + n.skin))
-                            .model(slim ? PlayerTextures.SkinModel.SLIM : PlayerTextures.SkinModel.CLASSIC)).build());
+                    if (model != null && plugin.getConfig().getBoolean("models.npc-skins", true)) {
+                        // Fantasy-Skin aus dem MineSMP-Ressourcenpaket (assets/minesmp/textures/entity/npc/<modell>.png)
+                        mq.setProfile(ResolvableProfile.resolvableProfile().skinPatch(sp -> sp
+                                .body(Key.key("minesmp", "entity/npc/" + model)).model(PlayerTextures.SkinModel.CLASSIC)).build());
+                    } else {
+                        boolean slim = n.skin.startsWith("slim");
+                        mq.setProfile(ResolvableProfile.resolvableProfile().skinPatch(sp -> sp
+                                .body(Key.key("minecraft", "entity/player/" + n.skin))
+                                .model(slim ? PlayerTextures.SkinModel.SLIM : PlayerTextures.SkinModel.CLASSIC)).build());
+                    }
                 } catch (Exception ignored) {
+                }
+                // Mit 3D-Modell: unsichtbares Grundwesen so gross wie das Modell (Name steht ueber dem Kopf, Klickflaeche passt)
+                if (model != null && plugin.models().active()) {
+                    var sc = mq.getAttribute(org.bukkit.attribute.Attribute.SCALE);
+                    if (sc != null) sc.setBaseValue(plugin.getConfig().getDouble("models.npc-base-scale", 1.3));
                 }
                 if (n.item != Material.AIR) mq.getEquipment().setItemInMainHand(new ItemStack(n.item));
                 if ("santa".equals(n.outfit)) {
@@ -572,6 +587,7 @@ public final class SpawnService implements Listener {
                 mq.getPersistentDataContainer().set(npcKey, PersistentDataType.STRING, n.id);
             });
             npcEntities.put(n.id, m.getUniqueId());
+            if (model != null) plugin.models().ensure(m, model, 1.0);
         }
         for (int i = 0; i < holos.size(); i++) {
             Holo h = holos.get(i);

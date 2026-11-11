@@ -210,3 +210,21 @@ Antiker Schrott im Nether (gleicher Code wie Diamanten, aber kein eigener Lauf);
 
 **Nicht getestet:** das Aussehen der Menues und das Anklicken der Chat-Knoepfe im echten Client (die Bots haben die Befehle hinter den
 Knoepfen ausgefuehrt), mehrere Seiten bei sehr vielen Reports oder Spielern, Bedrock-Spieler, der Discord-Webhook.
+
+## Update 11.11.2026 (5): Fantasy-NPCs und kolossale Bosse
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Modelle | 14 Blockbench-Modelle umgewandelt (Format, Animationsnamen, 383 schraeg gedrehte Wuerfel in eigene Drehgruppen); Gegenprobe: alle Wuerfel-Eckpunkte vorher/nachher gleich (Abweichung 0) | ✅ |
+| BetterModel-Anbindung | Alle 12 genutzten Aufrufe gegen die Klassendateien von BetterModel 3.6.0 geprueft (Namen, Parameter, Rueckgabetypen) | ✅ |
+| Ohne BetterModel | Server startet, Meldung "BetterModel ist nicht installiert", Modell-Paket-Adresse antwortet 404, keine Fehler | ✅ |
+| NPC-Skins | Ressourcenpaket enthaelt die 9 Skins; zugeordnete NPCs tragen sie (z.B. Navigator = Hochkoenig, Auktionator = Goblin), nicht zugeordnete behalten ihren Skin | ✅ |
+| Boss-Event | Alle 5 Bosse starten per `/eventadmin start boss <name>` mit richtigem Grundwesen, Groesse und Bossbar; `events.yml` bestehender Server bekommt die Boss-Liste automatisch | ✅ |
+| Faehigkeiten | Alle 15 einzeln ausgeloest (`/eventadmin cast`) und am Testspieler gemessen: Feuer/Frost/Wither/Gift/Finsternis/Schweben/Verlangsamung, Schaden, Totengeister (3), Spinnen (4), Felsbrocken, Feuerbaelle, Giftwolke, Spinnennetze | ✅ |
+| Aufraeumen | Nach Ende oder Sieg: keine Diener, Geschosse oder Spinnennetze mehr uebrig | ✅ |
+| Sieg | Boss besiegt -> Top-Schaden mit echtem Schaden, Belohnung mit Boss-Namen | ✅ |
+| Gefundene Fehler (behoben) | Mehr als 1024 Leben lehnt Minecraft ab (betraf auch den alten Boss mit 1500) -> Leben auf 1024, Schaden passend verkleinert; Boss verschwand, wenn beim Start niemand in der Naehe war -> Gebiet bleibt geladen; Nahkampf des Steintitans zu stark -> eigener Nahkampfwert | ✅ |
+
+**Nicht getestet:** BetterModel selbst - das Starten des heruntergeladenen Plugins war in dieser Arbeitsumgebung nicht erlaubt.
+Ob die 3D-Modelle im Spiel richtig aussehen, sich bewegen, wie die Angriffs-Animation wirkt und ob das zweite Ressourcenpaket
+bei Spielern ankommt, ist daher offen. Ebenso offen: echte Spieler im Bosskampf (Balance), Bedrock-Spieler, der Gruftwaechter mit Modell,
+Leistung bei vielen Spielern.

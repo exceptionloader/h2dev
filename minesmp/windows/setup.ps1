@@ -118,6 +118,18 @@ Get-ModrinthPlugin 'worldedit' 'WorldEdit.jar'
 Get-ModrinthPlugin 'worldguard' 'WorldGuard.jar'
 Get-ModrinthPlugin 'coreprotect' 'CoreProtect.jar'
 Get-ModrinthPlugin 'gsit' 'GSit.jar'
+# 3D-Modelle fuer NPCs und Bosse: BetterModel, fest auf die Version 3.6.0 (dazu passt MineSMPCore), mit Pruefsumme
+$bm = Join-Path $Plugins 'BetterModel.jar'
+if (-not (Test-Path $bm)) {
+    try {
+        $tmp = "$bm.download"
+        Invoke-WebRequest 'https://cdn.modrinth.com/data/4h8rX3rt/versions/fToyVqvi/bettermodel-3.6.0-paper.jar' -OutFile $tmp -UseBasicParsing
+        if ((Get-FileHash $tmp -Algorithm SHA512).Hash.ToLower() -eq 'b8048f06900a06e4fddb47c7add5af4ae075579a66e29eb29f5e0824c273ad12df57b06afac4f9c6931554e611179b5faa698f36952090ddbd66ae7bfef4d212') {
+            Move-Item $tmp $bm -Force
+            Ok 'BetterModel.jar (3.6.0)'
+        } else { Remove-Item $tmp -Force; Warn 'BetterModel: Pruefsumme passt nicht - uebersprungen (NPCs und Bosse ohne 3D-Modell).' }
+    } catch { Warn "BetterModel konnte nicht geladen werden: $($_.Exception.Message)" }
+}
 # Sprachchat (Spieler brauchen die Simple-Voice-Chat-Mod im Client, Port 24454 UDP)
 Get-ModrinthPlugin 'simple-voice-chat' 'VoiceChat.jar'
 $vault = Join-Path $Plugins 'Vault.jar'

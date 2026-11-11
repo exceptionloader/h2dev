@@ -314,7 +314,8 @@ pve:
     - {mobs: {kriecher: 7, grubenschreck: 3}}
     - {title: 'Lichter aus', modifier: darkness, mobs: {kriecher: 8, grubenschreck: 5, schattenwache: 2}}
     - {mobs: {kriecher: 9, grubenschreck: 6, schattenwache: 4}}
-  boss: {name: '&5&lGruftwaechter', health: 260, damage: 10, shockwave-damage: 7}
+  # model/model-scale: 3D-Modell mit BetterModel (sonst sichtbarer Wither-Skelett-Waechter)
+  boss: {name: '&5&lGruftwaechter', health: 260, damage: 10, shockwave-damage: 7, model: steintitan, model-scale: 0.16}
   reward: {money: 15000, gems: 8, stars: 5, keys: {epic: 1}, custom-items: ['kristall:6'], bp-xp: 300}
   bonus-rewards:
     - {chance: 0.10, reward: {spawners: {zombie: 1}}, broadcast: '&bZombie-Spawner'}
@@ -371,6 +372,49 @@ vanish:
   fake-messages: true      # beim An-/Ausschalten sehen Spieler "hat verlassen" / "ist beigetreten"
   pickup-items: true       # im Vanish Items aufheben
   remember: true           # nach dem Neu-Einloggen weiter im Vanish
+
+# 3D-Modelle (NPCs und Bosse). Braucht das Plugin BetterModel (kostenlos, das Windows-Paket laedt es automatisch).
+# Ohne BetterModel: NPCs tragen die Fantasy-Skins aus dem MineSMP-Ressourcenpaket, Bosse sind vergroesserte Monster.
+models:
+  enabled: true
+  npc-skins: true            # Fantasy-Skins fuer die NPCs (aus dem MineSMP-Ressourcenpaket)
+  npc-base-scale: 1.3        # mit 3D-Modell: Groesse des unsichtbaren NPC-Koerpers (Name ueber dem Kopf, Klickflaeche)
+  pack-file: BetterModel/build.zip   # von BetterModel gebautes Paket (relativ zu plugins/), wird automatisch mitgeschickt
+  pack-url: ''               # nur bei eigenem Webspeicher fuer Pakete (resource-pack.url gesetzt): Adresse des Modell-Pakets
+  # Welcher Spawn-NPC welche Figur bekommt (NPC-ID: Modell). Modelle: daemon, eisgolem, goblin, haendler, koenig,
+  # magier, ork, ritter, skelettkrieger. NPC weglassen = normaler Skin.
+  npcs:
+    shop: haendler
+    sell: haendler
+    gemshop: haendler
+    sterneshop: haendler
+    orders: haendler
+    ah: goblin
+    pwarp: goblin
+    spawner: goblin
+    ce: magier
+    skills: magier
+    quests: magier
+    cosmetics: magier
+    clan: ritter
+    liga: ritter
+    claim: ritter
+    achievements: ritter
+    arena: ork
+    sumo: ork
+    kiteditor: ork
+    kits: ork
+    gruft: skelettkrieger
+    bounty: daemon
+    event: daemon
+    keys: eisgolem
+    vote: eisgolem
+    guide: koenig
+    battlepass: koenig
+    rewards: koenig
+
+bosses:
+  max-minions: 8             # hoechstens so viele Diener (Totengeister, Spinnen) gleichzeitig pro Boss
 
 # Report-System: /report oeffnet ein Menue (Spieler melden / Bug melden). Das Team bekommt eine Chat-Nachricht
 # mit [Annehmen] (teleportiert zum Spieler) und [Ablehnen]; Teammitglieder sehen in /report alle offenen Reports.

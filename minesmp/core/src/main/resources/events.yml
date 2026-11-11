@@ -103,6 +103,13 @@ events:
   boss:
     name: '&4&lDer Tiefenwaechter'
     type: BOSS
+    # Kolossale Bosse aus bosses.yml - jedes Mal der naechste (rotation) oder ein zufaelliger (random).
+    # Bestimmten Boss starten: /eventadmin start boss <weltenbrand|malvoria|granitfuerst|nachtmahr|glutweberin>
+    # Leere Liste = klassischer Boss mit den Werten entity/health/damage unten.
+    bosses: [weltenbrand, malvoria, granitfuerst, nachtmahr, glutweberin]
+    boss-order: rotation
+    health-per-player: 0.15   # +15 % Leben je weiterem Spieler online ...
+    health-max-factor: 3      # ... hoechstens das Dreifache
     entity: WITHER_SKELETON
     health: 1500
     damage: 14

@@ -495,12 +495,14 @@ public final class PveService implements Listener {
             case BOSS -> {
                 if (r.bossDead) { finish(r, true); return; }
                 if (r.boss == null || !r.boss.isValid()) spawnBoss(r);
+                plugin.models().ensure(r.boss, cfg().getString("boss.model", "steintitan"), cfg().getDouble("boss.model-scale", 0.16));
                 AttributeInstance max = r.boss.getAttribute(Attribute.MAX_HEALTH);
                 double ratio = r.boss.getHealth() / (max == null ? 1 : max.getValue());
                 bar = cfg().getString("boss.name", "&5&lGruftwaechter") + " &8┃ &c" + (int) Math.ceil(r.boss.getHealth()) + " ❤";
                 for (Player p : r.online()) plugin.scoreboard().bossbar(p, "pve", bar, Math.max(0, Math.min(1, ratio)), BarColor.PURPLE);
                 actionbar(r, "&5Besiege den " + Text.strip(Text.gradients(cfg().getString("boss.name", "Gruftwaechter"))));
                 if (--r.abilityIn == 2) {
+                    plugin.models().animate(r.boss, "attack");
                     r.boss.getWorld().spawnParticle(Particle.WITCH, r.boss.getLocation().add(0, 1, 0), 80, 3, 0.3, 3, 0.01);
                     for (Player p : fighters) p.playSound(r.boss.getLocation(), Sound.ENTITY_WARDEN_SONIC_CHARGE, 1.4f, 1);
                     for (Player p : fighters) { Msg.markActionbar(p, 2500); p.sendActionBar(Text.c("&c&lSchockwelle! &7Weg vom Boss!")); }
@@ -612,6 +614,7 @@ public final class PveService implements Listener {
             le.customName(Text.c(cfg().getString("boss.name", "&5&lGruftwaechter")));
         });
         r.mobs.add(r.boss.getUniqueId());
+        plugin.models().ensure(r.boss, cfg().getString("boss.model", "steintitan"), cfg().getDouble("boss.model-scale", 0.16));
     }
 
     private void retarget(Run r, List<Player> fighters) {

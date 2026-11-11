@@ -1,0 +1,75 @@
+# Kolossale Bosse - genutzt vom Boss-Event (events.yml -> events.boss.bosses).
+# Mit dem Plugin BetterModel tragen sie ihr 3D-Modell, ohne erscheinen sie als vergroessertes Monster (entity).
+#
+# entity       Grundwesen (bestimmt Laufen und Nahkampf; mit BetterModel unsichtbar)
+# scale        Groesse des Grundwesens = Trefferbox (1 = normal, hoechstens 16)
+# model        3D-Modell (Datei in plugins/BetterModel/models)
+# model-scale  Groesse des 3D-Modells (1 = Originalgroesse: 18-26 Bloecke hoch)
+# health       Lebenspunkte (wird mit der Spielerzahl erhoeht, siehe events.yml)
+# damage       Grundschaden; Faehigkeiten machen einen Teil davon
+# melee-damage Nahkampf-Schaden des Grundwesens (Standard: 60 % von damage; der Eisengolem schwankt zusaetzlich +-50 %)
+# speed        Laufgeschwindigkeit (1 = normal fuer dieses Wesen)
+# ability-interval  Sekunden zwischen zwei Faehigkeiten (bei Raserei unter 30 % Leben schneller)
+# abilities    fire_breath, poison_breath, ice_breath, shadow_breath, curse, vex, potion_rain, ground_slam,
+#              rock_throw, darkness, tentacle_pull, levitate, lava_web, fire_spit, spiderlings
+bosses:
+  weltenbrand:
+    name: '&4&lVierkoepfiger Weltenbrand'
+    lore: 'Vier Koepfe, vier Elemente: Feuer, Gift, Eis und Schatten.'
+    model: vierkopfdrache
+    model-scale: 0.35
+    entity: RAVAGER
+    scale: 3.2
+    health: 3000
+    damage: 16
+    speed: 0.9
+    ability-interval: 7
+    abilities: [fire_breath, poison_breath, ice_breath, shadow_breath]
+  malvoria:
+    name: '&5&lMalvoria, die Riesenhexe'
+    lore: 'Verflucht, wen sie sieht, und ruft Totengeister.'
+    model: riesenhexe
+    model-scale: 0.4
+    entity: WITCH
+    scale: 4.2
+    health: 2400
+    damage: 14
+    speed: 1.1
+    ability-interval: 7
+    abilities: [curse, vex, potion_rain]
+  granitfuerst:
+    name: '&a&lGranitfuerst, der Steintitan'
+    lore: 'Sein Runenhammer laesst den Boden beben.'
+    model: steintitan
+    model-scale: 0.38
+    entity: IRON_GOLEM
+    scale: 3.6
+    health: 3600
+    damage: 18
+    speed: 0.9
+    ability-interval: 8
+    abilities: [ground_slam, rock_throw]
+  nachtmahr:
+    name: '&3&lNachtmahr, der Schattenkraken'
+    lore: 'Acht Tentakel, ein Auge - und dann wird es dunkel.'
+    model: schattenkraken
+    model-scale: 0.34
+    entity: RAVAGER
+    scale: 3.0
+    health: 2800
+    damage: 15
+    speed: 0.85
+    ability-interval: 7
+    abilities: [darkness, tentacle_pull, levitate]
+  glutweberin:
+    name: '&6&lGlutweberin, die Lavenspinne'
+    lore: 'Spinnt Netze aus Glut und ruft ihre Brut.'
+    model: lavenspinne
+    model-scale: 0.36
+    entity: SPIDER
+    scale: 5.0
+    health: 2600
+    damage: 15
+    speed: 1.0
+    ability-interval: 6
+    abilities: [lava_web, fire_spit, spiderlings]

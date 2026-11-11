@@ -59,6 +59,8 @@ public final class EventManager implements Listener {
     private final MineSMP plugin;
     private YamlConfiguration cfg;
     private GameEvent active;
+    /** Gewuenschter Boss fuer den naechsten Boss-Event-Start (/eventadmin start boss <boss>). */
+    private String bossOverride;
     private String lastMinute = "";
     private final Map<String, Integer> wins = new LinkedHashMap<>();
     private long communityProgress;
@@ -84,6 +86,8 @@ public final class EventManager implements Listener {
         plugin.command(new SimpleCommand("eventadmin", "minesmp.admin.event", "Events verwalten", this::adminCmd, (s, a) -> {
             if (a.length == 1) return List.of("start", "stop", "list", "setkoth", "setboss");
             if (a.length == 2 && a[0].equalsIgnoreCase("start")) return eventIds();
+            if (a.length == 2 && a[0].equalsIgnoreCase("cast")) return BossBrain.abilityIds();
+            if (a.length == 3 && a[0].equalsIgnoreCase("start") && plugin.bosses() != null) return plugin.bosses().profiles().stream().map(BossBrain.Profile::id).toList();
             if (a.length == 2 && a[0].equalsIgnoreCase("setkoth")) return List.of("1", "2");
             return List.of();
         }, "ea"));
@@ -92,6 +96,13 @@ public final class EventManager implements Listener {
 
     public void reload() {
         cfg = plugin.yaml("events.yml");
+        // Bestehende Server: das Boss-Event bekommt einmalig die kolossalen Bosse
+        if ("BOSS".equalsIgnoreCase(cfg.getString("events.boss.type", "")) && !cfg.isSet("events.boss.bosses")) {
+            cfg.set("events.boss.bosses", List.of("weltenbrand", "malvoria", "granitfuerst", "nachtmahr", "glutweberin"));
+            cfg.set("events.boss.boss-order", "rotation");
+            saveCfg();
+            plugin.getLogger().info("events.yml: Boss-Event nutzt jetzt die kolossalen Bosse (bosses.yml).");
+        }
     }
 
     private List<String> eventIds() {
@@ -191,12 +202,14 @@ public final class EventManager implements Listener {
     }
 
     private void adminCmd(CommandSender s, String l, String[] a) {
-        if (a.length == 0) { Msg.send(s, "usage", "{prefix}&7Benutzung: &b{usage}", "usage", "/eventadmin start <id> | stop | list | setkoth <1|2> | setboss"); return; }
+        if (a.length == 0) { Msg.send(s, "usage", "{prefix}&7Benutzung: &b{usage}", "usage", "/eventadmin start <id> [boss] | stop | list | setkoth <1|2> | setboss"); return; }
         switch (a[0].toLowerCase(Locale.ROOT)) {
             case "start" -> {
                 if (a.length < 2) return;
                 if (active != null) { Msg.send(s, "event.already", "{prefix}&cEs laeuft bereits ein Event."); return; }
+                bossOverride = a.length >= 3 ? a[2] : null;
                 String err = start(a[1], s);
+                bossOverride = null;
                 if (err != null) Msg.send(s, "event.start-error", "{prefix}&c{err}", "err", err);
                 else plugin.audit().log(s, "EVENT_START", a[1]);
             }
@@ -207,6 +220,10 @@ public final class EventManager implements Listener {
                 cfg.set("koth-region.pos" + a[1], PlayerData.locToString(p.getLocation()));
                 saveCfg();
                 Msg.send(p, "event.koth-set", "{prefix}&aKOTH-Ecke {n} gesetzt.", "n", a[1]);
+            }
+            case "cast" -> { // Boss-Faehigkeit sofort ausloesen (zum Testen/Vorfuehren)
+                if (!(active instanceof Boss b) || b.fight == null || a.length < 2) { Msg.send(s, "event.cast-usage", "{prefix}&7Nur waehrend eines Boss-Events: &f/eventadmin cast <faehigkeit>"); return; }
+                if (!b.fight.castNow(a[1].toLowerCase(Locale.ROOT))) Msg.send(s, "event.cast-unknown", "{prefix}&cUnbekannte Faehigkeit. &7Moeglich: &f{list}", "list", String.join(", ", BossBrain.abilityIds()));
             }
             case "setboss" -> {
                 if (!(s instanceof Player p)) return;
@@ -290,7 +307,8 @@ public final class EventManager implements Listener {
 
     private void winner(Player p, int place, ConfigurationSection eventCfg) {
         ConfigurationSection r = eventCfg.getConfigurationSection("rewards." + place);
-        if (r != null) plugin.rewards().give(p, r, Text.strip(eventCfg.getString("name", "Event")) + " Platz " + place);
+        String title = active != null && active.s == eventCfg ? active.name : eventCfg.getString("name", "Event");
+        if (r != null) plugin.rewards().give(p, r, Text.strip(Text.gradients(title)) + " Platz " + place);
         if (place == 1) {
             plugin.data().get(p).eventWins++;
             plugin.data().get(p).dirty = true;
@@ -366,7 +384,8 @@ public final class EventManager implements Listener {
     // =====================================================================
 
     private abstract class GameEvent {
-        final String id, name;
+        final String id;
+        String name;
         final ConfigurationSection s;
         final long endAt;
         GameEvent(String id, ConfigurationSection s) {
@@ -602,19 +621,52 @@ public final class EventManager implements Listener {
         }
     }
 
-    /** Boss-Event: Starker Mob, Bossbar mit Lebenspunkten, Belohnung nach Schaden. */
+    /**
+     * Boss-Event: einer der kolossalen Bosse (bosses.yml, Reihenfolge reihum oder zufaellig) mit eigenen Faehigkeiten,
+     * Bossbar mit Lebenspunkten, Belohnung nach Schaden. Ohne Liste "bosses" wie frueher ein einfaches Monster.
+     */
     private final class Boss extends GameEvent {
         LivingEntity boss;
+        BossBrain.Fight fight;
+        final BossBrain.Profile profile;
         final Map<UUID, Double> damage = new HashMap<>();
         double maxHp;
-        Boss(String id, ConfigurationSection s) { super(id, s); }
+
+        Boss(String id, ConfigurationSection s) {
+            super(id, s);
+            profile = choose();
+            if (profile != null) name = profile.name();
+        }
+
+        private BossBrain.Profile choose() {
+            if (plugin.bosses() == null) return null;
+            if (bossOverride != null) return plugin.bosses().profile(bossOverride);
+            List<String> list = new ArrayList<>();
+            for (String b : s.getStringList("bosses")) if (plugin.bosses().profile(b) != null) list.add(b);
+            if (list.isEmpty()) return null;
+            if ("random".equalsIgnoreCase(s.getString("boss-order", "rotation"))) return plugin.bosses().profile(list.get(new java.util.Random().nextInt(list.size())));
+            int next = Math.floorMod(cfg.getInt("boss-rotation", 0), list.size());
+            cfg.set("boss-rotation", next + 1);
+            saveCfg();
+            return plugin.bosses().profile(list.get(next));
+        }
 
         @Override String begin() {
+            if (bossOverride != null && profile == null) return "Unbekannter Boss: " + bossOverride + " (siehe bosses.yml)";
             Location l = PlayerData.locFromString(cfg.getString("boss-spawn"));
             if (l == null) return "Boss-Spawn nicht gesetzt (/eventadmin setboss).";
+            if (profile != null) {
+                int online = Bukkit.getOnlinePlayers().size();
+                double factor = Math.min(s.getDouble("health-max-factor", 3), 1 + s.getDouble("health-per-player", 0.15) * Math.max(0, online - 1));
+                fight = plugin.bosses().spawn(profile, l, factor, le -> le.getPersistentDataContainer().set(eventKey, PersistentDataType.STRING, "boss"));
+                boss = fight.boss;
+                maxHp = fight.shownMax();
+                Msg.broadcast("boss.start-colossus", "{prefix}&4&lBOSS-EVENT! {name} &7ist erschienen! &8({lore}) &f/event join", "name", name, "lore", profile.lore());
+                return null;
+            }
             EntityType type;
             try { type = EntityType.valueOf(s.getString("entity", "WITHER_SKELETON").toUpperCase()); } catch (IllegalArgumentException e) { return "Ungueltiger Boss-Typ."; }
-            maxHp = s.getDouble("health", 500);
+            maxHp = Math.min(s.getDouble("health", 500), 1024); // mehr erlaubt Minecraft nicht
             boss = (LivingEntity) l.getWorld().spawnEntity(l, type, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.CUSTOM, en -> {
                 LivingEntity le = (LivingEntity) en;
                 var hp = le.getAttribute(Attribute.MAX_HEALTH);
@@ -642,7 +694,10 @@ public final class EventManager implements Listener {
         @Override void tick() {
             if (boss == null) return;
             if (!boss.isValid() && !boss.isDead()) { stop(false); return; }
-            bossbarAll(name + " &8| &c" + (int) boss.getHealth() + "&7/&c" + (int) maxHp + " ❤ &8| &7" + TimeUtil.format(left()), boss.getHealth() / maxHp, BarColor.RED);
+            if (fight != null) fight.tick(new ArrayList<>(boss.getWorld().getPlayers()));
+            double hpNow = fight != null ? fight.shownHealth() : boss.getHealth();
+            bossbarAll(name + (fight != null && fight.enraged() ? " &4&lRASEREI" : "") + " &8| &c" + (int) Math.ceil(hpNow) + "&7/&c" + (int) maxHp + " ❤ &8| &7" + TimeUtil.format(left()),
+                    Math.max(0, Math.min(1, hpNow / maxHp)), BarColor.RED);
             if (left() <= 0) {
                 Msg.broadcast("boss.escaped", "{prefix}&7Der Boss ist entkommen...");
                 stop(false);
@@ -668,6 +723,7 @@ public final class EventManager implements Listener {
         }
 
         @Override void end(boolean finished) {
+            if (fight != null) fight.end();
             if (boss != null && boss.isValid()) boss.remove();
         }
     }
@@ -676,7 +732,7 @@ public final class EventManager implements Listener {
     public void onBossDamage(EntityDamageByEntityEvent e) {
         if (!(active instanceof Boss b) || e.getEntity() != b.boss) return;
         Player p = e.getDamager() instanceof Player pl ? pl : e.getDamager() instanceof org.bukkit.entity.Projectile pr && pr.getShooter() instanceof Player pl2 ? pl2 : null;
-        if (p != null) b.hit(p, e.getFinalDamage());
+        if (p != null) b.hit(p, e.getFinalDamage() / (b.fight != null ? b.fight.damageScale() : 1));
     }
 
     @EventHandler

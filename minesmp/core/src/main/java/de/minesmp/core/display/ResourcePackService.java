@@ -34,6 +34,7 @@ import java.util.concurrent.Executors;
  */
 public final class ResourcePackService implements Listener {
     private static final UUID PACK_ID = UUID.nameUUIDFromBytes("minesmp-pack".getBytes(StandardCharsets.UTF_8));
+    private static final UUID MODEL_PACK_ID = UUID.nameUUIDFromBytes("minesmp-models".getBytes(StandardCharsets.UTF_8));
     private final MineSMP plugin;
     private final Set<UUID> loaded = ConcurrentHashMap.newKeySet();
     private final Map<String, String> glyphs = new HashMap<>();
@@ -41,6 +42,11 @@ public final class ResourcePackService implements Listener {
     private byte[] packBytes;
     private byte[] sha1;
     private String url;
+    // Zweites Paket: 3D-Modelle von BetterModel (plugins/BetterModel/build.zip), wird bei Aenderung neu eingelesen
+    private volatile byte[] modelBytes;
+    private byte[] modelSha1;
+    private long modelStamp = -1;
+    private String modelUrl;
 
     public ResourcePackService(MineSMP plugin) {
         this.plugin = plugin;
@@ -70,6 +76,14 @@ public final class ResourcePackService implements Listener {
                     ex.sendResponseHeaders(200, packBytes.length);
                     try (OutputStream os = ex.getResponseBody()) { os.write(packBytes); }
                 });
+                http.createContext("/minesmp-models.zip", ex -> {
+                    byte[] b = modelBytes;
+                    if (b == null) { ex.sendResponseHeaders(404, -1); ex.close(); return; }
+                    ex.getResponseHeaders().add("Content-Type", "application/zip");
+                    ex.sendResponseHeaders(200, b.length);
+                    try (OutputStream os = ex.getResponseBody()) { os.write(b); }
+                });
+                modelUrl = "http://" + cfg.getString("resource-pack.host", "localhost") + ":" + port + "/minesmp-models.zip";
                 http.setExecutor(Executors.newFixedThreadPool(2, r -> { Thread t = new Thread(r, "MineSMP-Pack"); t.setDaemon(true); return t; }));
                 http.start();
                 url = "http://" + cfg.getString("resource-pack.host", "localhost") + ":" + port + "/minesmp-pack.zip";
@@ -99,12 +113,41 @@ public final class ResourcePackService implements Listener {
             if (!p.isOnline() || url == null) return;
             p.setResourcePack(PACK_ID, url, sha1, Text.c(plugin.getConfig().getString("resource-pack.prompt",
                     "&b&lMINE&f&lSMP &7- Lade das Paket fuer Scoreboard-Design und Icons.")), plugin.getConfig().getBoolean("resource-pack.required", false));
+            if (refreshModelPack()) p.addResourcePack(MODEL_PACK_ID, modelUrl, modelSha1, null, plugin.getConfig().getBoolean("resource-pack.required", false));
         }, 20);
+    }
+
+    /** Liest das von BetterModel gebaute Paket ein (nur wenn es sich geaendert hat). true = Paket bereit zum Senden. */
+    private boolean refreshModelPack() {
+        if (plugin.models() == null) return false;
+        File f = plugin.models().packFile();
+        String external = plugin.getConfig().getString("models.pack-url", "");
+        if (f == null) return false;
+        if (external != null && !external.isBlank()) modelUrl = external;
+        if (modelUrl == null) return false;
+        long stamp = f.lastModified() ^ f.length();
+        if (stamp == modelStamp && modelBytes != null) return true;
+        try {
+            byte[] b = Files.readAllBytes(f.toPath());
+            modelSha1 = MessageDigest.getInstance("SHA-1").digest(b);
+            modelBytes = b;
+            modelStamp = stamp;
+            plugin.getLogger().info("3D-Modelle: Ressourcenpaket von BetterModel bereit (" + b.length / 1024 + " KB): " + modelUrl);
+            return true;
+        } catch (Exception e) {
+            plugin.getLogger().warning("3D-Modelle: Paket " + f + " nicht lesbar: " + e.getMessage());
+            return false;
+        }
     }
 
     @EventHandler
     public void onStatus(PlayerResourcePackStatusEvent e) {
         Player p = e.getPlayer();
+        if (MODEL_PACK_ID.equals(e.getID())) {
+            if (e.getStatus() == PlayerResourcePackStatusEvent.Status.FAILED_DOWNLOAD || e.getStatus() == PlayerResourcePackStatusEvent.Status.INVALID_URL)
+                plugin.getLogger().warning("3D-Modell-Paket fuer " + p.getName() + ": " + e.getStatus() + " (URL " + modelUrl + ")");
+            return;
+        }
         switch (e.getStatus()) {
             case SUCCESSFULLY_LOADED -> { loaded.add(p.getUniqueId()); plugin.scoreboard().update(p); plugin.scoreboard().refreshNametags(); }
             case DECLINED, FAILED_DOWNLOAD, FAILED_RELOAD, INVALID_URL, DISCARDED -> {

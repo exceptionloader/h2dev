@@ -114,10 +114,18 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.world.SpawnCompass compass;
     private de.minesmp.core.world.WinterService winter;
     private de.minesmp.core.admin.GuardService guard;
+    private de.minesmp.core.world.ModelService models;
+    private de.minesmp.core.events.BossBrain bosses;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
         return instance;
+    }
+
+    /** Vor dem Start aller Plugins: 3D-Modelle fuer BetterModel bereitlegen (BetterModel liest sie beim eigenen Start). */
+    @Override
+    public void onLoad() {
+        de.minesmp.core.world.ModelService.install(this);
     }
 
     @Override
@@ -206,6 +214,8 @@ public final class MineSMP extends JavaPlugin {
         new VoteService(this);
         new MiscCommands(this);
         cosmetics = new CosmeticService(this);
+        models = new de.minesmp.core.world.ModelService(this);
+        bosses = new de.minesmp.core.events.BossBrain(this);
         events = new EventManager(this);
         poi = new de.minesmp.core.events.PoiService(this);
         pve = new de.minesmp.core.events.PveService(this);
@@ -234,6 +244,7 @@ public final class MineSMP extends JavaPlugin {
     public void onDisable() {
         try {
             if (events != null) events.stopAll();
+            if (bosses != null) bosses.shutdown();
             if (poi != null && poi.active()) poi.stop();
             if (spawners != null) spawners.shutdown();
             if (compass != null) compass.shutdown();
@@ -337,4 +348,6 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.events.PveService pve() { return pve; }
     public de.minesmp.core.world.WinterService winter() { return winter; }
     public de.minesmp.core.admin.GuardService guard() { return guard; }
+    public de.minesmp.core.world.ModelService models() { return models; }
+    public de.minesmp.core.events.BossBrain bosses() { return bosses; }
 }

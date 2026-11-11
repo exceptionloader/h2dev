@@ -1,0 +1,6507 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "bedrock",
+    "box_uv": false
+  },
+  "name": "steintitan",
+  "model_identifier": "colossus.steintitan",
+  "visible_box": [
+    6,
+    6,
+    1.5
+  ],
+  "resolution": {
+    "width": 64,
+    "height": 64
+  },
+  "elements": [
+    {
+      "name": "titan_core",
+      "type": "cube",
+      "uuid": "372ecd47-7bcc-4f5d-9c9c-27c055d945f6",
+      "from": [
+        -76.8,
+        172.8,
+        -48.0
+      ],
+      "to": [
+        76.8,
+        313.6,
+        48.0
+      ],
+      "origin": [
+        0.0,
+        243.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "breastplate",
+      "type": "cube",
+      "uuid": "3062c99e-a71f-49f8-a264-036eb15e3a3b",
+      "from": [
+        -67.2,
+        204.8,
+        -57.6
+      ],
+      "to": [
+        67.2,
+        300.8,
+        -38.4
+      ],
+      "origin": [
+        0.0,
+        252.8,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "massive_waist",
+      "type": "cube",
+      "uuid": "9393ca18-50db-479c-a089-c8cfa377e365",
+      "from": [
+        -70.4,
+        147.2,
+        -44.8
+      ],
+      "to": [
+        70.4,
+        192.0,
+        44.8
+      ],
+      "origin": [
+        0.0,
+        169.6,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_thigh",
+      "type": "cube",
+      "uuid": "df7b30f3-6292-406a-8c1d-cbca829fa08c",
+      "from": [
+        -74.88,
+        57.6,
+        -32.0
+      ],
+      "to": [
+        -14.72,
+        172.8,
+        32.0
+      ],
+      "origin": [
+        -44.8,
+        115.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_shin",
+      "type": "cube",
+      "uuid": "d8fc3bdc-3a69-4e73-b890-9f3801d6784f",
+      "from": [
+        -72.32,
+        12.8,
+        -33.92
+      ],
+      "to": [
+        -17.28,
+        89.6,
+        33.92
+      ],
+      "origin": [
+        -44.8,
+        51.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "colossal_foot",
+      "type": "cube",
+      "uuid": "99320dbc-ffae-4774-8578-92b74ad8efbd",
+      "from": [
+        -77.44,
+        0.0,
+        -57.6
+      ],
+      "to": [
+        -12.16,
+        32.0,
+        38.4
+      ],
+      "origin": [
+        -44.8,
+        16.0,
+        -9.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "boulder_shoulder",
+      "type": "cube",
+      "uuid": "153298f6-7887-4bb9-9c69-9d675d10d92d",
+      "from": [
+        -147.2,
+        256.0,
+        -51.2
+      ],
+      "to": [
+        -57.6,
+        332.8,
+        51.2
+      ],
+      "origin": [
+        -102.4,
+        294.4,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "upper_stone_arm",
+      "type": "cube",
+      "uuid": "81f7e4b5-bb98-4666-ad3f-eada1203d0f3",
+      "from": [
+        -147.2,
+        178.07136,
+        -35.2
+      ],
+      "to": [
+        -89.6,
+        269.92864,
+        28.8
+      ],
+      "origin": [
+        -118.4,
+        224.0,
+        -3.2
+      ],
+      "rotation": [
+        -3.99522295462384,
+        0,
+        167.90524292298792
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_forearm",
+      "type": "cube",
+      "uuid": "8e3618f2-7767-41c1-8411-72886aaf030c",
+      "from": [
+        -169.6,
+        108.8,
+        -38.4
+      ],
+      "to": [
+        -99.2,
+        204.8,
+        38.4
+      ],
+      "origin": [
+        -134.4,
+        156.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "enormous_fist",
+      "type": "cube",
+      "uuid": "d7cd9b3a-6944-498c-87ef-7f6abf5d17b6",
+      "from": [
+        -176.0,
+        76.8,
+        -48.0
+      ],
+      "to": [
+        -92.8,
+        140.8,
+        48.0
+      ],
+      "origin": [
+        -134.4,
+        108.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "cbd658fc-1da3-4a1c-b516-166eee54264f",
+      "from": [
+        -161.28,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        -145.92,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        -153.6,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "8dbc10c9-8c18-4b51-a9bd-0eed33d238f3",
+      "from": [
+        -142.08,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        -126.72,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        -134.4,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "26646630-5c82-4d8e-8fe9-7f0d7b6ee2db",
+      "from": [
+        -122.88,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        -107.52,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        -115.2,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "793deb07-db1a-4456-9349-02b104b4de0e",
+      "from": [
+        -142.08,
+        318.24053,
+        -3.2
+      ],
+      "to": [
+        -126.72,
+        366.55947,
+        16.0
+      ],
+      "origin": [
+        -134.4,
+        342.4,
+        6.4
+      ],
+      "rotation": [
+        15.361395389730873,
+        0,
+        15.945395900922854
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "4dfa1a93-b012-4cca-8802-3984a48eba68",
+      "from": [
+        -116.48,
+        318.74462,
+        -3.2
+      ],
+      "to": [
+        -101.12,
+        385.25538,
+        16.0
+      ],
+      "origin": [
+        -108.8,
+        352.0,
+        6.4
+      ],
+      "rotation": [
+        11.095803283136393,
+        0,
+        11.309932474020213
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "362914bb-98fa-4ab3-86b7-f54fe9a6792d",
+      "from": [
+        -90.88,
+        317.9736,
+        -3.2
+      ],
+      "to": [
+        -75.52,
+        360.4264,
+        16.0
+      ],
+      "origin": [
+        -83.2,
+        339.2,
+        6.4
+      ],
+      "rotation": [
+        17.548400613792296,
+        0,
+        18.43494882292201
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "arm_rune_glow",
+      "type": "cube",
+      "uuid": "dba7c2f9-9ceb-403c-81e8-56baace62766",
+      "from": [
+        -138.24,
+        134.4,
+        -43.52
+      ],
+      "to": [
+        -130.56,
+        185.6,
+        -38.4
+      ],
+      "origin": [
+        -134.4,
+        160.0,
+        -40.96
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_thigh",
+      "type": "cube",
+      "uuid": "91180dae-3be3-47ad-8c86-266103ad8e4c",
+      "from": [
+        14.72,
+        57.6,
+        -32.0
+      ],
+      "to": [
+        74.88,
+        172.8,
+        32.0
+      ],
+      "origin": [
+        44.8,
+        115.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_shin",
+      "type": "cube",
+      "uuid": "20694d97-303c-4dcf-9ed0-b9444507660f",
+      "from": [
+        17.28,
+        12.8,
+        -33.92
+      ],
+      "to": [
+        72.32,
+        89.6,
+        33.92
+      ],
+      "origin": [
+        44.8,
+        51.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "colossal_foot",
+      "type": "cube",
+      "uuid": "9e1628ff-659b-4d5c-98f4-8919bec66071",
+      "from": [
+        12.16,
+        0.0,
+        -57.6
+      ],
+      "to": [
+        77.44,
+        32.0,
+        38.4
+      ],
+      "origin": [
+        44.8,
+        16.0,
+        -9.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "boulder_shoulder",
+      "type": "cube",
+      "uuid": "7d461727-66b8-4da0-a0f3-d2bc915285f3",
+      "from": [
+        57.6,
+        256.0,
+        -51.2
+      ],
+      "to": [
+        147.2,
+        332.8,
+        51.2
+      ],
+      "origin": [
+        102.4,
+        294.4,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "upper_stone_arm",
+      "type": "cube",
+      "uuid": "5a95f989-78b7-40aa-9eb2-bc3062b8fe13",
+      "from": [
+        89.6,
+        178.07136,
+        -35.2
+      ],
+      "to": [
+        147.2,
+        269.92864,
+        28.8
+      ],
+      "origin": [
+        118.4,
+        224.0,
+        -3.2
+      ],
+      "rotation": [
+        -3.99522295462384,
+        0,
+        -167.90524292298792
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_forearm",
+      "type": "cube",
+      "uuid": "277aa20b-128f-4f6a-b11d-c4b060be505a",
+      "from": [
+        99.2,
+        108.8,
+        -38.4
+      ],
+      "to": [
+        169.6,
+        204.8,
+        38.4
+      ],
+      "origin": [
+        134.4,
+        156.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "enormous_fist",
+      "type": "cube",
+      "uuid": "094a6512-26f2-4b8d-9100-b7e0703ed3fc",
+      "from": [
+        92.8,
+        76.8,
+        -48.0
+      ],
+      "to": [
+        176.0,
+        140.8,
+        48.0
+      ],
+      "origin": [
+        134.4,
+        108.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "0b765c34-f8d8-4966-ad0b-c0c382f6b703",
+      "from": [
+        107.52,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        122.88,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        115.2,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "34f54c90-a584-48f5-8f30-d61a4c0942e4",
+      "from": [
+        126.72,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        142.08,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        134.4,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "stone_knuckle",
+      "type": "cube",
+      "uuid": "92750e7c-074b-40b1-a116-17d3dfa20b27",
+      "from": [
+        145.92,
+        108.8,
+        -53.76
+      ],
+      "to": [
+        161.28,
+        128.0,
+        -42.24
+      ],
+      "origin": [
+        153.6,
+        118.4,
+        -48.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "bf1aaa8b-8388-4aaa-a9ab-45e9e102845e",
+      "from": [
+        75.52,
+        318.24053,
+        -3.2
+      ],
+      "to": [
+        90.88,
+        366.55947,
+        16.0
+      ],
+      "origin": [
+        83.2,
+        342.4,
+        6.4
+      ],
+      "rotation": [
+        15.361395389730873,
+        0,
+        -15.945395900922854
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "adc0280d-aff8-482f-816d-46f4ad32a15e",
+      "from": [
+        101.12,
+        318.74462,
+        -3.2
+      ],
+      "to": [
+        116.48,
+        385.25538,
+        16.0
+      ],
+      "origin": [
+        108.8,
+        352.0,
+        6.4
+      ],
+      "rotation": [
+        11.095803283136393,
+        0,
+        -11.309932474020213
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "shoulder_monolith",
+      "type": "cube",
+      "uuid": "00d173be-d6ec-400b-8df0-c144a10b02f0",
+      "from": [
+        126.72,
+        317.9736,
+        -3.2
+      ],
+      "to": [
+        142.08,
+        360.4264,
+        16.0
+      ],
+      "origin": [
+        134.4,
+        339.2,
+        6.4
+      ],
+      "rotation": [
+        17.548400613792296,
+        0,
+        -18.43494882292201
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "arm_rune_glow",
+      "type": "cube",
+      "uuid": "b8567c44-618c-429f-b34f-ac05849a60fe",
+      "from": [
+        130.56,
+        134.4,
+        -43.52
+      ],
+      "to": [
+        138.24,
+        185.6,
+        -38.4
+      ],
+      "origin": [
+        134.4,
+        160.0,
+        -40.96
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "ancient_head",
+      "type": "cube",
+      "uuid": "b16207cc-16d5-4a74-b935-0d9e148bea59",
+      "from": [
+        -38.4,
+        307.2,
+        -38.4
+      ],
+      "to": [
+        38.4,
+        390.4,
+        38.4
+      ],
+      "origin": [
+        0.0,
+        348.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            27,
+            27,
+            28,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "angular_stone_jaw",
+      "type": "cube",
+      "uuid": "333f5650-d13e-4d77-a230-6d640acbac23",
+      "from": [
+        -42.24,
+        304.0,
+        -41.6
+      ],
+      "to": [
+        42.24,
+        329.6,
+        38.4
+      ],
+      "origin": [
+        0.0,
+        316.8,
+        -1.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "rune_eye_glow",
+      "type": "cube",
+      "uuid": "163aa98b-2a6d-4db1-821a-05702f94798f",
+      "from": [
+        -24.96,
+        345.6,
+        -43.52
+      ],
+      "to": [
+        -13.44,
+        355.2,
+        -37.76
+      ],
+      "origin": [
+        -19.2,
+        350.4,
+        -40.64
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "heavy_brow",
+      "type": "cube",
+      "uuid": "88d1079b-64e7-47d4-9db7-830bf7648733",
+      "from": [
+        -26.24,
+        353.56094,
+        -51.2
+      ],
+      "to": [
+        -14.72,
+        382.43906,
+        -38.4
+      ],
+      "origin": [
+        -20.48,
+        368.0,
+        -44.8
+      ],
+      "rotation": [
+        0.0,
+        0,
+        77.19573393471326
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "rune_eye_glow",
+      "type": "cube",
+      "uuid": "40a9c9de-702e-4c5f-b214-bb62dc84234d",
+      "from": [
+        13.44,
+        345.6,
+        -43.52
+      ],
+      "to": [
+        24.96,
+        355.2,
+        -37.76
+      ],
+      "origin": [
+        19.2,
+        350.4,
+        -40.64
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "heavy_brow",
+      "type": "cube",
+      "uuid": "86be1d4c-35b7-4b69-b09b-9e656f339008",
+      "from": [
+        14.72,
+        353.56094,
+        -51.2
+      ],
+      "to": [
+        26.24,
+        382.43906,
+        -38.4
+      ],
+      "origin": [
+        20.48,
+        368.0,
+        -44.8
+      ],
+      "rotation": [
+        0.0,
+        0,
+        -77.19573393471326
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            27,
+            4,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "head_monolith",
+      "type": "cube",
+      "uuid": "21dd3bbe-c480-49b1-8ec1-9d88b861c4c4",
+      "from": [
+        -33.28,
+        384.0,
+        -9.6
+      ],
+      "to": [
+        -17.92,
+        409.6,
+        9.6
+      ],
+      "origin": [
+        -25.6,
+        396.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "head_monolith",
+      "type": "cube",
+      "uuid": "97079fb1-3ccd-4540-85dc-eb894d76cdb7",
+      "from": [
+        -7.68,
+        384.0,
+        -9.6
+      ],
+      "to": [
+        7.68,
+        422.4,
+        9.6
+      ],
+      "origin": [
+        0.0,
+        403.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "head_monolith",
+      "type": "cube",
+      "uuid": "6db69350-6b26-41e8-8b73-4053e7e0deb6",
+      "from": [
+        17.92,
+        384.0,
+        -9.6
+      ],
+      "to": [
+        33.28,
+        403.2,
+        9.6
+      ],
+      "origin": [
+        25.6,
+        393.6,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "chest_rune_vertical_glow",
+      "type": "cube",
+      "uuid": "905a03d7-6af7-41df-b07b-8f87bea45421",
+      "from": [
+        -5.76,
+        211.2,
+        -62.72
+      ],
+      "to": [
+        5.76,
+        281.6,
+        -56.32
+      ],
+      "origin": [
+        0.0,
+        246.4,
+        -59.52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "chest_rune_cross_glow",
+      "type": "cube",
+      "uuid": "6a273359-670e-4711-948f-c5350916ca5d",
+      "from": [
+        -32.0,
+        249.6,
+        -63.36
+      ],
+      "to": [
+        32.0,
+        257.92,
+        -56.32
+      ],
+      "origin": [
+        0.0,
+        253.76,
+        -59.84
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "187090e7-63aa-4351-90b3-d28f84cb342e",
+      "from": [
+        17.28,
+        192.0,
+        -58.88
+      ],
+      "to": [
+        21.12,
+        205.44,
+        -55.68
+      ],
+      "origin": [
+        19.2,
+        198.72,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "97306c4f-2c23-4f1c-9d70-8f64f22cf0a5",
+      "from": [
+        -32.0,
+        208.64,
+        -58.88
+      ],
+      "to": [
+        -28.16,
+        222.08,
+        -55.68
+      ],
+      "origin": [
+        -30.08,
+        215.36,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "7dafdad0-ab17-442e-b238-fff3966245a6",
+      "from": [
+        39.04,
+        225.28,
+        -58.88
+      ],
+      "to": [
+        42.88,
+        238.72,
+        -55.68
+      ],
+      "origin": [
+        40.96,
+        232.0,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "69377596-daab-4657-a4d6-3d9036d6060a",
+      "from": [
+        -53.76,
+        241.92,
+        -58.88
+      ],
+      "to": [
+        -49.92,
+        255.36,
+        -55.68
+      ],
+      "origin": [
+        -51.84,
+        248.64,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "446ab705-a819-4064-99d4-9d92665688d5",
+      "from": [
+        60.8,
+        258.56,
+        -58.88
+      ],
+      "to": [
+        64.64,
+        272.0,
+        -55.68
+      ],
+      "origin": [
+        62.72,
+        265.28,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "5ddda070-84e4-4463-8275-97fc858fbea2",
+      "from": [
+        -21.12,
+        275.2,
+        -58.88
+      ],
+      "to": [
+        -17.28,
+        288.64,
+        -55.68
+      ],
+      "origin": [
+        -19.2,
+        281.92,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "85667300-12e9-475d-9af5-20328f0cef07",
+      "from": [
+        28.16,
+        192.0,
+        -58.88
+      ],
+      "to": [
+        32.0,
+        205.44,
+        -55.68
+      ],
+      "origin": [
+        30.08,
+        198.72,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "69245053-de4c-494d-9978-dbd98612d087",
+      "from": [
+        -42.88,
+        208.64,
+        -58.88
+      ],
+      "to": [
+        -39.04,
+        222.08,
+        -55.68
+      ],
+      "origin": [
+        -40.96,
+        215.36,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "9b2440b4-5e4b-4acb-ba0a-6e0625a7fde1",
+      "from": [
+        49.92,
+        225.28,
+        -58.88
+      ],
+      "to": [
+        53.76,
+        238.72,
+        -55.68
+      ],
+      "origin": [
+        51.84,
+        232.0,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "2e2c1030-8840-4084-834e-ee6ce34c55a3",
+      "from": [
+        -64.64,
+        241.92,
+        -58.88
+      ],
+      "to": [
+        -60.8,
+        255.36,
+        -55.68
+      ],
+      "origin": [
+        -62.72,
+        248.64,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "99c04dd0-e0c4-4e8e-9eb3-4f593ecf1cc0",
+      "from": [
+        17.28,
+        258.56,
+        -58.88
+      ],
+      "to": [
+        21.12,
+        272.0,
+        -55.68
+      ],
+      "origin": [
+        19.2,
+        265.28,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "4820a49d-5976-4e1e-89fe-f46676061bec",
+      "from": [
+        -32.0,
+        275.2,
+        -58.88
+      ],
+      "to": [
+        -28.16,
+        288.64,
+        -55.68
+      ],
+      "origin": [
+        -30.08,
+        281.92,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "dc350a1a-280f-4c84-8be5-2053d73bd86d",
+      "from": [
+        39.04,
+        192.0,
+        -58.88
+      ],
+      "to": [
+        42.88,
+        205.44,
+        -55.68
+      ],
+      "origin": [
+        40.96,
+        198.72,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "f2684ae1-2aaf-4276-bdbd-4c364273fa28",
+      "from": [
+        -53.76,
+        208.64,
+        -58.88
+      ],
+      "to": [
+        -49.92,
+        222.08,
+        -55.68
+      ],
+      "origin": [
+        -51.84,
+        215.36,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "98290102-5995-44f0-9de6-43696e54687e",
+      "from": [
+        60.8,
+        225.28,
+        -58.88
+      ],
+      "to": [
+        64.64,
+        238.72,
+        -55.68
+      ],
+      "origin": [
+        62.72,
+        232.0,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "6e008bf9-f788-4538-8416-94d2bb9ba19f",
+      "from": [
+        -21.12,
+        241.92,
+        -58.88
+      ],
+      "to": [
+        -17.28,
+        255.36,
+        -55.68
+      ],
+      "origin": [
+        -19.2,
+        248.64,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "067cdf7f-ee08-45a6-8ce6-f5508998ee65",
+      "from": [
+        28.16,
+        258.56,
+        -58.88
+      ],
+      "to": [
+        32.0,
+        272.0,
+        -55.68
+      ],
+      "origin": [
+        30.08,
+        265.28,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "etched_stone_fissure",
+      "type": "cube",
+      "uuid": "b561b547-f829-4309-a7fd-b52ca35bb2ee",
+      "from": [
+        -42.88,
+        275.2,
+        -58.88
+      ],
+      "to": [
+        -39.04,
+        288.64,
+        -55.68
+      ],
+      "origin": [
+        -40.96,
+        281.92,
+        -57.28
+      ],
+      "rotation": [
+        0,
+        0,
+        -22
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "hammer_handle",
+      "type": "cube",
+      "uuid": "5c927a50-701c-45f4-9649-4c25a8238468",
+      "from": [
+        -147.2,
+        12.8,
+        -32.0
+      ],
+      "to": [
+        -134.4,
+        275.2,
+        -19.2
+      ],
+      "origin": [
+        -140.8,
+        144.0,
+        -25.6
+      ],
+      "rotation": [
+        0.0,
+        0,
+        -0.0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            3,
+            43,
+            4,
+            44
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "monolithic_hammer_head",
+      "type": "cube",
+      "uuid": "b2caa534-6673-4b41-8a89-d1eb9a042f10",
+      "from": [
+        -217.6,
+        230.4,
+        -70.4
+      ],
+      "to": [
+        -64.0,
+        313.6,
+        32.0
+      ],
+      "origin": [
+        -140.8,
+        272.0,
+        -19.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            19,
+            27,
+            20,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "hammer_stone_end",
+      "type": "cube",
+      "uuid": "2bbaecd7-ef99-4b11-b567-ac61627c0002",
+      "from": [
+        -225.28,
+        226.56,
+        -74.24
+      ],
+      "to": [
+        -209.92,
+        317.44,
+        35.84
+      ],
+      "origin": [
+        -217.6,
+        272.0,
+        -19.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "hammer_stone_end",
+      "type": "cube",
+      "uuid": "446e0514-b9c8-4d58-9095-b724ed77f3d9",
+      "from": [
+        -71.68,
+        226.56,
+        -74.24
+      ],
+      "to": [
+        -56.32,
+        317.44,
+        35.84
+      ],
+      "origin": [
+        -64.0,
+        272.0,
+        -19.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            11,
+            27,
+            12,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "hammer_rune_glow",
+      "type": "cube",
+      "uuid": "4b596cf3-8274-46cf-a814-dc491ff4550e",
+      "from": [
+        -147.2,
+        243.2,
+        -76.16
+      ],
+      "to": [
+        -134.4,
+        294.4,
+        -71.68
+      ],
+      "origin": [
+        -140.8,
+        268.8,
+        -73.92
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "box_uv": false,
+      "uv_offset": [
+        0,
+        0
+      ],
+      "shade": true,
+      "visibility": true,
+      "autouv": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "west": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "up": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            43,
+            27,
+            44,
+            28
+          ],
+          "texture": 0
+        }
+      }
+    },
+    {
+      "name": "hammer_dust",
+      "type": "locator",
+      "uuid": "cc7f43d7-d3bf-4073-861e-9c6089e9b6fd",
+      "position": [
+        -140.8,
+        275.2,
+        -76.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "visibility": true
+    },
+    {
+      "name": "heart_runes",
+      "type": "locator",
+      "uuid": "cccb4e6e-28a1-4250-b701-a79414755874",
+      "position": [
+        0.0,
+        249.6,
+        -64.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "visibility": true
+    },
+    {
+      "name": "shoulder_debris",
+      "type": "locator",
+      "uuid": "ad4327f0-9210-470d-994c-78746fe1f1a2",
+      "position": [
+        0.0,
+        326.4,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "visibility": true
+    }
+  ],
+  "groups": [
+    {
+      "name": "root",
+      "uuid": "16ce1c12-9bf5-43f8-a418-9b4ac6a9d112",
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "body",
+      "uuid": "7794286f-3d42-47af-8d0d-26f5e94f0bc0",
+      "origin": [
+        0.0,
+        128.0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "head",
+      "uuid": "089a19ed-a132-49fe-bf06-82cae2dd3adb",
+      "origin": [
+        0.0,
+        307.2,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "right_arm",
+      "uuid": "9768ae7c-cec8-4bec-a38a-888143a69bda",
+      "origin": [
+        -102.4,
+        288.0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "left_arm",
+      "uuid": "ad30181b-ecfc-4d80-943b-019ff6a81537",
+      "origin": [
+        102.4,
+        288.0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "right_leg",
+      "uuid": "4982659c-be72-43fb-81bb-04ce23bf0fc2",
+      "origin": [
+        -44.8,
+        172.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "left_leg",
+      "uuid": "27c25f63-1aa3-4f2d-9818-1567836c1f45",
+      "origin": [
+        44.8,
+        172.8,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    },
+    {
+      "name": "hammer",
+      "uuid": "d6ea7835-f2d7-4e45-8ec8-c0b3ed059105",
+      "origin": [
+        -140.8,
+        160.0,
+        -25.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": 0,
+      "export": true,
+      "visibility": true,
+      "isOpen": true,
+      "autouv": 0,
+      "reset": false,
+      "shade": true
+    }
+  ],
+  "outliner": [
+    {
+      "uuid": "16ce1c12-9bf5-43f8-a418-9b4ac6a9d112",
+      "isOpen": true,
+      "children": [
+        {
+          "uuid": "7794286f-3d42-47af-8d0d-26f5e94f0bc0",
+          "isOpen": true,
+          "children": [
+            "372ecd47-7bcc-4f5d-9c9c-27c055d945f6",
+            "3062c99e-a71f-49f8-a264-036eb15e3a3b",
+            "9393ca18-50db-479c-a089-c8cfa377e365",
+            "905a03d7-6af7-41df-b07b-8f87bea45421",
+            "6a273359-670e-4711-948f-c5350916ca5d",
+            "187090e7-63aa-4351-90b3-d28f84cb342e",
+            "97306c4f-2c23-4f1c-9d70-8f64f22cf0a5",
+            "7dafdad0-ab17-442e-b238-fff3966245a6",
+            "69377596-daab-4657-a4d6-3d9036d6060a",
+            "446ab705-a819-4064-99d4-9d92665688d5",
+            "5ddda070-84e4-4463-8275-97fc858fbea2",
+            "85667300-12e9-475d-9af5-20328f0cef07",
+            "69245053-de4c-494d-9978-dbd98612d087",
+            "9b2440b4-5e4b-4acb-ba0a-6e0625a7fde1",
+            "2e2c1030-8840-4084-834e-ee6ce34c55a3",
+            "99c04dd0-e0c4-4e8e-9eb3-4f593ecf1cc0",
+            "4820a49d-5976-4e1e-89fe-f46676061bec",
+            "dc350a1a-280f-4c84-8be5-2053d73bd86d",
+            "f2684ae1-2aaf-4276-bdbd-4c364273fa28",
+            "98290102-5995-44f0-9de6-43696e54687e",
+            "6e008bf9-f788-4538-8416-94d2bb9ba19f",
+            "067cdf7f-ee08-45a6-8ce6-f5508998ee65",
+            "b561b547-f829-4309-a7fd-b52ca35bb2ee",
+            "cccb4e6e-28a1-4250-b701-a79414755874",
+            "ad4327f0-9210-470d-994c-78746fe1f1a2",
+            {
+              "uuid": "089a19ed-a132-49fe-bf06-82cae2dd3adb",
+              "isOpen": true,
+              "children": [
+                "b16207cc-16d5-4a74-b935-0d9e148bea59",
+                "333f5650-d13e-4d77-a230-6d640acbac23",
+                "163aa98b-2a6d-4db1-821a-05702f94798f",
+                "88d1079b-64e7-47d4-9db7-830bf7648733",
+                "40a9c9de-702e-4c5f-b214-bb62dc84234d",
+                "86be1d4c-35b7-4b69-b09b-9e656f339008",
+                "21dd3bbe-c480-49b1-8ec1-9d88b861c4c4",
+                "97079fb1-3ccd-4540-85dc-eb894d76cdb7",
+                "6db69350-6b26-41e8-8b73-4053e7e0deb6"
+              ]
+            },
+            {
+              "uuid": "9768ae7c-cec8-4bec-a38a-888143a69bda",
+              "isOpen": true,
+              "children": [
+                "153298f6-7887-4bb9-9c69-9d675d10d92d",
+                "81f7e4b5-bb98-4666-ad3f-eada1203d0f3",
+                "8e3618f2-7767-41c1-8411-72886aaf030c",
+                "d7cd9b3a-6944-498c-87ef-7f6abf5d17b6",
+                "cbd658fc-1da3-4a1c-b516-166eee54264f",
+                "8dbc10c9-8c18-4b51-a9bd-0eed33d238f3",
+                "26646630-5c82-4d8e-8fe9-7f0d7b6ee2db",
+                "793deb07-db1a-4456-9349-02b104b4de0e",
+                "4dfa1a93-b012-4cca-8802-3984a48eba68",
+                "362914bb-98fa-4ab3-86b7-f54fe9a6792d",
+                "dba7c2f9-9ceb-403c-81e8-56baace62766",
+                {
+                  "uuid": "d6ea7835-f2d7-4e45-8ec8-c0b3ed059105",
+                  "isOpen": true,
+                  "children": [
+                    "5c927a50-701c-45f4-9649-4c25a8238468",
+                    "b2caa534-6673-4b41-8a89-d1eb9a042f10",
+                    "2bbaecd7-ef99-4b11-b567-ac61627c0002",
+                    "446e0514-b9c8-4d58-9095-b724ed77f3d9",
+                    "4b596cf3-8274-46cf-a814-dc491ff4550e",
+                    "cc7f43d7-d3bf-4073-861e-9c6089e9b6fd"
+                  ]
+                }
+              ]
+            },
+            {
+              "uuid": "ad30181b-ecfc-4d80-943b-019ff6a81537",
+              "isOpen": true,
+              "children": [
+                "7d461727-66b8-4da0-a0f3-d2bc915285f3",
+                "5a95f989-78b7-40aa-9eb2-bc3062b8fe13",
+                "277aa20b-128f-4f6a-b11d-c4b060be505a",
+                "094a6512-26f2-4b8d-9100-b7e0703ed3fc",
+                "0b765c34-f8d8-4966-ad0b-c0c382f6b703",
+                "34f54c90-a584-48f5-8f30-d61a4c0942e4",
+                "92750e7c-074b-40b1-a116-17d3dfa20b27",
+                "bf1aaa8b-8388-4aaa-a9ab-45e9e102845e",
+                "adc0280d-aff8-482f-816d-46f4ad32a15e",
+                "00d173be-d6ec-400b-8df0-c144a10b02f0",
+                "b8567c44-618c-429f-b34f-ac05849a60fe"
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "4982659c-be72-43fb-81bb-04ce23bf0fc2",
+          "isOpen": true,
+          "children": [
+            "df7b30f3-6292-406a-8c1d-cbca829fa08c",
+            "d8fc3bdc-3a69-4e73-b890-9f3801d6784f",
+            "99320dbc-ffae-4774-8578-92b74ad8efbd"
+          ]
+        },
+        {
+          "uuid": "27c25f63-1aa3-4f2d-9818-1567836c1f45",
+          "isOpen": true,
+          "children": [
+            "91180dae-3be3-47ad-8c86-266103ad8e4c",
+            "20694d97-303c-4dcf-9ed0-b9444507660f",
+            "9e1628ff-659b-4d5c-98f4-8919bec66071"
+          ]
+        }
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "steintitan.png",
+      "id": "0",
+      "uuid": "e2aa8af8-62bc-4b05-a618-dd6718ed55c6",
+      "mode": "bitmap",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABsklEQVR4nO2av0tCUQCF74trpaAR+aYagrAfUzYIUW1BhLY09E8UvKDaEqShobmGhNpCHIpCgoaWBjGEqBwMipKyoUKIloaoqP/grAd851u/+/TjcOEtz+l2Y38G4IY7kTa1Rh36hY4u6BMR+Pdm7/0H+oPlX+jN7AzULfjp5kcDsAPYaAB2ABsNwA5gY70H/J4vvp5Cn15shz6Ze4L+8e4C+nihBH0wk4N+dLMBve9vgAZgB7DRAOwANhqAHcDG3k9MwQM3L9PQZ1od/PzREPQ9URf60lsV+vIW/v2Ts2vofX8DNAA7gI0GYAew0QDsADY2lLLwwEr/PPT7h8fQf9ei0OfPy9A/b3jQJ+d2oY/0JqD3/Q3QAOwANhqAHcBGA7AD2NjLQAgecLa/oM+G16Dvq47hAi8GdXxkCfrxYAD6tsFh6H1/AzQAO4CNBmAHsNEA7AA2NljYgQc+rrLQf64OQJ8qTkLv2TT0lTp+j1egNcbcrkPt+xugAdgBbDQAO4CNBmAHsHGMMfiD/SbH9zdAA7AD2GgAdgAbDcAOYKMB2AFsNAA7gI0GYAew0QDsADb/myFEDqO+0uYAAAAASUVORK5CYII=",
+      "visible": true,
+      "internal": true,
+      "saved": false,
+      "uv_width": 64,
+      "uv_height": 64,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "frame_interpolate": false
+    }
+  ],
+  "animations": [
+    {
+      "uuid": "ce5cb23c-cc18-4896-be19-7f3d35928284",
+      "name": "animation.colossus.steintitan.idle",
+      "loop": "loop",
+      "override": false,
+      "length": 4,
+      "snapping": 20,
+      "anim_time_update": "",
+      "blend_weight": "",
+      "start_delay": "",
+      "loop_delay": "",
+      "animators": {
+        "16ce1c12-9bf5-43f8-a418-9b4ac6a9d112": {
+          "name": "root",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "6fe0d218-1768-445f-99a2-d10f99d62d8b",
+              "channel": "position",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "ba44cf99-13af-4abe-acc8-86b80a1bc4ff",
+              "channel": "position",
+              "time": 2.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "1.7920000000000003",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "7e2f444d-a166-4a33-aba0-55f4cb8da2b1",
+              "channel": "position",
+              "time": 4.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "089a19ed-a132-49fe-bf06-82cae2dd3adb": {
+          "name": "head",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "c2899eb0-7bfe-4ca8-9820-4a8ae7ab5495",
+              "channel": "rotation",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "-3",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "c81c72c8-ae33-462e-a812-ef73094e3569",
+              "channel": "rotation",
+              "time": 2.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "3",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "55384e6c-56d3-40dd-8e76-7592e02b3358",
+              "channel": "rotation",
+              "time": 4.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "-3",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "ad30181b-ecfc-4d80-943b-019ff6a81537": {
+          "name": "left_arm",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "78c9c50f-86c1-431b-ba9c-eb162ad885d9",
+              "channel": "rotation",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "1",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "5bd53002-987f-4f10-9a91-4dc5bef6f562",
+              "channel": "rotation",
+              "time": 2.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "-1",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "168782f2-c749-44b0-8521-3d66cb529c11",
+              "channel": "rotation",
+              "time": 4.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "1",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "uuid": "2e158fdc-060d-4f7d-869c-0206c2fa2aee",
+      "name": "animation.colossus.steintitan.move",
+      "loop": "loop",
+      "override": false,
+      "length": 1.5,
+      "snapping": 20,
+      "anim_time_update": "",
+      "blend_weight": "",
+      "start_delay": "",
+      "loop_delay": "",
+      "animators": {
+        "4982659c-be72-43fb-81bb-04ce23bf0fc2": {
+          "name": "right_leg",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "f8b58637-50a4-457a-a2fd-cd0615958ae9",
+              "channel": "rotation",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "611e8430-41d1-41fd-8397-e1eca341bc2a",
+              "channel": "rotation",
+              "time": 0.75,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "-17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "37e54c64-bc7c-4d28-94bb-04d89b74cc6f",
+              "channel": "rotation",
+              "time": 1.5,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        },
+        "27c25f63-1aa3-4f2d-9818-1567836c1f45": {
+          "name": "left_leg",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "8b7506cf-6e61-48cc-8846-31a610514e1a",
+              "channel": "rotation",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "-17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "391b954b-47d8-4d07-a9c7-1105e8645ca9",
+              "channel": "rotation",
+              "time": 0.75,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "b3458863-7a03-49a7-912a-3a0d6b80dcf1",
+              "channel": "rotation",
+              "time": 1.5,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "-17",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "uuid": "96923959-1401-4214-8ecf-4fc49b1130de",
+      "name": "animation.colossus.steintitan.attack",
+      "loop": "once",
+      "override": false,
+      "length": 1.5,
+      "snapping": 20,
+      "anim_time_update": "",
+      "blend_weight": "",
+      "start_delay": "",
+      "loop_delay": "",
+      "animators": {
+        "9768ae7c-cec8-4bec-a38a-888143a69bda": {
+          "name": "right_arm",
+          "type": "bone",
+          "keyframes": [
+            {
+              "uuid": "1de17a1e-5f30-4878-ae60-02643fd49f6c",
+              "channel": "rotation",
+              "time": 0.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "uuid": "a8e07456-f11e-4fcb-b856-bd319a250865",
+              "channel": "rotation",
+              "time": 0.5,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "-62",
+                  "y": "0",
+                  "z": "-10"
+                }
+              ]
+            },
+            {
+              "uuid": "5b3a8deb-9534-455a-8166-53f5b81560c6",
+              "channel": "rotation",
+              "time": 1.0,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "28",
+                  "y": "0",
+                  "z": "5"
+                }
+              ]
+            },
+            {
+              "uuid": "437ff966-cd3e-498d-8599-1881670c30dd",
+              "channel": "rotation",
+              "time": 1.5,
+              "color": -1,
+              "interpolation": "linear",
+              "data_points": [
+                {
+                  "x": "0",
+                  "y": "0",
+                  "z": "0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

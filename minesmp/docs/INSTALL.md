@@ -161,3 +161,26 @@ gewarnt (`guard.ai.on-error`). Die KI-Bibliothek (ca. 45 MB) laedt der Server be
 - **Ablehnen** schliesst den Report. Der Melder bekommt in beiden Faellen eine kurze Nachricht.
 - Ein Spieler kann hoechstens 3 offene Reports haben (`reports.max-open`) und denselben Spieler nicht doppelt melden; Wartezeit zwischen zwei Reports: `cooldowns.report`.
 - Gruende, Bug-Kategorien und Symbole stehen in `config.yml -> reports`. Mit `text: true` schreibt der Spieler den Grund danach in den Chat (die Nachricht ist fuer andere nicht sichtbar).
+
+## 13. 3D-NPCs und Bosse
+Das Windows-Paket laedt **BetterModel 3.6.0** mit (kostenlos, MIT-Lizenz). Beim Start legt MineSMPCore die 14 Modelle nach
+`plugins/BetterModel/models`, BetterModel baut daraus ein Ressourcenpaket (`plugins/BetterModel/build.zip`) und MineSMPCore
+schickt es zusammen mit dem eigenen Paket an jeden Spieler (zwei Pakete, das unterstuetzt Minecraft seit 1.20.3).
+
+| Was | Wo |
+|---|---|
+| Welcher NPC welche Figur traegt | `config.yml -> models.npcs` (z.B. `shop: haendler`) |
+| Bosse: Leben, Schaden, Groesse, Faehigkeiten | `plugins/MineSMPCore/bosses.yml` (danach `/minesmp reload`) |
+| Reihenfolge im Boss-Event | `events.yml -> events.boss.bosses` und `boss-order: rotation` oder `random` |
+| Bestimmten Boss sofort starten | `/eventadmin start boss granitfuerst` (Boss-Spawn vorher mit `/eventadmin setboss` setzen) |
+| Gruftwaechter-Modell | `config.yml -> pve.boss.model` |
+| Eine Boss-Faehigkeit sofort ausloesen (Test/Vorfuehren) | `/eventadmin cast <faehigkeit>` waehrend des Boss-Events |
+| 3D-Modelle ganz aus | `config.yml -> models.enabled: false` oder BetterModel entfernen |
+
+Ohne BetterModel funktioniert alles weiter: NPCs tragen die Fantasy-Skins (aus dem MineSMP-Ressourcenpaket), Bosse erscheinen
+als vergroessertes Monster (Verwuester, Hexe, Eisengolem, Spinne) mit denselben Faehigkeiten.
+
+**Hinweise:** Die Modelle sind fuer Java gebaut; Bedrock-Spieler (Geyser) sehen wahrscheinlich nur das Grundwesen oder nichts -
+das ist nicht getestet. Wer das Ressourcenpaket ablehnt, sieht statt der Fantasy-Skins ein Fehlermuster. Die Bosse sind auf
+etwa ein Drittel der Originalgroesse gesetzt (8-11 Bloecke hoch); `model-scale` in `bosses.yml` aendert das.
+Die Original-Pakete fuer Bedrock (`.mcaddon`) gehoeren nicht zum Server - Bedrock-Welten koennen sie direkt importieren.
