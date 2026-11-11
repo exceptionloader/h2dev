@@ -44,6 +44,17 @@ public final class StaffCommands implements Listener {
                 plugin.spawn().build(s);
                 return;
             }
+            if (a.length > 0 && a[0].equalsIgnoreCase("winter")) {
+                if (!s.hasPermission("minesmp.admin.spawn")) { Msg.send(s, "no-permission", "{prefix}&cDazu hast du keine Berechtigung."); return; }
+                if (a.length < 2 || !(a[1].equalsIgnoreCase("on") || a[1].equalsIgnoreCase("off"))) {
+                    Msg.send(s, "winter.usage", "{prefix}&7Winter am Spawn: &f/minesmp winter on &7oder &f/minesmp winter off &8(gerade: {state}&8)",
+                            "state", plugin.winter().enabled() ? "&aan" : "&caus");
+                    return;
+                }
+                plugin.winter().set(s, a[1].equalsIgnoreCase("on"));
+                plugin.audit().log(s, "WINTER", a[1].toLowerCase());
+                return;
+            }
             if (a.length > 0 && a[0].equalsIgnoreCase("reload")) {
                 Msg.load(plugin);
                 plugin.reloadConfig();
@@ -66,7 +77,8 @@ public final class StaffCommands implements Listener {
             } else {
                 Msg.send(s, "minesmp.info", "{prefix}&bMineSMPCore &f{version} &7- &f/minesmp reload", "version", plugin.getPluginMeta().getVersion());
             }
-        }, (s, a) -> a.length == 1 ? List.of("reload", "buildspawn") : a.length == 2 && a[0].equalsIgnoreCase("buildspawn") ? List.of("confirm") : List.of(), "msmp"));
+        }, (s, a) -> a.length == 1 ? List.of("reload", "buildspawn", "winter") : a.length == 2 && a[0].equalsIgnoreCase("buildspawn") ? List.of("confirm")
+                : a.length == 2 && a[0].equalsIgnoreCase("winter") ? List.of("on", "off") : List.of(), "msmp"));
     }
 
     private void staff(CommandSender s, String l, String[] a) {

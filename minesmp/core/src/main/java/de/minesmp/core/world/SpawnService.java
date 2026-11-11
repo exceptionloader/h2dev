@@ -88,7 +88,7 @@ import java.util.zip.GZIPInputStream;
  * Befehle: /navi (Navigator), /minesmp buildspawn (neu bauen).
  */
 public final class SpawnService implements Listener {
-    private record Npc(String id, String name, String desc, Material item, double[] pos, String action, String skin) {}
+    private record Npc(String id, String name, String desc, Material item, double[] pos, String action, String skin, String outfit) {}
     private record Holo(double[] pos, float scale, String text) {}
     private record Portal(String name, String action, int[] box, double[] back) {}
     private record Zone(double cx, double cz, double r, int y1, int y2) {}
@@ -229,7 +229,7 @@ public final class SpawnService implements Listener {
         }
         for (Map<?, ?> m : y.getMapList("npcs")) {
             npcs.add(new Npc(String.valueOf(m.get("id")), String.valueOf(m.get("name")), String.valueOf(m.get("desc")),
-                    mat(m.get("item"), Material.AIR), d(m.get("pos")), String.valueOf(m.get("action")), String.valueOf(m.get("skin"))));
+                    mat(m.get("item"), Material.AIR), d(m.get("pos")), String.valueOf(m.get("action")), String.valueOf(m.get("skin")), null));
         }
         for (Map<?, ?> m : y.getMapList("holograms")) {
             Object sc = m.get("scale");
@@ -436,6 +436,7 @@ public final class SpawnService implements Listener {
                     builtVersion = version;
                     applyConfig(true);
                     ensureEntities();
+                    if (plugin.winter() != null) plugin.winter().onSpawnRebuilt();
                     Location sp = loc(spawnPos);
                     for (Player p : moved) if (p.isOnline() && sp != null) plugin.ranks().teleportNow(p, sp);
                     plugin.audit().log(by, "SPAWN_BUILD", placed + " Bloecke");
@@ -562,6 +563,12 @@ public final class SpawnService implements Listener {
                 } catch (Exception ignored) {
                 }
                 if (n.item != Material.AIR) mq.getEquipment().setItemInMainHand(new ItemStack(n.item));
+                if ("santa".equals(n.outfit)) {
+                    mq.getEquipment().setHelmet(dyed(Material.LEATHER_HELMET, Color.fromRGB(0xC8, 0x1E, 0x1E)));
+                    mq.getEquipment().setChestplate(dyed(Material.LEATHER_CHESTPLATE, Color.fromRGB(0xC8, 0x1E, 0x1E)));
+                    mq.getEquipment().setLeggings(dyed(Material.LEATHER_LEGGINGS, Color.fromRGB(0xC8, 0x1E, 0x1E)));
+                    mq.getEquipment().setBoots(dyed(Material.LEATHER_BOOTS, Color.fromRGB(0x1A, 0x1A, 0x1A)));
+                }
                 mq.getPersistentDataContainer().set(npcKey, PersistentDataType.STRING, n.id);
             });
             npcEntities.put(n.id, m.getUniqueId());
@@ -866,6 +873,38 @@ public final class SpawnService implements Listener {
     }
 
     public boolean isBuilt() { return built; }
+
+    public boolean isBuilding() { return building; }
+
+    public String worldName() { return worldName; }
+
+    /** Flaechen des Spawns (x1,y1,z1,x2,y2,z2), z.B. fuer den Winter-Modus. */
+    public List<int[]> clearBoxes() { return List.copyOf(clearBoxes); }
+
+    private static ItemStack dyed(Material m, Color c) {
+        ItemStack it = new ItemStack(m);
+        it.editMeta(org.bukkit.inventory.meta.LeatherArmorMeta.class, lm -> lm.setColor(c));
+        return it;
+    }
+
+    /** Zusaetzlicher NPC (z.B. saisonal). Ersetzt einen vorhandenen mit gleicher ID. */
+    public void addNpc(String id, String name, String desc, Material item, double[] pos, String action, String skin, String outfit) {
+        if (hasNpc(id)) return;
+        npcs.add(new Npc(id, name, desc, item, pos, action, skin, outfit));
+        ensureEntities();
+    }
+
+    public boolean hasNpc(String id) {
+        for (Npc n : npcs) if (n.id.equals(id)) return true;
+        return false;
+    }
+
+    public void removeNpc(String id) {
+        npcs.removeIf(n -> n.id.equals(id));
+        UUID u = npcEntities.remove(id);
+        Entity e = u == null ? null : Bukkit.getEntity(u);
+        if (e != null) e.remove();
+    }
 
     /** Benannter Punkt aus dem Bauplan (layout.yml -> points), nur wenn der Spawn gebaut ist. */
     public Location point(String name) {

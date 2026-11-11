@@ -38,6 +38,7 @@ public final class ProfileService {
             new Setting("join-messages", "Join-/Quit-Nachrichten", Material.OAK_DOOR, true, null),
             new Setting("nametag-self", "Eigenes Namensschild (F5)", Material.NAME_TAG, true, null),
             new Setting("spawn-compass", "Navigator-Kompass am Spawn", Material.COMPASS, true, null),
+            new Setting("winter-music", "Weihnachtsmusik am Spawn", Material.JUKEBOX, true, null),
             new Setting("rank-particles", "Meine Rang-Partikel", Material.FIREWORK_STAR, true, null),
             new Setting("show-particles", "Partikel anderer Spieler", Material.ENDER_EYE, true, null),
             new Setting("socialspy", "SocialSpy (Team)", Material.SPYGLASS, false, "minesmp.staff.socialspy"));

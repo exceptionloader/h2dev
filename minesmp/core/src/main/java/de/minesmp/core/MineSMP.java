@@ -112,6 +112,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.combat.PvpService pvp;
     private de.minesmp.core.events.PveService pve;
     private de.minesmp.core.world.SpawnCompass compass;
+    private de.minesmp.core.world.WinterService winter;
     private final Set<String> disabledCommands = new HashSet<>();
 
     public static MineSMP get() {
@@ -210,6 +211,7 @@ public final class MineSMP extends JavaPlugin {
         compass = new de.minesmp.core.world.SpawnCompass(this);
         new de.minesmp.core.world.SpawnProtection(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
+        winter = new de.minesmp.core.world.WinterService(this);
         clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);
         chat = new ChatService(this);
@@ -331,4 +333,5 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.clan.ClanLeagueService league() { return league; }
     public de.minesmp.core.combat.PvpService pvp() { return pvp; }
     public de.minesmp.core.events.PveService pve() { return pve; }
+    public de.minesmp.core.world.WinterService winter() { return winter; }
 }

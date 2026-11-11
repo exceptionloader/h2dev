@@ -84,6 +84,20 @@ spawn-compass:
   slot: 9
   name: '&b&lNavigator &8┃ &7Rechtsklick'
 
+# Winter am Spawn: Schnee auf dem Boden, Schneefall, Weihnachtsbaum, Weihnachtsmann und leise Weihnachtslieder.
+# An/aus im Spiel: /minesmp winter on|off  (entfernt Schnee und Baum wieder komplett)
+winter:
+  enabled: true
+  snow-ground: true          # Schneedecke auf allen freien Flaechen
+  snowfall: true             # es schneit (Wetter nur in der Spawn-Welt)
+  tree: true                 # Weihnachtsbaum mit Lichtern und Geschenken
+  santa: true                # Weihnachtsmann neben dem Baum
+  santa-command: daily       # Befehl beim Anklicken (taegliche Belohnung)
+  time: 12200                # Tageszeit am Spawn (12200 = Abenddaemmerung, 6000 = heller Mittag, 13000 = fast Nacht)
+  music: true                # Weihnachtslieder aus Glockentoenen (jeder Spieler kann sie in /settings abschalten)
+  music-volume: 0.25         # 0.0 bis 1.0 - bewusst leise
+  music-pause-seconds: 25    # Pause zwischen zwei Liedern
+
 spawn-particles:
   enabled: true
 

@@ -40,6 +40,7 @@ Am Spawn sind Abbauen, PvP (ausser in der Arena), Fall- und Hungerschaden aus; w
 |---|---|
 | Spawn neu bauen (z.B. nach Update) | `/minesmp buildspawn confirm` |
 | Navigator (alle Bereiche) | `/navi` oder NPC "Navigator" |
+| Winter am Spawn an/aus (Schnee, Schneefall, Baum, Musik) | `/minesmp winter on` / `/minesmp winter off` |
 | Am Spawn bauen duerfen | Recht `minesmp.spawn.build` (Admins haben es) |
 | KOTH-Huegel | Survival-Welt, zwei Ecken: `/eventadmin setkoth 1` und `/eventadmin setkoth 2` |
 | Boss-Spawn | `/eventadmin setboss` |

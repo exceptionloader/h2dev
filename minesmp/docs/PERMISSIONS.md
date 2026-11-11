@@ -83,7 +83,7 @@ Wer `minesmp.staff.member` oder `minesmp.staff.vanish` hat, sieht Teammitglieder
 wer gerade im Vanish ist, zeigt `/vanish list`.
 
 ## Admin
-`minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn),
+`minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn, /minesmp winter on|off),
 `minesmp.admin.eco` (/eco), `minesmp.admin.crate` (/crate givekey/setblock), `minesmp.admin.duel` (Arenen),
 `minesmp.admin.event` (/eventadmin), `minesmp.admin.farmwelt` (/farmwelt reset), `minesmp.admin.items` (/msitem),
 `minesmp.admin.reload` (/minesmp reload), `minesmp.admin.setspawn`, `minesmp.admin.audit` (/auditlog), `minesmp.admin.vote` (/fakevote),

@@ -902,7 +902,8 @@ layout = {
     "clan-board": clan_board,
     "clan-arenas": clan_arena,
     "sumo": SUMO,
-    "points": {"crown-board": [9.5, 103.0, AZ - 34.5], "pve-lobby": pve_lobby},
+    "points": {"crown-board": [9.5, 103.0, AZ - 34.5], "pve-lobby": pve_lobby,
+               "winter-tree": [12, 101, 18], "winter-santa": [8.5, 101, 22.5, 180, 0]},
     "pve": {"arenas": pve_arenas},
 }
 

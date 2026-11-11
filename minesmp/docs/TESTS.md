@@ -158,3 +158,20 @@ Ordner; der Download-Link selbst wurde geprueft), jeder einzelne der 26 NPC-Plae
 
 **Nicht getestet:** jedes einzelne gesperrte Objekt (Rahmen, Ruestungsstaender, Betten, Kerzen ...), WorldEdit als Builder,
 der automatische Rechte-Abgleich durch das Windows-Startskript auf einem bestehenden Server.
+
+## Update 11.11.2026 (2): Winter am Spawn
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Schnee | Burg-Karte und eingebauter Spawn: Schneedecke auf Boden, Daechern und Baeumen; Wege, Treppen und Wasser bleiben frei | ✅ |
+| Schneefall | Wetter in der Spawn-Welt steht auf Niederschlag, Biom ist verschneit (Bot empfaengt Regenstaerke 1) | ✅ |
+| Baum | Weihnachtsbaum mit Lichtern, Schnee und 6 Geschenken steht am vorgesehenen Platz (beide Karten) | ✅ |
+| Weihnachtsmann | Steht neben dem Baum in roter Kleidung; Klick holt die taegliche Belohnung | ✅ |
+| Musik | Glockentoene kommen beim Spieler an: Lautstaerke 0.25 (Zweitstimme 0.10), Kanal "Schallplatten/Jukebox" | ✅ |
+| Musik | In `/settings` abgeschaltet -> 40 Sekunden lang kein Ton mehr | ✅ |
+| Aus | `/minesmp winter off`: kein Schnee, kein Baum, kein Weihnachtsmann, klares Wetter, keine Musik | ✅ |
+| An | `/minesmp winter on` danach: alles wieder da | ✅ |
+| Neubau | `/minesmp buildspawn confirm` bei aktivem Winter: Winter wird nach dem Bau automatisch neu eingerichtet | ✅ |
+
+**Nicht getestet:** wie Schneefall, Daemmerung und Musik im echten Minecraft-Client wirken (die Vorschau-Bilder zeigen weder fallenden Schnee
+noch die Abendstimmung), ob die Melodien sauber klingen (nur die Tonfolgen wurden geprueft, niemand hat sie angehoert), Bedrock-Spieler,
+Serverlast beim Einrichten mit vielen Spielern am Spawn.

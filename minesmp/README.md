@@ -7,6 +7,7 @@ Farbschema: Tuerkis, Blau, Weiss, Dunkelgrau.
 > Schnellstart: `./scripts/install.sh /opt/minesmp` -> [docs/INSTALL.md](docs/INSTALL.md)
 
 ## Funktionen (MineSMPCore)
+- **Winter am Spawn**: Schneedecke auf Boden und Daechern, Schneefall, Abenddaemmerung, Weihnachtsbaum mit Lichtern und Geschenken, Weihnachtsmann (verteilt die taegliche Belohnung) und leise Weihnachtslieder aus Glockentoenen (Jingle Bells, O Tannenbaum, We Wish You a Merry Christmas, Stille Nacht, Deck the Halls). An/aus mit `/minesmp winter on|off` - "off" entfernt Schnee, Baum und Wetter wieder komplett. Jeder Spieler kann die Musik in `/settings` abschalten. Einstellungen: `config.yml -> winter` ([Vorschau](media/winter-vorschau.jpg))
 - **Spawn-Schutz**: normale Spieler koennen am Spawn nichts abbauen oder veraendern (Bloecke sind sofort wieder da; auch Falltueren, Blumentoepfe, Schilder, Rahmen, Werkzeuge, Wachstum, Feuer ...); Tueren und Knoepfe bleiben benutzbar. **Bau-Modus** fuer Builder: Kreativ und WorldEdit nur am Spawn, eigenes Inventar wird gesichert
 - **Team-Rechte**: Owner, Admin und Entwickler duerfen alles; Moderator (Strafen, Vanish, Invsee, Events), Supporter (Chat-Moderation, Reports) und Builder (Bauen am Spawn) haben abgestufte Rechte - Tabelle in `docs/PERMISSIONS.md`
 - **Navigator-Kompass**: liegt nur am Spawn im letzten Hotbar-Platz (Rechtsklick = Reise-Menue zu Markt, Kisten, Arena, Kolosseum, Gruft ...), verschwindet beim Verlassen; eigenes Item auf dem Platz wird verschoben und zurueckgelegt; abschaltbar in /settings
