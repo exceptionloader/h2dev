@@ -149,3 +149,15 @@ Claude jeden Fall, bevor gebannt wird - gebannt wird dann nur, wenn Statistik *u
 Uebertragen werden nur Messwerte (keine Namen, UUIDs oder IPs). Standard-Modell ist `claude-opus-5-5`; lehnt das Modell eine Anfrage ab,
 uebernimmt automatisch ein Ausweichmodell von Anthropic (`fallbacks`). Ist die KI nicht erreichbar, wird nicht gebannt, sondern das Team
 gewarnt (`guard.ai.on-error`). Die KI-Bibliothek (ca. 45 MB) laedt der Server beim ersten Start selbst aus Maven Central.
+
+## 12. Report-System
+| Wer | Was |
+|---|---|
+| Spieler | `/report` (auch `/melden`, `/bugreport`) -> Menue: **Spieler melden** oder **Bug melden**. Offline-Spieler: `/report <Name>` |
+| Team (Recht `minesmp.staff.reports`, ab Supporter) | Chat-Nachricht bei jedem neuen Report mit **[Annehmen]** und **[Ablehnen]**; `/report` zeigt zusaetzlich alle offenen Reports; Hinweis beim Einloggen |
+
+- **Annehmen** teleportiert zum gemeldeten Spieler (bei Bugs zum Melder). Ist er offline, landet man am Ort des Reports.
+  Wer `/vanish` darf, wird dabei unsichtbar (`reports.vanish-on-accept`).
+- **Ablehnen** schliesst den Report. Der Melder bekommt in beiden Faellen eine kurze Nachricht.
+- Ein Spieler kann hoechstens 3 offene Reports haben (`reports.max-open`) und denselben Spieler nicht doppelt melden; Wartezeit zwischen zwei Reports: `cooldowns.report`.
+- Gruende, Bug-Kategorien und Symbole stehen in `config.yml -> reports`. Mit `text: true` schreibt der Spieler den Grund danach in den Chat (die Nachricht ist fuer andere nicht sichtbar).

@@ -372,6 +372,31 @@ vanish:
   pickup-items: true       # im Vanish Items aufheben
   remember: true           # nach dem Neu-Einloggen weiter im Vanish
 
+# Report-System: /report oeffnet ein Menue (Spieler melden / Bug melden). Das Team bekommt eine Chat-Nachricht
+# mit [Annehmen] (teleportiert zum Spieler) und [Ablehnen]; Teammitglieder sehen in /report alle offenen Reports.
+reports:
+  max-open: 3                # so viele offene Reports darf ein Spieler gleichzeitig haben
+  vanish-on-accept: true     # Teammitglied wird beim Annehmen eines Spieler-Reports unsichtbar (wenn es /vanish darf)
+  # text: true = der Spieler beschreibt den Grund danach im Chat
+  player-reasons:
+    - {name: 'Hacking / Cheating', icon: DIAMOND_SWORD}
+    - {name: 'Beleidigung', icon: OAK_SIGN}
+    - {name: 'Spam / Werbung', icon: PAPER}
+    - {name: 'Griefing', icon: TNT}
+    - {name: 'Bugusing', icon: SPIDER_EYE}
+    - {name: 'Betrug / Scam', icon: GOLD_INGOT}
+    - {name: 'Name oder Skin', icon: NAME_TAG}
+    - {name: 'Sonstiges', icon: FEATHER, text: true}
+  # Bei Bugs wird immer nach einer kurzen Beschreibung im Chat gefragt
+  bug-categories:
+    - {name: 'Spielfehler / Glitch', icon: SPIDER_EYE}
+    - {name: 'Items oder Geld verloren', icon: CHEST}
+    - {name: 'Shop / Auktionshaus', icon: EMERALD}
+    - {name: 'Clan / Grundstueck', icon: SHIELD}
+    - {name: 'Spawn / Welt', icon: GRASS_BLOCK}
+    - {name: 'Befehl funktioniert nicht', icon: COMMAND_BLOCK}
+    - {name: 'Sonstiges', icon: FEATHER}
+
 # Anti-Cheat-Waechter ("KI-System"): erkennt Cheater automatisch und bannt sie permanent.
 # Was er sieht: X-Ray (Fundrate versteckter Erze), Zugriffe durch Waende (Freecam/Ghost-Hand), Hack-Clients (Alarme von GrimAC).
 # Was kein Server sehen kann: reines Zuschauen mit Freecam. X-Ray wird zusaetzlich von Paper verhindert (paper-world-defaults.yml -> anti-xray).

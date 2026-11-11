@@ -65,7 +65,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /queue | /q, /warteschlange | `minesmp.duel` | Warteschlange fuer Duelle und Sumo | PvpService |
 | /repair | /fix | `minesmp.repair` | Item reparieren | MiscCommands |
 | /reply | /r | `minesmp.msg` | Antworten | MiscCommands |
-| /report | /melden | `minesmp.report` | Meldet einen Spieler | ReportService |
+| /report | /melden, /bugreport | `minesmp.report` | Spieler oder Bug melden | ReportService |
 | /reports | - | `minesmp.staff.reports` | Offene Reports | ReportService |
 | /rewards | /belohnungen | `minesmp.rewards` | Belohnungen | RewardService |
 | /rtp | /randomtp, /wild | `minesmp.rtp` | Zufaelliger Teleport | TeleportService |

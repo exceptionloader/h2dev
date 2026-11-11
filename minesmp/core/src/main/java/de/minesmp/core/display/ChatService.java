@@ -142,6 +142,11 @@ public final class ChatService implements Listener {
     public void onChat(AsyncChatEvent e) {
         Player p = e.getPlayer();
         String raw = Text.plain(e.message());
+        // Beschreibung fuer einen Report (/report): erscheint nicht im Chat
+        if (plugin.reports() != null && plugin.reports().consumeChat(p, raw)) {
+            e.setCancelled(true);
+            return;
+        }
         var mute = plugin.punish().mute(p);
         if (mute != null) {
             e.setCancelled(true);

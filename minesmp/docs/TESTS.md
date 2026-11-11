@@ -196,3 +196,17 @@ Alle Tests mit Bots (mineflayer) auf dem Testserver mit echtem GrimAC 2.3.75 - k
 **Nicht getestet:** echte Cheat-Clients (X-Ray-Mods, Freecam, Killaura) und echte Spieler - die Schwellen beruhen auf Rechnung und Bot-Laeufen,
 Fehlalarme im Alltag sind nicht ausgeschlossen; die KI-Gegenpruefung gegen den echten Anthropic-Dienst (kein Schluessel vorhanden);
 Antiker Schrott im Nether (gleicher Code wie Diamanten, aber kein eigener Lauf); Bedrock-Spieler; `/guard reset`.
+
+## Update 11.11.2026 (4): Report-System mit Menue
+| Test | Ergebnis |
+|---|---|
+| `/report` als Spieler: Menue mit "Spieler melden" und "Bug melden"; Spieler auswaehlen -> Grund anklicken -> Report angelegt | ✅ |
+| Team bekommt Chat-Nachricht mit den anklickbaren Knoepfen `[Annehmen]` und `[Ablehnen]` (Befehle dahinter ausgelesen und ausgefuehrt) | ✅ |
+| Annehmen: Teammitglied wird zum gemeldeten Spieler teleportiert und unsichtbar; Melder bekommt eine Nachricht | ✅ |
+| Bug melden: Kategorie -> Beschreibung im Chat; die Beschreibung erscheint bei anderen Spielern nicht im Chat | ✅ |
+| `/report` als Teammitglied: gleiches Menue plus Bereich mit allen offenen Reports; Rechtsklick lehnt ab (Report verschwindet), Linksklick nimmt an | ✅ |
+| Bereits bearbeiteter Report: zweites Annehmen meldet "wurde schon bearbeitet" | ✅ |
+| "Sonstiges" mit eigenem Text, "abbrechen", doppelter Report, Limit von 3 offenen Reports, Hinweis beim Team-Login | ✅ |
+
+**Nicht getestet:** das Aussehen der Menues und das Anklicken der Chat-Knoepfe im echten Client (die Bots haben die Befehle hinter den
+Knoepfen ausgefuehrt), mehrere Seiten bei sehr vielen Reports oder Spielern, Bedrock-Spieler, der Discord-Webhook.
