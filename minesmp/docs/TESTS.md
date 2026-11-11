@@ -145,3 +145,16 @@ Ordner; der Download-Link selbst wurde geprueft), jeder einzelne der 26 NPC-Plae
 | Rechtsklick oeffnet den Navigator mit 7 Zielen | ✅ |
 | Wegwerfen und Verschieben des Kompasses werden verhindert | ✅ |
 | In der PvP-Arena und zurueck in der Survival-Welt: Kompass weg, Spitzhacke wieder auf Platz 9 | ✅ |
+
+## Update 11.11.2026: Spawn-Schutz, Bau-Modus, neue Team-Rechte
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Spawn-Schutz | Normaler Spieler baut den Goldblock am Spawn ab -> Block ist wieder da, Hinweis in der Leiste | ✅ |
+| Spawn-Schutz | Falltuer, Blumentopf, Hebel: Rechtsklick aendert nichts; Hacke auf Gras: bleibt Gras; Schild laesst sich nicht bearbeiten | ✅ |
+| Spawn-Schutz | Tuer laesst sich weiter oeffnen | ✅ |
+| Bau-Modus | Builder: `/gamemode creative` am Spawn -> eigenes Inventar gesichert, kann abbauen; `/gamemode survival` -> Inventar wie vorher | ✅ |
+| Bau-Modus | Builder in der Survival-Welt: `/gamemode creative` nicht erlaubt | ✅ |
+| Rechte | Neue Rechte per LuckPerms-Befehlen gesetzt und exportiert (Admin/Entwickler alles, Moderator/Supporter/Builder abgestuft) | ✅ |
+
+**Nicht getestet:** jedes einzelne gesperrte Objekt (Rahmen, Ruestungsstaender, Betten, Kerzen ...), WorldEdit als Builder,
+der automatische Rechte-Abgleich durch das Windows-Startskript auf einem bestehenden Server.

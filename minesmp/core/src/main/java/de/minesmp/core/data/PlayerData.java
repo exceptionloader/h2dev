@@ -62,6 +62,8 @@ public final class PlayerData {
     public final Set<Integer> levelRewards = new HashSet<>();
     /** Gesichertes Inventar (z.B. bei Duell-Absturz), wird beim naechsten Join zurueckgegeben. */
     public String savedInventory = "";
+    /** Gesichertes Inventar waehrend des Bau-Modus (Kreativ am Spawn). */
+    public String buildInventory = "";
     /** Zweitwaehrungen: Gems (Premium) und Sterne (Spielzeit/Belohnungen). */
     /** Eigene Anordnung der Kit-Items (Kit-Editor): Kit -> Inventar-Slot je Item, kommagetrennt. */
     public final Map<String, String> kitLayouts = new HashMap<>();
@@ -134,6 +136,7 @@ public final class PlayerData {
         y.set("duel.losses", duelLosses);
         y.set("level-rewards", levelRewards.stream().toList());
         y.set("saved-inventory", savedInventory);
+        y.set("build-inventory", buildInventory);
         kitLayouts.forEach((k, v) -> y.set("kit-layouts." + k, v));
         y.set("pve.wins", pveWins);
         y.set("pve.rewarded", pveRewarded);
@@ -184,6 +187,7 @@ public final class PlayerData {
         duelLosses = y.getInt("duel.losses");
         levelRewards.addAll(y.getIntegerList("level-rewards"));
         savedInventory = y.getString("saved-inventory", "");
+        buildInventory = y.getString("build-inventory", "");
         section(y, "kit-layouts", (k, s) -> kitLayouts.put(k, s.getString(k)));
         pveWins = y.getInt("pve.wins");
         pveRewarded = y.getString("pve.rewarded", "");

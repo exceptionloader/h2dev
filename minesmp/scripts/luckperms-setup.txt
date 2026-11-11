@@ -85,9 +85,11 @@ lp group legende permission set minesmp.afk.nokick true
 
 # --- Builder ---
 lp group builder permission set minesmp.staff.member true
-lp group builder permission set worldedit.* true
+lp group builder permission set minesmp.spawn.build true
+lp group builder permission set minesmp.staff.chat true
+lp group builder permission set worldedit.* true world=spawn
 lp group builder permission set worldguard.region.bypass.spawn true
-lp group builder permission set minecraft.command.gamemode true
+lp group builder permission set minecraft.command.gamemode true world=spawn
 
 # --- Supporter ---
 lp group supporter permission set minesmp.staff.member true
@@ -97,7 +99,6 @@ lp group supporter permission set minesmp.staff.mute true
 lp group supporter permission set minesmp.staff.warn true
 lp group supporter permission set minesmp.staff.kick true
 lp group supporter permission set minesmp.staff.history true
-lp group supporter permission set minesmp.staff.invsee true
 lp group supporter permission set minesmp.chat.bypass true
 lp group supporter permission set minesmp.chat.links true
 lp group supporter permission set minesmp.afk.nokick true
@@ -114,13 +115,24 @@ lp group moderator permission set minesmp.staff.socialspy true
 lp group moderator permission set minesmp.staff.broadcast true
 lp group moderator permission set minesmp.staff.commands true
 lp group moderator permission set minesmp.teleport.instant true
-lp group moderator permission set coreprotect.rollback true
-lp group moderator permission set coreprotect.restore true
+lp group moderator permission set minesmp.staff.invsee true
+lp group moderator permission set minesmp.admin.event true
 lp group moderator permission set worldguard.region.info.* true
 lp group moderator permission set minecraft.command.teleport true
 
 # --- Developer / Admin ---
-lp group developer permission set minesmp.admin.reload true
+lp group developer permission set minesmp.* true
+lp group developer permission set worldedit.* true
+lp group developer permission set worldguard.* true
+lp group developer permission set coreprotect.* true
+lp group developer permission set grim.* true
+lp group developer permission set luckperms.* true
+lp group developer permission set minecraft.command.* true
+lp group developer permission set bukkit.command.* true
+lp group developer permission set gsit.* true
+lp group developer permission set chunky.* true
+lp group developer permission set placeholderapi.* true
+lp group developer permission set voicechat.* true
 lp group admin permission set minesmp.* true
 lp group admin permission set minesmp.combat.bypass false
 lp group admin permission set minesmp.staff.bypass true
@@ -128,7 +140,13 @@ lp group admin permission set worldedit.* true
 lp group admin permission set worldguard.* true
 lp group admin permission set coreprotect.* true
 lp group admin permission set grim.* true
-lp group admin permission set luckperms.user.* true
+lp group admin permission set luckperms.* true
+lp group admin permission set minecraft.command.* true
+lp group admin permission set bukkit.command.* true
+lp group admin permission set gsit.* true
+lp group admin permission set chunky.* true
+lp group admin permission set placeholderapi.* true
+lp group admin permission set voicechat.* true
 
 # --- Owner ---
 lp group owner permission set * true

@@ -73,6 +73,9 @@ permissions:
   minesmp.spawn.build:
     description: Darf am Spawn bauen/abbauen
     default: op
+  minesmp.creative.free:
+    description: Kreativmodus ueberall und ohne Bau-Modus (ohne dieses Recht nur am Spawn mit gesichertem Inventar)
+    default: op
   minesmp.admin.spawn:
     description: Darf den Spawn neu bauen (/minesmp buildspawn)
     default: op

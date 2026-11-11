@@ -208,6 +208,7 @@ public final class MineSMP extends JavaPlugin {
         poi = new de.minesmp.core.events.PoiService(this);
         pve = new de.minesmp.core.events.PveService(this);
         compass = new de.minesmp.core.world.SpawnCompass(this);
+        new de.minesmp.core.world.SpawnProtection(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
         clanBoard = new de.minesmp.core.clan.ClanBoardService(this);
         placeholders = new Placeholders(this);

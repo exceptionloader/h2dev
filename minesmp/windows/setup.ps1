@@ -198,12 +198,21 @@ if ($firstRun) {
     Write-NoBom (Join-Path $Server '.minesmp-setup-done') (Get-Date).ToString('s')
 }
 # Neue Raenge aus Updates (z.B. Premium) einmalig nachladen
-$rankMarker = Join-Path $Server '.minesmp-raenge-v3'
+$rankMarker = Join-Path $Server '.minesmp-raenge-v4'
 if ($ready -and -not (Test-Path $rankMarker)) {
     if (-not $firstRun) {
         Copy-Item (Join-Path $Root 'files\minesmp-raenge.json.gz') (Join-Path $Plugins 'LuckPerms') -Force
-        $proc.StandardInput.WriteLine('lp group developer meta removeprefix 70')
-        Start-Sleep -Seconds 2
+        # Rechte, die es in der neuen Aufteilung nicht mehr gibt, zuerst entfernen (der Import fuegt nur hinzu)
+        foreach ($c in @('lp group developer meta removeprefix 70',
+                         'lp group admin permission unset luckperms.user.*',
+                         'lp group moderator permission unset coreprotect.restore',
+                         'lp group moderator permission unset coreprotect.rollback',
+                         'lp group supporter permission unset minesmp.staff.invsee',
+                         'lp group builder permission unset worldedit.*',
+                         'lp group builder permission unset minecraft.command.gamemode')) {
+            $proc.StandardInput.WriteLine($c)
+            Start-Sleep -Milliseconds 700
+        }
         $proc.StandardInput.WriteLine('lp import minesmp-raenge')
         Start-Sleep -Seconds 6
     }

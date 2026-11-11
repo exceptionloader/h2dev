@@ -58,6 +58,24 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 | `minesmp.combat.bypass` | Kein Combat-Tag |
 | `minesmp.money.others`, `minesmp.spawn.others` | Fremde Kontostaende / andere zum Spawn |
 
+### Was welcher Team-Rang darf (mitgelieferte Rang-Datei)
+| Rang | Rechte |
+|---|---|
+| **Owner, Admin, Entwickler** | Alles: alle MineSMP-Rechte, LuckPerms, WorldEdit, WorldGuard, CoreProtect, GrimAC, Server-Befehle; bauen am Spawn, Kreativmodus ueberall |
+| **Moderator** | Alles vom Supporter + Bann / Tempbann / Entbannen, `/vanish` und `/vanishultra`, `/invsee` (nur ansehen), SocialSpy, `/broadcast`, Teleport zu Spielern, Events starten und stoppen (`/eventadmin`) |
+| **Supporter** | Teamchat, Reports bearbeiten, Stummschalten, Kicken, Verwarnen, Straf-Verlauf, Anti-Cheat-Meldungen, CoreProtect nur nachschauen (wer hat was abgebaut) |
+| **Builder** | Teamchat, bauen und abbauen am Spawn; WorldEdit und Kreativmodus **nur in der Spawn-Welt** (Bau-Modus: das eigene Inventar wird gesichert, Kreativ-Items kommen nicht in die Survival-Welt) |
+
+Nicht fuer Moderator, Supporter und Builder: Geld/Gems/Sterne/Items/Spawner vergeben, Kisten und Keyall verwalten, Grundstuecke umgehen,
+Rollbacks, Konfiguration neu laden, Spawn neu bauen, Rechte vergeben. Einzelne Rechte nachtraeglich geben:
+`lp group moderator permission set <recht> true`.
+
+### Spawn-Schutz
+Ohne `minesmp.spawn.build` laesst sich in der Spawn-Welt nichts veraendern: abgebaute Bloecke sind sofort wieder da, Falltueren, Zauntore,
+Blumentoepfe, Schilder, Rahmen, Ruestungsstaender, Betten, Hebel usw. bleiben wie sie sind, Werkzeuge (Hacke, Schaufel, Axt, Schere,
+Knochenmehl, Feuerzeug, Eimer ...) wirken nicht, nichts waechst, brennt oder zerfaellt. Tueren, Knoepfe, Werkbaenke und Endertruhen bleiben benutzbar.
+`minesmp.creative.free`: Kreativmodus ueberall und ohne Bau-Modus (Owner, Admin, Entwickler).
+
 ### Vanish
 `minesmp.staff.vanish` erlaubt `/vanish` (komplett unsichtbar, auch der eigene Skin) und `/vanishultra` (du siehst deinen Skin, Spieler nicht).
 Wer `minesmp.staff.member` oder `minesmp.staff.vanish` hat, sieht Teammitglieder im Vanish immer
