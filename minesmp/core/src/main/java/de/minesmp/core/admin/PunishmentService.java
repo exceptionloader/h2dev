@@ -142,21 +142,26 @@ public final class PunishmentService implements Listener {
 
     /** Wendet eine Strafe an (auch fuer automatische Eskalation). duration 0 = permanent. */
     public void apply(CommandSender s, OfflinePlayer t, String type, long duration, String reason) {
+        apply(s, s.getName(), t, type, duration, reason);
+    }
+
+    /** Wie oben, aber mit eigenem Anzeigenamen fuer den Ausloeser (z.B. "KI-System"). */
+    public void apply(CommandSender s, String staffName, OfflinePlayer t, String type, long duration, String reason) {
         long now = System.currentTimeMillis();
         long expires = duration == 0 ? 0 : now + duration;
         String staffId = s instanceof Player p ? p.getUniqueId().toString() : "CONSOLE";
         String ip = t.isOnline() && t.getPlayer().getAddress() != null ? t.getPlayer().getAddress().getAddress().getHostAddress() : null;
         String dur = duration == 0 ? (type.equals("WARN") ? "-" : "permanent") : TimeUtil.format(duration);
         plugin.db().update("INSERT INTO punishments (target, target_name, type, reason, staff, staff_name, created, expires, active, ip) VALUES (?,?,?,?,?,?,?,?,?,?)",
-                t.getUniqueId().toString(), t.getName(), type, reason, staffId, s.getName(), now, type.equals("WARN") ? 0 : expires, 1, ip);
-        plugin.audit().log(s, type, t.getName() + " (" + dur + "): " + reason);
-        plugin.webhook().send("punishments", type + ": " + t.getName(), "Grund: " + reason + "\nDauer: " + dur + "\nTeammitglied: " + s.getName(), 0xE53935);
+                t.getUniqueId().toString(), t.getName(), type, reason, staffId, staffName, now, type.equals("WARN") ? 0 : expires, 1, ip);
+        plugin.audit().log(staffName, type, t.getName() + " (" + dur + "): " + reason);
+        plugin.webhook().send("punishments", type + ": " + t.getName(), "Grund: " + reason + "\nDauer: " + dur + "\nTeammitglied: " + staffName, 0xE53935);
         Player online = t.getPlayer();
         switch (type) {
             case "BAN" -> {
                 if (online != null) online.kick(Text.c(Msg.get("ban.kick", "&b&lMine&f&lSMP\n\n&cDu wurdest gebannt.\n&7Grund: &f{reason}\n&7Dauer: &f{duration}",
                         "reason", reason, "duration", dur)));
-                Msg.broadcast("ban.broadcast", "{prefix}&f{name} &7wurde von &b{staff} &7gebannt. &8(&f{reason}&8)", "name", t.getName(), "staff", s.getName(), "reason", reason);
+                Msg.broadcast("ban.broadcast", "{prefix}&f{name} &7wurde von &b{staff} &7gebannt. &8(&f{reason}&8)", "name", t.getName(), "staff", staffName, "reason", reason);
             }
             case "MUTE" -> {
                 if (online != null) {

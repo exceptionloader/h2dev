@@ -46,6 +46,13 @@
       <version>6.2.1</version>
       <scope>provided</scope>
     </dependency>
+    <!-- Optionale KI-Gegenpruefung des Anti-Cheat-Waechters (wird wie HikariCP ueber plugin.yml -> libraries geladen) -->
+    <dependency>
+      <groupId>com.anthropic</groupId>
+      <artifactId>anthropic-java</artifactId>
+      <version>3.3.0</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>

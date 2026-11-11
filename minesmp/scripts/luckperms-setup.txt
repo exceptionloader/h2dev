@@ -116,6 +116,7 @@ lp group moderator permission set minesmp.staff.broadcast true
 lp group moderator permission set minesmp.staff.commands true
 lp group moderator permission set minesmp.teleport.instant true
 lp group moderator permission set minesmp.staff.invsee true
+lp group moderator permission set minesmp.staff.guard true
 lp group moderator permission set minesmp.admin.event true
 lp group moderator permission set worldguard.region.info.* true
 lp group moderator permission set minecraft.command.teleport true

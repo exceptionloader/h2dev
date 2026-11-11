@@ -105,3 +105,47 @@ Fuer den **Premium-Rang** die Rang-Datei neu importieren (`lp import minesmp-rae
 ## 10. Sprachchat (optional)
 Simple Voice Chat von Modrinth in `plugins/` legen (das Windows-Paket laedt es automatisch). Der Server braucht zusaetzlich
 **UDP-Port 24454**, jeder Spieler die Simple-Voice-Chat-Mod im Client (Fabric/NeoForge/Forge).
+
+## 11. Anti-Cheat-Waechter ("KI-System")
+Laeuft ohne Einrichtung. Drei Ebenen arbeiten zusammen:
+
+| Ebene | Was sie tut |
+|---|---|
+| Paper Anti-Xray (`paper-world-defaults.yml`, im Windows-Paket schon aktiv) | versteckte Erze werden gar nicht erst an den Client geschickt - X-Ray zeigt nur Attrappen |
+| GrimAC | blockt Fly, Speed, Killaura, Reichweite usw. sofort und meldet sie an den Waechter |
+| Waechter (MineSMPCore, `config.yml -> guard`) | sammelt alle Hinweise pro Spieler, warnt das Team und bannt automatisch permanent |
+
+**Was der Waechter misst**
+- **X-Ray:** Wie viele *versteckte* Diamant-Adern (Oberwelt, bis Y 16) bzw. Antiker Schrott (Nether) ein Spieler pro abgebautem Block findet.
+  Adern, die an eine Hoehle, Wasser oder Lava grenzen, zaehlen nicht. Ehrliches Minen liegt geschaetzt bei 2-9 Adern pro 1000 Bloecke
+  (aus den Welt-Generator-Werten gerechnet, nicht auf einem echten Server gemessen), die eingestellte Obergrenze bei 20 (Schrott: 12).
+  Erst ab 10 Adern wird bewertet; gebannt wird erst, wenn so viele Funde selbst bei dieser Obergrenze seltener als 1:50.000 Zufall waeren.
+- **Zugriffe durch Waende (Freecam/Ghost-Hand):** Kisten, Faesser, Oefen usw. werden geoeffnet, obwohl zwischen Auge und Klickpunkt ein voller
+  Block liegt. 4 verschiedene Behaelter in 15 Minuten = Warnung, 10 = Bann. Nicht am Spawn, nicht fuer Bedrock-Spieler.
+- **Hack-Clients:** GrimAC-Alarme nach Kategorie. Eine Kategorie allein (z.B. nur Bewegung) reicht nie fuer einen Bann - das Team wird gewarnt.
+  Erst zwei unabhaengige Kategorien mit hohen Zaehlern (z.B. Reichweite + Fliegen) fuehren zum Bann.
+
+**Grenzen:** Wer mit Freecam nur *zuschaut*, sendet nichts an den Server - das kann kein Plugin erkennen. Ein vorsichtiger X-Ray-Nutzer mit
+unauffaelliger Fundrate faellt statistisch nicht auf; gegen ihn hilft das Paper-Anti-Xray.
+
+| Was | Befehl |
+|---|---|
+| Uebersicht | `/guard` (auch `/ki`) |
+| Werte eines Spielers ansehen | `/guard check <Spieler>` |
+| Letzte Faelle / ein Fall mit Beweisen | `/guard cases [Spieler]`, `/guard case <Nr>` |
+| Falsch gebannt? | `/unban <Spieler>` - die Zaehler beginnen danach bei null |
+| Zaehler eines Spielers leeren | `/guard reset <Spieler>` |
+| Nur warnen statt bannen | `config.yml -> guard.action: alert` |
+| Jemanden ausnehmen | Recht `minesmp.guard.bypass` (Owner/Admin/Entwickler haben es) |
+
+**GrimAC-Anbindung:** Beim ersten Start traegt MineSMPCore in `plugins/GrimAC/punishments.yml` je Gruppe eine Zeile
+`guard grim %player% %check_name% %vl%` ein (Sicherung: `punishments.yml.minesmp-backup`) und laedt GrimAC neu. Abschalten: `guard.grim.auto-setup: false`.
+
+**Echte KI-Gegenpruefung (optional, kostenpflichtig):** Mit einem API-Schluessel von Anthropic (console.anthropic.com) prueft das Modell
+Claude jeden Fall, bevor gebannt wird - gebannt wird dann nur, wenn Statistik *und* KI zustimmen.
+1. `config.yml -> guard.ai.enabled: true` und `api-key: 'sk-ant-...'` eintragen, dann `/minesmp reload`.
+2. `/guard aitest` zeigt, ob die Verbindung steht.
+
+Uebertragen werden nur Messwerte (keine Namen, UUIDs oder IPs). Standard-Modell ist `claude-opus-5-5`; lehnt das Modell eine Anfrage ab,
+uebernimmt automatisch ein Ausweichmodell von Anthropic (`fallbacks`). Ist die KI nicht erreichbar, wird nicht gebannt, sondern das Team
+gewarnt (`guard.ai.on-error`). Die KI-Bibliothek (ca. 45 MB) laedt der Server beim ersten Start selbst aus Maven Central.

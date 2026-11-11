@@ -62,7 +62,7 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 | Rang | Rechte |
 |---|---|
 | **Owner, Admin, Entwickler** | Alles: alle MineSMP-Rechte, LuckPerms, WorldEdit, WorldGuard, CoreProtect, GrimAC, Server-Befehle; bauen am Spawn, Kreativmodus ueberall |
-| **Moderator** | Alles vom Supporter + Bann / Tempbann / Entbannen, `/vanish` und `/vanishultra`, `/invsee` (nur ansehen), SocialSpy, `/broadcast`, Teleport zu Spielern, Events starten und stoppen (`/eventadmin`) |
+| **Moderator** | Alles vom Supporter + Anti-Cheat-Waechter einsehen (`/guard check`, `/guard cases`, Warnungen), Bann / Tempbann / Entbannen, `/vanish` und `/vanishultra`, `/invsee` (nur ansehen), SocialSpy, `/broadcast`, Teleport zu Spielern, Events starten und stoppen (`/eventadmin`) |
 | **Supporter** | Teamchat, Reports bearbeiten, Stummschalten, Kicken, Verwarnen, Straf-Verlauf, Anti-Cheat-Meldungen, CoreProtect nur nachschauen (wer hat was abgebaut) |
 | **Builder** | Teamchat, bauen und abbauen am Spawn; WorldEdit und Kreativmodus **nur in der Spawn-Welt** (Bau-Modus: das eigene Inventar wird gesichert, Kreativ-Items kommen nicht in die Survival-Welt) |
 
@@ -83,6 +83,8 @@ Wer `minesmp.staff.member` oder `minesmp.staff.vanish` hat, sieht Teammitglieder
 wer gerade im Vanish ist, zeigt `/vanish list`.
 
 ## Admin
+`minesmp.staff.guard` (Waechter-Warnungen, /guard check, /guard cases - auch Moderator), `minesmp.admin.guard` (/guard reset, /guard aitest),
+`minesmp.guard.bypass` (wird nicht beobachtet und nie automatisch gebannt; in `minesmp.*` enthalten),
 `minesmp.spawn.build` (am Spawn bauen), `minesmp.admin.spawn` (/minesmp buildspawn, /minesmp winter on|off),
 `minesmp.admin.eco` (/eco), `minesmp.admin.crate` (/crate givekey/setblock), `minesmp.admin.duel` (Arenen),
 `minesmp.admin.event` (/eventadmin), `minesmp.admin.farmwelt` (/farmwelt reset), `minesmp.admin.items` (/msitem),

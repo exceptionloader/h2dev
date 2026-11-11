@@ -13,7 +13,7 @@ Alle Versionen unten wurden zusammen auf einem Testserver gestartet (Java 25, si
 | WorldEdit | 7.4.6 | Bauen, Regionen markieren; fuegt die Spawn-Karte (Schematic) ein | Modrinth |
 | WorldGuard | 7.0.17 | Spawn-Schutz, PvP-Zonen/Safezones | Modrinth |
 | CoreProtect CE | 24.1 | Block-Logging & Rollbacks | Modrinth |
-| GrimAC | 2.3.75 | Anti-Cheat | Modrinth |
+| GrimAC | 2.3.75 | Anti-Cheat; meldet Alarme an den Waechter von MineSMPCore (Eintrag in `punishments.yml` erfolgt automatisch, getestet mit 2.3.75) | Modrinth |
 | GSit | 3.8.0 | /sit, /lay, /crawl | Modrinth |
 | Chunky | 1.4.40 | Welt vorgenerieren | Modrinth |
 | Simple Voice Chat | 2.6.27 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 1.21.11 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |

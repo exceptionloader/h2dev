@@ -372,6 +372,45 @@ vanish:
   pickup-items: true       # im Vanish Items aufheben
   remember: true           # nach dem Neu-Einloggen weiter im Vanish
 
+# Anti-Cheat-Waechter ("KI-System"): erkennt Cheater automatisch und bannt sie permanent.
+# Was er sieht: X-Ray (Fundrate versteckter Erze), Zugriffe durch Waende (Freecam/Ghost-Hand), Hack-Clients (Alarme von GrimAC).
+# Was kein Server sehen kann: reines Zuschauen mit Freecam. X-Ray wird zusaetzlich von Paper verhindert (paper-world-defaults.yml -> anti-xray).
+# Befehle: /guard, /guard check <Spieler>, /guard cases, /guard case <Nr>, /guard reset <Spieler>. Entbannen: /unban <Spieler>
+guard:
+  enabled: true
+  name: 'KI-System'          # Name, der im Chat und im Strafverlauf als Ausloeser steht
+  action: ban                # ban = automatisch permanent bannen | alert = nur das Team warnen
+  ban-at: 95                 # ab dieser Sicherheit (0-100) wird gebannt
+  alert-at: 60               # ab dieser Sicherheit bekommt das Team eine Warnung
+  ban-reason: 'Cheating ({type}) - erkannt vom KI-System, Fall #{case}'
+  xray:
+    enabled: true
+    max-y: 16                # Oberwelt: nur Abbau bis zu dieser Hoehe zaehlt (Diamanten); im Nether zaehlt alles (Antiker Schrott)
+    window-blocks: 1500      # groesstes betrachtetes Fenster (zusaetzlich die letzten 300, 600 und 1000 Bloecke)
+    min-veins: 10            # fruehestens ab so vielen versteckten Adern wird ueberhaupt bewertet
+    legit-rate:              # grosszuegige Obergrenze fuer ehrliches Minen: versteckte Adern pro 1000 abgebaute Bloecke
+      diamond: 20
+      debris: 12
+  freecam:
+    enabled: true
+    window-minutes: 15
+    alert-hits: 4            # so viele VERSCHIEDENE Behaelter durch eine Wand geoeffnet -> Warnung
+    ban-hits: 10             # ... -> Bann
+  grim:
+    enabled: true            # Alarme von GrimAC einbeziehen (Fly, Speed, Killaura, Reichweite ...)
+    auto-setup: true         # traegt den Meldebefehl einmalig in plugins/GrimAC/punishments.yml ein (mit Sicherung)
+    window-minutes: 30
+    # Gewicht je Kategorie (0-1). Eine Kategorie allein reicht nie fuer einen Bann, erst zwei unabhaengige zusammen.
+    weights: {reach: 0.85, combat: 0.8, knockback: 0.85, movement: 0.75, packets: 0.7, autoclicker: 0.5, post: 0.3, misc: 0.5}
+  # Optionale Gegenpruefung durch ein echtes KI-Modell (Claude von Anthropic, kostenpflichtig, eigener API-Schluessel noetig):
+  # gebannt wird dann nur, wenn Statistik UND KI zustimmen. Uebertragen werden nur Messwerte - keine Namen, keine IPs.
+  ai:
+    enabled: false
+    api-key: ''              # Schluessel von console.anthropic.com
+    model: claude-opus-5-5
+    min-confidence: 85       # die KI muss mindestens so sicher sein
+    on-error: alert          # KI nicht erreichbar: alert = nur Team warnen | ban = Statistik entscheidet allein
+
 punishments:
   # Automatische Strafe ab X aktiven Verwarnungen
   warn-escalation:

@@ -11,6 +11,7 @@ libraries:
   - com.zaxxer:HikariCP:6.2.1
   - org.xerial:sqlite-jdbc:3.47.1.0
   - org.mariadb.jdbc:mariadb-java-client:3.5.1
+  - com.anthropic:anthropic-java:3.3.0
 # Befehle werden dynamisch registriert (siehe docs/COMMANDS.md), Berechtigungen siehe docs/PERMISSIONS.md
 permissions:
   minesmp.player:
@@ -78,6 +79,15 @@ permissions:
     default: op
   minesmp.admin.spawn:
     description: Darf den Spawn neu bauen (/minesmp buildspawn)
+    default: op
+  minesmp.staff.guard:
+    description: Anti-Cheat-Waechter - Warnungen sehen, /guard check, /guard cases
+    default: op
+  minesmp.admin.guard:
+    description: Anti-Cheat-Waechter - Zaehler leeren (/guard reset), KI-Test (/guard aitest)
+    default: op
+  minesmp.guard.bypass:
+    description: Wird vom Anti-Cheat-Waechter nicht beobachtet und nie automatisch gebannt
     default: op
   minesmp.admin.clan:
     description: Clan-Saison zuruecksetzen (/clan season reset)

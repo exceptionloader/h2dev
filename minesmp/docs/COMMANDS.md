@@ -36,6 +36,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /gems | /gem | `minesmp.gems` | Deine Gems | TokenService |
 | /gemshop | /gemsshop | `minesmp.tokenshop` | Gem-Shop | TokenShopService |
 | /gruft | /pve, /kristallgruft | `minesmp.pve` | PvE: Die Kristallgruft | PveService |
+| /guard | /ki, /waechter, /anticheat | `minesmp.staff.guard` | Anti-Cheat-Waechter | GuardService |
 | /help | /hilfe, /? | `minesmp.info` | Hilfe | MiscCommands |
 | /history | /strafen, /warns | `minesmp.staff.history` | Strafverlauf | PunishmentService |
 | /home | /h, /homes | `minesmp.home` | Zum Home teleportieren | TeleportService |

@@ -88,6 +88,8 @@ public final class Database {
             "CREATE TABLE IF NOT EXISTS chest_shops (loc VARCHAR(128) PRIMARY KEY, owner VARCHAR(36) NOT NULL, owner_name VARCHAR(16), item " + text() + " NOT NULL,"
                 + " amount INTEGER NOT NULL, buy DOUBLE NOT NULL, sell DOUBLE NOT NULL)",
             "CREATE TABLE IF NOT EXISTS kv (k VARCHAR(128) PRIMARY KEY, v " + text() + ")",
+            "CREATE TABLE IF NOT EXISTS guard_cases (id VARCHAR(16) PRIMARY KEY, time BIGINT NOT NULL, uuid VARCHAR(36) NOT NULL, name VARCHAR(16), kind VARCHAR(32),"
+                + " confidence DOUBLE NOT NULL, action VARCHAR(16) NOT NULL, evidence " + text() + ", ai " + text() + ")",
             "CREATE INDEX IF NOT EXISTS idx_auction_status ON auctions(status)",
             "CREATE INDEX IF NOT EXISTS idx_mail_owner ON mailbox(owner)",
             "CREATE INDEX IF NOT EXISTS idx_pun_target ON punishments(target)",

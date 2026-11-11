@@ -175,3 +175,24 @@ der automatische Rechte-Abgleich durch das Windows-Startskript auf einem bestehe
 **Nicht getestet:** wie Schneefall, Daemmerung und Musik im echten Minecraft-Client wirken (die Vorschau-Bilder zeigen weder fallenden Schnee
 noch die Abendstimmung), ob die Melodien sauber klingen (nur die Tonfolgen wurden geprueft, niemand hat sie angehoert), Bedrock-Spieler,
 Serverlast beim Einrichten mit vielen Spielern am Spawn.
+
+## Update 11.11.2026 (3): Anti-Cheat-Waechter ("KI-System")
+Alle Tests mit Bots (mineflayer) auf dem Testserver mit echtem GrimAC 2.3.75 - kein echter Hack-Client, kein echter Minecraft-Client.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| X-Ray | Bot graebt gezielt von Diamant-Ader zu Ader (11 Bloecke Abstand): Warnung ans Team bei Ader 14, permanenter Bann bei Ader 15 | ✅ |
+| X-Ray | Ehrlicher Bot: 684 Bloecke Tunnel, 12 Erze in 4 Adern -> keine Warnung, kein Bann | ✅ |
+| X-Ray | Rechenkern (Poisson-Test) gegen exakte Rechnung geprueft, 10 Wertepaare identisch | ✅ |
+| Durch Waende | 12 frei stehende Faesser geoeffnet -> 0 Treffer; Kisten hinter einer Steinwand: Warnung bei 4, Bann bei 10 | ✅ |
+| GrimAC | Meldebefehl wird in 9 Gruppen eingetragen (mit Sicherung), GrimAC laedt neu; echte Grim-Alarme kommen beim Waechter an | ✅ |
+| GrimAC | Bot mit Angriffen ausser Reichweite + Fliegen: 65 % -> 90 % -> Bann bei 95 %; Bewegung allein blieb bei einer Warnung | ✅ |
+| Bann | Kick mit Grund und Fallnummer, Chat-Meldung "von KI-System gebannt", Eintrag im Strafverlauf, Wiedereinloggen abgewiesen | ✅ |
+| Entbannen | `/unban` -> Spieler kann wieder rein, Zaehler stehen auf null (kein sofortiger neuer Bann) | ✅ |
+| Team | `/guard`, `/guard check`, `/guard cases`, `/guard case <Nr>` zeigen Werte und gespeicherte Beweise; Zaehler ueberleben den Logout | ✅ |
+| KI-Gegenpruefung | Gegen einen nachgebauten KI-Dienst: Anfrage enthaelt Modell, JSON-Schema, Ausweichmodell-Schalter und nur anonyme Messwerte | ✅ |
+| KI-Gegenpruefung | KI widerspricht -> kein Bann, Fall gespeichert, Team gewarnt; KI bestaetigt -> Bann; falscher Schluessel / Fehler 500 / Ablehnung -> klare Meldung, kein Bann | ✅ |
+
+**Nicht getestet:** echte Cheat-Clients (X-Ray-Mods, Freecam, Killaura) und echte Spieler - die Schwellen beruhen auf Rechnung und Bot-Laeufen,
+Fehlalarme im Alltag sind nicht ausgeschlossen; die KI-Gegenpruefung gegen den echten Anthropic-Dienst (kein Schluessel vorhanden);
+Antiker Schrott im Nether (gleicher Code wie Diamanten, aber kein eigener Lauf); Bedrock-Spieler; `/guard reset`.
