@@ -249,3 +249,20 @@ Die Test-Bots koennen nur bis 26.1 und kamen ueber ViaVersion/ViaBackwards 5.12.
 **Nicht getestet:** ein echter 26.3-Client (Aussehen von Menues, Scoreboard-Glyphen, Skins), der Anti-Cheat-Waechter mit Bots auf 26.3
 (die Bots wurden ueber die Protokoll-Uebersetzung staendig getrennt; gleiche Paper-Funktionen wie unter 1.21.11),
 BetterModel, Geyser/Floodgate und Simple Voice Chat auf 26.3, das Windows-Setup selbst (kein Windows vorhanden).
+
+## Update 11.11.2026 (7): BetterModel 3.6.0 auf Paper 26.3
+Gleicher 26.3-Testserver, BetterModel 3.6.0 (Modrinth, Pruefsumme geprueft) dazu. Gemessen mit einem Beobachter-Bot, der die
+Pakete des Servers mitliest (kein echter Minecraft-Client).
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Start | MineSMPCore legt die 14 Modelle vor dem Start von BetterModel ab; BetterModel startet (NMS V26_R3), MineSMPCore erkennt es; 0 Fehler im Log | ✅ |
+| Paket | BetterModel baut `plugins/BetterModel/build.zip` (Format 97, 3.449 Dateien); MineSMPCore liefert es unveraendert aus (gleiche Pruefsumme) und bietet es jedem Spieler als zweites Paket an | ✅ |
+| NPCs | Modellteile haengen an den zugeordneten NPCs (z.B. Navigator/Hochkoenig 11 Teile, Kosmetik/Runenmagier 10), nicht zugeordnete NPCs ohne Modell; NPC-Koerper auf 1,3 vergroessert; Ruhe-Animation laeuft (113 von 264 Teilen bewegt in 4 s) | ✅ |
+| Bosse | Grundwesen unsichtbar, Modell dran: Granitfuerst 35, Glutweberin 50, Malvoria 71, Nachtmahr 96, Weltenbrand 118 Teile | ✅ |
+| Animation | Ruhe-Animation und Angriffs-Animation beim Ausloesen einer Faehigkeit (z.B. Erdstoss, Feueratem, Fluch, Lavanetz) senden laufend Bewegungsdaten - bei freier Sicht | ✅ |
+| Aufraeumen | Nach dem Ende des Boss-Events sind alle Modellteile weg | ✅ |
+| Sichtlinie | Ohne freie Sicht (Boss hinter Gelaende) kommen keine Animationsdaten - Absicht von BetterModel (`sight-trace`) | ℹ️ |
+
+**Nicht getestet:** wie die Modelle im echten Client aussehen (Texturen, Groesse, ob alle gedrehten Teile richtig sitzen) - die Bots
+koennen die Modelle nicht darstellen. Bedrock-Spieler (Geyser) sehen die Modelle voraussichtlich nicht.

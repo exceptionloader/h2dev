@@ -16,7 +16,7 @@ Die Versionen unten wurden zusammen auf einem Paper-26.3-Testserver gestartet (J
 | GrimAC | 2.3.74 | Anti-Cheat; meldet Alarme an den Waechter von MineSMPCore (Eintrag in `punishments.yml` erfolgt automatisch). Auf 26.3 gestartet; das Zusammenspiel mit dem Waechter wurde unter 1.21.11 getestet | Modrinth |
 | GSit | 3.8.0 | /sit, /lay, /crawl | Modrinth |
 | Chunky | 1.5.66 | Welt vorgenerieren | Modrinth |
-| BetterModel | 3.6.0 (paper) | Optional: zeigt die 3D-Modelle der NPCs und Bosse (Blockbench) ueber Display-Entities, baut dafuer ein eigenes Ressourcenpaket. MineSMPCore spricht die Schnittstelle von 3.6.0 an (gegen die Klassendateien geprueft), **auf dem Testserver nicht gestartet** - siehe TESTS.md. Braucht Java 25 | Modrinth |
+| BetterModel | 3.6.0 (paper) | Zeigt die 3D-Modelle der NPCs und Bosse (Blockbench) ueber Display-Entities und baut dafuer ein eigenes Ressourcenpaket (MineSMPCore schickt es als zweites Paket mit). Auf Paper 26.3 getestet (Protokoll-Ebene, siehe TESTS.md). Braucht Java 25 | Modrinth |
 | Simple Voice Chat | 2.6.25 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 26.3 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |
 | Geyser + Floodgate | 2.12.1 (Build 1299) | Optional: Bedrock-Spieler. Auf 26.3 **nicht** getestet | geysermc.org |
 | NuVotifier | (manuell) | Optional: Vote-Belohnungen | GitHub |

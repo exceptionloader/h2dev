@@ -180,6 +180,9 @@ schickt es zusammen mit dem eigenen Paket an jeden Spieler (zwei Pakete, das unt
 Ohne BetterModel funktioniert alles weiter: NPCs tragen die Fantasy-Skins (aus dem MineSMP-Ressourcenpaket), Bosse erscheinen
 als vergroessertes Monster (Verwuester, Hexe, Eisengolem, Spinne) mit denselben Faehigkeiten.
 
+**Sichtlinie:** BetterModel schickt Animationen nur an Spieler, die das Modell sehen koennen (`plugins/BetterModel/config.yml -> sight-trace`).
+Hinter Waenden steht ein Modell still und bewegt sich wieder, sobald man es sieht - das ist so gewollt und spart Leistung.
+
 **Hinweise:** Die Modelle sind fuer Java gebaut; Bedrock-Spieler (Geyser) sehen wahrscheinlich nur das Grundwesen oder nichts -
 das ist nicht getestet. Wer das Ressourcenpaket ablehnt, sieht statt der Fantasy-Skins ein Fehlermuster. Die Bosse sind auf
 etwa ein Drittel der Originalgroesse gesetzt (8-11 Bloecke hoch); `model-scale` in `bosses.yml` aendert das.
