@@ -93,6 +93,8 @@ public final class SpawnService implements Listener {
     private record Portal(String name, String action, int[] box, double[] back) {}
     private record Zone(double cx, double cz, double r, int y1, int y2) {}
     private record Area(String name, Material icon, String desc, double[] pos) {}
+    /** Grosses Schild (Grafik aus der Schrift minesmp:signs, siehe signs.yml): Breite in Bloecken, billboard fixed|vertical|center. */
+    private record Sign(String id, double[] pos, float width, String billboard, boolean bob) {}
 
     private final MineSMP plugin;
     private final NamespacedKey npcKey, holoKey;
@@ -110,6 +112,10 @@ public final class SpawnService implements Listener {
     private final List<Holo> holos = new ArrayList<>();
     private final List<Portal> portals = new ArrayList<>();
     private final List<Area> areas = new ArrayList<>();
+    private final List<Sign> signs = new ArrayList<>();
+    private final Map<Integer, UUID> signEntities = new HashMap<>();
+    private YamlConfiguration signGlyphs;
+    private boolean bobUp;
     private final Map<String, int[]> crates = new LinkedHashMap<>();
     private final Map<String, double[][]> duels = new LinkedHashMap<>();
     private final List<int[]> clearBoxes = new ArrayList<>();
@@ -135,6 +141,7 @@ public final class SpawnService implements Listener {
         Bukkit.getScheduler().runTaskLater(plugin, this::startup, 60);
         Bukkit.getScheduler().runTaskTimer(plugin, this::ensureEntities, 100, 100);
         Bukkit.getScheduler().runTaskTimer(plugin, this::lookAtPlayers, 80, 4);
+        Bukkit.getScheduler().runTaskTimer(plugin, this::bobSigns, 120, 50);
     }
 
     // ================================================================ Layout
@@ -234,6 +241,11 @@ public final class SpawnService implements Listener {
         for (Map<?, ?> m : y.getMapList("holograms")) {
             Object sc = m.get("scale");
             holos.add(new Holo(d(m.get("pos")), sc instanceof Number n ? n.floatValue() : 1f, String.join("\n", (List<String>) m.get("text"))));
+        }
+        for (Map<?, ?> m : y.getMapList("signs")) {
+            Object wd = m.get("width");
+            signs.add(new Sign(String.valueOf(m.get("id")), d(m.get("pos")), wd instanceof Number n ? n.floatValue() : 10f,
+                    String.valueOf(m.get("billboard") == null ? "fixed" : m.get("billboard")), Boolean.TRUE.equals(m.get("bob"))));
         }
         for (Map<?, ?> m : y.getMapList("portals")) {
             double[] b = d(m.get("box"));
@@ -607,6 +619,62 @@ public final class SpawnService implements Listener {
                 t.getPersistentDataContainer().set(holoKey, PersistentDataType.BYTE, (byte) 1);
             });
             holoEntities.put(i, td.getUniqueId());
+        }
+        if (plugin.getConfig().getBoolean("spawn-signs.enabled", true)) for (int i = 0; i < signs.size(); i++) {
+            Sign sg = signs.get(i);
+            UUID id = signEntities.get(i);
+            Entity e = id == null ? null : Bukkit.getEntity(id);
+            if (e != null && e.isValid()) continue;
+            Location l = loc(sg.pos);
+            if (l == null || !w.isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) continue;
+            TextDisplay td = spawnSign(w, l, sg);
+            if (td != null) signEntities.put(i, td.getUniqueId());
+        }
+    }
+
+    /** Grosses Schild: ein Text-Display mit den Grafik-Zeichen aus signs.yml, auf die gewuenschte Breite skaliert. */
+    private TextDisplay spawnSign(World w, Location l, Sign sg) {
+        if (signGlyphs == null) signGlyphs = resource("signs.yml");
+        if (signGlyphs == null || !signGlyphs.isConfigurationSection(sg.id)) {
+            plugin.getLogger().warning("Spawn-Schild '" + sg.id + "' fehlt in signs.yml");
+            return null;
+        }
+        String glyphs = signGlyphs.getString(sg.id + ".text", "");
+        float scale = sg.width * 40f / Math.max(1, signGlyphs.getInt(sg.id + ".width", 100));
+        Display.Billboard bb = switch (sg.billboard.toLowerCase(java.util.Locale.ROOT)) {
+            case "vertical" -> Display.Billboard.VERTICAL;
+            case "center" -> Display.Billboard.CENTER;
+            default -> Display.Billboard.FIXED;
+        };
+        return w.spawn(l, TextDisplay.class, t -> {
+            t.setPersistent(false);
+            t.text(net.kyori.adventure.text.Component.text(glyphs).font(Key.key("minesmp", "signs")));
+            t.setBillboard(bb);
+            t.setShadowed(false);
+            t.setDefaultBackground(false);
+            t.setBackgroundColor(Color.fromARGB(0, 0, 0, 0));
+            t.setLineWidth(100000);
+            t.setSeeThrough(false);
+            t.setBrightness(new Display.Brightness(15, 15));
+            t.setViewRange((float) plugin.getConfig().getDouble("spawn-signs.view-range", 4.0));
+            t.setTransformation(new Transformation(new Vector3f(), new AxisAngle4f(), new Vector3f(scale, scale, scale), new AxisAngle4f()));
+            t.getPersistentDataContainer().set(holoKey, PersistentDataType.BYTE, (byte) 1);
+            t.getPersistentDataContainer().set(new NamespacedKey(plugin, "spawn_sign"), PersistentDataType.STRING, sg.id);
+        });
+    }
+
+    /** Schilder mit bob: true schweben langsam auf und ab (weiche Bewegung im Client, ein Paket alle 2,5 s). */
+    private void bobSigns() {
+        if (signs.isEmpty() || !plugin.getConfig().getBoolean("spawn-signs.bob", true)) return;
+        bobUp = !bobUp;
+        for (int i = 0; i < signs.size(); i++) {
+            if (!signs.get(i).bob) continue;
+            UUID id = signEntities.get(i);
+            if (!(id != null && Bukkit.getEntity(id) instanceof TextDisplay td) || !td.isValid()) continue;
+            Transformation t = td.getTransformation();
+            td.setInterpolationDelay(0);
+            td.setInterpolationDuration(50);
+            td.setTransformation(new Transformation(new Vector3f(0, bobUp ? 0.35f : 0f, 0), t.getLeftRotation(), t.getScale(), t.getRightRotation()));
         }
     }
 

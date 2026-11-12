@@ -228,3 +228,18 @@ Spieler: `/schmiede modus` (3x3 an/aus), `/schmiede schmelzen` (Autoschmelze an/
 **Bedrock:** Mit Geyser kopiert das Setup `drachen.json` nach `plugins/Geyser-Spigot/custom_mappings` und `DrachenSMP-Bedrock.mcpack`
 nach `plugins/Geyser-Spigot/packs`. In der Geyser-Konfiguration muessen eigene Inhalte erlaubt sein (`enable-custom-content: true`).
 Bedrock ist nicht getestet.
+
+## 16. Grosse Schilder am Spawn
+Ueber dem Vorhof schwebt ein grosses MINESMP-Logo (32 Bloecke breit, schwebt langsam auf und ab), ueber den Bereichen haengen
+grosse Schilder: MARKT, HANDEL, KISTEN, FORTSCHRITT, KRISTALLGRUFT. Es sind Pixel-Grafiken aus dem MineSMP-Ressourcenpaket
+(eigene Schrift `minesmp:signs`), angezeigt mit Text-Displays - ohne Zusatz-Plugin, ohne Bloecke. Sie erscheinen von selbst,
+der Spawn muss nicht neu gebaut werden.
+
+| Was | Wo |
+|---|---|
+| Ein/aus, Schweben, Sichtweite | `config.yml -> spawn-signs` (`enabled`, `bob`, `view-range`) |
+| Position, Groesse, Ausrichtung | Spawn-Layout, Liste `signs`: `pos` = Unterkante Mitte (+ Blickrichtung), `width` in Bloecken, `billboard: fixed` (fest) oder `vertical` (dreht sich zum Spieler) |
+| Eigene Texte/Farben | `tools/build_signs.py` aendern, dann `python3 tools/build_pack.py` und Plugin neu bauen |
+
+Unter den grossen Schildern zeigen die Hologramme nur noch die Beschreibung (z.B. "Shop · Verkauf · Gems ..."), der Titel
+steht ja schon gross darueber. Wer das Ressourcenpaket ablehnt, sieht statt der Schilder Kaestchen.

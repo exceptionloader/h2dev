@@ -77,6 +77,13 @@ spawn-build:
   auto-update: true       # neuen Spawn-Bauplan aus einem Plugin-Update automatisch bauen (ueberschreibt den alten Spawn)
   blocks-per-tick: 30000
 
+# Grosse Schilder am Spawn: MINESMP-Logo in der Luft und Bereichs-Schilder (MARKT, HANDEL, KISTEN, FORTSCHRITT, GRUFT ...).
+# Grafiken aus dem MineSMP-Ressourcenpaket; Positionen und Groesse im Spawn-Layout (Liste "signs").
+spawn-signs:
+  enabled: true
+  bob: true             # Schilder mit bob: true (das Logo) schweben langsam auf und ab
+  view-range: 4.0       # Sichtweite (1.0 = normale Entfernung fuer Anzeigen, 4.0 = sehr weit)
+
 # Navigator-Kompass: liegt nur in der Spawn-Welt in der Hotbar (Rechtsklick = /navi) und verschwindet beim Verlassen.
 # slot: 1-9 (9 = letzter Platz). Nicht waehrend Duellen, in der PvP-Arena oder in der Gruft. Abschaltbar in /settings.
 spawn-compass:

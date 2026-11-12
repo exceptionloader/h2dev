@@ -642,9 +642,8 @@
     103.6,
     -29.5
    ],
-   "scale": 1.8,
+   "scale": 1.4,
    "text": [
-    "<g:#7CFF8A:#2BD46A>&lMARKT</g>",
     "&7Shop · Verkauf · Gems · Sterne · Spawner"
    ]
   },
@@ -654,9 +653,8 @@
     101.5,
     -39.5
    ],
-   "scale": 1.5,
+   "scale": 1.4,
    "text": [
-    "<g:#FFD86B:#FF9E2C>&lHANDEL</g>",
     "&7Auktionen · Aufträge · Warps"
    ]
   },
@@ -666,9 +664,8 @@
     103.4,
     -67.5
    ],
-   "scale": 1.6,
+   "scale": 1.4,
    "text": [
-    "<g:#FFD86B:#FF9E2C>&lKISTEN</g>",
     "&7Rechtsklick öffnen · Linksklick Vorschau"
    ]
   },
@@ -678,9 +675,8 @@
     104.8,
     -64.5
    ],
-   "scale": 1.8,
+   "scale": 1.4,
    "text": [
-    "<g:#E59BFF:#9B6BFF>&lFORTSCHRITT</g>",
     "&7Battlepass · Quests · Skills · Erfolge"
    ]
   },
@@ -690,9 +686,8 @@
     104.6,
     -83.5
    ],
-   "scale": 1.6,
+   "scale": 1.4,
    "text": [
-    "<g:#C084FC:#55FFFF>&lDIE KRISTALLGRUFT</g>",
     "&7PvE: Wellen & Boss · &d/gruft"
    ]
   }
@@ -888,6 +883,89 @@
   -19.5,
   100.6,
   -71.5
+ ],
+ "signs": [
+  {
+   "id": "pvp",
+   "pos": [
+    0.5,
+    121.0,
+    150.5
+   ],
+   "width": 14,
+   "billboard": "vertical"
+  },
+  {
+   "id": "kolosseum",
+   "pos": [
+    80.5,
+    114.5,
+    0.5
+   ],
+   "width": 13,
+   "billboard": "vertical"
+  },
+  {
+   "id": "logo",
+   "pos": [
+    -19.5,
+    117,
+    -38.0,
+    0
+   ],
+   "width": 32,
+   "bob": true
+  },
+  {
+   "id": "markt",
+   "pos": [
+    -5.5,
+    111,
+    -31.5,
+    90
+   ],
+   "width": 12
+  },
+  {
+   "id": "handel",
+   "pos": [
+    -44.5,
+    108,
+    -33.0,
+    -90
+   ],
+   "width": 11
+  },
+  {
+   "id": "kisten",
+   "pos": [
+    -40.5,
+    112,
+    -66.0,
+    -90
+   ],
+   "width": 12
+  },
+  {
+   "id": "fortschritt",
+   "pos": [
+    -19.5,
+    112,
+    -63.5
+   ],
+   "width": 16,
+   "billboard": "vertical"
+  },
+  {
+   "id": "kristallgruft",
+   "pos": [
+    -19.5,
+    115,
+    -78.5,
+    0
+   ],
+   "width": 16
+  }
  ],
  "clan-arenas": {
   "main": {

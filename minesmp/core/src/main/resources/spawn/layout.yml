@@ -1019,6 +1019,98 @@
   102.8,
   -6.5
  ],
+ "signs": [
+  {
+   "id": "kisten",
+   "pos": [
+    0.5,
+    115.0,
+    -30.5
+   ],
+   "width": 9,
+   "billboard": "vertical"
+  },
+  {
+   "id": "markt",
+   "pos": [
+    33.5,
+    111.5,
+    0.5
+   ],
+   "width": 9,
+   "billboard": "vertical"
+  },
+  {
+   "id": "fortschritt",
+   "pos": [
+    -24.0,
+    113.5,
+    0.5
+   ],
+   "width": 12,
+   "billboard": "vertical"
+  },
+  {
+   "id": "clans",
+   "pos": [
+    33.5,
+    114.5,
+    -33.5
+   ],
+   "width": 9,
+   "billboard": "vertical"
+  },
+  {
+   "id": "events",
+   "pos": [
+    -33.5,
+    114.5,
+    -33.5
+   ],
+   "width": 9,
+   "billboard": "vertical"
+  },
+  {
+   "id": "portale",
+   "pos": [
+    0.5,
+    115.5,
+    31.5
+   ],
+   "width": 10,
+   "billboard": "vertical"
+  },
+  {
+   "id": "pvp",
+   "pos": [
+    0.5,
+    121.0,
+    150.5
+   ],
+   "width": 14,
+   "billboard": "vertical"
+  },
+  {
+   "id": "kolosseum",
+   "pos": [
+    80.5,
+    114.5,
+    0.5
+   ],
+   "width": 13,
+   "billboard": "vertical"
+  },
+  {
+   "id": "kristallgruft",
+   "pos": [
+    -45.5,
+    117.0,
+    34.5
+   ],
+   "width": 13,
+   "billboard": "vertical"
+  }
+ ],
  "clan-arenas": {
   "main": {
    "pos1": [

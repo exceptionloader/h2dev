@@ -274,6 +274,11 @@ def build():
     # Drachen-Ausruestung "Obsidian & Sturm" (tools/models-src/drachen): Item-Modelle drachen:<name>,
     # Ruestungs-Aussehen drachen:obsidian - genutzt von custom-items.yml (item-model / equipment-asset)
     shutil.copytree(ROOT / "tools/models-src/drachen/assets/drachen", OUT / "assets/drachen")
+    # Grosse Spawn-Schilder (MINESMP-Logo, MARKT, HANDEL ...) in der Schrift minesmp:signs
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "tools"))
+    import build_signs
+    build_signs.write(OUT, ROOT)
     # Paketformat: 75 = Minecraft 1.21.11, 97.1 = Minecraft 26.3
     # Vorschaubild fuer den Paket-Bildschirm
     logo().resize((logo().width * 2, logo().height * 2), Image.NEAREST).save(OUT / "pack.png")

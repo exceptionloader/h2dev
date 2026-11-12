@@ -885,6 +885,60 @@ areas = [
     {"name": "&5&lKristallgruft", "icon": "AMETHYST_CLUSTER", "desc": "&7PvE: Wellen & Boss", "pos": pve_lobby},
 ]
 
+# Grosse Schilder (Grafiken aus tools/build_signs.py): pos = Unterkante Mitte (+ Blickrichtung bei billboard fixed), width in Bloecken
+signs = [
+    # (kein grosses Logo: der eingebaute Spawn hat schon den schwebenden MINESMP-Schriftzug aus Bloecken)
+    {"id": "kisten", "pos": [0.5, 115.0, -30.5], "width": 9, "billboard": "vertical"},
+    {"id": "markt", "pos": [33.5, 111.5, 0.5], "width": 9, "billboard": "vertical"},
+    {"id": "fortschritt", "pos": [-24.0, 113.5, 0.5], "width": 12, "billboard": "vertical"},
+    {"id": "clans", "pos": [33.5, 114.5, -33.5], "width": 9, "billboard": "vertical"},
+    {"id": "events", "pos": [-33.5, 114.5, -33.5], "width": 9, "billboard": "vertical"},
+    {"id": "portale", "pos": [0.5, 115.5, 31.5], "width": 10, "billboard": "vertical"},
+    {"id": "pvp", "pos": [0.5, 121.0, AZ + 0.5], "width": 14, "billboard": "vertical"},
+    {"id": "kolosseum", "pos": [KX - 31.5, 114.5, KZ + 0.5], "width": 13, "billboard": "vertical"},
+    {"id": "kristallgruft", "pos": [TX + 1.5, 117.0, TZ + 0.5], "width": 13, "billboard": "vertical"},
+]
+
+
+SIGN_SIZE = json.loads(json.dumps({}))
+try:
+    import re as _re
+    for _line in (ROOT / "core/src/main/resources/signs.yml").read_text().splitlines():
+        _m = _re.match(r'(\w+): \{text: "[^"]*", width: (\d+), height: (\d+)\}', _line)
+        if _m:
+            SIGN_SIZE[_m.group(1)] = (int(_m.group(2)), int(_m.group(3)))
+except OSError:
+    pass
+
+
+def check_signs(sign_list, solid, label):
+    """Warnt, wenn ein Schild in Bloecken steckt (vertical: Kreis mit halber Breite, fixed: Linie quer zur Blickrichtung)."""
+    bad = 0
+    for sg in sign_list:
+        fw, fh = SIGN_SIZE.get(sg["id"], (100, 28))
+        w = sg["width"]; h = w * fh / fw
+        x, y, z = sg["pos"][:3]
+        hits = []
+        for yy in range(math.floor(y), math.ceil(y + h + 0.4)):
+            if sg.get("billboard", "fixed") == "fixed":
+                yaw = math.radians(sg["pos"][3] if len(sg["pos"]) > 3 else 0)
+                dx, dz = math.cos(yaw), math.sin(yaw)   # quer zur Blickrichtung
+                for i in range(-int(w * 2), int(w * 2) + 1):
+                    t = i / 4
+                    if (math.floor(x + dx * t), yy, math.floor(z + dz * t)) in solid:
+                        hits.append((math.floor(x + dx * t), yy, math.floor(z + dz * t)))
+            else:
+                r = w / 2
+                for bx in range(math.floor(x - r), math.ceil(x + r)):
+                    for bz in range(math.floor(z - r), math.ceil(z + r)):
+                        if math.hypot(bx + 0.5 - x, bz + 0.5 - z) <= r and (bx, yy, bz) in solid:
+                            hits.append((bx, yy, bz))
+        if hits:
+            bad += 1
+            print(f"WARNUNG {label}: Schild {sg['id']} beruehrt {len(hits)} Bloecke, z.B. {hits[:3]}")
+    print(f"Schilder {label}: {len(sign_list)} geprueft, {bad} mit Bloecken")
+
+
 layout = {
     "version": VERSION,
     "world": "spawn",
@@ -900,6 +954,7 @@ layout = {
     "duels": duels,
     "areas": areas,
     "clan-board": clan_board,
+    "signs": signs,
     "clan-arenas": clan_arena,
     "sumo": SUMO,
     "points": {"crown-board": [9.5, 103.0, AZ - 34.5], "pve-lobby": pve_lobby,
@@ -935,6 +990,7 @@ def write_blueprint(blocks, path):
 
 
 write_blueprint(W2, OUT / "blueprint.txt.gz")
+check_signs(signs, set(W2.keys()), "eingebauter Spawn")
 (OUT / "layout.yml").write_text("# Automatisch erzeugt von tools/build_spawn.py\n" + json.dumps(layout, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
@@ -978,6 +1034,7 @@ for mf in sorted(MAPS.glob("*.json")) if MAPS.exists() else []:
     lay["crates"] = {k: shift(v) for k, v in m.get("crates", {}).items()}
     lay["areas"] = [dict(a, pos=shift(a["pos"])) for a in m.get("areas", [])] + [a for a in areas if extra(a["pos"][0], a["pos"][2])]
     lay["clan-board"] = shift(m["clan-board"]) if "clan-board" in m else clan_board
+    lay["signs"] = [s for s in signs if extra(s["pos"][0], s["pos"][2])] + [dict(s, pos=shift(s["pos"])) for s in m.get("signs", [])]
     pts = dict(layout["points"])
     for k, v in m.get("points", {}).items():
         pts[k] = shift(v)

@@ -1,0 +1,14 @@
+# Automatisch erzeugt von tools/build_signs.py - grosse Spawn-Schilder in der Schrift minesmp:signs
+# width/height in Schrift-Pixeln (40 = 1 Block bei Groesse 1)
+logo: {text: "\uE200\uE2FF\uE201\uE2FF\uE202", width: 141, height: 57}
+markt: {text: "\uE203\uE2FF\uE204\uE2FF\uE205", width: 126, height: 28}
+handel: {text: "\uE206\uE2FF\uE207\uE2FF\uE208", width: 138, height: 28}
+kisten: {text: "\uE209\uE2FF\uE20A\uE2FF\uE20B", width: 134, height: 28}
+fortschritt: {text: "\uE20C\uE2FF\uE20D\uE2FF\uE20E\uE2FF\uE20F", width: 194, height: 28}
+kristallgruft: {text: "\uE210\uE2FF\uE211\uE2FF\uE212\uE2FF\uE213", width: 218, height: 28}
+clans: {text: "\uE214\uE2FF\uE215\uE2FF\uE216", width: 126, height: 28}
+events: {text: "\uE217\uE2FF\uE218\uE2FF\uE219", width: 138, height: 28}
+portale: {text: "\uE21A\uE2FF\uE21B\uE2FF\uE21C", width: 150, height: 28}
+pvp: {text: "\uE21D\uE2FF\uE21E\uE2FF\uE21F", width: 170, height: 28}
+kolosseum: {text: "\uE220\uE2FF\uE221\uE2FF\uE222", width: 174, height: 28}
+survival: {text: "\uE223\uE2FF\uE224\uE2FF\uE225", width: 158, height: 28}

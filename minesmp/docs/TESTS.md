@@ -299,3 +299,17 @@ ist jetzt um 180 Grad gedreht (verzierte Vorderseite sichtbar). Nur die Ressourc
 **Nicht getestet:** wie die Modelle im echten Client aussehen (Hand, Kopf, Inventar), Bedrock/Geyser-Darstellung, Zusammenspiel mit
 anderen Schutz-Plugins als den eingebauten. Testhinweis: Die Bots brauchten fuer Schlaege `grim.exempt` (GrimAC verwirft Treffer von Bots
 ohne Bewegungsdaten) - echte Spieler betrifft das nicht.
+
+## Update 12.11.2026 (2): Grosse Schilder am Spawn
+26.3-Testserver mit der Burg-Insel "High Crown" (bestehender Spawn, nicht neu gebaut).
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Ressourcenpaket | 12 Schild-Grafiken in 38 Streifen (alle hoechstens 240 Pixel, passen auf Minecrafts 256er-Schriftseiten), Schrift `minesmp:signs` mit Abstand -1 zwischen den Streifen | ✅ |
+| Platz | Hoehenkarte der Insel per Bot vermessen (14.071 Spalten): kein Schild steckt in Daechern oder Tuermen (Logo-Unterkante 17, darunter hoechstens 11; KISTEN nach der Pruefung um 1,5 Bloecke verschoben). Eingebauter Spawn: 9 Schilder gegen den Bauplan geprueft, 0 Ueberschneidungen | ✅ |
+| Spawn-Welt | Alle 6 Schilder erscheinen ohne Neubau: richtige Grafik (Schrift `minesmp:signs`), Groesse (Logo 9,1-fach = 32 Bloecke breit), Ausrichtung (fest oder zum Spieler drehend) und Blickrichtung | ✅ |
+| Schweben | Logo wechselt alle 2,5 s weich zwischen 0 und 0,35 Bloecken Hoehe | ✅ |
+| Vorschau | Welt-Aufnahmen mit eingerechneten Schildern (gleiche Kamera, Verdeckung ueber die Hoehenkarte) | ✅ |
+
+**Nicht getestet:** Darstellung im echten Minecraft-Client (Bots zeigen keine Grafik; die Vorschau ist eingerechnet, nicht aufgenommen),
+Bedrock (Geyser zeigt eigene Schriften nicht - Bedrock-Spieler sehen die Schilder voraussichtlich nicht).

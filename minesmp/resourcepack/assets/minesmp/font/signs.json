@@ -1,0 +1,352 @@
+{
+ "providers": [
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/logo_0.png",
+   "ascent": 55,
+   "height": 57,
+   "chars": [
+    "\ue200"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/logo_1.png",
+   "ascent": 55,
+   "height": 57,
+   "chars": [
+    "\ue201"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/logo_2.png",
+   "ascent": 55,
+   "height": 57,
+   "chars": [
+    "\ue202"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/markt_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue203"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/markt_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue204"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/markt_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue205"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/handel_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue206"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/handel_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue207"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/handel_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue208"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kisten_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue209"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kisten_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kisten_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/fortschritt_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/fortschritt_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/fortschritt_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/fortschritt_3.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue20f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kristallgruft_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue210"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kristallgruft_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue211"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kristallgruft_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue212"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kristallgruft_3.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue213"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/clans_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue214"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/clans_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue215"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/clans_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue216"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/events_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue217"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/events_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue218"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/events_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue219"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/portale_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/portale_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/portale_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/pvp_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/pvp_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/pvp_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue21f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kolosseum_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue220"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kolosseum_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue221"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/kolosseum_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue222"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/survival_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue223"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/survival_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue224"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/survival_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue225"
+   ]
+  },
+  {
+   "type": "space",
+   "advances": {
+    "\ue2ff": -1
+   }
+  }
+ ]
+}
