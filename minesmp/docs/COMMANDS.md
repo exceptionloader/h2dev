@@ -77,6 +77,7 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /sethome | /createhome | `minesmp.home` | Home setzen | TeleportService |
 | /setspawn | - | `minesmp.admin.setspawn` | Spawn setzen | TeleportService |
 | /settings | /einstellungen, /options | `minesmp.settings` | Einstellungen | ProfileService |
+| /schmiede | /drachenschmiede, /drachen, /drache | `minesmp.drachen` | Drachen-Schmiede (Drachen-Ausruestung kaufen); `modus`, `schmelzen`, `rezepte`, `info` | DragonGearService |
 | /shop | /markt, /store | `minesmp.shop` | Server-Shop | ShopService |
 | /skills | /level, /skill | `minesmp.skills` | Skills & Level | SkillService |
 | /spawn | /lobby, /hub | `minesmp.spawn` | Zum Spawn | TeleportService |

@@ -35,6 +35,7 @@ import java.util.Map;
  *   spawners: {zombie: 1}
  *   books: ["vampir:2", "zufall:1"]
  *   commands: ["lp user {player} permission set xyz"]
+ *   drachen-loot: 0.5   (Chance 0-1 auf ein zufaelliges Teil der Drachen-Ausruestung, Pool: config.yml drachen.loot-pool)
  */
 public final class RewardService {
     private final MineSMP plugin;
@@ -98,6 +99,11 @@ public final class RewardService {
             if (it != null) { it.setAmount(Math.min(n, it.getMaxStackSize())); items.add(it); parts.add("&f" + (n > 1 ? n + "x " : "") + Items.name(it)); }
         }
         if (!items.isEmpty()) Items.giveOrDrop(p, items.toArray(new ItemStack[0]));
+        double loot = r.getDouble("drachen-loot");
+        if (loot > 0 && plugin.dragonGear() != null) {
+            ItemStack won = plugin.dragonGear().rollLoot(p, loot, de.minesmp.core.util.Text.strip(reason));
+            if (won != null) parts.add("&b" + Items.name(won));
+        }
         for (String cmd : r.getStringList("commands")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("{player}", p.getName()).replace("{uuid}", p.getUniqueId().toString()));
         }

@@ -113,6 +113,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.events.PveService pve;
     private de.minesmp.core.world.SpawnCompass compass;
     private de.minesmp.core.world.WinterService winter;
+    private de.minesmp.core.item.DragonGearService dragonGear;
     private de.minesmp.core.admin.GuardService guard;
     private de.minesmp.core.world.ModelService models;
     private de.minesmp.core.events.BossBrain bosses;
@@ -205,6 +206,7 @@ public final class MineSMP extends JavaPlugin {
         afk = new AfkService(this);
         rewards = new RewardService(this);
         tokenShops = new de.minesmp.core.shop.TokenShopService(this);
+        dragonGear = new de.minesmp.core.item.DragonGearService(this);
         spawners = new de.minesmp.core.spawner.SpawnerService(this);
         orders = new de.minesmp.core.shop.OrderService(this);
         keyall = new de.minesmp.core.utility.KeyallService(this);
@@ -347,6 +349,7 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.combat.PvpService pvp() { return pvp; }
     public de.minesmp.core.events.PveService pve() { return pve; }
     public de.minesmp.core.world.WinterService winter() { return winter; }
+    public de.minesmp.core.item.DragonGearService dragonGear() { return dragonGear; }
     public de.minesmp.core.admin.GuardService guard() { return guard; }
     public de.minesmp.core.world.ModelService models() { return models; }
     public de.minesmp.core.events.BossBrain bosses() { return bosses; }

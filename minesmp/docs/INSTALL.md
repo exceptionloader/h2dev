@@ -198,3 +198,33 @@ Das Windows-Paket erledigt das beim naechsten Start von "MineSMP starten.bat" se
 Spieler brauchen danach **Minecraft Java 26.3**. Aeltere Versionen koennen nur mit dem Plugin ViaBackwards beitreten
 (nicht im Paket enthalten). CoreProtect fehlt, bis es eine Version fuer 26.3 gibt (siehe PLUGINS.md).
 Zurueck auf 1.21.11 geht nur mit der Sicherung - eine umgebaute Welt laesst sich nicht mehr mit 1.21.11 oeffnen.
+
+## 15. Drachen-Ausruestung ("Obsidian & Sturm")
+10 Teile mit eigenen 3D-Modellen (stecken im MineSMP-Ressourcenpaket, kein Zusatz-Plugin noetig):
+
+| Teil | Faehigkeit |
+|---|---|
+| Donnerklinge | Treffer: Blitz-Effekt + 4 Zusatzschaden, 8 s Abklingzeit |
+| Frostbogen | Pfeiltreffer: Langsamkeit II fuer 3 s, 4 s Abklingzeit |
+| Titan-Spitzhacke | 3x3 Stein/Erze, Eisen/Gold/Kupfer sofort geschmolzen |
+| Sturmaxt | Schleichen + Abbauen: bis 12 Stammbloecke (in Reichweite) |
+| Terra-Schaufel | 3x3 Erde/Sand/Kies |
+| Lebenssichel | reife Feldfruechte werden neu gesaet |
+| Helm / Panzer / Beinschutz / Stiefel | Nachtsicht / Dornen / Flinkes Schleichen / Tempo I - alle 4: Feuerresistenz + Resistenz I |
+
+**So kommt man dran**
+- **Kaufen:** `/schmiede` oeffnet die Drachen-Schmiede (MineCoins). Preise in `token-shops.yml -> shops.drachen`.
+- **Gewinnen:** Boss-Event - Platz 1 bekommt sicher ein zufaelliges Teil + 2 Drachenkerne, Platz 2 zu 50 %, Platz 3 zu 25 % (+1 Kern),
+  alle anderen Teilnehmer zu 5 %. Einstellen in `events.yml -> events.boss.rewards` (`drachen-loot: 0.5` = 50 %), welche Teile wie oft
+  in `config.yml -> drachen.loot-pool`. Gewinne werden im Chat angesagt.
+- **Bauen:** Drachenkern + passendes Netherit-Teil (Bogen: normaler Bogen) + Drachenatem in der Werkbank. Den Kern gibt es beim
+  Boss-Event, im Shop, vom Enderdrachen oder aus 4 Amethyst + 4 Echoscherben + 1 Netheritbruchstueck (`/schmiede rezepte`).
+
+Bestehende Server bekommen den Shop und die Boss-Beute beim ersten Start automatisch eingetragen (eigene Einstellungen bleiben).
+Faehigkeiten, Abklingzeiten und Effekte: `config.yml -> drachen` (z.B. `affect-players: false` = Blitz/Frost nur gegen Monster).
+Spieler: `/schmiede modus` (3x3 an/aus), `/schmiede schmelzen` (Autoschmelze an/aus), `/schmiede info`. Admins: `/msitem <Spieler> drachen_helm`.
+3x3-Abbau und Baumfaellen laufen ueber normale Abbau-Ereignisse - Grundstuecke, Spawnschutz und WorldGuard greifen fuer jeden Block.
+
+**Bedrock:** Mit Geyser kopiert das Setup `drachen.json` nach `plugins/Geyser-Spigot/custom_mappings` und `DrachenSMP-Bedrock.mcpack`
+nach `plugins/Geyser-Spigot/packs`. In der Geyser-Konfiguration muessen eigene Inhalte erlaubt sein (`enable-custom-content: true`).
+Bedrock ist nicht getestet.

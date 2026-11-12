@@ -514,6 +514,40 @@ custom-items:
   grapple-cooldown-ms: 2000
   grapple-in-combat: false
 
+# Drachen-Ausruestung "Obsidian & Sturm" (Items: custom-items.yml, Shop: token-shops.yml -> drachen, Befehl /schmiede)
+drachen:
+  affect-players: false          # Blitz-Zusatzschaden und Frost auch gegen Spieler (normales PvP bleibt unberuehrt)
+  adventure-mode: false          # Faehigkeiten auch im Abenteuermodus (sonst nur Ueberleben)
+  thunder-cooldown-seconds: 8
+  thunder-bonus-damage: 4.0
+  frost-cooldown-seconds: 4
+  frost-duration-seconds: 3
+  area-mining: true              # 3x3 mit Titan-Spitzhacke und Terra-Schaufel
+  auto-smelting: true            # Titan-Spitzhacke schmilzt Eisen, Gold, Kupfer
+  tree-felling: true
+  max-tree-blocks: 12
+  recipes: true                  # Drachenkern + Netherit-Teil + Drachenatem = Ausruestung (/schmiede rezepte)
+  dragon-drops-core: true        # Enderdrache laesst einen Drachenkern fallen
+  broadcast-loot: true           # Chat-Nachricht, wenn jemand ein Teil beim Boss-Event gewinnt
+  armor:
+    night-vision: true
+    speed: true
+    full-set-fire-resistance: true
+    full-set-resistance: true
+    particles: true
+  # Gewichte fuer die Boss-Beute (drachen-loot): hoeher = haeufiger
+  loot-pool:
+    drachen_donnerklinge: 10
+    drachen_frostbogen: 10
+    titan_spitzhacke: 8
+    sturm_axt: 10
+    terra_schaufel: 10
+    ernte_sichel: 10
+    drachen_helm: 10
+    drachen_panzer: 6
+    drachen_beinschutz: 8
+    drachen_stiefel: 10
+
 custom-enchants:
   max-per-item: 4
 

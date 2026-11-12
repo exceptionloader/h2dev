@@ -3,6 +3,7 @@
 #  price: Preis in der Shop-Waehrung, slot: Platz im Menue, icon: Anzeige-Item
 #  reward: Belohnungsformat (money, gems, stars, keys, items, custom-items, spawners, books, commands, display)
 #  permission: optional - nur mit dieser Berechtigung kaufbar
+#  currency: gems, stars oder money (MineCoins). icon-custom: <id> zeigt das echte Custom Item. display-only: true = nur Anzeige
 #  Gems gibt es im Store, bei Events, Votes und Keyalls. Sterne fuer aktive Spielzeit.
 # =====================================================================
 shops:
@@ -136,3 +137,72 @@ shops:
         price: 50
         icon: {material: LEATHER, name: '&6&lKuh-Spawner'}
         reward: {spawners: {cow: 1}}
+  # Drachen-Ausruestung "Obsidian & Sturm" (/schmiede). Auch als Boss-Event-Beute (events.yml -> drachen-loot).
+  drachen:
+    title: '&8Drachen-Schmiede &b✦'
+    currency: money
+    rows: 5
+    items:
+      donnerklinge:
+        slot: 10
+        price: 250000
+        icon-custom: drachen_donnerklinge
+        reward: {custom-items: [drachen_donnerklinge]}
+      frostbogen:
+        slot: 11
+        price: 180000
+        icon-custom: drachen_frostbogen
+        reward: {custom-items: [drachen_frostbogen]}
+      titan_spitzhacke:
+        slot: 12
+        price: 300000
+        icon-custom: titan_spitzhacke
+        reward: {custom-items: [titan_spitzhacke]}
+      sturm_axt:
+        slot: 13
+        price: 200000
+        icon-custom: sturm_axt
+        reward: {custom-items: [sturm_axt]}
+      terra_schaufel:
+        slot: 14
+        price: 150000
+        icon-custom: terra_schaufel
+        reward: {custom-items: [terra_schaufel]}
+      ernte_sichel:
+        slot: 15
+        price: 120000
+        icon-custom: ernte_sichel
+        reward: {custom-items: [ernte_sichel]}
+      drachenkern:
+        slot: 16
+        price: 25000
+        icon-custom: drachenkern
+        reward: {custom-items: [drachenkern]}
+      drachen_helm:
+        slot: 19
+        price: 220000
+        icon-custom: drachen_helm
+        reward: {custom-items: [drachen_helm]}
+      drachen_panzer:
+        slot: 20
+        price: 300000
+        icon-custom: drachen_panzer
+        reward: {custom-items: [drachen_panzer]}
+      drachen_beinschutz:
+        slot: 21
+        price: 260000
+        icon-custom: drachen_beinschutz
+        reward: {custom-items: [drachen_beinschutz]}
+      drachen_stiefel:
+        slot: 22
+        price: 200000
+        icon-custom: drachen_stiefel
+        reward: {custom-items: [drachen_stiefel]}
+      boss_info:
+        slot: 24
+        display-only: true
+        icon: {material: DRAGON_HEAD, name: '&c&lBoss-Event-Beute', glow: true, lore: ['&7Jedes Boss-Event verteilt Drachen-Teile:', '&8» &6Platz 1: &fein Teil sicher &7+ 2 Kerne', '&8» &ePlatz 2: &f50 % &7+ 1 Kern', '&8» &ePlatz 3: &f25 % &7+ 1 Kern', '&8» &7Teilnahme: &f5 %', '&8', '&7Infos: &f/schmiede info']}
+      set_info:
+        slot: 25
+        display-only: true
+        icon: {material: NETHERITE_CHESTPLATE, item-model: 'drachen:drachen_panzer', name: '&b&lVolles Set (4/4)', lore: ['&7Alle vier Ruestungsteile tragen:', '&6Feuerresistenz &7+ &bResistenz I', '&8', '&7Werkzeuge an/aus:', '&f/schmiede modus &7(3x3-Abbau)', '&f/schmiede schmelzen &7(Autoschmelze)']}

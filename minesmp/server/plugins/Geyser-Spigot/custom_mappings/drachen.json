@@ -1,0 +1,176 @@
+{
+  "format_version": 2,
+  "items": {
+    "minecraft:fire_charge": [
+      {
+        "type": "definition",
+        "model": "drachen:drachenkern",
+        "bedrock_identifier": "drachen:drachenkern",
+        "display_name": "Drachenkern",
+        "bedrock_options": {
+          "icon": "drachen:drachenkern",
+          "display_handheld": false,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_sword": [
+      {
+        "type": "definition",
+        "model": "drachen:donnerklinge",
+        "bedrock_identifier": "drachen:donnerklinge",
+        "display_name": "Donnerklinge",
+        "bedrock_options": {
+          "icon": "drachen:donnerklinge",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:bow": [
+      {
+        "type": "definition",
+        "model": "drachen:frostbogen",
+        "bedrock_identifier": "drachen:frostbogen",
+        "display_name": "Frostbogen",
+        "bedrock_options": {
+          "icon": "drachen:frostbogen",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_pickaxe": [
+      {
+        "type": "definition",
+        "model": "drachen:titan_spitzhacke",
+        "bedrock_identifier": "drachen:titan_spitzhacke",
+        "display_name": "Titan-Spitzhacke",
+        "bedrock_options": {
+          "icon": "drachen:titan_spitzhacke",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_axe": [
+      {
+        "type": "definition",
+        "model": "drachen:sturm_axt",
+        "bedrock_identifier": "drachen:sturm_axt",
+        "display_name": "Sturmaxt",
+        "bedrock_options": {
+          "icon": "drachen:sturm_axt",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_shovel": [
+      {
+        "type": "definition",
+        "model": "drachen:terra_schaufel",
+        "bedrock_identifier": "drachen:terra_schaufel",
+        "display_name": "Terra-Schaufel",
+        "bedrock_options": {
+          "icon": "drachen:terra_schaufel",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_hoe": [
+      {
+        "type": "definition",
+        "model": "drachen:ernte_sichel",
+        "bedrock_identifier": "drachen:ernte_sichel",
+        "display_name": "Lebenssichel",
+        "bedrock_options": {
+          "icon": "drachen:ernte_sichel",
+          "display_handheld": true,
+          "creative_category": "equipment"
+        }
+      }
+    ],
+    "minecraft:netherite_helmet": [
+      {
+        "type": "definition",
+        "model": "drachen:drachen_helm",
+        "bedrock_identifier": "drachen:drachen_helm",
+        "display_name": "Obsidian-Drachenhelm",
+        "bedrock_options": {
+          "icon": "drachen:drachen_helm",
+          "display_handheld": false,
+          "creative_category": "equipment",
+          "protection_value": 3
+        },
+        "components": {
+          "minecraft:equippable": {
+            "slot": "head"
+          },
+          "minecraft:max_stack_size": 1
+        }
+      }
+    ],
+    "minecraft:netherite_chestplate": [
+      {
+        "type": "definition",
+        "model": "drachen:drachen_panzer",
+        "bedrock_identifier": "drachen:drachen_panzer",
+        "display_name": "Obsidian-Drachenpanzer",
+        "bedrock_options": {
+          "icon": "drachen:drachen_panzer",
+          "display_handheld": false,
+          "creative_category": "equipment",
+          "protection_value": 8
+        },
+        "components": {
+          "minecraft:equippable": {
+            "slot": "chest"
+          },
+          "minecraft:max_stack_size": 1
+        }
+      }
+    ],
+    "minecraft:netherite_leggings": [
+      {
+        "type": "definition",
+        "model": "drachen:drachen_beinschutz",
+        "bedrock_identifier": "drachen:drachen_beinschutz",
+        "display_name": "Obsidian-Drachenbeinschutz",
+        "bedrock_options": {
+          "icon": "drachen:drachen_beinschutz",
+          "display_handheld": false,
+          "creative_category": "equipment",
+          "protection_value": 6
+        },
+        "components": {
+          "minecraft:equippable": {
+            "slot": "legs"
+          },
+          "minecraft:max_stack_size": 1
+        }
+      }
+    ],
+    "minecraft:netherite_boots": [
+      {
+        "type": "definition",
+        "model": "drachen:drachen_stiefel",
+        "bedrock_identifier": "drachen:drachen_stiefel",
+        "display_name": "Obsidian-Drachenstiefel",
+        "bedrock_options": {
+          "icon": "drachen:drachen_stiefel",
+          "display_handheld": false,
+          "creative_category": "equipment",
+          "protection_value": 3
+        },
+        "components": {
+          "minecraft:equippable": {
+            "slot": "feet"
+          },
+          "minecraft:max_stack_size": 1
+        }
+      }
+    ]
+  }
+}

@@ -49,6 +49,10 @@ curl -fsSL -o plugins/Vault.jar https://github.com/MilkBowl/Vault/releases/downl
 if [ "${BEDROCK:-1}" = "1" ]; then
   curl -fsSL -o plugins/Geyser-Spigot.jar https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot && echo "   Geyser-Spigot.jar"
   curl -fsSL -o plugins/Floodgate-Spigot.jar https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot && echo "   Floodgate-Spigot.jar"
+  # Drachen-Ausruestung fuer Bedrock: Geyser-Zuordnung + Bedrock-Ressourcenpaket
+  mkdir -p plugins/Geyser-Spigot/custom_mappings plugins/Geyser-Spigot/packs
+  cp "$ROOT/server/plugins/Geyser-Spigot/custom_mappings/drachen.json" plugins/Geyser-Spigot/custom_mappings/
+  cp "$ROOT/server/plugins/Geyser-Spigot/packs/DrachenSMP-Bedrock.mcpack" plugins/Geyser-Spigot/packs/ && echo "   Geyser: Drachen-Items fuer Bedrock"
 fi
 echo "   Hinweis: NuVotifier (Vote-Belohnungen) bitte manuell von https://github.com/NuVotifier/NuVotifier/releases laden."
 

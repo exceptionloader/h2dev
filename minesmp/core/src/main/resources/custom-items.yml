@@ -105,6 +105,91 @@ items:
     custom-enchants: {tempo: 2, sprung: 1}
     custom-model-data: 10019
 
+  # ---------------- Drachen-Ausruestung "Obsidian & Sturm" ----------------
+  # 3D-Modelle im MineSMP-Ressourcenpaket (item-model drachen:<name>), Faehigkeiten DRACHEN_* (Einstellungen: config.yml -> drachen).
+  # Kaufen in der Drachen-Schmiede (/schmiede), gewinnen beim Boss-Event (events.yml -> events.boss.rewards).
+  # equipment-asset: Aussehen der getragenen Ruestung (none = 3D-Item-Modell auf dem Kopf)
+  drachenkern:
+    material: FIRE_CHARGE
+    item-model: drachen:drachenkern
+    ability: DRACHEN_KERN
+    name: '<g:#7CF7FF:#1FB5C9>&lDrachenkern</g>'
+    lore: ['&7Seltene Essenz fuer Drachen-Ausruestung.', '&7Beute vom Boss-Event und vom Enderdrachen.', '&7Rezepte: &f/schmiede rezepte', '&8Drachen-Ausruestung']
+  drachen_donnerklinge:
+    material: NETHERITE_SWORD
+    item-model: drachen:donnerklinge
+    ability: DRACHEN_DONNER
+    name: '<g:#7CF7FF:#4F9CFF>&lDonnerklinge</g>'
+    lore: ['&7Nahkampftreffer: &bBlitz &7+ Zusatzschaden.', '&78 s Abklingzeit, nur gegen Monster.', '&8Drachen-Ausruestung']
+    enchantments: {sharpness: 6, unbreaking: 4, mending: 1}
+  drachen_frostbogen:
+    material: BOW
+    item-model: drachen:frostbogen
+    ability: DRACHEN_FROST
+    name: '<g:#DDFBFF:#5EC8FF>&lFrostbogen</g>'
+    lore: ['&7Pfeiltreffer: &bLangsamkeit II &7fuer 3 s.', '&74 s Abklingzeit, nur gegen Monster.', '&8Drachen-Ausruestung']
+    enchantments: {power: 6, unbreaking: 4, mending: 1}
+  titan_spitzhacke:
+    material: NETHERITE_PICKAXE
+    item-model: drachen:titan_spitzhacke
+    ability: DRACHEN_PICKE
+    name: '<g:#7CF7FF:#2BD9A8>&lTitan-Spitzhacke</g>'
+    lore: ['&73x3-Abbau von Stein und Erzen.', '&7Eisen, Gold und Kupfer schmelzen sofort.', '&7Schleichen: nur ein Block.', '&7An/aus: &f/schmiede modus &7| &f/schmiede schmelzen', '&8Drachen-Ausruestung']
+    enchantments: {efficiency: 6, fortune: 4, unbreaking: 4, mending: 1}
+  sturm_axt:
+    material: NETHERITE_AXE
+    item-model: drachen:sturm_axt
+    ability: DRACHEN_AXT
+    name: '<g:#7CF7FF:#8E7CFF>&lSturmaxt</g>'
+    lore: ['&7Schleichen + Abbauen: bis zu 12', '&7verbundene Stammbloecke auf einmal.', '&8Drachen-Ausruestung']
+    enchantments: {efficiency: 6, sharpness: 5, unbreaking: 4, mending: 1}
+  terra_schaufel:
+    material: NETHERITE_SHOVEL
+    item-model: drachen:terra_schaufel
+    ability: DRACHEN_SCHAUFEL
+    name: '<g:#7CF7FF:#C9A86B>&lTerra-Schaufel</g>'
+    lore: ['&73x3-Abbau von Erde, Sand und Kies.', '&7Schleichen: nur ein Block. &f/schmiede modus', '&8Drachen-Ausruestung']
+    enchantments: {efficiency: 6, unbreaking: 4, mending: 1}
+  ernte_sichel:
+    material: NETHERITE_HOE
+    item-model: drachen:ernte_sichel
+    ability: DRACHEN_SICHEL
+    name: '<g:#7CF7FF:#6BFF8E>&lLebenssichel</g>'
+    lore: ['&7Reife Feldfruechte werden automatisch', '&7neu gesaet (verbraucht einen Samen).', '&8Drachen-Ausruestung']
+    enchantments: {efficiency: 6, unbreaking: 4, mending: 1}
+  drachen_helm:
+    material: NETHERITE_HELMET
+    item-model: drachen:drachen_helm
+    equipment-asset: none
+    ability: DRACHEN_HELM
+    name: '<g:#7CF7FF:#1FB5C9>&lObsidian-Drachenhelm</g>'
+    lore: ['&7Nachtsicht. Gehoernter 3D-Helm.', '&74/4 Teile: &6Feuerresistenz &7+ &bResistenz I', '&8Drachen-Ausruestung']
+    enchantments: {protection: 5, respiration: 4, aqua_affinity: 1, unbreaking: 4, mending: 1}
+  drachen_panzer:
+    material: NETHERITE_CHESTPLATE
+    item-model: drachen:drachen_panzer
+    equipment-asset: drachen:obsidian
+    ability: DRACHEN_PANZER
+    name: '<g:#7CF7FF:#1FB5C9>&lObsidian-Drachenpanzer</g>'
+    lore: ['&7Obsidianplatten mit tuerkisen Runen.', '&74/4 Teile: &6Feuerresistenz &7+ &bResistenz I', '&8Drachen-Ausruestung']
+    enchantments: {protection: 5, thorns: 3, unbreaking: 4, mending: 1}
+  drachen_beinschutz:
+    material: NETHERITE_LEGGINGS
+    item-model: drachen:drachen_beinschutz
+    equipment-asset: drachen:obsidian
+    ability: DRACHEN_BEINSCHUTZ
+    name: '<g:#7CF7FF:#1FB5C9>&lObsidian-Drachenbeinschutz</g>'
+    lore: ['&7Flinkes Schleichen III.', '&74/4 Teile: &6Feuerresistenz &7+ &bResistenz I', '&8Drachen-Ausruestung']
+    enchantments: {protection: 5, swift_sneak: 3, unbreaking: 4, mending: 1}
+  drachen_stiefel:
+    material: NETHERITE_BOOTS
+    item-model: drachen:drachen_stiefel
+    equipment-asset: drachen:obsidian
+    ability: DRACHEN_STIEFEL
+    name: '<g:#7CF7FF:#1FB5C9>&lObsidian-Drachenstiefel</g>'
+    lore: ['&7Geschwindigkeit I beim Tragen.', '&74/4 Teile: &6Feuerresistenz &7+ &bResistenz I', '&8Drachen-Ausruestung']
+    enchantments: {protection: 5, feather_falling: 5, depth_strider: 3, soul_speed: 3, unbreaking: 4, mending: 1}
+
 recipes:
   # Eigenes Rezept: Sattel
   sattel:

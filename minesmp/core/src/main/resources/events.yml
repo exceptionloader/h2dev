@@ -115,11 +115,12 @@ events:
     damage: 14
     duration-minutes: 20
     min-players: 3
+    # drachen-loot: Chance (0-1) auf ein zufaelliges Teil der Drachen-Ausruestung (Pool: config.yml -> drachen.loot-pool)
     rewards:
-      1: {money: 30000, keys: {legendary: 1}, bp-xp: 400}
-      2: {money: 15000, keys: {epic: 1}, bp-xp: 250}
-      3: {money: 8000, keys: {rare: 2}, bp-xp: 150}
-      participation: {money: 1500, keys: {vote: 1}, bp-xp: 50}
+      1: {money: 30000, keys: {legendary: 1}, bp-xp: 400, custom-items: ['drachenkern:2'], drachen-loot: 1.0}
+      2: {money: 15000, keys: {epic: 1}, bp-xp: 250, custom-items: [drachenkern], drachen-loot: 0.5}
+      3: {money: 8000, keys: {rare: 2}, bp-xp: 150, custom-items: [drachenkern], drachen-loot: 0.25}
+      participation: {money: 1500, keys: {vote: 1}, bp-xp: 50, drachen-loot: 0.05}
   turnier:
     name: '&c&lPvP-Turnier'
     type: TOURNAMENT

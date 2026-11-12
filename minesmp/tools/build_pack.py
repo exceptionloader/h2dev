@@ -271,6 +271,9 @@ def build():
     skins.mkdir(parents=True)
     for f in sorted((ROOT / "tools/models-src/npc/skins").glob("*.png")):
         shutil.copyfile(f, skins / f.name)
+    # Drachen-Ausruestung "Obsidian & Sturm" (tools/models-src/drachen): Item-Modelle drachen:<name>,
+    # Ruestungs-Aussehen drachen:obsidian - genutzt von custom-items.yml (item-model / equipment-asset)
+    shutil.copytree(ROOT / "tools/models-src/drachen/assets/drachen", OUT / "assets/drachen")
     # Paketformat: 75 = Minecraft 1.21.11, 97.1 = Minecraft 26.3
     # Vorschaubild fuer den Paket-Bildschirm
     logo().resize((logo().width * 2, logo().height * 2), Image.NEAREST).save(OUT / "pack.png")

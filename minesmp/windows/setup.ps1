@@ -166,6 +166,14 @@ if (-not (Test-Path $vault)) {
 Copy-Item (Join-Path $Root 'files\MineSMPCore-1.0.0.jar') $Plugins -Force
 Write-NoBom $versionFile $McVersion
 Ok 'MineSMPCore-1.0.0.jar'
+# Bedrock (nur wenn Geyser installiert ist): Drachen-Ausruestung als eigene Items mit 3D-Modellen
+$geyser = Join-Path $Plugins 'Geyser-Spigot'
+if ((Test-Path (Join-Path $Plugins 'Geyser-Spigot.jar')) -or (Test-Path $geyser)) {
+    New-Item -ItemType Directory -Force (Join-Path $geyser 'custom_mappings'), (Join-Path $geyser 'packs') | Out-Null
+    Copy-Item (Join-Path $Root 'files\drachen.json') (Join-Path $geyser 'custom_mappings') -Force
+    Copy-Item (Join-Path $Root 'files\DrachenSMP-Bedrock.mcpack') (Join-Path $geyser 'packs') -Force
+    Ok 'Geyser: Drachen-Items fuer Bedrock'
+}
 
 foreach ($f in @('server.properties', 'bukkit.yml', 'spigot.yml')) {
     $t = Join-Path $Server $f

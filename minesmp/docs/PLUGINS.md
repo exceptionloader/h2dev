@@ -18,7 +18,7 @@ Die Versionen unten wurden zusammen auf einem Paper-26.3-Testserver gestartet (J
 | Chunky | 1.5.66 | Welt vorgenerieren | Modrinth |
 | BetterModel | 3.6.0 (paper) | Zeigt die 3D-Modelle der NPCs und Bosse (Blockbench) ueber Display-Entities und baut dafuer ein eigenes Ressourcenpaket (MineSMPCore schickt es als zweites Paket mit). Auf Paper 26.3 getestet (Protokoll-Ebene, siehe TESTS.md). Braucht Java 25 | Modrinth |
 | Simple Voice Chat | 2.6.25 (bukkit) | Optional: Sprachchat in der Naehe. Spieler brauchen die Client-Mod, Server braucht UDP-Port 24454. Auf Modrinth fuer Paper 26.3 gelistet, mit MineSMP **nicht** zusammen getestet | Modrinth |
-| Geyser + Floodgate | 2.12.1 (Build 1299) | Optional: Bedrock-Spieler. Auf 26.3 **nicht** getestet | geysermc.org |
+| Geyser + Floodgate | 2.12.1 (Build 1299) | Optional: Bedrock-Spieler (Drachen-Items: `custom_mappings/drachen.json` + `packs/DrachenSMP-Bedrock.mcpack` liegen bei). Auf 26.3 **nicht** getestet | geysermc.org |
 | NuVotifier | (manuell) | Optional: Vote-Belohnungen | GitHub |
 
 ## Wichtig: Java-Version

@@ -103,6 +103,23 @@ public final class EventManager implements Listener {
             saveCfg();
             plugin.getLogger().info("events.yml: Boss-Event nutzt jetzt die kolossalen Bosse (bosses.yml).");
         }
+        // Bestehende Server: Drachen-Ausruestung einmalig als Boss-Beute eintragen
+        if ("BOSS".equalsIgnoreCase(cfg.getString("events.boss.type", "")) && !cfg.getBoolean("drachen-loot-added")) {
+            double[] chance = {1.0, 0.5, 0.25};
+            for (int i = 1; i <= 3; i++) {
+                String path = "events.boss.rewards." + i;
+                if (!cfg.isConfigurationSection(path) || cfg.isSet(path + ".drachen-loot")) continue;
+                cfg.set(path + ".drachen-loot", chance[i - 1]);
+                List<String> ci = new ArrayList<>(cfg.getStringList(path + ".custom-items"));
+                if (ci.stream().noneMatch(x -> x.startsWith("drachenkern"))) ci.add(i == 1 ? "drachenkern:2" : "drachenkern");
+                cfg.set(path + ".custom-items", ci);
+            }
+            if (cfg.isConfigurationSection("events.boss.rewards.participation") && !cfg.isSet("events.boss.rewards.participation.drachen-loot"))
+                cfg.set("events.boss.rewards.participation.drachen-loot", 0.05);
+            cfg.set("drachen-loot-added", true);
+            saveCfg();
+            plugin.getLogger().info("events.yml: Boss-Event verteilt jetzt Drachen-Ausruestung (drachen-loot).");
+        }
     }
 
     private List<String> eventIds() {

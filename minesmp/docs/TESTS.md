@@ -266,3 +266,31 @@ Pakete des Servers mitliest (kein echter Minecraft-Client).
 
 **Nicht getestet:** wie die Modelle im echten Client aussehen (Texturen, Groesse, ob alle gedrehten Teile richtig sitzen) - die Bots
 koennen die Modelle nicht darstellen. Bedrock-Spieler (Geyser) sehen die Modelle voraussichtlich nicht.
+
+## Update 12.11.2026: Drachen-Ausruestung "Obsidian & Sturm"
+26.3-Testserver (Paper Build 249) mit bestehender Welt und alten Einstellungen. Test-Bots (mineflayer ueber ViaVersion), Pruefung per RCON.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Update | Bestehender Server: Shop `drachen` in token-shops.yml und Boss-Beute in events.yml automatisch ergaenzt, 11 neue Items ohne eigene Aenderungen zu verlieren; 0 Fehler im Log | ✅ |
+| Ressourcenpaket | Ausgeliefertes Paket enthaelt 11 Item-Definitionen `drachen:*`, alle Modelle/Texturen vorhanden, Ruestungs-Aussehen `drachen:obsidian` (humanoid + humanoid_leggings) | ✅ |
+| Drachen-Schmiede | `/schmiede` oeffnet das Menue, 11 Teile mit 3D-Modell-Kennung, Kauf mit Bestaetigung zieht 250.000 MC ab und gibt die Donnerklinge | ✅ |
+| Items | Alle 11 per `/msitem`, jeweils mit `item_model drachen:<name>`; Panzer/Beinschutz/Stiefel tragen sich in Brust/Beine/Fuesse mit `drachen:obsidian`, Helm auf dem Kopf mit 3D-Modell | ✅ |
+| Ruestung | Nur Helm: Nachtsicht; 4/4: Nachtsicht, Tempo, Feuerresistenz, Resistenz; Helm ab: Nachtsicht und Set-Bonus laufen aus | ✅ |
+| Titan-Spitzhacke | 9/9 Bloecke einer Wand, Eisen- und Golderz als Barren; `/schmiede modus` aus = nur 1 Block | ✅ |
+| Terra-Schaufel | 8 Erdbloecke im 3x3, Stein daneben bleibt | ✅ |
+| Sturmaxt | Schleichend 9 von 15 Stammbloecken (alle in 8 Bloecken Reichweite, Grenze 12) | ✅ |
+| Lebenssichel | Reifer Weizen sofort neu gesaet (ein Samen aus den Drops verbraucht), unreifer nicht | ✅ |
+| Donnerklinge | 1. Treffer: Blitz + 15,3 Schaden; 2. Treffer innerhalb 8 s: 11,3 Schaden, kein Blitz | ✅ |
+| Frostbogen | Pfeiltreffer: Langsamkeit II beim Ziel | ✅ |
+| Drachenkern | Legt kein Feuer, wird nicht verbraucht | ✅ |
+| Rezepte | Kern + Netheritschwert/-helm + Drachenatem = Donnerklinge/Drachenhelm; schon fertiges Drachen-Teil oder normale Feuerkugel = kein Ergebnis; Kern-Rezept (Amethyst/Echo/Netheritbruchstueck) | ✅ |
+| Boss-Beute | Granitfuerst mit 3 Spielern besiegt: Platz 1 = 2 Kerne + Obsidian-Drachenstiefel, Platz 2 = Kern + Lebenssichel (50 %), Platz 3 = Kern; Chat-Meldung "erbeutet" | ✅ |
+
+**Gefunden und behoben:** Beim Setzen des Ruestungs-Aussehens setzte Paper den Trage-Platz aller Teile auf "Kopf" zurueck (Panzer,
+Hose und Stiefel waeren nur auf dem Kopf tragbar gewesen). Das steckt auch im mitgelieferten DrachenSMP-Plugin 0.1.0. MineSMPCore
+uebernimmt jetzt Platz und Sound vom Netherit-Teil und aendert nur das Aussehen.
+
+**Nicht getestet:** wie die Modelle im echten Client aussehen (Hand, Kopf, Inventar), Bedrock/Geyser-Darstellung, Zusammenspiel mit
+anderen Schutz-Plugins als den eingebauten. Testhinweis: Die Bots brauchten fuer Schlaege `grim.exempt` (GrimAC verwirft Treffer von Bots
+ohne Bewegungsdaten) - echte Spieler betrifft das nicht.

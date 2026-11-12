@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "drachen:obsidian"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "drachen:obsidian"
+      }
+    ]
+  }
+}

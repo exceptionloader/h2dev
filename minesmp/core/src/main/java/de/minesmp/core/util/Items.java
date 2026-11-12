@@ -71,6 +71,9 @@ public final class Items {
             List<String> lore = s.getStringList("lore");
             if (!lore.isEmpty()) meta.lore(Text.itemLore(lore));
             if (s.isInt("custom-model-data")) meta.setCustomModelData(s.getInt("custom-model-data"));
+            // Eigenes Item-Modell aus dem Ressourcenpaket (z.B. drachen:donnerklinge)
+            NamespacedKey model = s.isString("item-model") ? NamespacedKey.fromString(s.getString("item-model", "").toLowerCase(Locale.ROOT)) : null;
+            if (model != null) meta.setItemModel(model);
             if (s.getBoolean("glow")) meta.setEnchantmentGlintOverride(true);
             if (s.getBoolean("unbreakable")) meta.setUnbreakable(true);
             ConfigurationSection en = s.getConfigurationSection("enchantments");
@@ -83,6 +86,15 @@ public final class Items {
                 }
             }
         });
+        // Getragene Ruestung: eigenes Ausruestungs-Aussehen (equipment-asset) oder "none" = Item-Modell auf dem Kopf.
+        // Auf Basis der Vanilla-Werte des Materials (Slot, Sound), sonst waere z.B. ein Brustpanzer nur auf dem Kopf tragbar.
+        if (s.isString("equipment-asset")) {
+            String asset = s.getString("equipment-asset", "").toLowerCase(Locale.ROOT);
+            var type = io.papermc.paper.datacomponent.DataComponentTypes.EQUIPPABLE;
+            var def = it.getData(type);
+            NamespacedKey key = asset.equals("none") ? null : NamespacedKey.fromString(asset);
+            if (def != null && (key != null || asset.equals("none"))) it.setData(type, def.toBuilder().assetId(key).build());
+        }
         return it;
     }
 
