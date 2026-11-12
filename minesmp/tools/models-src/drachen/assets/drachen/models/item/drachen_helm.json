@@ -1167,7 +1167,7 @@
     "gui": {
       "rotation": [
         22,
-        35,
+        215,
         0
       ],
       "translation": [
@@ -1218,7 +1218,7 @@
     "head": {
       "rotation": [
         0,
-        180,
+        0,
         0
       ],
       "translation": [

@@ -291,6 +291,11 @@ koennen die Modelle nicht darstellen. Bedrock-Spieler (Geyser) sehen die Modelle
 Hose und Stiefel waeren nur auf dem Kopf tragbar gewesen). Das steckt auch im mitgelieferten DrachenSMP-Plugin 0.1.0. MineSMPCore
 uebernimmt jetzt Platz und Sound vom Netherit-Teil und aendert nur das Aussehen.
 
+**Beim Rendern der Galerie gefunden und behoben (Modelle aus dem Paket):** Der Helm haette das Visier im Spiel nach hinten
+gezeigt (`display.head` drehte ihn um 180 Grad, obwohl das Visier schon vorne im Modell liegt - Vergleich: Vanilla-Kuerbis,
+Gesicht vorne, ohne Drehung). Ausserdem zeigte das Inventar bei allen 11 Teilen die schlichte Rueckseite; der Inventar-Winkel
+ist jetzt um 180 Grad gedreht (verzierte Vorderseite sichtbar). Nur die Ressourcen-Dateien geaendert, Bedrock unberuehrt.
+
 **Nicht getestet:** wie die Modelle im echten Client aussehen (Hand, Kopf, Inventar), Bedrock/Geyser-Darstellung, Zusammenspiel mit
 anderen Schutz-Plugins als den eingebauten. Testhinweis: Die Bots brauchten fuer Schlaege `grim.exempt` (GrimAC verwirft Treffer von Bots
 ohne Bewegungsdaten) - echte Spieler betrifft das nicht.
