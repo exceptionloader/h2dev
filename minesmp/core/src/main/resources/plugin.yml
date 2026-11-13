@@ -73,6 +73,7 @@ permissions:
       minesmp.pve: true
       minesmp.drachen: true
       minesmp.schatz: true
+      minesmp.web: true
   minesmp.spawn.build:
     description: Darf am Spawn bauen/abbauen
     default: op
@@ -111,6 +112,9 @@ permissions:
     default: op
   minesmp.admin.keyall:
     description: Keyall sofort ausloesen (/keyall now)
+    default: op
+  minesmp.web.moderate:
+    description: Im Website-Forum Beitraege loeschen, Themen anheften/schliessen, Ankuendigungen schreiben
     default: op
   minesmp.admin.schatz:
     description: Schatzkisten setzen/entfernen, Schatz-Token vergeben (/schatz admin)

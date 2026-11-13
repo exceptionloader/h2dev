@@ -398,6 +398,18 @@ def build():
                 zi = zipfile.ZipInfo(str(p.relative_to(OUT)), date_time=(2026, 1, 1, 0, 0, 0))
                 zi.compress_type = zipfile.ZIP_DEFLATED
                 zf.writestr(zi, p.read_bytes())
+    # Bilder fuer die Website (core/src/main/resources/web/img): Logo, Rang-Abzeichen, Symbole - gleiche Pixel-Grafiken wie im Spiel
+    web = ROOT / "core/src/main/resources/web/img"
+    web.mkdir(parents=True, exist_ok=True)
+    big = Image.open(ROOT / "media/schild-logo.png")
+    big.save(web / "logo.png")
+    lg = logo()
+    lg.resize((lg.width * 2, lg.height * 2), Image.NEAREST).save(web / "logo-small.png")
+    schatz_token().resize((64, 64), Image.NEAREST).save(web / "favicon.png")
+    schatz_token().save(web / "token.png")
+    for name, c, img, h, asc in GLYPHS:
+        if name.startswith(("rank_", "icon_")) and "_s" not in name[5:] or name in ICONS:
+            img.save(web / f"{name}.png")
     # Kuerzel-Tabelle fuer das Plugin
     cps = {n: c for n, c, *_ in GLYPHS}
     board_seq = [cps['board_tl'], 0xE0F0, cps['board_tr'], 0xE0F6, cps['board_bl'], 0xE0F0, cps['board_br']]

@@ -115,6 +115,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.world.WinterService winter;
     private de.minesmp.core.item.DragonGearService dragonGear;
     private de.minesmp.core.events.TreasureService treasure;
+    private de.minesmp.core.web.WebService web;
     private de.minesmp.core.admin.GuardService guard;
     private de.minesmp.core.world.ModelService models;
     private de.minesmp.core.events.BossBrain bosses;
@@ -152,7 +153,7 @@ public final class MineSMP extends JavaPlugin {
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
                 "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml",
-                "token-shops.yml", "spawners.yml", "enchants.yml", "treasure.yml"}) {
+                "token-shops.yml", "spawners.yml", "enchants.yml", "treasure.yml", "website.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
         }
         Msg.load(this);
@@ -235,6 +236,7 @@ public final class MineSMP extends JavaPlugin {
         ranks = new de.minesmp.core.display.RankService(this);
         scoreboard = new ScoreboardService(this);
         infobar = new de.minesmp.core.display.InfoBarService(this);
+        web = new de.minesmp.core.web.WebService(this);
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PlaceholderHook(this).register();
@@ -259,6 +261,7 @@ public final class MineSMP extends JavaPlugin {
             if (trade != null) trade.cancelAll();
             if (cosmetics != null) cosmetics.shutdown();
             if (pack != null) pack.shutdown();
+            if (web != null) web.shutdown();
             if (ranks != null) ranks.shutdown();
             if (clanBoard != null) clanBoard.shutdown();
             if (clans != null) clans.saveAll();
@@ -353,6 +356,9 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.world.WinterService winter() { return winter; }
     public de.minesmp.core.item.DragonGearService dragonGear() { return dragonGear; }
     public de.minesmp.core.events.TreasureService treasure() { return treasure; }
+    public de.minesmp.core.web.WebService web() { return web; }
+    /** Plugin-Datei (fuer die Website-Dateien im Plugin). */
+    public java.io.File jarFile() { return getFile(); }
     public de.minesmp.core.admin.GuardService guard() { return guard; }
     public de.minesmp.core.world.ModelService models() { return models; }
     public de.minesmp.core.events.BossBrain bosses() { return bosses; }

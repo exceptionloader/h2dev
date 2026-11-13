@@ -164,3 +164,4 @@ lp group owner permission set minesmp.combat.bypass false
 # --- Beispiel: Spieler einem Rang zuweisen ---
 # lp user DeinName parent set owner
 # lp user Spieler parent addtemp vip 30d
+lp group supporter permission set minesmp.web.moderate true

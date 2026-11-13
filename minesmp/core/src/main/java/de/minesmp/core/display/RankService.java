@@ -191,6 +191,13 @@ public final class RankService implements Listener {
         return tagsEnabled;
     }
 
+    /** Alle Raenge in Rangfolge (hoechster zuerst), zuletzt der Standard-Rang - fuer die Website. */
+    public List<Rank> all() {
+        List<Rank> out = new ArrayList<>(ranks);
+        if (fallback != null) out.add(fallback);
+        return out;
+    }
+
     /** Rang eines Spielers: hoechster Rang, dessen LuckPerms-Gruppe gesetzt ist (OP allein zaehlt nicht). */
     public Rank rankOf(Player p) {
         for (Rank r : ranks) {

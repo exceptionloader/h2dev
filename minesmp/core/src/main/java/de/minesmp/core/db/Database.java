@@ -90,6 +90,19 @@ public final class Database {
             "CREATE TABLE IF NOT EXISTS kv (k VARCHAR(128) PRIMARY KEY, v " + text() + ")",
             "CREATE TABLE IF NOT EXISTS guard_cases (id VARCHAR(16) PRIMARY KEY, time BIGINT NOT NULL, uuid VARCHAR(36) NOT NULL, name VARCHAR(16), kind VARCHAR(32),"
                 + " confidence DOUBLE NOT NULL, action VARCHAR(16) NOT NULL, evidence " + text() + ", ai " + text() + ")",
+            // Website: Forum, Anmeldungen, Team-Liste
+            "CREATE TABLE IF NOT EXISTS forum_threads (id " + ai() + ", category VARCHAR(32) NOT NULL, title VARCHAR(100) NOT NULL,"
+                + " author_uuid VARCHAR(36) NOT NULL, author_name VARCHAR(16) NOT NULL, author_rank VARCHAR(32), created BIGINT NOT NULL,"
+                + " last_post BIGINT NOT NULL, replies INTEGER NOT NULL DEFAULT 0, pinned INTEGER NOT NULL DEFAULT 0, locked INTEGER NOT NULL DEFAULT 0,"
+                + " deleted INTEGER NOT NULL DEFAULT 0)",
+            "CREATE TABLE IF NOT EXISTS forum_posts (id " + ai() + ", thread_id INTEGER NOT NULL, author_uuid VARCHAR(36) NOT NULL,"
+                + " author_name VARCHAR(16) NOT NULL, author_rank VARCHAR(32), body " + text() + " NOT NULL, created BIGINT NOT NULL,"
+                + " deleted INTEGER NOT NULL DEFAULT 0)",
+            "CREATE TABLE IF NOT EXISTS web_sessions (token VARCHAR(64) PRIMARY KEY, uuid VARCHAR(36) NOT NULL, name VARCHAR(16) NOT NULL,"
+                + " rank_id VARCHAR(32), moderator INTEGER NOT NULL DEFAULT 0, expires BIGINT NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS web_members (uuid VARCHAR(36) PRIMARY KEY, name VARCHAR(16) NOT NULL, rank_id VARCHAR(32), last_seen BIGINT NOT NULL)",
+            "CREATE INDEX IF NOT EXISTS idx_forum_cat ON forum_threads(category)",
+            "CREATE INDEX IF NOT EXISTS idx_forum_posts ON forum_posts(thread_id)",
             "CREATE INDEX IF NOT EXISTS idx_auction_status ON auctions(status)",
             "CREATE INDEX IF NOT EXISTS idx_mail_owner ON mailbox(owner)",
             "CREATE INDEX IF NOT EXISTS idx_pun_target ON punishments(target)",

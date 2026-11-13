@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MineSMP</title>
+<meta name="description" content="MineSMP - der deutsche Minecraft-Survival-Server mit Clans, Boss-Events, Schatzkisten und eigener Wirtschaft.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#/" aria-label="MineSMP Startseite"><img src="img/logo-small.png" alt="MineSMP" width="180" height="36"></a>
+    <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+    <nav id="nav" aria-label="Hauptmenü">
+      <a href="#/" data-nav="start">Start</a>
+      <a href="#/raenge" data-nav="raenge">Ränge</a>
+      <a href="#/forum" data-nav="forum">Forum</a>
+      <a href="#/team" data-nav="team">Team</a>
+      <a href="#/regeln" data-nav="regeln">Regeln</a>
+      <a href="#" id="navDiscord" class="ext" target="_blank" rel="noopener">Discord</a>
+      <span id="account"></span>
+    </nav>
+  </div>
+</header>
+<main id="app" class="wrap" tabindex="-1"><p class="loading">Lädt ...</p></main>
+<footer class="foot">
+  <div class="wrap footbar">
+    <img src="img/logo-small.png" alt="" width="135" height="27">
+    <p>Kein offizielles Minecraft-Produkt. Nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
+    <p class="links"><a href="#/impressum">Impressum</a> · <a href="#/datenschutz">Datenschutz</a> · <a href="#" id="footDiscord" target="_blank" rel="noopener">Discord</a></p>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

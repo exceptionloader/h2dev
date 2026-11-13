@@ -1,0 +1,105 @@
+# =====================================================================
+#  MineSMP - Website (laeuft im Plugin): http://<Server-Adresse>:<port>/
+#  Seiten: Start, Ränge, Forum, Team, Regeln, Discord, Impressum, Datenschutz.
+#  Die Seiten-Dateien liegen in plugins/MineSMPCore/web (werden bei Plugin-Updates erneuert,
+#  außer keep-custom-files: true). Änderungen hier: Server neu starten.
+#  Discord-Link und Regeln kommen aus config.yml (links.discord, rules).
+# =====================================================================
+enabled: true
+port: 8164
+bind: 0.0.0.0
+server-address: minesmp.de       # Adresse, die Spieler in Minecraft eingeben
+version-label: 'Java 26.3'
+url: ''                          # öffentliche Adresse der Website, z.B. https://minesmp.de/ (für den /web-Hinweis im Spiel)
+behind-proxy: false              # true, wenn ein Webserver (z.B. Caddy/Nginx mit HTTPS) davor steht
+keep-custom-files: false
+title: MineSMP
+tagline: 'Der deutsche Survival-Server mit Clans, Boss-Events, Schatzkisten und eigener Wirtschaft.'
+
+# Ränge-Shop. Gekauft wird über einen Zahlungsanbieter für Minecraft-Server (z.B. Tebex): store-url oder buy-url je Rang.
+# Ohne Adresse steht dort "Bald verfügbar". PREISE SIND BEISPIELE - bitte anpassen.
+store-url: ''
+shop:
+  intro: 'Mit einem Rang unterstützt du den Server. Alle Ränge gelten 30 Tage und verlängern sich nicht von selbst.'
+  note: 'VIP und Premium gibt es auch im Spiel für Gems (/gemshop). Creator-Ränge (Media, Famous) kann man nicht kaufen - bewirb dich im Forum.'
+  ranks:
+    - id: vip
+      name: VIP
+      badge: rank_vip
+      price: '4,99 €'
+      period: '30 Tage'
+      color: '#2F9BE0'
+      buy-url: ''
+      perks: ['5 Homes', '16 Grundstücke', 'Verkaufsbonus +10 %', '8 Auktionen gleichzeitig', '2 Spieler-Warps', '/craft und /enderchest', 'VIP-Kit', 'Mehr Erfahrung']
+    - id: mvp
+      name: MVP
+      badge: rank_mvp
+      price: '9,99 €'
+      period: '30 Tage'
+      color: '#0E9FB3'
+      buy-url: ''
+      highlight: true
+      perks: ['Alles von VIP', '8 Homes', '25 Grundstücke', 'Verkaufsbonus +20 %', '12 Auktionen', '3 Spieler-Warps', '/repair', '/back nach dem Tod', 'Herz-Partikel']
+    - id: legende
+      name: Legende
+      badge: rank_legende
+      price: '14,99 €'
+      period: '30 Tage'
+      color: '#3B5BDB'
+      buy-url: ''
+      perks: ['Alles von MVP', '12 Homes', '36 Grundstücke', 'Verkaufsbonus +30 %', '20 Auktionen', '5 Spieler-Warps', '/repair all', 'Battlepass Premium', 'Chat-Farben', 'Katzen-Begleiter', 'Kein AFK-Kick']
+    - id: premium
+      name: Premium
+      badge: rank_premium
+      price: '19,99 €'
+      period: '30 Tage'
+      color: '#D99A00'
+      buy-url: ''
+      perks: ['Alles von MVP', '15 Homes', '49 Grundstücke', 'Verkaufsbonus +35 %', 'Platz auf vollem Server', 'Battlepass Premium', 'Clan-Bonus', '10 Aufträge', 'Mehr Sterne', 'Chat-Farben', 'Funken-Partikel', 'Kein AFK-Kick']
+
+# Startseite: Kacheln (Bild aus web/img)
+features:
+  - {icon: shield, title: 'Clans & Clan-Liga', text: 'Gründe einen Clan, kämpfe in 3-gegen-3-Duellen und steig in 11 Rängen auf.'}
+  - {icon: skullred, title: 'Boss-Events', text: 'Fünf kolossale Bosse mit eigenen Fähigkeiten - jeden Samstag um 20 Uhr.'}
+  - {icon: token, title: 'Schatzkisten', text: 'Im Nether und in der Farmwelt. Mit sehr viel Glück: der Schatz-Token.'}
+  - {icon: swords, title: 'Drachen-Ausrüstung', text: 'Obsidian-Rüstung, Donnerklinge und Titan-Spitzhacke mit 3D-Modellen.'}
+  - {icon: gem, title: 'Kristallgruft', text: 'PvE-Wellen mit Laternen-Phase und Gruftwächter - allein oder zu viert.'}
+  - {icon: dollar, title: 'Wirtschaft', text: 'Shop, Auktionshaus, Aufträge, Spieler-Shops und eigene Währungen.'}
+  - {icon: star, title: 'Battlepass & Quests', text: 'Tägliche und wöchentliche Aufgaben, Belohnungen und Erfolge.'}
+  - {icon: pin, title: 'Grundstücke', text: 'Schütze deine Bauten, vertraue Freunden und baue in Ruhe.'}
+
+forum:
+  news-category: news           # Themen aus diesem Bereich stehen auf der Startseite
+  categories:
+    - {id: news, name: 'Ankündigungen', text: 'Neuigkeiten vom Team.', icon: crown, team-only: true}
+    - {id: allgemein, name: 'Allgemein', text: 'Alles rund um MineSMP.', icon: people}
+    - {id: hilfe, name: 'Hilfe & Support', text: 'Fragen zum Server, Bugs, Probleme.', icon: heart}
+    - {id: vorschlaege, name: 'Vorschläge', text: 'Ideen für neue Funktionen.', icon: bolt}
+    - {id: clans, name: 'Clans', text: 'Mitglieder suchen, Clans vorstellen.', icon: clanicon}
+    - {id: handel, name: 'Handel', text: 'Kaufen, verkaufen, tauschen.', icon: coin}
+    - {id: bewerbungen, name: 'Bewerbungen', text: 'Bewirb dich fürs Team oder als Creator (Media, Famous).', icon: star}
+    - {id: offtopic, name: 'Off-Topic', text: 'Alles andere.', icon: dot}
+
+# Team-Seite: Gruppen in dieser Reihenfolge. Es erscheint, wer zuletzt mit diesem Rang online war.
+team:
+  - {name: 'Leitung', ranks: [owner, admin], text: 'Server-Leitung'}
+  - {name: 'Entwicklung', ranks: [developer], text: 'Technik und neue Funktionen'}
+  - {name: 'Moderation & Support', ranks: [moderator, supporter], text: 'Hilfe, Reports und Ordnung'}
+  - {name: 'Bauteam', ranks: [builder], text: 'Spawn und Events'}
+  - {name: 'Creator', ranks: [famous, media], text: 'YouTube, TikTok und Twitch'}
+
+# Pflichtangaben in Deutschland - BITTE AUSFÜLLEN, bevor die Website öffentlich ist.
+legal:
+  impressum: |
+    Angaben gemäß § 5 DDG
+    [Vor- und Nachname]
+    [Straße und Hausnummer]
+    [PLZ und Ort]
+    E-Mail: [E-Mail-Adresse]
+  datenschutz: |
+    Verantwortlich: siehe Impressum.
+    Beim Aufruf der Seiten verarbeitet der Server technisch notwendige Daten (IP-Adresse, Zeitpunkt, aufgerufene Seite), um die Seiten auszuliefern. Sie werden nicht ausgewertet und nicht an Dritte gegeben.
+    Für das Forum wird nach der Anmeldung ein technisch notwendiges Cookie (Sitzung, 30 Tage) gesetzt. Gespeichert werden dein Minecraft-Name, deine Spieler-ID, dein Rang und deine Beiträge.
+    Es werden keine Tracker, keine Werbung und keine externen Schriften oder Bilder geladen.
+    Käufe laufen über den jeweiligen Zahlungsanbieter; es gelten dessen Datenschutzhinweise.
+    Du hast das Recht auf Auskunft, Berichtigung und Löschung deiner Daten. Schreib uns dafür an die E-Mail-Adresse im Impressum.
