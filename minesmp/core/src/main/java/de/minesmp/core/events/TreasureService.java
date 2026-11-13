@@ -91,6 +91,7 @@ public final class TreasureService implements Listener {
     private final Map<String, String> tierNames = new HashMap<>();
     private final Map<String, Double> tierChance = new LinkedHashMap<>();
     private int commonMin = 2, commonMax = 4;
+    private YamlConfiguration signGlyphs;
 
     public TreasureService(MineSMP plugin) {
         this.plugin = plugin;
@@ -219,12 +220,8 @@ public final class TreasureService implements Listener {
         plugin.audit().log(p.getName(), "TREASURE_TOKEN", reason + " bis " + until);
         Msg.broadcast("treasure.token-broadcast", "{prefix}&6&l✦ SCHATZ-TOKEN! &f{player} &7hat den Schatz-Token gefunden! &e{days} Tage &7alle Crates gratis und &3&lMVP&7.",
                 "player", p.getName(), "days", String.valueOf(days));
-        Title t = Title.title(Text.c("&6&lSCHATZ-TOKEN!"), Text.c("&f" + p.getName() + " &7hat ihn gefunden"),
-                Title.Times.times(Duration.ofMillis(300), Duration.ofSeconds(3), Duration.ofMillis(800)));
-        for (Player o : Bukkit.getOnlinePlayers()) {
-            o.showTitle(t);
-            o.playSound(o.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 0.8f, 1f);
-        }
+        announce(p.getName());
+        for (Player o : Bukkit.getOnlinePlayers()) if (!o.equals(p)) o.playSound(o.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 0.8f, 1f);
         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.6f, 1.6f);
         Firework fw = p.getWorld().spawn(p.getLocation().add(0, 1, 0), Firework.class, f -> {
             FireworkMeta fm = f.getFireworkMeta();
@@ -236,6 +233,143 @@ public final class TreasureService implements Listener {
         fw.getPersistentDataContainer().set(new NamespacedKey(plugin, "no_damage"), PersistentDataType.BYTE, (byte) 1);
         Msg.send(p, "treasure.token-self", "{prefix}&aDein Schatz-Token gilt noch &f{until}&a: &f/keys &7oder die Kisten am Spawn - Schluessel brauchst du keine.",
                 "until", TimeUtil.format(until - now));
+    }
+
+    // ================================================================ Fund-Moment und Ansage
+
+    private YamlConfiguration signGlyphs() {
+        if (signGlyphs == null) {
+            try (var in = plugin.getResource("signs.yml")) {
+                signGlyphs = in == null ? new YamlConfiguration()
+                        : YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
+            } catch (java.io.IOException e) { signGlyphs = new YamlConfiguration(); }
+        }
+        return signGlyphs;
+    }
+
+    /**
+     * Wie in Fortnite: die Kiste leuchtet golden und wackelt immer staerker (3 s, Toene steigen), dann Gold-Explosion,
+     * die Token-Muenze fliegt gross ins Bild (Totem-Animation des Clients mit eigenem Item) und der Schriftzug
+     * SCHATZ-TOKEN springt auf. Danach found (Token vergeben) und nach 2,5 s after (Kisten-Menue).
+     */
+    public void reveal(Player p, Location block, Runnable found, Runnable after) {
+        World w = block.getWorld();
+        Location center = block.clone().add(0.5, 0.5, 0.5);
+        org.bukkit.entity.BlockDisplay bd = w.spawn(block, org.bukkit.entity.BlockDisplay.class, d -> {
+            d.setPersistent(false);
+            d.setBlock(Material.CHEST.createBlockData());
+            d.setGlowing(true);
+            d.setGlowColorOverride(Color.fromRGB(0xFFC83D));
+            d.setBrightness(new org.bukkit.entity.Display.Brightness(15, 15));
+            d.setTeleportDuration(0);
+        });
+        p.playSound(center, Sound.BLOCK_CHEST_LOCKED, 1f, 0.8f);
+        new org.bukkit.scheduler.BukkitRunnable() {
+            int t = 0;
+            @Override public void run() {
+                if (!p.isOnline()) { bd.remove(); cancel(); return; }
+                if (t < 60) {
+                    float power = t / 60f;
+                    ThreadLocalRandom r = ThreadLocalRandom.current();
+                    float rz = (float) Math.toRadians((r.nextBoolean() ? 1 : -1) * (2 + 9 * power)), ry = (float) Math.toRadians(r.nextDouble(-6, 6) * power);
+                    float sc = 1f + 0.12f * power;
+                    org.joml.Quaternionf rot = new org.joml.Quaternionf().rotateY(ry).rotateZ(rz);
+                    bd.setInterpolationDelay(0);
+                    bd.setInterpolationDuration(2);
+                    bd.setTransformation(new org.bukkit.util.Transformation(new org.joml.Vector3f(0.5f - 0.5f * sc, 0.06f * (t % 4 < 2 ? 1 : 0), 0.5f - 0.5f * sc),
+                            rot, new org.joml.Vector3f(sc, sc, sc), new org.joml.Quaternionf()));
+                    w.spawnParticle(Particle.WAX_ON, center, 3 + (int) (power * 8), 0.45, 0.45, 0.45, 0.05);
+                    w.spawnParticle(Particle.END_ROD, center.clone().add(0, 0.6, 0), 1, 0.2, 0.1, 0.2, 0.06 + power * 0.08);
+                    if (t % 6 == 0) {
+                        float pitch = 0.6f + 1.4f * power;
+                        p.playSound(center, Sound.BLOCK_NOTE_BLOCK_CHIME, 0.9f, pitch);
+                        p.playSound(center, Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.7f, pitch);
+                    }
+                    if (t % 10 == 0) Msg.actionbar(p, "treasure.reveal", "&6&l" + "✦ ".repeat(1 + t / 10).trim());
+                } else if (t == 60) {
+                    bd.remove();
+                    w.spawnParticle(Particle.TOTEM_OF_UNDYING, center, 140, 0.4, 0.6, 0.4, 0.55);
+                    w.spawnParticle(Particle.DUST, center, 90, 1.2, 1.2, 1.2, 0, new Particle.DustOptions(Color.fromRGB(0xFFC83D), 2.2f));
+                    w.spawnParticle(Particle.FIREWORK, center, 60, 0.3, 0.3, 0.3, 0.35);
+                    w.spawnParticle(Particle.EXPLOSION, center, 1);
+                    w.playSound(center, Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 1.2f, 0.9f);
+                    w.playSound(center, Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1f, 1f);
+                    p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
+                    coinFlight(p);
+                    titlePop(p);
+                    found.run();
+                } else if (t == 110) {
+                    after.run();
+                    cancel();
+                    return;
+                }
+                t += 2;
+            }
+        }.runTaskTimer(plugin, 0L, 2L);
+    }
+
+    /** Muenze fliegt gross ins Bild: der Client zeigt bei der Totem-Animation das Item mit Todesschutz aus der Hand. */
+    private void coinFlight(Player p) {
+        ItemStack coin = plugin.customItems().create("schatztoken");
+        if (coin == null) return;
+        coin.setData(io.papermc.paper.datacomponent.DataComponentTypes.DEATH_PROTECTION,
+                io.papermc.paper.datacomponent.item.DeathProtection.deathProtection().build());
+        p.sendEquipmentChange(p, EquipmentSlot.OFF_HAND, coin);      // nur beim Spieler, das echte Inventar bleibt
+        p.sendEntityEffect(org.bukkit.EntityEffect.PROTECTED_FROM_DEATH, p);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> { if (p.isOnline()) p.updateInventory(); }, 3L);
+    }
+
+    /** Schriftzug SCHATZ-TOKEN springt auf: klein, gross, ueber das Ziel hinaus, Endgroesse. */
+    private void titlePop(Player p) {
+        boolean pack = plugin.pack() != null && plugin.pack().has(p);
+        net.kyori.adventure.text.Component sub = Text.c("&e&lDU HAST IHN GEFUNDEN!");
+        // Die Vorteile darunter ueber der Hotbar (der Untertitel waere sonst auf kleinen Bildschirmen zu breit)
+        for (long d = 10; d <= 90; d += 20)
+            Bukkit.getScheduler().runTaskLater(plugin, () -> { if (p.isOnline()) Msg.actionbar(p, "treasure.perks", "&f{days} Tage &6alle Crates gratis &7+ &3&lMVP", "days", String.valueOf(cfg().getInt("token.days", 7))); }, d);
+        if (!pack) {
+            p.showTitle(Title.title(Text.c("<g:#FFE680:#FFB000>&lSCHATZ-TOKEN!</g>"), sub,
+                    Title.Times.times(Duration.ofMillis(150), Duration.ofSeconds(4), Duration.ofMillis(900))));
+            return;
+        }
+        List<Integer> sizes = List.of(4, 8, 14, 12);
+        for (int i = 0; i < sizes.size(); i++) {
+            String chars = signGlyphs().getString("token_title_" + sizes.get(i) + ".text", "");
+            boolean last = i == sizes.size() - 1;
+            net.kyori.adventure.text.Component title = net.kyori.adventure.text.Component.text(chars).font(net.kyori.adventure.key.Key.key("minesmp", "title"));
+            Title.Times times = Title.Times.times(Duration.ZERO, Duration.ofMillis(last ? 4200 : 400), Duration.ofMillis(last ? 900 : 0));
+            Bukkit.getScheduler().runTaskLater(plugin, () -> { if (p.isOnline()) p.showTitle(Title.title(title, sub, times)); }, i * 2L);
+        }
+    }
+
+    /** Oben in der Mitte fuer alle: goldene Leiste "X hat den Schatz-Token gefunden!" mit schimmerndem Schriftzug, laeuft 15 s ab. */
+    private void announce(String finder) {
+        net.kyori.adventure.bossbar.BossBar packBar = net.kyori.adventure.bossbar.BossBar.bossBar(net.kyori.adventure.text.Component.empty(), 1f,
+                net.kyori.adventure.bossbar.BossBar.Color.YELLOW, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_10);
+        net.kyori.adventure.bossbar.BossBar textBar = net.kyori.adventure.bossbar.BossBar.bossBar(net.kyori.adventure.text.Component.empty(), 1f,
+                net.kyori.adventure.bossbar.BossBar.Color.YELLOW, net.kyori.adventure.bossbar.BossBar.Overlay.NOTCHED_10);
+        List<Player> viewers = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player o : viewers) o.showBossBar(plugin.pack() != null && plugin.pack().has(o) ? packBar : textBar);
+        int total = Math.max(5, cfg().getInt("token.announce-seconds", 15)) * 20;
+        new org.bukkit.scheduler.BukkitRunnable() {
+            int t = 0;
+            @Override public void run() {
+                if (t >= total) {
+                    for (Player o : viewers) { o.hideBossBar(packBar); o.hideBossBar(textBar); }
+                    cancel();
+                    return;
+                }
+                double off = (t % 40) / 40.0;
+                String shine = Text.gradient("SCHATZ-TOKEN", off, "&l", "#FFB000", "#FFF6C2", "#FFB000");
+                String body = "&f&l" + finder + " &ehat den " + shine + " &egefunden!";
+                String pk = plugin.pack() != null ? plugin.pack().glyphs("&f:token: " + body + " &f:token:") : body;
+                packBar.name(Text.c(pk));
+                textBar.name(Text.c("&6&l✦ " + body + " &6&l✦"));
+                float prog = Math.max(0f, 1f - (float) t / total);
+                packBar.progress(prog);
+                textBar.progress(prog);
+                t += 4;
+            }
+        }.runTaskTimer(plugin, 0L, 4L);
     }
 
     // ================================================================ Kisten setzen
@@ -457,6 +591,12 @@ public final class TreasureService implements Listener {
             if (k < slots.length) inv.setItem(slots[k++], it);
             else inv.addItem(it).values().forEach(left -> Items.giveOrDrop(p, left));
         }
+        if (token) {
+            // Fortnite-Moment: Kiste leuchtet und wackelt, Gold-Explosion, Muenze fliegt ins Bild, Schriftzug springt auf
+            reveal(p, at.clone().subtract(0.5, 0.5, 0.5), () -> grantToken(p, "Schatzkiste Nr. " + n), () -> { if (p.isOnline()) p.openInventory(inv); });
+            if (!credited.isEmpty()) Msg.send(p, "treasure.credited", "{prefix}&7Gutgeschrieben: {list}", "list", String.join("&7, ", credited));
+            return;
+        }
         p.openInventory(inv);
         p.playSound(at, Sound.BLOCK_CHEST_OPEN, 1f, 1.1f);
         p.playSound(at, Sound.ENTITY_PLAYER_LEVELUP, 0.5f, 1.8f);
@@ -464,7 +604,6 @@ public final class TreasureService implements Listener {
         if (!credited.isEmpty()) Msg.send(p, "treasure.credited", "{prefix}&7Gutgeschrieben: {list}", "list", String.join("&7, ", credited));
         if (bonus != null && "legendaer".equals(bonus))
             Msg.broadcast("treasure.legendary", "{prefix}&6&l✦ &f{player} &7hat eine &6&llegendaere &7Schatzkiste gefunden!", "player", p.getName());
-        if (token) Bukkit.getScheduler().runTaskLater(plugin, () -> { if (p.isOnline()) grantToken(p, "Schatzkiste Nr. " + n); }, 15L);
     }
 
     private Entry pick(String tier, String place) {
@@ -574,7 +713,8 @@ public final class TreasureService implements Listener {
             case "token" -> {
                 Player t = a.length > 2 ? Bukkit.getPlayerExact(a[2]) : null;
                 if (t == null) { s.sendMessage("/schatz admin token <Spieler>"); return; }
-                grantToken(t, "Admin " + s.getName());
+                Location front = t.getLocation().add(t.getLocation().getDirection().setY(0).normalize().multiply(2.5));
+                reveal(t, front.getBlock().getLocation(), () -> grantToken(t, "Admin " + s.getName()), () -> { });
             }
             case "reset" -> {
                 Player t = a.length > 2 ? Bukkit.getPlayerExact(a[2]) : null;

@@ -12,3 +12,8 @@ portale: {text: "\uE21A\uE2FF\uE21B\uE2FF\uE21C", width: 150, height: 28}
 pvp: {text: "\uE21D\uE2FF\uE21E\uE2FF\uE21F", width: 170, height: 28}
 kolosseum: {text: "\uE220\uE2FF\uE221\uE2FF\uE222", width: 174, height: 28}
 survival: {text: "\uE223\uE2FF\uE224\uE2FF\uE225", width: 158, height: 28}
+token: {text: "\uE226\uE2FF\uE227\uE2FF\uE228\uE2FF\uE229", width: 224, height: 28}
+token_title_4: {text: "\uE300\uE3FF\uE301\uE3FF\uE302\uE3FF\uE303", width: 32, height: 4}
+token_title_8: {text: "\uE304\uE3FF\uE305\uE3FF\uE306\uE3FF\uE307", width: 64, height: 8}
+token_title_14: {text: "\uE308\uE3FF\uE309\uE3FF\uE30A\uE3FF\uE30B", width: 112, height: 14}
+token_title_12: {text: "\uE30C\uE3FF\uE30D\uE3FF\uE30E\uE3FF\uE30F", width: 96, height: 12}

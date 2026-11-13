@@ -325,6 +325,8 @@ def schatz_token():
                 img.putpixel((xx, yy), hexc(pal[ch]))
     return img
 
+add('token', schatz_token(), 9, 8)   # kleine Kronen-Muenze fuer Chat und die Leiste oben
+
 def build():
     import shutil
     if OUT.exists(): shutil.rmtree(OUT)

@@ -548,6 +548,7 @@ treasure:
     days: 7
     rank: mvp
     rank-command: 'lp user {player} parent addtemp {rank} {days}d accumulate'
+    announce-seconds: 15         # goldene Leiste oben fuer alle ("<Name> hat den SCHATZ-TOKEN gefunden!")
 
 # Drachen-Ausruestung "Obsidian & Sturm" (Items: custom-items.yml, Shop: token-shops.yml -> drachen, Befehl /schmiede)
 drachen:

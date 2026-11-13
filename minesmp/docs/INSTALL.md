@@ -253,7 +253,14 @@ Inhalt: `plugins/MineSMPCore/treasure.yml`, Menge und Abstand: `config.yml -> tr
 **Schatz-Token:** extrem selten in einer Schatzkiste. Wer ihn findet, bekommt sofort
 - **7 Tage alle Crates gratis** - ohne Schluessel, so oft man will (`/keys` oder die Kisten am Spawn),
 - **7 Tage MVP** (`lp user <Name> parent addtemp mvp 7d accumulate`, ein hoeherer Rang bleibt),
-- eine Andenken-Muenze, eine Ansage mit Titel fuer alle und Feuerwerk. Ein zweiter Token verlaengert um weitere 7 Tage.
+- eine Andenken-Muenze und Feuerwerk. Ein zweiter Token verlaengert um weitere 7 Tage.
+
+**Der Fund-Moment (wie in Fortnite):** Beim Finder leuchtet die Kiste golden und wackelt 3 Sekunden immer staerker (Toene
+steigen), dann eine Gold-Explosion: die Token-Muenze fliegt gross ins Bild, der goldene Schriftzug **SCHATZ-TOKEN** springt
+auf, darunter "DU HAST IHN GEFUNDEN!", ueber der Hotbar die Vorteile. Danach oeffnet sich das Kisten-Menue mit der Beute.
+**Alle Spieler** sehen oben in der Mitte 15 Sekunden lang eine goldene Leiste "<Name> hat den SCHATZ-TOKEN gefunden!"
+(Schriftzug schimmert, Balken laeuft ab, Dauer: `treasure.token.announce-seconds`). `/schatz admin token <Spieler>`
+spielt denselben Moment vor dem Spieler ab. ([Muenze](../media/token-muenze.jpg), [Schriftzug](../media/token-titel.jpg), [Leiste](../media/token-leiste.jpg))
 
 **So selten ist er** (n = Kisten seit dem letzten eigenen Token, Einstellungen `config.yml -> treasure.token`):
 

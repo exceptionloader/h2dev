@@ -15,6 +15,7 @@ SPACER = 0xE2FF  # Abstand -1
 # Fehlende Zeichen fuer die 5x7-Pixelschrift
 B.F.setdefault('-', ["000", "000", "000", "111", "000", "000", "000"])
 B.F.setdefault('·', ["0", "0", "0", "1", "0", "0", "0"])
+B.F.setdefault('Z', ["11111", "00001", "00010", "00100", "01000", "10000", "11111"])
 B.F.setdefault('&', ["01100", "10010", "10100", "01000", "10101", "10010", "01101"])
 
 def rgb(h, a=255):
@@ -63,7 +64,7 @@ def plaque(text, c_light, c_dark, icon=None, L=8):
     d.rectangle([O + 3 * T, H + O - 2 * T, W + O - 3 * T - 1, H + O - T - 1], fill=(0, 0, 0, 70))
     x = O + pad_x
     if icon:
-        im = B.icon(B.ICONS[icon]).resize((ic, ic), Image.NEAREST)
+        im = (icon if isinstance(icon, Image.Image) else B.icon(B.ICONS[icon])).resize((ic, ic), Image.NEAREST)
         img.alpha_composite(im, (x, O + (H - ic) // 2))
         img.alpha_composite(im, (O + W - pad_x - ic, O + (H - ic) // 2))
         x += ic + 3 * L
@@ -133,7 +134,14 @@ def signs():
         ('survival', 'SURVIVAL', '#7FF3FF', '#1785A8', 'arrow'),
     ]:
         out[sid] = plaque(text, light, dark, ic)
+    # Schatz-Token: goldenes Schild mit Kronen-Muenzen (gross auf dem Bildschirm, wenn jemand den Token findet)
+    out['token'] = plaque('SCHATZ-TOKEN', '#FFF0A0', '#C98A00', B.schatz_token())
     return out
+
+TITLE_FIRST = 0xE300   # Schrift minesmp:title (Bildschirm-Titel)
+TITLE_SPACER = 0xE3FF
+TITLE_SIZES = [4, 8, 14, 12]   # Aufspringen: klein, groesser, ueber das Ziel hinaus, Endgroesse (Schrift-Pixel)
+TITLE_STEP = 224                # Streifenbreite: Vielfaches von 112 -> ganzzahlige Abstaende bei allen Groessen
 
 def write(OUT, ROOT):
     font_dir = OUT / 'assets/minesmp/font'
@@ -145,12 +153,21 @@ def write(OUT, ROOT):
     for sid, img in signs().items():
         w0, h0 = img.size
         img = img.crop((0, 0, w0 + (-w0) % T, h0 + (-h0) % T)) if (w0 % T or h0 % T) else img
+        if sid == 'token':                   # Hoehe 112, Breite Vielfaches von 224 (mittig aufgefuellt)
+            W0, H0 = img.size
+            Wt = -(-W0 // TITLE_STEP) * TITLE_STEP
+            pad = Image.new('RGBA', (Wt, 112), (0, 0, 0, 0))
+            off = ((Wt - W0) // 2) // T * T
+            pad.alpha_composite(img, (off, (112 - H0) // 2 // T * T))
+            img = pad
         W, H = img.size
         height = H // T                      # Hoehe in Schrift-Pixeln
         pieces, chars = [], ''
         n = -(-W // 240)
         step = -(-W // n)
         step += (-step) % T
+        if sid == 'token':
+            step = TITLE_STEP
         for i, x in enumerate(range(0, W, step)):
             part = img.crop((x, 0, min(W, x + step), H))
             name = f'{sid}_{i}.png'
@@ -163,6 +180,19 @@ def write(OUT, ROOT):
             img.save(ROOT / 'media' / 'schild-logo.png')
     providers.append({"type": "space", "advances": {chr(SPACER): -1}})
     (font_dir / 'signs.json').write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
+    # Bildschirm-Titel: dieselben Streifen des Token-Schilds in mehreren Groessen (Schrift minesmp:title)
+    tprov, tcp = [], TITLE_FIRST
+    tok = table['token']
+    npieces = len(tok['text'].replace(chr(SPACER), ''))
+    for h in TITLE_SIZES:
+        chars = ''
+        for i in range(npieces):
+            tprov.append({"type": "bitmap", "file": f"minesmp:font/signs/token_{i}.png", "ascent": h - 2, "height": h, "chars": [chr(tcp)]})
+            chars += (chr(TITLE_SPACER) if chars else '') + chr(tcp)
+            tcp += 1
+        table[f'token_title_{h}'] = {'text': chars, 'width': tok['width'] * h // tok['height'], 'height': h}
+    tprov.append({"type": "space", "advances": {chr(TITLE_SPACER): -1}})
+    (font_dir / 'title.json').write_text(json.dumps({"providers": tprov}, ensure_ascii=True, indent=1))
     lines = ["# Automatisch erzeugt von tools/build_signs.py - grosse Spawn-Schilder in der Schrift minesmp:signs",
              "# width/height in Schrift-Pixeln (40 = 1 Block bei Groesse 1)"]
     for sid, t in table.items():

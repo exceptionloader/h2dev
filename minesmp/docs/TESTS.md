@@ -331,3 +331,17 @@ Bedrock (Geyser zeigt eigene Schriften nicht - Bedrock-Spieler sehen die Schilde
 **Nicht getestet:** Rechtsklick auf die Kiste mit einem echten Client (der Test-Bot kann ohne Bewegungsdaten keine Bloecke
 anklicken, auch keine normalen Kisten - geoeffnet wurde ueber Abbauen, das denselben Weg nimmt), wie der Glanz im echten
 Client aussieht, die genaue Ablaufzeit von MVP in LuckPerms (LuckPerms antwortet nicht ueber RCON), Bedrock.
+
+## Update 13.11.2026 (2): Token-Fund wie in Fortnite
+Zwei Test-Bots (Finder und Zuschauer), mitgelesene Server-Pakete.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Kiste | Leuchtende Kiste (Anzeige-Block) erscheint bei beiden, wackelt 3 s, verschwindet bei der Explosion | ✅ |
+| Muenze | Finder bekommt nur bei sich die Token-Muenze mit Todesschutz in die Zweithand gesendet und den Totem-Effekt (35) - das echte Inventar bleibt unveraendert | ✅ |
+| Schriftzug | Mit Ressourcenpaket 4 Titel im Abstand von 0,1 s in der Schrift `minesmp:title` (Groessen 4, 8, 14, 12 = Aufspringen), Untertitel "DU HAST IHN GEFUNDEN!"; ohne Paket ein Text-Titel | ✅ |
+| Leiste oben | Finder und Zuschauer: Boss-Leiste erscheint, Name und Fortschritt werden alle 0,2 s aktualisiert (Schimmer, Balken laeuft ab), nach 15 s entfernt | ✅ |
+
+**Nicht getestet:** wie es im echten Client aussieht (die Bilder in `media/token-*.jpg` sind nachgestellt, nicht aufgenommen) -
+besonders ob der Client fuer die Totem-Animation wirklich die Muenze zeigt (sonst erscheint dort ein normales Totem).
+

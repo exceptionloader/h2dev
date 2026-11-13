@@ -343,6 +343,42 @@
    ]
   },
   {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_0.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue226"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_1.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue227"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_2.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue228"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_3.png",
+   "ascent": 26,
+   "height": 28,
+   "chars": [
+    "\ue229"
+   ]
+  },
+  {
    "type": "space",
    "advances": {
     "\ue2ff": -1

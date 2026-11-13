@@ -1,0 +1,154 @@
+{
+ "providers": [
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_0.png",
+   "ascent": 2,
+   "height": 4,
+   "chars": [
+    "\ue300"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_1.png",
+   "ascent": 2,
+   "height": 4,
+   "chars": [
+    "\ue301"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_2.png",
+   "ascent": 2,
+   "height": 4,
+   "chars": [
+    "\ue302"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_3.png",
+   "ascent": 2,
+   "height": 4,
+   "chars": [
+    "\ue303"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_0.png",
+   "ascent": 6,
+   "height": 8,
+   "chars": [
+    "\ue304"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_1.png",
+   "ascent": 6,
+   "height": 8,
+   "chars": [
+    "\ue305"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_2.png",
+   "ascent": 6,
+   "height": 8,
+   "chars": [
+    "\ue306"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_3.png",
+   "ascent": 6,
+   "height": 8,
+   "chars": [
+    "\ue307"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_0.png",
+   "ascent": 12,
+   "height": 14,
+   "chars": [
+    "\ue308"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_1.png",
+   "ascent": 12,
+   "height": 14,
+   "chars": [
+    "\ue309"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_2.png",
+   "ascent": 12,
+   "height": 14,
+   "chars": [
+    "\ue30a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_3.png",
+   "ascent": 12,
+   "height": 14,
+   "chars": [
+    "\ue30b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_0.png",
+   "ascent": 10,
+   "height": 12,
+   "chars": [
+    "\ue30c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_1.png",
+   "ascent": 10,
+   "height": 12,
+   "chars": [
+    "\ue30d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_2.png",
+   "ascent": 10,
+   "height": 12,
+   "chars": [
+    "\ue30e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/signs/token_3.png",
+   "ascent": 10,
+   "height": 12,
+   "chars": [
+    "\ue30f"
+   ]
+  },
+  {
+   "type": "space",
+   "advances": {
+    "\ue3ff": -1
+   }
+  }
+ ]
+}
