@@ -243,3 +243,46 @@ der Spawn muss nicht neu gebaut werden.
 
 Unter den grossen Schildern zeigen die Hologramme nur noch die Beschreibung (z.B. "Shop · Verkauf · Gems ..."), der Titel
 steht ja schon gross darueber. Wer das Ressourcenpaket ablehnt, sieht statt der Schilder Kaestchen.
+
+## 17. Schatzkisten und Schatz-Token
+Im **Nether** und in der **Farmwelt** erscheinen Schatzkisten in der Naehe von Spielern (24-110 Bloecke entfernt, an der
+Oberflaeche und in Hoehlen). Sie glitzern leicht, wenn man naeher als 24 Bloecke ist, und zerfallen nach 45 Minuten.
+Rechtsklick oder Abbauen oeffnet sie: 2-4 normale Sachen und mit Glueck ein Bonus (selten 35 %, episch 10 %, legendaer 2 %).
+Inhalt: `plugins/MineSMPCore/treasure.yml`, Menge und Abstand: `config.yml -> treasure`.
+
+**Schatz-Token:** extrem selten in einer Schatzkiste. Wer ihn findet, bekommt sofort
+- **7 Tage alle Crates gratis** - ohne Schluessel, so oft man will (`/keys` oder die Kisten am Spawn),
+- **7 Tage MVP** (`lp user <Name> parent addtemp mvp 7d accumulate`, ein hoeherer Rang bleibt),
+- eine Andenken-Muenze, eine Ansage mit Titel fuer alle und Feuerwerk. Ein zweiter Token verlaengert um weitere 7 Tage.
+
+**So selten ist er** (n = Kisten seit dem letzten eigenen Token, Einstellungen `config.yml -> treasure.token`):
+
+| Kisten | Chance je Kiste | Schon gefunden (Summe) |
+|---|---|---|
+| 1-149 | 0 % | 0 % |
+| 150-599 | 0,06 % | 300: 8,7 % · 500: 19 % |
+| 600-1499 | steigt bis 2 % | 800: 37 % · 1000: 64 % · 1200: 91 % |
+| 1500 | sicher | 100 % |
+
+Im Schnitt nach etwa **840 Kisten**. Serverweit gibt es hoechstens **2 Tokens in 7 Tagen**; ist die Grenze erreicht, kommt
+keiner, der eigene Zaehler laeuft aber weiter. Mit `/schatz admin chance` rechnet der Server die Tabelle mit den aktuellen
+Einstellungen aus.
+
+| Befehl | Zweck |
+|---|---|
+| `/schatz` | eigene Zahlen (Kisten, seit dem letzten Token, Tokens), Token-Restzeit |
+| `/schatz admin spawn [n]` | Kisten in deiner Naehe setzen |
+| `/schatz admin list` / `clear` | aktive Kisten anzeigen / entfernen |
+| `/schatz admin token <Spieler>` | Token vergeben (z.B. Gewinnspiel) |
+| `/schatz admin reset <Spieler>` | Token-Zeit und Zaehler zuruecksetzen |
+| `/schatz admin chance` | Fundwahrscheinlichkeit mit den aktuellen Einstellungen |
+
+Schatzkisten erscheinen nicht auf Grundstuecken, nicht in Lava oder Wasser und nicht ueber dem Nether-Dach; Explosionen
+zerstoeren sie nicht.
+
+## 18. Raenge Media und Famous
+Zwei neue Raenge fuer Creator: **Media** (lila) und **Famous** (gold). Beide glaenzen: ueber das Abzeichen wandert ein
+Lichtstreifen und der Name schimmert auf dem Namensschild und in der Tab-Liste; dazu Funkel-Partikel. Rechte wie MVP.
+Vergeben: `lp user <Name> parent add media` bzw. `famous`. Reihenfolge: ueber Premium, unter Builder.
+Bestehende Server: Das Windows-Paket laedt die Gruppen beim naechsten Start einmalig nach, und `ranks.yml` bekommt die
+beiden Raenge automatisch (eigene Aenderungen bleiben). Linux: Befehle aus `scripts/luckperms-setup.txt`.

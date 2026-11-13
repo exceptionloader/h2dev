@@ -2,16 +2,19 @@
 #  MineSMP - Raenge: Abzeichen, Namensschild (auch selbst in F5 sichtbar), Tab-Eintrag und Rang-Partikel
 #  Reihenfolge = Prioritaet (oben zuerst). Erkannt ueber die LuckPerms-Gruppe (Recht group.<id>).
 #  badge:     Abzeichen aus dem Ressourcenpaket (rank_owner, rank_admin, rank_dev, rank_mod, rank_support,
-#             rank_builder, rank_premium, rank_legende, rank_mvp, rank_vip, rank_spieler)
+#             rank_builder, rank_famous, rank_media, rank_premium, rank_legende, rank_mvp, rank_vip, rank_spieler)
 #  icon:      kleiner Edelstein vor dem Abzeichen (Standard: icon_<wie badge>), '' = keiner
 #  verified:  Haken [✔] vor dem Rang (Standard: true, bei default false; oder Recht minesmp.verified)
 #  text:      Ersatz fuer Spieler ohne Ressourcenpaket
 #  name:      Format des Namens im Chat ({name}); Farbverlauf: <g:#AAAAAA:#BBBBBB>{name}</g>
 #  particles: none | sparkle (Funkeln) | ring (Ring um die Huefte) | halo (Heiligenschein)
 #             | helix (Doppelspirale) | crown (Flammenkrone)
-#  colors:    zwei Hex-Farben fuer die Partikel
+#  colors:    zwei Hex-Farben fuer die Partikel (bei shine auch fuer den schimmernden Namen)
+#  shine:     true = Abzeichen und Name glaenzen (Lichtstreifen wandert ueber Namensschild und Tab-Liste;
+#             braucht die Bilder <badge>_s0..s7 im Ressourcenpaket, vorhanden fuer rank_media und rank_famous)
 # =====================================================================
 design-version: 3
+added-ranks: [media-famous]
 ranks:
   owner:     {badge: rank_owner,   text: '&4&lOWNER',   name: '<g:#FF6B6B:#FFC46B>&l{name}</g>', particles: crown,   colors: ['#FF4D4D', '#FFC46B']}
   admin:     {badge: rank_admin,   text: '&c&lADMIN',   name: '<g:#FF5555:#FF9A9A>{name}</g>',   particles: halo,    colors: ['#FF5555', '#FFB4B4']}
@@ -19,6 +22,8 @@ ranks:
   moderator: {badge: rank_mod,     text: '&6&lMOD',     name: '&6{name}',                        particles: ring,    colors: ['#F59E0B', '#FDE68A']}
   supporter: {badge: rank_support, text: '&e&lSUPPORT', name: '&e{name}',                        particles: ring,    colors: ['#FACC15', '#FFF3A3']}
   builder:   {badge: rank_builder, text: '&a&lBUILDER', name: '&a{name}',                        particles: sparkle, colors: ['#22C55E', '#BBF7D0']}
+  famous:    {badge: rank_famous,  text: '<g:#FFE680:#E0A100>&lFAMOUS</g>', name: '<g:#FFD54A:#FFF6C2>{name}</g>', particles: sparkle, colors: ['#FFC83D', '#FFF6C2'], shine: true}
+  media:     {badge: rank_media,   text: '<g:#D8B4FE:#9333EA>&lMEDIA</g>',  name: '<g:#C084FC:#F3E8FF>{name}</g>', particles: sparkle, colors: ['#A855F7', '#F0ABFC'], shine: true}
   premium:   {badge: rank_premium, text: '&6&lPREMIUM', name: '<g:#FFE66B:#FF9E2C>{name}</g>',   particles: crown,   colors: ['#FFD86B', '#FF9E2C']}
   legende:   {badge: rank_legende, text: '&9&lLEGENDE', name: '<g:#4F7CFF:#55FFFF>{name}</g>',   particles: helix,   colors: ['#4F7CFF', '#55FFFF']}
   mvp:       {badge: rank_mvp,     text: '&3&lMVP',     name: '<g:#22C3D6:#B6F7FF>{name}</g>',   particles: ring,    colors: ['#22C3D6', '#B6F7FF']}

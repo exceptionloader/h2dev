@@ -253,6 +253,78 @@ for rid, text, fill in RANKS:
            'd': '#%02X%02X%02X' % mix(fill, '#000000', 0.22)[:3]}
     add('icon_' + rid, icon((pal, GEM)), 9, 8)
 
+# ---------------------------------------------------------------- Glaenzende Raenge (Media lila, Famous gold)
+# rank_<id> = ruhendes Abzeichen mit Funkeln (Chat), rank_<id>_s0..s7 = Lichtstreifen wandert darueber (Namensschild/Tab,
+# das Plugin schaltet die Bilder weiter, siehe ranks.yml shine: true)
+SHINE_FRAMES = 8
+
+def shiny_tag(text, light, dark, streak=None, sparkle=True, h=9, pad=2):
+    H = h * S
+    W = text_width(text, S) + pad * 2 * S
+    img = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for y in range(H):                                   # Metall-Verlauf: oben hell, Mitte kraeftig, unten dunkel
+        t = y / (H - 1)
+        col = mix(light, dark, min(1, t * 1.25))
+        d.line([(0, y), (W - 1, y)], fill=col)
+    d.rectangle([0, 0, W - 1, S // 2 - 1 if S > 1 else 0], fill=mix(light, '#FFFFFF', 0.55))
+    d.rectangle([0, H - S, W - 1, H - 1], fill=mix(dark, '#000000', 0.3))
+    if streak is not None:                               # schraeger Lichtstreifen (2 Pixel breit)
+        ov = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+        od = ImageDraw.Draw(ov)
+        for y in range(H):
+            x0 = streak + (H - 1 - y) // 2
+            od.line([(x0, y), (x0 + 2 * S - 1, y)], fill=(255, 255, 255, 170))
+            od.line([(x0 + 3 * S, y), (x0 + 3 * S, y)], fill=(255, 255, 255, 90))
+        img.alpha_composite(ov)
+        d = ImageDraw.Draw(img)
+    y = (H - S - 7 * S) // 2 + S // 2
+    draw_text(d, text, pad * S + S // 2, y + S // 2, S, mix(dark, '#000000', 0.5))
+    draw_text(d, text, pad * S, y, S, hexc('#FFFFFF'))
+    if sparkle:                                          # kleiner Stern oben rechts
+        cx, cy = W - S * 2, S
+        for dx, dy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
+            px, py = cx + dx * S // 2, cy + dy * S // 2
+            if 0 <= px < W and 0 <= py < H:
+                d.point((px, py), fill=(255, 255, 255, 255))
+    return img
+
+SHINY = [('famous', 'FAMOUS', '#FFE680', '#C98A00'), ('media', 'MEDIA', '#D8B4FE', '#7E22CE')]
+for rid, text, light, dark in SHINY:
+    add('rank_' + rid, shiny_tag(text, light, dark), 9, 8)
+    w = text_width(text, S) + 4 * S
+    for i in range(SHINE_FRAMES):
+        add(f'rank_{rid}_s{i}', shiny_tag(text, light, dark, streak=-9 * S + i * (w + 9 * S) // (SHINE_FRAMES - 1), sparkle=False), 9, 8)
+    pal = {'o': '#%02X%02X%02X' % mix(dark, '#000000', 0.45)[:3], 'p': dark, 'h': '#%02X%02X%02X' % mix(light, '#FFFFFF', 0.5)[:3],
+           'd': '#%02X%02X%02X' % mix(dark, '#000000', 0.2)[:3]}
+    add('icon_' + rid, icon((pal, GEM)), 9, 8)
+
+def schatz_token():
+    """16x16 Muenze fuer das Andenken-Item Schatz-Token (minesmp:schatz_token)."""
+    g = ["....oooooooo....",
+         "..oohhhhhhhyoo..",
+         ".ohhyyyyyyyyydo.",
+         ".ohyyyyyyyyyydo.",
+         "ohyyycyycyycyydo",
+         "ohyyyccyccyccydo",
+         "ohyyyccccccccydo",
+         "ohyyycrccbccrydo",
+         "ohyyyccccccccydo",
+         "ohyyyhhhhhhhhydo",
+         "ohyyyyyyyyyyyddo",
+         "ohyyyyyyyyyyyddo",
+         ".ohyyyyyyyyyddo.",
+         ".odyyyyyyyyddoo.",
+         "..oodddddddoo...",
+         "....oooooooo...."]
+    pal = {'o': '#7A4A00', 'h': '#FFF3B0', 'y': '#FFC83D', 'd': '#D98E04', 'c': '#9A5300', 'r': '#E5484D', 'b': '#3FA9FF'}
+    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for yy, row in enumerate(g):
+        for xx, ch in enumerate(row):
+            if ch in pal:
+                img.putpixel((xx, yy), hexc(pal[ch]))
+    return img
+
 def build():
     import shutil
     if OUT.exists(): shutil.rmtree(OUT)
@@ -271,6 +343,15 @@ def build():
     skins.mkdir(parents=True)
     for f in sorted((ROOT / "tools/models-src/npc/skins").glob("*.png")):
         shutil.copyfile(f, skins / f.name)
+    # Andenken-Item Schatz-Token (custom-items.yml: item-model minesmp:schatz_token)
+    (OUT / "assets/minesmp/textures/item").mkdir(parents=True, exist_ok=True)
+    (OUT / "assets/minesmp/models/item").mkdir(parents=True, exist_ok=True)
+    (OUT / "assets/minesmp/items").mkdir(parents=True, exist_ok=True)
+    schatz_token().save(OUT / "assets/minesmp/textures/item/schatz_token.png")
+    (OUT / "assets/minesmp/models/item/schatz_token.json").write_text(json.dumps(
+        {"parent": "minecraft:item/generated", "textures": {"layer0": "minesmp:item/schatz_token"}}, indent=1))
+    (OUT / "assets/minesmp/items/schatz_token.json").write_text(json.dumps(
+        {"model": {"type": "minecraft:model", "model": "minesmp:item/schatz_token"}}, indent=1))
     # Drachen-Ausruestung "Obsidian & Sturm" (tools/models-src/drachen): Item-Modelle drachen:<name>,
     # Ruestungs-Aussehen drachen:obsidian - genutzt von custom-items.yml (item-model / equipment-asset)
     shutil.copytree(ROOT / "tools/models-src/drachen/assets/drachen", OUT / "assets/drachen")

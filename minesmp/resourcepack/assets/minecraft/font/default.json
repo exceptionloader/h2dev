@@ -613,6 +613,186 @@
    ]
   },
   {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue044"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s0.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue045"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s1.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue046"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s2.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue047"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s3.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue048"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s4.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue049"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s5.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s6.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_famous_s7.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_famous.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s0.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue04f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s1.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue050"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s2.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue051"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s3.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue052"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s4.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue053"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s5.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue054"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s6.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue055"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_media_s7.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue056"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_media.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue057"
+   ]
+  },
+  {
    "type": "space",
    "advances": {
     "\ue0f0": -1,

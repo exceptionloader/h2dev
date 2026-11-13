@@ -114,6 +114,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.world.SpawnCompass compass;
     private de.minesmp.core.world.WinterService winter;
     private de.minesmp.core.item.DragonGearService dragonGear;
+    private de.minesmp.core.events.TreasureService treasure;
     private de.minesmp.core.admin.GuardService guard;
     private de.minesmp.core.world.ModelService models;
     private de.minesmp.core.events.BossBrain bosses;
@@ -151,7 +152,7 @@ public final class MineSMP extends JavaPlugin {
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
                 "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml",
-                "token-shops.yml", "spawners.yml", "enchants.yml"}) {
+                "token-shops.yml", "spawners.yml", "enchants.yml", "treasure.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
         }
         Msg.load(this);
@@ -221,6 +222,7 @@ public final class MineSMP extends JavaPlugin {
         events = new EventManager(this);
         poi = new de.minesmp.core.events.PoiService(this);
         pve = new de.minesmp.core.events.PveService(this);
+        treasure = new de.minesmp.core.events.TreasureService(this);
         compass = new de.minesmp.core.world.SpawnCompass(this);
         new de.minesmp.core.world.SpawnProtection(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
@@ -350,6 +352,7 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.events.PveService pve() { return pve; }
     public de.minesmp.core.world.WinterService winter() { return winter; }
     public de.minesmp.core.item.DragonGearService dragonGear() { return dragonGear; }
+    public de.minesmp.core.events.TreasureService treasure() { return treasure; }
     public de.minesmp.core.admin.GuardService guard() { return guard; }
     public de.minesmp.core.world.ModelService models() { return models; }
     public de.minesmp.core.events.BossBrain bosses() { return bosses; }

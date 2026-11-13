@@ -48,7 +48,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * und als Text (ohne Paket). Jeder Betrachter sieht nur das passende.
  */
 public final class RankService implements Listener {
-    public record Rank(String id, String badge, String text, String nameFormat, String style, Color c1, Color c2, String icon, boolean verified) {}
+    public record Rank(String id, String badge, String text, String nameFormat, String style, Color c1, Color c2, String icon, boolean verified, boolean shine) {}
+    /** Glanz-Animation (shine: true): Bilder rank_<id>_s0..s7, danach Pause. */
+    private static final int SHINE_FRAMES = 8, SHINE_CYCLE = 22;
 
     private record Pt(Particle particle, Location loc, Object data) {}
 
@@ -79,6 +81,11 @@ public final class RankService implements Listener {
             if (e.getPersistentDataContainer().has(tagKey)) e.remove();
         })));
         Bukkit.getScheduler().runTaskTimer(plugin, this::syncTags, 20, 10);
+        // Glaenzende Raenge (Media, Famous): Namensschild alle 4 Ticks neu, damit der Lichtstreifen fluessig wandert
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (!tagsEnabled) return;
+            for (Player p : Bukkit.getOnlinePlayers()) if (rankOf(p).shine && tags.containsKey(p.getUniqueId())) syncTag(p);
+        }, 30, 4);
     }
 
     private static Color color(String hex, Color def) {
@@ -91,6 +98,7 @@ public final class RankService implements Listener {
 
     public void reload() {
         YamlConfiguration y = plugin.yaml("ranks.yml");
+        addNewRanks(y);
         ranks.clear();
         ConfigurationSection rs = y.getConfigurationSection("ranks");
         if (rs != null) {
@@ -100,12 +108,13 @@ public final class RankService implements Listener {
                 Rank rank = new Rank(id.toLowerCase(Locale.ROOT), r.getString("badge", "rank_spieler"), r.getString("text", "&7" + id),
                         r.getString("name", "&f{name}"), r.getString("particles", "none").toLowerCase(Locale.ROOT),
                         color(cols.isEmpty() ? "#FFFFFF" : cols.get(0), Color.WHITE), color(cols.size() < 2 ? "#FFFFFF" : cols.get(1), Color.WHITE),
-                        r.getString("icon", r.getString("badge", "rank_spieler").replace("rank_", "icon_")), r.getBoolean("verified", !id.equalsIgnoreCase("default")));
+                        r.getString("icon", r.getString("badge", "rank_spieler").replace("rank_", "icon_")), r.getBoolean("verified", !id.equalsIgnoreCase("default")),
+                        r.getBoolean("shine", false));
                 if (rank.id.equals("default")) fallback = rank;
                 else ranks.add(rank);
             }
         }
-        if (fallback == null) fallback = new Rank("default", "rank_spieler", "&7Spieler", "&f{name}", "none", Color.WHITE, Color.WHITE, "icon_spieler", false);
+        if (fallback == null) fallback = new Rank("default", "rank_spieler", "&7Spieler", "&f{name}", "none", Color.WHITE, Color.WHITE, "icon_spieler", false, false);
         tagsEnabled = y.getBoolean("nametag.enabled", true);
         line1Pack = y.getString("nametag.line1-pack", "{icon}{check}{badge} &8| &f{player}{clan}{afk}");
         line1 = y.getString("nametag.line1", "{check}{text} &8| &f{player}{clan}{afk}");
@@ -123,6 +132,59 @@ public final class RankService implements Listener {
         particleTask = Bukkit.getScheduler().runTaskTimer(plugin, this::particles, 40, Math.max(1, y.getInt("particles.interval-ticks", 2)));
         for (Tag t : tags.values()) { t.lastPack = ""; t.lastText = ""; }
         if (!tagsEnabled) for (UUID id : new ArrayList<>(tags.keySet())) removeTag(id);
+    }
+
+    /** Bestehende ranks.yml: neue Raenge aus Updates (Media, Famous) einmalig vor "premium" einfuegen. */
+    private void addNewRanks(YamlConfiguration y) {
+        List<String> done = y.getStringList("added-ranks");
+        if (done.contains("media-famous") || !y.isConfigurationSection("ranks")) return;
+        YamlConfiguration def;
+        try (var in = plugin.getResource("ranks.yml")) {
+            if (in == null) return;
+            def = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (java.io.IOException e) { return; }
+        ConfigurationSection old = y.getConfigurationSection("ranks");
+        Map<String, Object> order = new java.util.LinkedHashMap<>();
+        for (String k : old.getKeys(false)) {
+            if (k.equals("premium") || (k.equals("default") && !order.containsKey("famous"))) {
+                for (String add : List.of("famous", "media"))
+                    if (!old.contains(add) && def.isConfigurationSection("ranks." + add)) order.put(add, def.getConfigurationSection("ranks." + add).getValues(false));
+            }
+            order.put(k, old.getConfigurationSection(k).getValues(false));
+        }
+        y.set("ranks", null);
+        order.forEach((k, v) -> y.createSection("ranks." + k, (Map<?, ?>) v));
+        List<String> nd = new ArrayList<>(done);
+        nd.add("media-famous");
+        y.set("added-ranks", nd);
+        try {
+            y.save(new java.io.File(plugin.getDataFolder(), "ranks.yml"));
+            plugin.getLogger().info("ranks.yml: neue Raenge Media und Famous ergaenzt.");
+        } catch (java.io.IOException e) {
+            plugin.getLogger().warning("ranks.yml: " + e.getMessage());
+        }
+    }
+
+    /** Aktuelles Glanz-Bild (0..7) oder -1 in der Pause. */
+    private static int shineFrame() {
+        int f = (int) ((System.currentTimeMillis() / 200) % SHINE_CYCLE);
+        return f < SHINE_FRAMES ? f : -1;
+    }
+
+    /** Name mit Farbverlauf in Rangfarben und einem hellen Schimmer, der ueber die Buchstaben wandert. */
+    private static String shimmer(String name, Color c1, Color c2, int frame) {
+        int n = name.length();
+        double pos = frame < 0 ? -10 : -2 + (n + 4) * frame / (double) (SHINE_FRAMES - 1);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            double t = n <= 1 ? 0 : (double) i / (n - 1);
+            int r = (int) (c1.getRed() + (c2.getRed() - c1.getRed()) * t), g = (int) (c1.getGreen() + (c2.getGreen() - c1.getGreen()) * t),
+                    b = (int) (c1.getBlue() + (c2.getBlue() - c1.getBlue()) * t);
+            double glow = Math.max(0, 1 - Math.abs(i - pos) / 1.6);
+            r += (int) ((255 - r) * glow * 0.85); g += (int) ((255 - g) * glow * 0.85); b += (int) ((255 - b) * glow * 0.85);
+            sb.append(String.format("&#%02X%02X%02X", r, g, b)).append(name.charAt(i));
+        }
+        return sb.toString();
     }
 
     public boolean nametagsEnabled() {
@@ -171,11 +233,13 @@ public final class RankService implements Listener {
         PlayerData d = plugin.data().getIfLoaded(p.getUniqueId());
         boolean packOk = pack && plugin.pack() != null;
         boolean verified = r.verified || p.hasPermission("minesmp.verified");
+        int frame = r.shine ? shineFrame() : -1;
+        String badge = packOk ? "&f:" + (frame >= 0 ? r.badge + "_s" + frame : r.badge) + ":" : r.text;
         String s = Text.replace(fmt,
                 "icon", packOk && !r.icon.isEmpty() ? "&f:" + r.icon + ": " : "",
                 "check", verified ? (packOk ? checkPack : checkText) : "",
-                "badge", packOk ? "&f:" + r.badge + ":" : r.text,
-                "text", r.text, "name", name(p), "player", p.getName(),
+                "badge", badge,
+                "text", r.text, "name", name(p), "player", r.shine ? shimmer(p.getName(), r.c1, r.c2, frame) : p.getName(),
                 "clan", c == null ? "" : Text.replace(clanFormat, "tag", c.tag),
                 "afk", plugin.afk() != null && plugin.afk().isAfk(p) ? afkFormat : "",
                 "level", d == null ? "1" : String.valueOf(d.level));

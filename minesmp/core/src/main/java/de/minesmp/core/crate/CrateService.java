@@ -316,7 +316,8 @@ public final class CrateService implements Listener {
         int slot = 11;
         for (Crate c : crates.values()) {
             if (slot > 15) break;
-            m.set(slot++, Items.of(Material.CHEST, 1, c.name, List.of("&7Schluessel: &f" + d.keys(c.id), "", "&bLinksklick &7» Oeffnen", "&eRechtsklick &7» Vorschau")), e -> {
+            boolean free = plugin.treasure() != null && plugin.treasure().freeCrates(p);
+            m.set(slot++, Items.of(Material.CHEST, 1, c.name, List.of(free ? "&7Schluessel: &6unbegrenzt &8(Schatz-Token)" : "&7Schluessel: &f" + d.keys(c.id), "", "&bLinksklick &7» Oeffnen", "&eRechtsklick &7» Vorschau")), e -> {
                 if (e.isRightClick()) preview(p, c);
                 else if (cfg.getBoolean("open-anywhere", true) || p.hasPermission("minesmp.crate.anywhere")) open(p, c);
                 else { Menu.close(p); Msg.send(p, "crate.go-spawn", "{prefix}&cOeffne Kisten am Spawn (&f/spawn&c)."); }
@@ -356,7 +357,9 @@ public final class CrateService implements Listener {
     public void open(Player p, Crate c) {
         if (c.rewards.isEmpty()) return;
         if (!plugin.cooldowns().tryUse(p.getUniqueId(), "crate", 600)) return;
-        if (!takeKey(p, c)) {
+        boolean free = plugin.treasure() != null && plugin.treasure().freeCrates(p);   // Schatz-Token: alle Crates gratis
+        if (free) Msg.actionbar(p, "crate.free", "&6&lSchatz-Token &7- diese Kiste ist gratis");
+        if (!free && !takeKey(p, c)) {
             Msg.send(p, "crate.no-key", "{prefix}&cDu hast keinen {crate} &cSchluessel. &7(&f/vote&7, &f/daily&7, Events)", "crate", c.name);
             p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
             return;

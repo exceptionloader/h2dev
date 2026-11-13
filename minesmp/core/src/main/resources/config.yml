@@ -521,6 +521,34 @@ custom-items:
   grapple-cooldown-ms: 2000
   grapple-in-combat: false
 
+# Schatzkisten im Nether und in der Farmwelt (/schatz). Inhalt: treasure.yml.
+# Sehr selten steckt der Schatz-Token darin: {days} Tage alle Crates gratis (so oft man will) + Rang (Standard: MVP).
+treasure:
+  enabled: true
+  worlds:                        # Welt: Kisten je Spieler in der Welt, hoechstens max
+    farmwelt: {per-player: 6, max: 50}
+    world_nether: {per-player: 5, max: 40}
+  spawn-interval-seconds: 20
+  min-distance: 24               # Abstand zum Spieler beim Erscheinen (Bloecke)
+  max-distance: 110
+  underground-chance: 0.45       # Farmwelt: Anteil der Kisten in Hoehlen statt an der Oberflaeche
+  lifetime-minutes: 45           # danach zerfaellt eine ungeoeffnete Kiste
+  particles: true                # leichtes Glitzern, wenn ein Spieler naeher als 24 Bloecke ist
+  # Token-Algorithmus (n = Kisten seit dem letzten eigenen Token):
+  #   n < min-chests: nie | bis pity-start: base-chance | danach steigt es bis pity-max-chance | ab hard-pity: sicher
+  #   Standard: nie vor Kiste 150, ~9 % bis 300, ~37 % bis 800, ~91 % bis 1200, im Schnitt nach ~840 Kisten, sicher bei 1500.
+  #   Pruefen mit /schatz admin chance
+  token:
+    min-chests: 150
+    base-chance: 0.0006          # 0,06 % je Kiste
+    pity-start: 600
+    pity-max-chance: 0.02        # 2 % kurz vor hard-pity
+    hard-pity: 1500              # 0 = kein sicherer Fund
+    max-per-week: 2              # serverweit in 7 Tagen (0 = unbegrenzt)
+    days: 7
+    rank: mvp
+    rank-command: 'lp user {player} parent addtemp {rank} {days}d accumulate'
+
 # Drachen-Ausruestung "Obsidian & Sturm" (Items: custom-items.yml, Shop: token-shops.yml -> drachen, Befehl /schmiede)
 drachen:
   affect-players: false          # Blitz-Zusatzschaden und Frost auch gegen Spieler (normales PvP bleibt unberuehrt)

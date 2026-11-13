@@ -6,6 +6,8 @@
 lp creategroup vip
 lp creategroup mvp
 lp creategroup legende
+lp creategroup media
+lp creategroup famous
 lp creategroup builder
 lp creategroup supporter
 lp creategroup moderator
@@ -16,6 +18,8 @@ lp group default setweight 0
 lp group vip setweight 10
 lp group mvp setweight 20
 lp group legende setweight 30
+lp group media setweight 36
+lp group famous setweight 38
 lp group builder setweight 40
 lp group supporter setweight 50
 lp group moderator setweight 60
@@ -28,6 +32,8 @@ lp group default meta setprefix 0 "&7"
 lp group vip meta setprefix 10 "&b&lVIP &8| &b"
 lp group mvp meta setprefix 20 "&3&lMVP &8| &3"
 lp group legende meta setprefix 30 "&9&lLEGENDE &8| &9"
+lp group media meta setprefix 36 "&5&lMEDIA &8| &d"
+lp group famous meta setprefix 38 "&6&lFAMOUS &8| &e"
 lp group builder meta setprefix 40 "&a&lBUILDER &8| &a"
 lp group supporter meta setprefix 50 "&e&lSUPPORT &8| &e"
 lp group moderator meta setprefix 60 "&6&lMOD &8| &6"
@@ -39,6 +45,8 @@ lp group owner meta setprefix 100 "&4&lOWNER &8| &4"
 lp group vip parent add default
 lp group mvp parent add vip
 lp group legende parent add mvp
+lp group media parent add mvp
+lp group famous parent add mvp
 lp group builder parent add default
 lp group supporter parent add default
 lp group moderator parent add supporter

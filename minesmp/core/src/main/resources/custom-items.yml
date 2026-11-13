@@ -105,6 +105,15 @@ items:
     custom-enchants: {tempo: 2, sprung: 1}
     custom-model-data: 10019
 
+  # Schatz-Token als Andenken (bekommt, wer ihn in einer Schatzkiste findet; die Wirkung startet sofort)
+  schatztoken:
+    material: SUNFLOWER
+    item-model: minesmp:schatz_token
+    name: '<g:#FFE66B:#FF9E2C>&lSchatz-Token</g>'
+    lore: ['&7Extrem selten aus einer Schatzkiste.', '&71 Woche alle Crates gratis + MVP.', '&8Andenken - bereits eingeloest']
+    glow: true
+    no-place: true
+
   # ---------------- Drachen-Ausruestung "Obsidian & Sturm" ----------------
   # 3D-Modelle im MineSMP-Ressourcenpaket (item-model drachen:<name>), Faehigkeiten DRACHEN_* (Einstellungen: config.yml -> drachen).
   # Kaufen in der Drachen-Schmiede (/schmiede), gewinnen beim Boss-Event (events.yml -> events.boss.rewards).

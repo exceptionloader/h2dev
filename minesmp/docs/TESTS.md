@@ -313,3 +313,21 @@ ohne Bewegungsdaten) - echte Spieler betrifft das nicht.
 
 **Nicht getestet:** Darstellung im echten Minecraft-Client (Bots zeigen keine Grafik; die Vorschau ist eingerechnet, nicht aufgenommen),
 Bedrock (Geyser zeigt eigene Schriften nicht - Bedrock-Spieler sehen die Schilder voraussichtlich nicht).
+
+## Update 13.11.2026: Schatzkisten, Schatz-Token, Raenge Media und Famous
+26.3-Testserver, Test-Bot (mineflayer ueber ViaVersion), Pruefung per RCON.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Farmwelt | Bot in der Farmwelt: nach 25 s 3, spaeter 6 Schatzkisten von selbst (u.a. in Hoehlen auf y -2, -35, -41) | ✅ |
+| Nether | 3-6 Kisten von selbst (z.B. y 106, unter dem Nether-Dach) | ✅ |
+| Oeffnen | Menue "Schatzkiste (Selten)", Inhalt z.B. Eisen 11, Schleimball 3, Diamant 2 bzw. Verzaubertes Buch, Pfeile, Gold, Obsidian; MineCoins direkt gutgeschrieben; Kiste danach weg; Beute nach dem Schliessen im Inventar | ✅ |
+| Algorithmus | `/schatz admin chance`: 50 Kisten 0 %, 150: 0,1 %, 300: 8,7 %, 500: 19 %, 800: 36,6 %, 1000: 64,1 %, 1200: 90,6 %, 1500: 100 %, Schnitt 838 | ✅ |
+| Token aus der Kiste | (Test-Einstellung 100 %) Ansage fuer alle, Andenken-Muenze, Restzeit; zweiter Token verlaengert auf 14 Tage | ✅ |
+| Gratis-Crates | Mit Token: `/keys` zeigt "unbegrenzt", Crate oeffnet ohne Schluessel | ✅ |
+| MVP | Neuer Spieler bekommt durch den Token das MVP-Abzeichen (LuckPerms `parent addtemp mvp 7d`) | ✅ |
+| Media / Famous | `ranks.yml` eines bestehenden Servers automatisch ergaenzt (vor Premium); Namensschild wechselt durch alle 9 Abzeichen-Bilder (Glanz), Name schimmert (5 verschiedene Farbstaende in 4 s) | ✅ |
+
+**Nicht getestet:** Rechtsklick auf die Kiste mit einem echten Client (der Test-Bot kann ohne Bewegungsdaten keine Bloecke
+anklicken, auch keine normalen Kisten - geoeffnet wurde ueber Abbauen, das denselben Weg nimmt), wie der Glanz im echten
+Client aussieht, die genaue Ablaufzeit von MVP in LuckPerms (LuckPerms antwortet nicht ueber RCON), Bedrock.
