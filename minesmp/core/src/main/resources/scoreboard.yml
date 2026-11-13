@@ -7,7 +7,7 @@
 #  %time% %next_event% %next_event_in% %ping% %tps% %playtime% %keys_vote% %gems% %stars% %keyall% %raid%
 #  %claims% %claim_owner% %poi% ... (PlaceholderAPI geht auch)
 # =====================================================================
-design-version: 8
+design-version: 9
 update-ticks: 20
 
 # Titel mit fliessendem Farbverlauf (laeuft unabhaengig vom Rest alle 3 Ticks)
@@ -23,6 +23,7 @@ title-frames:
 
 lines:
   - '&8'
+  - ' &6♛ &fRang %rank_short%'
   - ' &a$ &fGeld &a%balance%'
   - ' &c◆ &fGems &d%gems%'
   - ' &e★ &fStars &e%stars%'
@@ -46,6 +47,7 @@ title-pack: ':board:'
 # Genau 15 Zeilen, damit der Rahmen passt. :sp8: = Abstand zum rechten Rand.
 lines-pack:
   - '&0'
+  - ' &f:crown: &fRang &f%rank_badge%'
   - ' &f:dollar: &fGeld &a%balance%'
   - ' &f:rubin: &fGems &d%gems%'
   - ' &f:star: &fStars &e%stars%'
@@ -59,7 +61,6 @@ lines-pack:
   - ' &#FF6A3D&lMINESMP.DE'
   - ' &a%online%/%max_players%'
   - '&2'
-  - '&3'
 combat-lines-pack:
   - '&0'
   - ' :combat:'

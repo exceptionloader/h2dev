@@ -407,11 +407,38 @@
   },
   {
    "type": "bitmap",
-   "file": "minesmp:font/board.png",
+   "file": "minesmp:font/board_tl.png",
    "ascent": 19,
-   "height": 161,
+   "height": 81,
    "chars": [
     "\ue02d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/board_tr.png",
+   "ascent": 19,
+   "height": 81,
+   "chars": [
+    "\ue02e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/board_bl.png",
+   "ascent": -62,
+   "height": 80,
+   "chars": [
+    "\ue02f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/board_br.png",
+   "ascent": -62,
+   "height": 80,
+   "chars": [
+    "\ue030"
    ]
   },
   {
@@ -420,7 +447,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue02e"
+    "\ue031"
    ]
   },
   {
@@ -429,7 +456,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue02f"
+    "\ue032"
    ]
   },
   {
@@ -438,7 +465,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue030"
+    "\ue033"
    ]
   },
   {
@@ -447,7 +474,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue031"
+    "\ue034"
    ]
   },
   {
@@ -456,7 +483,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue032"
+    "\ue035"
    ]
   },
   {
@@ -465,7 +492,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue033"
+    "\ue036"
    ]
   },
   {
@@ -474,7 +501,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue034"
+    "\ue037"
    ]
   },
   {
@@ -483,7 +510,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue035"
+    "\ue038"
    ]
   },
   {
@@ -492,7 +519,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue036"
+    "\ue039"
    ]
   },
   {
@@ -501,7 +528,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue037"
+    "\ue03a"
    ]
   },
   {
@@ -510,7 +537,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue038"
+    "\ue03b"
    ]
   },
   {
@@ -519,7 +546,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue039"
+    "\ue03c"
    ]
   },
   {
@@ -528,7 +555,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03a"
+    "\ue03d"
    ]
   },
   {
@@ -537,7 +564,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03b"
+    "\ue03e"
    ]
   },
   {
@@ -546,7 +573,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03c"
+    "\ue03f"
    ]
   },
   {
@@ -555,7 +582,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03d"
+    "\ue040"
    ]
   },
   {
@@ -564,7 +591,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03e"
+    "\ue041"
    ]
   },
   {
@@ -573,7 +600,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue03f"
+    "\ue042"
    ]
   },
   {
@@ -582,7 +609,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue040"
+    "\ue043"
    ]
   },
   {
@@ -591,7 +618,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue041"
+    "\ue044"
    ]
   },
   {
@@ -600,7 +627,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue042"
+    "\ue045"
    ]
   },
   {
@@ -609,7 +636,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue043"
+    "\ue046"
    ]
   },
   {
@@ -618,7 +645,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue044"
+    "\ue047"
    ]
   },
   {
@@ -627,7 +654,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue045"
+    "\ue048"
    ]
   },
   {
@@ -636,7 +663,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue046"
+    "\ue049"
    ]
   },
   {
@@ -645,7 +672,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue047"
+    "\ue04a"
    ]
   },
   {
@@ -654,7 +681,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue048"
+    "\ue04b"
    ]
   },
   {
@@ -663,7 +690,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue049"
+    "\ue04c"
    ]
   },
   {
@@ -672,7 +699,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04a"
+    "\ue04d"
    ]
   },
   {
@@ -681,7 +708,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04b"
+    "\ue04e"
    ]
   },
   {
@@ -690,7 +717,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04c"
+    "\ue04f"
    ]
   },
   {
@@ -699,7 +726,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04d"
+    "\ue050"
    ]
   },
   {
@@ -708,7 +735,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04e"
+    "\ue051"
    ]
   },
   {
@@ -717,7 +744,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue04f"
+    "\ue052"
    ]
   },
   {
@@ -726,7 +753,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue050"
+    "\ue053"
    ]
   },
   {
@@ -735,7 +762,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue051"
+    "\ue054"
    ]
   },
   {
@@ -744,7 +771,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue052"
+    "\ue055"
    ]
   },
   {
@@ -753,7 +780,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue053"
+    "\ue056"
    ]
   },
   {
@@ -762,7 +789,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue054"
+    "\ue057"
    ]
   },
   {
@@ -771,7 +798,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue055"
+    "\ue058"
    ]
   },
   {
@@ -780,7 +807,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue056"
+    "\ue059"
    ]
   },
   {
@@ -789,7 +816,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue057"
+    "\ue05a"
    ]
   },
   {
@@ -798,7 +825,7 @@
    "ascent": 8,
    "height": 9,
    "chars": [
-    "\ue058"
+    "\ue05b"
    ]
   },
   {
@@ -809,7 +836,8 @@
     "\ue0f2": 3,
     "\ue0f3": 6,
     "\ue0f4": 8,
-    "\ue0f5": 2
+    "\ue0f5": 2,
+    "\ue0f6": -133
    }
   }
  ]

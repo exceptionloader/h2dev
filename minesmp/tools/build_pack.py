@@ -220,7 +220,32 @@ def board():
     return img
 
 
-add('board', board(), BOARD_LH + BOARD_F + 3, BOARD_LH + 3)
+# Minecraft legt Schriftzeichen auf Seiten von 256 x 256 Pixeln ab - ein groesseres Bild wird gar nicht angezeigt.
+# Der Rahmen (264 x 322) wird deshalb in 4 Teile zerlegt und ueber Abstands-Zeichen wieder zusammengesetzt:
+# oben links, -1, oben rechts, zurueck zum Anfang, unten links, -1, unten rechts (Kuerzel :board: = alle zusammen).
+def _adv(img, h):
+    """Vorschub wie im Spiel: rechteste sichtbare Spalte * Massstab, gerundet, + 1."""
+    scale = h / img.height
+    a = img.getchannel('A')
+    w = 0
+    for x in range(img.width - 1, -1, -1):
+        if any(a.getpixel((x, y)) for y in range(img.height)):
+            w = x + 1
+            break
+    return int(0.5 + w * scale) + 1
+
+_b = board()
+_cw = _b.width // 2                       # Spalten: 132 Pixel
+_rh = (_b.height // 2 + 1) // 2 * 2       # obere Zeile: 162 Pixel (gerade, damit die Hoehe ganzzahlig bleibt)
+_tiles = {'board_tl': _b.crop((0, 0, _cw, _rh)), 'board_tr': _b.crop((_cw, 0, _b.width, _rh)),
+          'board_bl': _b.crop((0, _rh, _cw, _b.height)), 'board_br': _b.crop((_cw, _rh, _b.width, _b.height))}
+_h_top, _h_bot = _rh // S, (_b.height - _rh) // S
+_asc = BOARD_LH + 3
+add('board_tl', _tiles['board_tl'], _h_top, _asc)
+add('board_tr', _tiles['board_tr'], _h_top, _asc)
+add('board_bl', _tiles['board_bl'], _h_bot, _asc - _h_top)
+add('board_br', _tiles['board_br'], _h_bot, _asc - _h_top)
+BOARD_BACK = -((_adv(_tiles['board_tl'], _h_top) - 1) + _adv(_tiles['board_tr'], _h_top))
 
 # Rang-Abzeichen (Namensschild, Tab, Chat, Scoreboard): eckiges, flaches Kaestchen mit weisser Schrift
 def mix(h, other, t):
@@ -335,7 +360,8 @@ def build():
     for name, c, img, h, asc in GLYPHS:
         img.save(TEX / f"{name}.png")
         providers.append({"type": "bitmap", "file": f"minesmp:font/{name}.png", "ascent": asc, "height": h, "chars": [chr(c)]})
-    providers.append({"type": "space", "advances": {"\ue0f0": -1, "\ue0f1": 1, "\ue0f2": 3, "\ue0f3": 6, "\ue0f4": 8, "\ue0f5": 2}})
+    providers.append({"type": "space", "advances": {"\ue0f0": -1, "\ue0f1": 1, "\ue0f2": 3, "\ue0f3": 6, "\ue0f4": 8, "\ue0f5": 2,
+                                                    "\ue0f6": BOARD_BACK}})
     (OUT / "assets/minecraft/font").mkdir(parents=True)
     (OUT / "assets/minecraft/font/default.json").write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
     (OUT / "pack.mcmeta").write_text(json.dumps({"pack": {"description": "§b§lMINE§f§lSMP §7Ressourcenpaket",
@@ -373,10 +399,13 @@ def build():
                 zi.compress_type = zipfile.ZIP_DEFLATED
                 zf.writestr(zi, p.read_bytes())
     # Kuerzel-Tabelle fuer das Plugin
+    cps = {n: c for n, c, *_ in GLYPHS}
+    board_seq = [cps['board_tl'], 0xE0F0, cps['board_tr'], 0xE0F6, cps['board_bl'], 0xE0F0, cps['board_br']]
     (ROOT / "core/src/main/resources/glyphs.yml").write_text(
         "# Automatisch erzeugt von tools/build_pack.py - Kuerzel :name: -> Zeichen im Ressourcenpaket\n" +
         "".join(f'{n}: "\\u{c:04X}"\n' for n, c, *_ in GLYPHS)
-        + 'sp-1: "\\uE0F0"\nsp1: "\\uE0F1"\nsp2: "\\uE0F5"\nsp3: "\\uE0F2"\nsp6: "\\uE0F3"\nsp8: "\\uE0F4"\n')
+        + 'sp-1: "\\uE0F0"\nsp1: "\\uE0F1"\nsp2: "\\uE0F5"\nsp3: "\\uE0F2"\nsp6: "\\uE0F3"\nsp8: "\\uE0F4"\n'
+        + 'board: "' + ''.join('\\u%04X' % c for c in board_seq) + '"\n')
     print(len(GLYPHS), "Zeichen,", z.stat().st_size, "Bytes")
 
 if __name__ == "__main__":

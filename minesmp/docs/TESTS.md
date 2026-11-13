@@ -345,3 +345,16 @@ Zwei Test-Bots (Finder und Zuschauer), mitgelesene Server-Pakete.
 **Nicht getestet:** wie es im echten Client aussieht (die Bilder in `media/token-*.jpg` sind nachgestellt, nicht aufgenommen) -
 besonders ob der Client fuer die Totem-Animation wirklich die Muenze zeigt (sonst erscheint dort ein normales Totem).
 
+
+## Update 13.11.2026 (3): Scoreboard - Logo/Rahmen fehlten, Rang-Zeile
+**Ursache gefunden:** Logo und Rahmen des Scoreboards waren ein einziges Schrift-Bild mit 264 x 322 Pixeln. Minecraft legt
+Schriftzeichen auf Seiten von hoechstens 256 x 256 Pixeln ab - groessere Bilder werden gar nicht angezeigt. Die frueheren
+Vorschaubilder waren nachgezeichnet und haben das nicht gezeigt.
+
+| Bereich | Test | Ergebnis |
+|---|---|---|
+| Rahmen | In 4 Teile zerlegt (je 132 x 162/160 Pixel), Zusammensetzen ueber Abstands-Zeichen (-1 und -133) nach Minecrafts Vorschub-Regel nachgerechnet: Ergebnis ist pixelgleich mit dem Original, Gesamtbreite unveraendert 133 | ✅ |
+| Paket | Kein Schrift-Bild mehr groesser als 256 Pixel (auch Schilder und Token-Schriftzug geprueft) | ✅ |
+| Rang | Neue Zeile "Rang" mit Abzeichen (mit Paket) bzw. Rang-Text (ohne Paket); Scoreboard hat weiter genau 15 Zeilen; bestehende scoreboard.yml wird ersetzt (alte als scoreboard-alt.yml) | ✅ |
+
+**Nicht getestet:** im echten Minecraft-Client - der Start eines Clients wurde in dieser Testumgebung nicht erlaubt.
