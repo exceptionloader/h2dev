@@ -78,6 +78,9 @@ Automatisch erzeugt mit `tools/gen_commands.py`.
 | /setspawn | - | `minesmp.admin.setspawn` | Spawn setzen | TeleportService |
 | /settings | /einstellungen, /options | `minesmp.settings` | Einstellungen | ProfileService |
 | /schatz | /schatzkiste, /treasure, /token | `minesmp.schatz` | Schatzkisten und Schatz-Token; Admin: `spawn`, `list`, `clear`, `token`, `reset`, `chance` (`minesmp.admin.schatz`) | TreasureService |
+| /goldrausch | /goldrush, /gr | `minesmp.goldrausch` | Goldrausch-Menue: Uebersicht, `funde`, `erze`, `ticket`, `shop`, `ziele`, `top`; `info` als Chat-Text | GoldrushService |
+| /sgoldrausch | /startgoldrausch | `minesmp.goldrausch.start` (ab SrMod) | Goldrausch starten (14 Tage), `stop` (zweimal), `status`; Admin (`minesmp.admin.goldrausch`): `abbrechen`, `zeit <Dauer>`, `staub <Spieler> <n>`, `fund <Spieler> <Art>`, `reload` | GoldrushService |
+| /web | /webcode, /forumcode | `minesmp.web` | Code fuer die Anmeldung auf der Website (5 Minuten gueltig) | WebService |
 | /schmiede | /drachenschmiede, /drachen, /drache | `minesmp.drachen` | Drachen-Schmiede (Drachen-Ausruestung kaufen); `modus`, `schmelzen`, `rezepte`, `info` | DragonGearService |
 | /shop | /markt, /store | `minesmp.shop` | Server-Shop | ShopService |
 | /skills | /level, /skill | `minesmp.skills` | Skills & Level | SkillService |

@@ -12,7 +12,7 @@ Fertige Gruppen: `scripts/luckperms-setup.txt`.
 `minesmp.event` `minesmp.home` `minesmp.tpa` `minesmp.back` `minesmp.spawn` `minesmp.rtp` `minesmp.farmwelt` `minesmp.pwarp`
 `minesmp.afk` `minesmp.trash` `minesmp.msg` `minesmp.ignore` `minesmp.playtime` `minesmp.info` `minesmp.profile` `minesmp.stats`
 `minesmp.settings` `minesmp.report` `minesmp.staff.list` `minesmp.vote` `minesmp.cosmetics`
-`minesmp.pve` `minesmp.gems` `minesmp.stars` `minesmp.tokenshop` `minesmp.keyall` `minesmp.spawners` `minesmp.orders` `minesmp.lfg` `minesmp.claim` `minesmp.ce` `minesmp.drachen` `minesmp.schatz`
+`minesmp.pve` `minesmp.gems` `minesmp.stars` `minesmp.tokenshop` `minesmp.keyall` `minesmp.spawners` `minesmp.orders` `minesmp.lfg` `minesmp.claim` `minesmp.ce` `minesmp.drachen` `minesmp.schatz` `minesmp.goldrausch` `minesmp.web`
 
 ## Rang-Vorteile (VIP/MVP/Legende/Premium)
 | Recht | Wirkung |
@@ -92,5 +92,5 @@ wer gerade im Vanish ist, zeigt `/vanish list`.
 `minesmp.playershop.admin`, `minesmp.pwarp.admin`, `minesmp.admin` (Bypass bei Strafen gegen Team),
 `minesmp.admin.tokens` (/gems give, /sterne give), `minesmp.tokens.others`, `minesmp.admin.spawners` (/spawner give, fremde Spawner),
 `minesmp.admin.claims` (/claim bypass, /claim adminremove), `minesmp.admin.ce` (/ce give, /ce add), `minesmp.admin.keyall` (/keyall now),
-`minesmp.admin.poi` (/poi start, /poi stop), `minesmp.admin.schatz` (/schatz admin: Kisten setzen, Token vergeben).
+`minesmp.admin.poi` (/poi start, /poi stop), `minesmp.admin.schatz` (/schatz admin: Kisten setzen, Token vergeben), `minesmp.goldrausch.start` (/sgoldrausch starten/stoppen - Rang SrMod), `minesmp.admin.goldrausch` (/sgoldrausch abbrechen, zeit, staub, fund, reload), `minesmp.web.moderate` (Website-Forum moderieren).
 Neue Raenge: Gruppen `media` und `famous` (Rechte wie MVP, glaenzendes Abzeichen).
