@@ -86,6 +86,11 @@ public final class Placeholders {
             case "pve_wins" -> String.valueOf(d.pveWins);
             case "clan_rank" -> c == null || plugin.league() == null ? "-" : plugin.league().rankText(c, plugin.pack() != null && plugin.pack().has(p));
             case "clan_rating" -> c == null ? "-" : String.valueOf(c.rating);
+            case "goldrausch" -> plugin.goldrush() == null || !plugin.goldrush().active() ? "-" : plugin.goldrush().leftText();
+            case "goldrausch_money" -> plugin.goldrush() == null ? "0" : Text.compact(plugin.goldrush().won(p));
+            case "goldrausch_today" -> plugin.goldrush() == null ? "0" : Text.compact(plugin.goldrush().wonToday(p));
+            case "goldrausch_rank" -> { int r = plugin.goldrush() == null ? 0 : plugin.goldrush().rank(p); yield r == 0 ? "-" : "#" + r; }
+            case "goldrausch_staub" -> plugin.goldrush() == null ? "0" : Text.compact(plugin.goldrush().dust(p));
             case "poi" -> plugin.poi() == null ? "-" : plugin.poi().text();
             default -> null;
         };

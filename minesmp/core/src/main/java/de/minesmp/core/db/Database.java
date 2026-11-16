@@ -101,6 +101,9 @@ public final class Database {
             "CREATE TABLE IF NOT EXISTS web_sessions (token VARCHAR(64) PRIMARY KEY, uuid VARCHAR(36) NOT NULL, name VARCHAR(16) NOT NULL,"
                 + " rank_id VARCHAR(32), moderator INTEGER NOT NULL DEFAULT 0, expires BIGINT NOT NULL)",
             "CREATE TABLE IF NOT EXISTS web_members (uuid VARCHAR(36) PRIMARY KEY, name VARCHAR(16) NOT NULL, rank_id VARCHAR(32), last_seen BIGINT NOT NULL)",
+            // Goldrausch: Rangliste je Runde
+            "CREATE TABLE IF NOT EXISTS goldrush (season BIGINT NOT NULL, uuid VARCHAR(36) NOT NULL, name VARCHAR(16) NOT NULL,"
+                + " money DOUBLE NOT NULL DEFAULT 0, ores BIGINT NOT NULL DEFAULT 0, PRIMARY KEY (season, uuid))",
             "CREATE INDEX IF NOT EXISTS idx_forum_cat ON forum_threads(category)",
             "CREATE INDEX IF NOT EXISTS idx_forum_posts ON forum_posts(thread_id)",
             "CREATE INDEX IF NOT EXISTS idx_auction_status ON auctions(status)",

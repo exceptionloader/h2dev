@@ -84,7 +84,7 @@ public final class RankService implements Listener {
         // Glaenzende Raenge (Media, Famous): Namensschild alle 4 Ticks neu, damit der Lichtstreifen fluessig wandert
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (!tagsEnabled) return;
-            for (Player p : Bukkit.getOnlinePlayers()) if (rankOf(p).shine && tags.containsKey(p.getUniqueId())) syncTag(p);
+            for (Player p : Bukkit.getOnlinePlayers()) if ((rankOf(p).shine || goldTicket(p)) && tags.containsKey(p.getUniqueId())) syncTag(p);
         }, 30, 4);
     }
 
@@ -135,31 +135,43 @@ public final class RankService implements Listener {
     }
 
     /** Bestehende ranks.yml: neue Raenge aus Updates (Media, Famous) einmalig vor "premium" einfuegen. */
+    /** Neue Raenge aus Updates in eine vorhandene ranks.yml einfuegen (eigene Aenderungen bleiben). */
     private void addNewRanks(YamlConfiguration y) {
-        List<String> done = y.getStringList("added-ranks");
-        if (done.contains("media-famous") || !y.isConfigurationSection("ranks")) return;
+        List<String> done = new ArrayList<>(y.getStringList("added-ranks"));
+        if (!y.isConfigurationSection("ranks")) return;
         YamlConfiguration def;
         try (var in = plugin.getResource("ranks.yml")) {
             if (in == null) return;
             def = YamlConfiguration.loadConfiguration(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
         } catch (java.io.IOException e) { return; }
-        ConfigurationSection old = y.getConfigurationSection("ranks");
-        Map<String, Object> order = new java.util.LinkedHashMap<>();
-        for (String k : old.getKeys(false)) {
-            if (k.equals("premium") || (k.equals("default") && !order.containsKey("famous"))) {
-                for (String add : List.of("famous", "media"))
-                    if (!old.contains(add) && def.isConfigurationSection("ranks." + add)) order.put(add, def.getConfigurationSection("ranks." + add).getValues(false));
+        boolean changed = false;
+        // Schritt -> {neue Raenge, davor einfuegen}
+        Map<String, String[][]> steps = new java.util.LinkedHashMap<>();
+        steps.put("media-famous", new String[][]{{"famous", "media"}, {"premium"}});
+        steps.put("srmod", new String[][]{{"srmod"}, {"moderator"}});
+        for (var st : steps.entrySet()) {
+            if (done.contains(st.getKey())) continue;
+            ConfigurationSection old = y.getConfigurationSection("ranks");
+            Map<String, Object> order = new java.util.LinkedHashMap<>();
+            boolean placed = false;
+            for (String k : old.getKeys(false)) {
+                if (!placed && (k.equals(st.getValue()[1][0]) || k.equals("default"))) {
+                    for (String add : st.getValue()[0])
+                        if (!old.contains(add) && def.isConfigurationSection("ranks." + add)) order.put(add, def.getConfigurationSection("ranks." + add).getValues(false));
+                    placed = true;
+                }
+                order.put(k, old.getConfigurationSection(k).getValues(false));
             }
-            order.put(k, old.getConfigurationSection(k).getValues(false));
+            y.set("ranks", null);
+            order.forEach((k, v) -> y.createSection("ranks." + k, (Map<?, ?>) v));
+            done.add(st.getKey());
+            changed = true;
         }
-        y.set("ranks", null);
-        order.forEach((k, v) -> y.createSection("ranks." + k, (Map<?, ?>) v));
-        List<String> nd = new ArrayList<>(done);
-        nd.add("media-famous");
-        y.set("added-ranks", nd);
+        if (!changed) return;
+        y.set("added-ranks", done);
         try {
             y.save(new java.io.File(plugin.getDataFolder(), "ranks.yml"));
-            plugin.getLogger().info("ranks.yml: neue Raenge Media und Famous ergaenzt.");
+            plugin.getLogger().info("ranks.yml: neue Raenge ergaenzt.");
         } catch (java.io.IOException e) {
             plugin.getLogger().warning("ranks.yml: " + e.getMessage());
         }
@@ -223,8 +235,16 @@ public final class RankService implements Listener {
         return rankOf(p).text;
     }
 
+    private static final Color TICKET_C1 = Color.fromRGB(0xFFC83D), TICKET_C2 = Color.fromRGB(0xFFF3B0);
+
+    /** Goldticket aus dem Goldrausch aktiv: goldener, schimmernder Name und goldene Aura. */
+    private boolean goldTicket(Player p) {
+        return plugin.goldrush() != null && plugin.goldrush().goldenName(p);
+    }
+
     /** Spielername im Rang-Format (Farbe/Verlauf). */
     public String name(Player p) {
+        if (goldTicket(p)) return "<g:#FFE680:#FFB000:#FFF3B0>" + p.getName() + "</g>";
         return Text.replace(rankOf(p).nameFormat, "name", p.getName());
     }
 
@@ -240,13 +260,15 @@ public final class RankService implements Listener {
         PlayerData d = plugin.data().getIfLoaded(p.getUniqueId());
         boolean packOk = pack && plugin.pack() != null;
         boolean verified = r.verified || p.hasPermission("minesmp.verified");
-        int frame = r.shine ? shineFrame() : -1;
-        String badge = packOk ? "&f:" + (frame >= 0 ? r.badge + "_s" + frame : r.badge) + ":" : r.text;
+        boolean gold = goldTicket(p);
+        int frame = r.shine || gold ? shineFrame() : -1;
+        String badge = packOk ? "&f:" + (r.shine && frame >= 0 ? r.badge + "_s" + frame : r.badge) + ":" : r.text;
         String s = Text.replace(fmt,
                 "icon", packOk && !r.icon.isEmpty() ? "&f:" + r.icon + ": " : "",
                 "check", verified ? (packOk ? checkPack : checkText) : "",
                 "badge", badge,
-                "text", r.text, "name", name(p), "player", r.shine ? shimmer(p.getName(), r.c1, r.c2, frame) : p.getName(),
+                "text", r.text, "name", name(p), "player", gold ? shimmer(p.getName(), TICKET_C1, TICKET_C2, frame)
+                        : r.shine ? shimmer(p.getName(), r.c1, r.c2, frame) : p.getName(),
                 "clan", c == null ? "" : Text.replace(clanFormat, "tag", c.tag),
                 "afk", plugin.afk() != null && plugin.afk().isAfk(p) ? afkFormat : "",
                 "level", d == null ? "1" : String.valueOf(d.level));
@@ -420,10 +442,12 @@ public final class RankService implements Listener {
         for (Player o : Bukkit.getOnlinePlayers()) {
             if (o.getGameMode() == GameMode.SPECTATOR || o.isDead() || o.isInvisible() || o.hasPotionEffect(PotionEffectType.INVISIBILITY)) continue;
             Rank r = rankOf(o);
-            if (r.style.equals("none")) continue;
+            boolean aura = plugin.goldrush() != null && plugin.goldrush().goldenAura(o);
+            if (r.style.equals("none") && !aura) continue;
             PlayerData od = plugin.data().getIfLoaded(o.getUniqueId());
             if (od == null || !od.setting("rank-particles", true)) continue;
-            List<Pt> pts = points(r, o.getLocation(), tick);
+            List<Pt> pts = r.style.equals("none") ? new ArrayList<>() : points(r, o.getLocation(), tick);
+            if (aura) goldAura(pts, o.getLocation(), tick);
             if (pts.isEmpty()) continue;
             for (Player v : o.getWorld().getPlayers()) {
                 if (v.getLocation().distanceSquared(o.getLocation()) > (double) range * range) continue;
@@ -434,6 +458,18 @@ public final class RankService implements Listener {
                 }
                 for (Pt pt : pts) v.spawnParticle(pt.particle, pt.loc, 1, 0, 0, 0, 0, pt.data);
             }
+        }
+    }
+
+    /** Goldene Aura der Goldticket-Besitzer: drei Funken kreisen langsam aufwaerts, dazu ab und zu ein Glitzern. */
+    private static void goldAura(List<Pt> out, Location base, long t) {
+        for (int k = 0; k < 3; k++) {
+            double a = t * 0.22 + k * (Math.PI * 2 / 3), y = 0.15 + ((t + k * 11) % 33) / 33.0 * 2.0;
+            out.add(new Pt(Particle.DUST, base.clone().add(Math.cos(a) * 0.62, y, Math.sin(a) * 0.62), dust(k == 0 ? TICKET_C2 : TICKET_C1, 0.8f)));
+        }
+        if (t % 9 == 0) {
+            ThreadLocalRandom r = ThreadLocalRandom.current();
+            out.add(new Pt(Particle.WAX_ON, base.clone().add(r.nextDouble(-0.5, 0.5), 0.4 + r.nextDouble(1.5), r.nextDouble(-0.5, 0.5)), null));
         }
     }
 

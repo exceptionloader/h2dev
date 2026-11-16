@@ -11,6 +11,7 @@ lp creategroup famous
 lp creategroup builder
 lp creategroup supporter
 lp creategroup moderator
+lp creategroup srmod
 lp creategroup developer
 lp creategroup admin
 lp creategroup owner
@@ -23,6 +24,7 @@ lp group famous setweight 38
 lp group builder setweight 40
 lp group supporter setweight 50
 lp group moderator setweight 60
+lp group srmod setweight 65
 lp group developer setweight 70
 lp group admin setweight 80
 lp group owner setweight 100
@@ -37,6 +39,7 @@ lp group famous meta setprefix 38 "&6&lFAMOUS &8| &e"
 lp group builder meta setprefix 40 "&a&lBUILDER &8| &a"
 lp group supporter meta setprefix 50 "&e&lSUPPORT &8| &e"
 lp group moderator meta setprefix 60 "&6&lMOD &8| &6"
+lp group srmod meta setprefix 65 "&c&lSRMOD &8| &c"
 lp group developer meta setprefix 70 "&b&lENTWICKLER &8| &b"
 lp group admin meta setprefix 80 "&c&lADMIN &8| &c"
 lp group owner meta setprefix 100 "&4&lOWNER &8| &4"
@@ -50,6 +53,8 @@ lp group famous parent add mvp
 lp group builder parent add default
 lp group supporter parent add default
 lp group moderator parent add supporter
+lp group srmod parent add moderator
+lp group srmod permission set minesmp.goldrausch.start true
 lp group developer parent add moderator
 lp group admin parent add moderator
 lp group owner parent add admin

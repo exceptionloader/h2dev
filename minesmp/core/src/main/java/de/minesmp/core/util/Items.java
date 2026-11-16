@@ -59,7 +59,7 @@ public final class Items {
 
     /**
      * Liest ein Item aus der Konfiguration:
-     * material, amount, name, lore, enchantments: {sharpness: 5}, custom-model-data, glow, unbreakable
+     * material, amount, name, lore, enchantments: {sharpness: 5}, custom-model-data, glow, unbreakable, max-stack
      */
     public static ItemStack fromConfig(ConfigurationSection s) {
         if (s == null) return new ItemStack(Material.STONE);
@@ -76,6 +76,7 @@ public final class Items {
             if (model != null) meta.setItemModel(model);
             if (s.getBoolean("glow")) meta.setEnchantmentGlintOverride(true);
             if (s.getBoolean("unbreakable")) meta.setUnbreakable(true);
+            if (s.isInt("max-stack")) meta.setMaxStackSize(Math.max(1, Math.min(99, s.getInt("max-stack"))));
             ConfigurationSection en = s.getConfigurationSection("enchantments");
             if (en != null) {
                 for (String k : en.getKeys(false)) {

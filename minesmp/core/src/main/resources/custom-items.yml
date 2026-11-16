@@ -199,6 +199,113 @@ items:
     lore: ['&7Geschwindigkeit I beim Tragen.', '&74/4 Teile: &6Feuerresistenz &7+ &bResistenz I', '&8Drachen-Ausruestung']
     enchantments: {protection: 5, feather_falling: 5, depth_strider: 3, soul_speed: 3, unbreaking: 4, mending: 1}
 
+  # ---------------- Goldrausch (/goldrausch, Einstellungen: goldrausch.yml) ----------------
+  # Aussehen aus dem MineSMP-Ressourcenpaket (item-model minesmp:gr_*), Faehigkeiten GOLD_*.
+  # Kaufen im Goldstaub-Shop des Goldrauschs, Meilensteine, Rangliste.
+  goldpicke:
+    material: NETHERITE_PICKAXE
+    item-model: minesmp:gr_picke
+    ability: GOLD_PICKE
+    name: '<g:#FFF3B0:#FFC83D>&lGoldgraeber-Spitzhacke</g>'
+    lore: ['&7Im Goldrausch: &a+20 % Glueck &7auf Funde.', '&7Schleichen: baut die ganze Erzader ab.', '&8Goldrausch']
+    enchantments: {efficiency: 5, fortune: 3, unbreaking: 3, mending: 1}
+    custom-enchants: {ader: 2}
+  grubenhelm:
+    material: DIAMOND_HELMET
+    item-model: minesmp:gr_helm
+    equipment-asset: minesmp:grubenhelm
+    ability: GOLD_HELM
+    name: '<g:#FFF3B0:#FFC83D>&lGrubenhelm</g>'
+    lore: ['&7Nachtsicht und Eile beim Tragen.', '&7Im Goldrausch: &a+10 % Glueck &7auf Funde.', '&8Goldrausch']
+    enchantments: {protection: 4, unbreaking: 3, mending: 1}
+  dynamit:
+    material: SNOWBALL
+    item-model: minesmp:gr_dynamit
+    ability: GOLD_DYNAMIT
+    name: '&c&lDynamit'
+    lore: ['&7Werfen: sprengt Stein und Erze im', '&7Umkreis von 2 Bloecken frei.', '&7Kein Schaden an Spielern und Tieren.', '&8Goldrausch']
+  goldpfanne:
+    material: BOWL
+    item-model: minesmp:gr_pfanne
+    ability: GOLD_PFANNE
+    max-stack: 1
+    name: '<g:#B6F7FF:#22C3D6>&lGoldpfanne</g>'
+    lore: ['&7Rechtsklick auf Wasser: waescht &fKies', '&7aus deinem Inventar nach Goldstaub.', '&7Mit Glueck ist ein Goldnugget dabei.', '&7Nur waehrend des Goldrauschs.', '&8Goldrausch']
+  wuenschelrute:
+    material: STICK
+    item-model: minesmp:gr_rute
+    ability: GOLD_RUTE
+    max-stack: 1
+    uses: 60
+    name: '<g:#B6F7FF:#22C3D6>&lWuenschelrute</g>'
+    lore: ['&7Rechtsklick: zeigt dir das naechste', '&7Erz im Umkreis von 10 Bloecken.', '&8Goldrausch']
+  goldelixier:
+    material: HONEY_BOTTLE
+    item-model: minesmp:gr_elixier
+    ability: GOLD_ELIXIER
+    name: '<g:#FFF3B0:#FFC83D>&lGoldfieber-Elixier</g>'
+    lore: ['&7Trinken: 15 Minuten &ax1,5 Glueck', '&7auf Funde im Goldrausch.', '&8Goldrausch']
+  glueckshufeisen:
+    material: GOLDEN_HORSE_ARMOR
+    item-model: minesmp:gr_hufeisen
+    ability: GOLD_HUFEISEN
+    name: '<g:#FFF3B0:#FFC83D>&lGluecks-Hufeisen</g>'
+    lore: ['&7In der Zweithand: doppelte Chance', '&7auf einen Goldbarren.', '&8Goldrausch']
+  # Hauptgewinn als Andenken (die Vorteile haengen am Spieler, nicht am Item)
+  goldticket:
+    material: PAPER
+    item-model: minesmp:gr_ticket
+    ability: GOLD_DEKO
+    max-stack: 1
+    name: '<g:#FFF3B0:#FFC83D:#FF9E2C>&l✦ Goldticket</g>'
+    lore: ['&7Der Hauptgewinn im Goldrausch.', '&714 Tage taeglich Gratis-Schluessel,', '&7Premium, goldener Name und Aura.', '&8Andenken - bereits eingeloest']
+    glow: true
+  # Bekommt, wer das Goldticket findet und Premium schon hat - zum Verschenken
+  premiumgutschein:
+    material: PAPER
+    item-model: minesmp:gr_gutschein
+    ability: GOLD_GUTSCHEIN
+    max-stack: 1
+    name: '<g:#B6F7FF:#22C3D6>&lPremium-Gutschein</g>'
+    lore: ['&eRechtsklick: &730 Tage Premium einloesen.', '&7Du kannst ihn auch verschenken.', '&8Goldrausch']
+    glow: true
+  # Nur Anzeige (Menue, Fund-Animation): das Geld geht direkt aufs Konto
+  goldnugget:
+    material: GOLD_NUGGET
+    item-model: minesmp:gr_nugget
+    ability: GOLD_DEKO
+    name: '<g:#FFF3B0:#FFC83D>&lGoldnugget</g>'
+    lore: ['&7Fund im Goldrausch.', '&8Sammlerstueck']
+  goldbarren:
+    material: GOLD_INGOT
+    item-model: minesmp:gr_barren
+    ability: GOLD_DEKO
+    name: '<g:#FFF3B0:#FFC83D>&lGoldbarren</g>'
+    lore: ['&7Fund im Goldrausch.', '&8Sammlerstueck']
+  # Pokale fuer die Top 3 der Goldrausch-Rangliste
+  goldpokal:
+    material: GOLD_INGOT
+    item-model: minesmp:gr_pokal_gold
+    ability: GOLD_DEKO
+    max-stack: 1
+    name: '<g:#FFF3B0:#FFC83D>&lGoldrausch-Pokal &8- &ePlatz 1</g>'
+    lore: ['&7Sieger eines Goldrauschs.', '&8Trophaee']
+    glow: true
+  silberpokal:
+    material: IRON_INGOT
+    item-model: minesmp:gr_pokal_silber
+    ability: GOLD_DEKO
+    max-stack: 1
+    name: '&f&lGoldrausch-Pokal &8- &7Platz 2'
+    lore: ['&7Zweiter eines Goldrauschs.', '&8Trophaee']
+  bronzepokal:
+    material: COPPER_INGOT
+    item-model: minesmp:gr_pokal_bronze
+    ability: GOLD_DEKO
+    max-stack: 1
+    name: '&6&lGoldrausch-Pokal &8- &6Platz 3'
+    lore: ['&7Dritter eines Goldrauschs.', '&8Trophaee']
+
 recipes:
   # Eigenes Rezept: Sattel
   sattel:

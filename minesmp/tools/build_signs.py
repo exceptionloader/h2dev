@@ -191,6 +191,23 @@ def write(OUT, ROOT):
             chars += (chr(TITLE_SPACER) if chars else '') + chr(tcp)
             tcp += 1
         table[f'token_title_{h}'] = {'text': chars, 'width': tok['width'] * h // tok['height'], 'height': h}
+    # Goldrausch: Schriftzuege fuer grosse Funde (gleiche Technik: Hoehe 112, Streifen von 224)
+    import build_goldrush as G
+    for wid, word in (('gr_bar', 'GOLDBARREN!'), ('gr_ticket', 'GOLDTICKET!'), ('gr_tool', 'STAR-TOOL!'), ('gr_spawner', 'SPAWNER!')):
+        wimg = G.gold_word(word, 12, 12)
+        Wt = -(-wimg.width // TITLE_STEP) * TITLE_STEP
+        pad = Image.new('RGBA', (Wt, 112), (0, 0, 0, 0))
+        pad.alpha_composite(wimg, ((Wt - wimg.width) // 2, (112 - wimg.height) // 2))
+        n = Wt // TITLE_STEP
+        for i in range(n):
+            pad.crop((i * TITLE_STEP, 0, (i + 1) * TITLE_STEP, 112)).save(tex_dir / f'{wid}_{i}.png')
+        for h in TITLE_SIZES:
+            chars = ''
+            for i in range(n):
+                tprov.append({"type": "bitmap", "file": f"minesmp:font/signs/{wid}_{i}.png", "ascent": h - 2, "height": h, "chars": [chr(tcp)]})
+                chars += (chr(TITLE_SPACER) if chars else '') + chr(tcp)
+                tcp += 1
+            table[f'{wid}_title_{h}'] = {'text': chars, 'width': Wt * h // 112, 'height': h}
     tprov.append({"type": "space", "advances": {chr(TITLE_SPACER): -1}})
     (font_dir / 'title.json').write_text(json.dumps({"providers": tprov}, ensure_ascii=True, indent=1))
     lines = ["# Automatisch erzeugt von tools/build_signs.py - grosse Spawn-Schilder in der Schrift minesmp:signs",

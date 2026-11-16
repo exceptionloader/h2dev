@@ -115,6 +115,7 @@ public final class MineSMP extends JavaPlugin {
     private de.minesmp.core.world.WinterService winter;
     private de.minesmp.core.item.DragonGearService dragonGear;
     private de.minesmp.core.events.TreasureService treasure;
+    private de.minesmp.core.events.GoldrushService goldrush;
     private de.minesmp.core.web.WebService web;
     private de.minesmp.core.admin.GuardService guard;
     private de.minesmp.core.world.ModelService models;
@@ -153,7 +154,7 @@ public final class MineSMP extends JavaPlugin {
         }
         for (String f : new String[]{"shop.yml", "crates.yml", "kits.yml", "quests.yml", "battlepass.yml", "events.yml",
                 "skills.yml", "achievements.yml", "custom-items.yml", "scoreboard.yml", "ranks.yml",
-                "token-shops.yml", "spawners.yml", "enchants.yml", "treasure.yml", "website.yml"}) {
+                "token-shops.yml", "spawners.yml", "enchants.yml", "treasure.yml", "website.yml", "goldrausch.yml"}) {
             if (!new File(getDataFolder(), f).exists()) saveResource(f, false);
         }
         Msg.load(this);
@@ -224,6 +225,7 @@ public final class MineSMP extends JavaPlugin {
         poi = new de.minesmp.core.events.PoiService(this);
         pve = new de.minesmp.core.events.PveService(this);
         treasure = new de.minesmp.core.events.TreasureService(this);
+        goldrush = new de.minesmp.core.events.GoldrushService(this);
         compass = new de.minesmp.core.world.SpawnCompass(this);
         new de.minesmp.core.world.SpawnProtection(this);
         spawn = new de.minesmp.core.world.SpawnService(this);
@@ -262,6 +264,7 @@ public final class MineSMP extends JavaPlugin {
             if (cosmetics != null) cosmetics.shutdown();
             if (pack != null) pack.shutdown();
             if (web != null) web.shutdown();
+            if (goldrush != null) goldrush.shutdown();
             if (ranks != null) ranks.shutdown();
             if (clanBoard != null) clanBoard.shutdown();
             if (clans != null) clans.saveAll();
@@ -356,6 +359,7 @@ public final class MineSMP extends JavaPlugin {
     public de.minesmp.core.world.WinterService winter() { return winter; }
     public de.minesmp.core.item.DragonGearService dragonGear() { return dragonGear; }
     public de.minesmp.core.events.TreasureService treasure() { return treasure; }
+    public de.minesmp.core.events.GoldrushService goldrush() { return goldrush; }
     public de.minesmp.core.web.WebService web() { return web; }
     /** Plugin-Datei (fuer die Website-Dateien im Plugin). */
     public java.io.File jarFile() { return getFile(); }

@@ -328,6 +328,11 @@ public final class DragonGearService implements Listener {
         return b.getWorld().isChunkLoaded(b.getX() >> 4, b.getZ() >> 4);
     }
 
+    /** Waehrend ein anderes System fuer den Spieler Bloecke abbaut (z.B. Dynamit): kein Flaechen-Abbau. */
+    public void quiet(UUID id, boolean on) {
+        if (on) extraBreaking.add(id); else extraBreaking.remove(id);
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();

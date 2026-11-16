@@ -30,6 +30,11 @@ public abstract class Menu implements InventoryHolder {
         this.inv = Bukkit.createInventory(this, rows * 9, Text.c(title));
     }
 
+    /** Titel als fertiger Baustein (z.B. eigenes Fenster aus dem Ressourcenpaket, siehe GuiText). */
+    protected Menu(int rows, net.kyori.adventure.text.Component title) {
+        this.inv = Bukkit.createInventory(this, rows * 9, title);
+    }
+
     @Override
     public @NotNull Inventory getInventory() {
         return inv;

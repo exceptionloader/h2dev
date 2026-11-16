@@ -165,6 +165,14 @@ public final class GuardService implements Listener {
 
     private static boolean diamond(Material m) { return m == Material.DIAMOND_ORE || m == Material.DEEPSLATE_DIAMOND_ORE; }
 
+    /** Ein Erz, das dem Spieler erlaubt gezeigt wurde (Wuenschelrute): zaehlt nicht als versteckter Fund. */
+    public void knownOre(Player p, Block b) {
+        if (skip(p)) return;
+        Track t = track(p);
+        t.oreRecent.add(new long[]{b.getX(), b.getY(), b.getZ(), System.currentTimeMillis()});
+        while (t.oreRecent.size() > 60) t.oreRecent.poll();
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();

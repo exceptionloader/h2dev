@@ -73,6 +73,7 @@ permissions:
       minesmp.pve: true
       minesmp.drachen: true
       minesmp.schatz: true
+      minesmp.goldrausch: true
       minesmp.web: true
   minesmp.spawn.build:
     description: Darf am Spawn bauen/abbauen
@@ -115,6 +116,15 @@ permissions:
     default: op
   minesmp.web.moderate:
     description: Im Website-Forum Beitraege loeschen, Themen anheften/schliessen, Ankuendigungen schreiben
+    default: op
+  minesmp.goldrausch:
+    description: Goldrausch-Menue (/goldrausch)
+    default: true
+  minesmp.goldrausch.start:
+    description: Goldrausch starten, vorzeitig beenden und Status sehen (/sgoldrausch) - ab Rang SrMod
+    default: op
+  minesmp.admin.goldrausch:
+    description: Goldrausch abbrechen, Restzeit setzen, Goldstaub und Funde vergeben (/sgoldrausch abbrechen|zeit|staub|fund|reload)
     default: op
   minesmp.admin.schatz:
     description: Schatzkisten setzen/entfernen, Schatz-Token vergeben (/schatz admin)

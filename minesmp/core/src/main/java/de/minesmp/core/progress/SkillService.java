@@ -184,7 +184,8 @@ public final class SkillService implements Listener {
         return ((b.getX() & 15) << 28) | ((b.getZ() & 15) << 24) | ((b.getY() + 2048) & 0xFFFFFF);
     }
 
-    private boolean isPlaced(Block b) {
+    /** Vom Spieler gesetzt (z.B. mit Behutsamkeit abgebautes Erz)? Solche Bloecke geben keine Belohnung. */
+    public boolean isPlaced(Block b) {
         int[] arr = b.getChunk().getPersistentDataContainer().get(placedKey, PersistentDataType.INTEGER_ARRAY);
         if (arr == null) return false;
         int k = packed(b);
@@ -207,7 +208,7 @@ public final class SkillService implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlace(BlockPlaceEvent e) {
         String sk = blockSkill.get(e.getBlock().getType());
-        if (sk != null && !sk.equals("farming")) setPlaced(e.getBlock(), true);
+        if ((sk != null && !sk.equals("farming")) || goldOre(e.getBlock().getType())) setPlaced(e.getBlock(), true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -216,9 +217,13 @@ public final class SkillService implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPistonRetract(BlockPistonRetractEvent e) { movePlaced(e.getBlocks(), e.getDirection()); }
 
+    private boolean goldOre(Material m) {
+        return plugin.goldrush() != null && plugin.goldrush().isOre(m);
+    }
+
     private void movePlaced(List<Block> blocks, org.bukkit.block.BlockFace dir) {
         List<Block> moved = new ArrayList<>();
-        for (Block b : blocks) if (blockSkill.containsKey(b.getType()) && isPlaced(b)) moved.add(b);
+        for (Block b : blocks) if ((blockSkill.containsKey(b.getType()) || goldOre(b.getType())) && isPlaced(b)) moved.add(b);
         for (Block b : moved) setPlaced(b, false);
         for (Block b : moved) setPlaced(b.getRelative(dir), true);
     }
@@ -234,12 +239,18 @@ public final class SkillService implements Listener {
         String skill = blockSkill.get(m);
         plugin.quests().progress(p, "BREAK", m.name(), 1);
         plugin.data().get(p).addStat("blocks_broken", 1);
-        if (skill == null) return;
+        // Goldrausch: natuerliche Erze zahlen sofort (gesetzte nicht)
+        boolean gold = goldOre(m), placed = (gold || (skill != null && !skill.equals("farming"))) && isPlaced(b);
+        if (gold) plugin.goldrush().onOre(p, b, placed);
+        if (skill == null) {
+            if (placed) setPlaced(b, false);
+            return;
+        }
         if (skill.equals("farming")) {
             if (b.getBlockData() instanceof Ageable age && age.getAge() < age.getMaximumAge()) return;
             plugin.quests().progress(p, "HARVEST", m.name(), 1);
             plugin.events().onAction(p, "FARMING", 1);
-        } else if (isPlaced(b)) {
+        } else if (placed) {
             setPlaced(b, false);
             return;
         }

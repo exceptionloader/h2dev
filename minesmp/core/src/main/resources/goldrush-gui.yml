@@ -1,0 +1,32 @@
+# Automatisch erzeugt von tools/build_goldrush.py - Masse des Goldrausch-Menues (nicht aendern)
+font: minesmp:gui
+width: 176
+pill-x: 111
+pages:
+  start: "\uE300"
+  funde: "\uE301"
+  erze: "\uE302"
+  ticket: "\uE303"
+  shop: "\uE304"
+  ziele: "\uE305"
+  top: "\uE306"
+bar: {on: "\uE310", off: "\uE311", x: 12, pieces: 38, step: 4}
+shift-back:
+  1: "\uE320"
+  2: "\uE321"
+  4: "\uE322"
+  8: "\uE323"
+  16: "\uE324"
+  32: "\uE325"
+  64: "\uE326"
+  128: "\uE327"
+shift-forward:
+  1: "\uE330"
+  2: "\uE331"
+  4: "\uE332"
+  8: "\uE333"
+  16: "\uE334"
+  32: "\uE335"
+  64: "\uE336"
+  128: "\uE337"
+row-fonts: {0: 'minesmp:gr0', 1: 'minesmp:gr1', 2: 'minesmp:gr2', 3: 'minesmp:gr3', 4: 'minesmp:gr4'}

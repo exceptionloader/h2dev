@@ -1,0 +1,157 @@
+# =====================================================================
+#  MineSMP - Goldrausch
+#  Start: /sgoldrausch (ab SrMod, Recht minesmp.goldrausch.start). Laeuft "days" Tage.
+#  Waehrenddessen kann in JEDEM natuerlichen Erz ein Fund stecken:
+#  Goldnugget (Geld), Goldbarren (viel Geld), Star-Tool, Spawner - und das Goldticket (Hauptgewinn).
+#  Von Spielern gesetzte Erze zaehlen nicht. Infos fuer Spieler: /goldrausch
+#  Aenderungen hier: /sgoldrausch reload (oder Server neu starten).
+# =====================================================================
+days: 14
+# Leer = alle Welten ausser der Spawn-Welt. Sonst nur die genannten, z.B. [farmwelt, world_nether]
+worlds: []
+
+# Diese Erze zaehlen (Tiefenschiefer-Erze automatisch auch). Zahl = Goldstaub je Erz.
+# Netherquarz und Nethergold fehlen mit Absicht (zu leicht in Massen abzubauen).
+ores:
+  COAL_ORE: 1
+  COPPER_ORE: 1
+  IRON_ORE: 2
+  GOLD_ORE: 4
+  REDSTONE_ORE: 2
+  LAPIS_ORE: 2
+  EMERALD_ORE: 8
+  DIAMOND_ORE: 6
+  ANCIENT_DEBRIS: 20
+
+# ---------------------------------------------------------------------
+#  Funde: Chance je Erz (0.025 = 1 von 40). Glueck (siehe unten) erhoeht die Chancen von
+#  Nugget, Barren, Star-Tool und Spawner - das Goldticket ist fuer alle gleich.
+# ---------------------------------------------------------------------
+finds:
+  nugget:
+    chance: 0.025
+    money: [4000, 6000]          # MineCoins direkt aufs Konto
+  bar:
+    chance: 0.0004               # 1 von 2500
+    money: 250000
+    broadcast: true              # Fund wird allen angesagt
+  startool:
+    chance: 0.00015              # etwa 1 von 6700
+    items: [sternenpicke, frostbogen, blutaxt, windlaeufer, enterhaken, hammer]   # IDs aus custom-items.yml
+    broadcast: true
+  spawner:
+    chance: 0.00025              # 1 von 4000
+    types: [cow, iron_golem, spider, zombified_piglin]
+    broadcast: true
+
+# ---------------------------------------------------------------------
+#  Goldticket (Hauptgewinn)
+#  Algorithmus:
+#   1. Jedes Erz hat die Chance "chance" - aber nur, solange heute noch keins gefunden wurde (max-per-day)
+#      und im ganzen Goldrausch hoechstens max-total.
+#   2. Tages-Garantie: jeden Tag gibt es eine geheime Uhrzeit zwischen from und to. Hat bis dahin niemand
+#      ein Ticket gefunden, steckt es im naechsten Erz, das ein Spieler abbaut.
+#   3. Wer ein Ticket finden will, muss im laufenden Goldrausch schon min-ores Erze abgebaut haben
+#      und darf gerade kein aktives Ticket besitzen.
+#  So gibt es bei 5 Spielern genauso etwa ein Ticket am Tag wie bei 500.
+# ---------------------------------------------------------------------
+ticket:
+  chance: 0.00002                # 1 von 50000
+  max-per-day: 1
+  max-total: 14
+  min-ores: 150
+  guarantee:
+    enabled: true
+    from: '17:00'
+    to: '22:00'
+  days: 14                       # so lange gelten die Vorteile
+  # Jeden Tag einmal abholen (/goldrausch ticket): Gratis-Schluessel fuer jede Kiste
+  daily-keys: {vote: 1, rare: 1, epic: 1, legendary: 1}
+  # Rang fuer premium-days Tage. Hat der Finder ihn schon, bekommt er einen Gutschein zum Verschenken.
+  premium-rank: premium
+  premium-days: 30
+  rank-command: 'lp user {player} parent addtemp {rank} {days}d accumulate'
+  golden-name: true              # goldener, schimmernder Name in Chat, Tab und ueber dem Kopf
+  aura: true                     # goldene Funken um den Spieler
+
+# ---------------------------------------------------------------------
+#  Glueck: Faktor auf die Fund-Chancen
+# ---------------------------------------------------------------------
+# Goldfieber: wer zuegig weiter Erze abbaut, hat mehr Glueck. Nach window-seconds ohne Erz ist es vorbei.
+fever:
+  window-seconds: 12
+  per-ore: 0.01          # +1 % je Erz in Folge
+  max: 0.50              # hoechstens +50 %
+# Goldene Stunde: jeden Tag zur selben Zeit (deutsche Zeit) doppeltes Glueck.
+golden-hour:
+  enabled: true
+  start: '19:00'
+  minutes: 60
+  multiplier: 2.0
+# Server-Ziel: alle zusammen. Ab so vielen Erzen hat JEDER mehr Glueck.
+community:
+  50000: 0.05
+  150000: 0.10
+  400000: 0.15
+  1000000: 0.20
+
+# Anzeigen
+effects:
+  item-animation: true           # der Fund fliegt gross ins Bild
+  nugget-animation: true         # auch beim Goldnugget
+  popup: true                    # Kasten "+5.000 MC" ueber dem Erz
+  bossbar: true                  # Leiste oben, solange das Goldfieber laeuft
+  sounds: true
+
+items:
+  pick-bonus: 0.20        # Goldgraeber-Spitzhacke in der Hand: +20 % Glueck
+  helmet-bonus: 0.10      # Grubenhelm auf dem Kopf: +10 % Glueck
+  elixir-multiplier: 1.5  # Goldfieber-Elixier: Glueck mal 1,5
+  elixir-minutes: 15
+  horseshoe-factor: 2.0   # Gluecks-Hufeisen in der Zweithand: Goldbarren-Chance mal 2
+  dynamite-radius: 2
+  dynamite-fuse-ticks: 30
+  dynamite-cooldown-ms: 800
+  rod-radius: 10          # Wuenschelrute
+  rod-cooldown-seconds: 20
+  pan-seconds: 2.5        # Goldpfanne: Dauer je Kies
+  # Goldpfanne - Chancen je Kies (Rest = nichts)
+  pan:
+    dust-small: {chance: 0.25, amount: [1, 2]}
+    dust-big: {chance: 0.03, amount: [4, 8]}
+    nugget: {chance: 0.004}      # ein Goldnugget-Fund (Geld wie oben)
+
+# Shop im Menue (/goldrausch shop). Preis in Goldstaub. item = ID aus custom-items.yml
+shop:
+  - {item: goldpicke, price: 2500}
+  - {item: grubenhelm, price: 1200}
+  - {item: dynamit, price: 60, amount: 4}
+  - {item: goldpfanne, price: 250}
+  - {item: wuenschelrute, price: 400}
+  - {item: goldelixier, price: 300}
+  - {item: glueckshufeisen, price: 1800}
+
+# Meilensteine: so viele Erze im laufenden Goldrausch. Belohnung wie ueberall (money, gems, keys, custom-items ...)
+# plus dust (Goldstaub). Abholen im Menue.
+milestones:
+  - {ores: 100, name: 'Tellerwaescher', reward: {money: 500, dust: 50}}
+  - {ores: 500, name: 'Schuerfer', reward: {money: 1500, dust: 150}}
+  - {ores: 1500, name: 'Goldgraeber', reward: {money: 4000, dust: 250, custom-items: [goldpfanne]}}
+  - {ores: 3500, name: 'Stollenmeister', reward: {money: 8000, keys: {rare: 1}, custom-items: [grubenhelm]}}
+  - {ores: 7500, name: 'Minenbaron', reward: {money: 15000, dust: 600, keys: {epic: 1}}}
+  - {ores: 15000, name: 'Goldkoenig', reward: {money: 30000, gems: 150, keys: {epic: 2}}}
+  - {ores: 30000, name: 'Legende vom Klondike', reward: {money: 75000, gems: 400, keys: {legendary: 1}, custom-items: [glueckshufeisen]}}
+
+# Belohnungen am Ende nach der Rangliste (im Goldrausch gewonnenes Geld). Auch fuer Spieler, die gerade offline sind.
+# Erlaubt: money, gems, keys, custom-items
+rewards:
+  1: {money: 250000, gems: 500, keys: {legendary: 2}, custom-items: [goldpokal]}
+  2: {money: 150000, gems: 300, keys: {legendary: 1}, custom-items: [silberpokal]}
+  3: {money: 75000, gems: 150, keys: {epic: 2}, custom-items: [bronzepokal]}
+  4-10: {money: 25000, keys: {epic: 1}}
+
+# Einmalig beim ersten Start: Rang "srmod" in LuckPerms anlegen (Gewicht 65, erbt von moderator, darf /sgoldrausch)
+auto-luckperms: true
+
+# Ansage im Discord (config.yml -> discord.webhooks), falls eingerichtet
+webhook-channel: events

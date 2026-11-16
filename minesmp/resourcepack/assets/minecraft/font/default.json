@@ -829,6 +829,69 @@
    ]
   },
   {
+   "type": "bitmap",
+   "file": "minesmp:font/rank_srmod.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue05c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/icon_srmod.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue05d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/picke.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue05e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/staub.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue05f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/nugget.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue060"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/barren.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue061"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/ticket.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue062"
+   ]
+  },
+  {
    "type": "space",
    "advances": {
     "\ue0f0": -1,

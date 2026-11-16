@@ -352,6 +352,15 @@ def schatz_token():
 
 add('token', schatz_token(), 9, 8)   # kleine Kronen-Muenze fuer Chat und die Leiste oben
 
+# Rang SrMod (nachtraeglich, deshalb am Ende: die Zeichen davor behalten ihre Nummern)
+add('rank_srmod', tag('SRMOD', '#DC2626'), 9, 8)
+add('icon_srmod', icon(({'o': '#6E1313', 'p': '#DC2626', 'h': '#F8B4B4', 'd': '#AB1D1D'}, GEM)), 9, 8)
+
+# Goldrausch: kleine Zeichen fuer Chat, Leiste und Fund-Kasten (gleiche Grafiken wie die Items)
+import goldrush_art as _GA
+for _n, _img in (('picke', _GA.PICKE), ('staub', _GA.STAUB), ('nugget', _GA.NUGGET), ('barren', _GA.BARREN), ('ticket', _GA.TICKET)):
+    add(_n, _img, 9, 8)
+
 def build():
     import shutil
     if OUT.exists(): shutil.rmtree(OUT)
@@ -388,6 +397,11 @@ def build():
     _sys.path.insert(0, str(ROOT / "tools"))
     import build_signs
     build_signs.write(OUT, ROOT)
+    # Goldrausch: Items, Menue-Fenster und Schriften (siehe tools/build_goldrush.py)
+    import build_goldrush
+    for _name, _img in build_goldrush.write(OUT, ROOT).items():
+        if _name != 'gr_leer':
+            (ROOT / "core/src/main/resources/web/img").mkdir(parents=True, exist_ok=True)
     # Paketformat: 75 = Minecraft 1.21.11, 97.1 = Minecraft 26.3
     # Vorschaubild fuer den Paket-Bildschirm
     logo().resize((logo().width * 2, logo().height * 2), Image.NEAREST).save(OUT / "pack.png")

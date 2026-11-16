@@ -115,6 +115,11 @@ public final class CustomItemService implements Listener {
         return ability(it);
     }
 
+    /** Waehrend ein anderes System fuer den Spieler Bloecke abbaut (z.B. Dynamit): keine eigenen Zusatz-Abbauten. */
+    public void quiet(UUID id, boolean on) {
+        if (on) breaking.add(id); else breaking.remove(id);
+    }
+
     /** Zaehlt Custom Items mit dieser ID im Inventar. */
     public int count(Player p, String id) {
         int n = 0;
