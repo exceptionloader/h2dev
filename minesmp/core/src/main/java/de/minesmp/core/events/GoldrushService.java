@@ -176,7 +176,7 @@ public final class GoldrushService implements Listener {
         goldenHour = active() && goldenHourNow();
         plugin.listen(this);
         plugin.command(new SimpleCommand("goldrausch", "minesmp.goldrausch", "Goldrausch: Funde, Goldticket, Shop, Rangliste",
-                (s, l, a) -> command(s, a), (s, a) -> a.length == 1 ? List.of("info", "funde", "erze", "ticket", "shop", "ziele", "top") : List.of(), "goldrush", "gr"));
+                (s, l, a) -> command(s, a), (s, a) -> a.length == 1 ? List.of("info", "ticket", "erze", "funde", "mein", "shop", "ziele", "top") : List.of(), "goldrush", "gr"));
         plugin.command(new SimpleCommand("sgoldrausch", "minesmp.goldrausch.start", "Goldrausch starten (ab SrMod)",
                 (s, l, a) -> staffCommand(s, a), (s, a) -> a.length == 1 ? (s.hasPermission("minesmp.admin.goldrausch")
                         ? List.of("start", "stop", "status", "abbrechen", "zeit", "staub", "fund", "reload") : List.of("start", "stop", "status"))
@@ -1492,7 +1492,8 @@ public final class GoldrushService implements Listener {
             case "shop" -> GoldrushMenu.Tab.SHOP;
             case "ziele", "meilensteine" -> GoldrushMenu.Tab.ZIELE;
             case "top", "rangliste" -> GoldrushMenu.Tab.TOP;
-            default -> GoldrushMenu.Tab.START;
+            case "start", "mein", "dein", "stats" -> GoldrushMenu.Tab.START;
+            default -> GoldrushMenu.Tab.TICKET;
         };
         new GoldrushMenu(this, p, tab).open(p);
     }

@@ -120,7 +120,7 @@ def mini(name):
                 img.putpixel((x, y), c(pal[ch]))
     return img
 
-TABS = ['start', 'funde', 'erze', 'ticket', 'shop', 'ziele', 'top']
+TABS = ['ticket', 'erze', 'funde', 'start', 'shop', 'ziele', 'top']   # Reihenfolge wie im HugoSMP-Menue: Hauptgewinn zuerst
 PILL_X = 111       # x der Texte im Feld oben rechts (Titelzeile, y = 6)
 
 def chrome(active, strip_text, strip_col, pill_icon):
@@ -217,7 +217,7 @@ def ccx(col):
     return 16 + 18 * col
 
 def page_start():
-    p = chrome(0, "MINESMP EVENT", CYAN, 'zeit')
+    p = chrome(3, "DEIN GOLDRAUSCH", CYAN, 'zeit')
     # Banner: Farbverlauf Tuerkis -> Blau, Schriftzug GOLDRAUSCH, Spitzhacke
     for x in range(7, 169):
         p.R(x, 18, x, 33, mixc('#0C5C6E', '#2B4FB5', (x - 7) / 161))
@@ -243,7 +243,7 @@ FIND_ROWS = [("GOLDNUGGET", "GELD AUFS KONTO"), ("GOLDBARREN", "SEHR VIEL GELD")
 
 def page_funde():
     """Liste "Was du finden kannst": je Reihe Symbol, Name, kurze Erklaerung; rechts steht die Chance (wechselnder Text)."""
-    p = chrome(1, "DAS KANNST DU FINDEN", GOLD, 'glueck')
+    p = chrome(2, "DAS KANNST DU FINDEN", GOLD, 'glueck')
     p.R(98, 4, 170, 14, NAVY2)                      # hier kein Feld oben rechts: der Schriftzug braucht den Platz
     p.R(3, 4, W - 4, 15, NAVY2); p.text("DAS KANNST DU FINDEN", 9, 6, GOLD, 1, shadow=NAVY0)
     for r, (name, desc) in enumerate(FIND_ROWS):
@@ -259,7 +259,7 @@ def page_funde():
     return p.finish()
 
 def page_erze():
-    p = chrome(2, "GOLDRAUSCH", GOLD, 'glueck')
+    p = chrome(1, "GOLDRAUSCH", GOLD, 'glueck')
     title_band(p, "ERZE")
     for col in range(9):
         p.cslot(col, 1)
@@ -277,8 +277,9 @@ def page_erze():
     return p.finish()
 
 def page_ticket():
+    """Hauptgewinn wie im HugoSMP-Menue aufgebaut: Banner, Gratis-Schluessel je Kiste, Premium und Goldener Name."""
     import math
-    p = chrome(3, "GOLDRAUSCH", GOLD, 'ticket')
+    p = chrome(0, "MINESMP EVENT", CYAN, 'zeit')
     # Banner ueber zwei Reihen: Strahlen in Tuerkis, goldenes Ticket, Schriftzug
     for y in range(18, 53):
         for x in range(7, 169):
@@ -287,22 +288,31 @@ def page_ticket():
             dist = min(1.0, math.hypot((x - 26) * 0.55, y - 35) / 70)
             p.img.putpixel((x, y), mixc('#0C4656', '#0B1620', dist) if ray else mixc('#0E5A6E', '#0D2030', dist))
     p.d = ImageDraw.Draw(p.img)
-    p.R(7, 18, 168, 18, CYAN_D); p.R(7, 53, 168, 53, LINE)
+    p.R(7, 18, 168, 18, CYAN_D); p.R(7, 53, 168, 53, GOLD_D)
     p.paste(A.TICKET.resize((32, 32), Image.NEAREST), 10, 19)
     for gx, gy in ((9, 23), (43, 22), (45, 47), (10, 47)):
         p.gem(gx, gy, GOLD_L, 1)
     p.text("HAUPTGEWINN", 48, 21, CYAN_L, 1, shadow=NAVY0)
     gold_text(p, "GOLDTICKET", 47, 32, 2, gap=2)
-    # Vorteile
-    for col, cap in ((1, "KEYS"), (3, "RANG"), (5, "NAME"), (7, "AURA")):
+    # Reihe 2+3: Karten "jeden Tag gratis" - eine je Kiste (Name steht im Feld darunter, vom Plugin)
+    for i, col in enumerate((1, 3, 5, 7)):
+        cx = ccx(col)
+        p.R(cx - 17, 54, cx + 16, 88, LINE)
+        p.R(cx - 16, 55, cx + 15, 87, NAVY2)
+        p.R(cx - 16, 55, cx + 15, 55, GOLD_D)
         p.cslot(col, 2, edge_light=GOLD_D)
-        plate(p, ccx(col), 3, 16)
-        p.text_c(cap, ccx(col), 17 + 18 * 3 + 5, CYAN_L, 1, shadow=NAVY0)
-    # Unten: eigenes Ticket, Zaehler, zuletzt gefunden
-    p.cslot(0, 4, edge_light=GOLD_D)
-    p.frame(25, 89, 114, 106)
-    for col in (6, 7, 8):
-        p.cslot(col, 4, edge_light=CYAN_D)
+        p.R(cx - 15, 74, cx + 14, 86, NAVY0)
+    # Reihe 4: zwei Kaesten wie bei HugoSMP - Premium und Goldener Name; ganz rechts dein Ticket
+    def box(x0, x1, col, title, sub, edge):
+        p.R(x0, 89, x1, 106, edge); p.R(x0 + 1, 90, x1 - 1, 105, NAVY2)
+        p.cslot(col, 4, edge_light=edge)
+        p.R(x0, 89, x1, 89, edge); p.R(x0, 89, x0, 106, edge); p.R(x1, 89, x1, 106, edge)
+        tx = 7 + 18 * col + 20
+        p.text(title, tx, 91, edge, 1, shadow=NAVY0)
+        p.text(sub, tx, 99, '#8FA3B3', 1)
+    box(7, 78, 0, "PREMIUM", "30 TAGE", CYAN)
+    box(79, 150, 4, "GOLDNAME", "+ AURA", GOLD)
+    p.cslot(8, 4, edge_light=GOLD)
     return p.finish()
 
 def page_shop():

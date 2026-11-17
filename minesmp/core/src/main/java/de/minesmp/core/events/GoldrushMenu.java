@@ -24,17 +24,18 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Menue /goldrausch mit sieben Seiten: Uebersicht, Funde, Erze &amp; Glueck, Goldticket, Goldstaub-Shop, Meilensteine, Rangliste.
+ * Menue /goldrausch mit sieben Seiten, aufgebaut wie das Goldrausch-Menue von HugoSMP (eigene Grafiken, MineSMP-Farben):
+ * Goldticket (Hauptgewinn), Diese Erze zaehlen, Was du finden kannst, Dein Goldrausch, Goldstaub-Shop, Meilensteine, Rangliste.
  * Mit Ressourcenpaket ist es ein eigenes Fenster in den Serverfarben (Bilder und Masse: tools/build_goldrush.py),
  * die wechselnden Zahlen stehen dabei direkt im Fenster. Ohne Paket (auch Bedrock) erscheint dieselbe Aufteilung
  * als normale Kiste - alle Angaben stehen zusaetzlich in den Hinweistexten der Items.
  */
 public final class GoldrushMenu extends Menu {
     public enum Tab {
-        START("start", "Uebersicht", "gr_picke", Material.GOLDEN_PICKAXE),
-        FUNDE("funde", "Funde", "gr_nugget", Material.GOLD_NUGGET),
-        ERZE("erze", "Erze & Glueck", "gr_ic_erze", Material.DIAMOND_ORE),
-        TICKET("ticket", "Goldticket", "gr_ticket", Material.PAPER),
+        TICKET("ticket", "Goldticket - Hauptgewinn", "gr_ticket", Material.PAPER),
+        ERZE("erze", "Diese Erze zaehlen", "gr_ic_erze", Material.DIAMOND_ORE),
+        FUNDE("funde", "Was du finden kannst", "gr_nugget", Material.GOLD_NUGGET),
+        START("start", "Dein Goldrausch", "gr_picke", Material.GOLDEN_PICKAXE),
         SHOP("shop", "Goldstaub-Shop", "gr_ic_shop", Material.EMERALD),
         ZIELE("ziele", "Meilensteine", "gr_ic_ziel", Material.EXPERIENCE_BOTTLE),
         TOP("top", "Rangliste", "gr_ic_top", Material.NETHER_STAR);
@@ -88,6 +89,22 @@ public final class GoldrushMenu extends Menu {
 
     private static int cx(int col) { return 16 + 18 * col; }
 
+    /** Kisten, aus denen das Goldticket jeden Tag einen Gratis-Schluessel gibt (goldrausch.yml -> ticket.daily-keys). */
+    static List<String> ticketCrates(GoldrushService gs) {
+        ConfigurationSection k = gs.cfg().getConfigurationSection("ticket.daily-keys");
+        List<String> out = new ArrayList<>();
+        if (k != null) for (String id : k.getKeys(false)) if (k.getInt(id) > 0) out.add(id);
+        return out;
+    }
+
+    /** Kurzer Kistenname fuer die Karte (passt in 30 Pixel). */
+    static String crateLabel(GoldrushService gs, String id) {
+        String n = gs.plugin().crates() == null ? id : Text.strip(gs.plugin().crates().displayName(id));
+        n = n.replace("-Crate", "").replace(" Crate", "").replace("-Kiste", "").replace(" Kiste", "").trim();
+        while (n.length() > 1 && GuiText.width(n, false) > 31) n = n.substring(0, n.length() - 1);
+        return n;
+    }
+
     private static String rankText(int rank) { return rank == 0 ? "-" : rank > 100 ? "100+" : "#" + rank; }
 
     /** Chance als "1:40" (gerundet). */
@@ -121,8 +138,9 @@ public final class GoldrushMenu extends Menu {
             }
             case ERZE -> b.text(on ? GoldrushService.factor(gs.luck(p)) : "-", px, T, GOLD, false);
             case TICKET -> {
-                b.text("Gesamt: " + gs.ticketsTotal(), px, T, GOLD, false);
-                b.text("Heute: " + gs.ticketsToday() + " von " + Math.max(0, gs.cfg().getInt("ticket.max-per-day", 1)), 29, 4, WHITE, false);
+                b.text(gs.leftText(), px, T, WHITE, false);
+                List<String> crates = ticketCrates(gs);
+                for (int i = 0; i < Math.min(4, crates.size()); i++) b.centered(crateLabel(gs, crates.get(i)), cx(1 + 2 * i), 3, GOLD, false);
             }
             case SHOP -> {
                 long have = gs.dust(p);
@@ -414,8 +432,9 @@ public final class GoldrushMenu extends Menu {
         List<String> main = new ArrayList<>(List.of(
                 "&7Ein Schlag ins richtige Erz und du",
                 "&7raeumst &f" + days + " Tage &7lang jeden Tag ab.",
-                "&6Jedes Erz kann es sein!",
+                "&6Jeden Tag ein Gratis-Schluessel aus jeder Kiste.",
                 "",
+                "&7Bau Erze ab. &6&lJedes Erz kann es sein!",
                 "&7Chance je Erz: &f" + odds(gs.chance(Find.TICKET)) + " &8(fuer alle gleich)",
                 "&7Hoechstens &f" + cfg.getInt("ticket.max-per-day", 1) + " am Tag&7, insgesamt &f" + cfg.getInt("ticket.max-total", 14) + "&7."));
         if (cfg.getBoolean("ticket.guarantee.enabled", true)) {
@@ -423,26 +442,45 @@ public final class GoldrushMenu extends Menu {
             main.add("&7eins, steckt es im naechsten Erz.");
         }
         main.add("&7Voraussetzung: &f" + cfg.getInt("ticket.min-ores", 150) + " Erze &7im Goldrausch.");
-        ItemStack hero = icon("gr_leer", Material.PAPER, "&6&l✦ GOLDTICKET &8- &eHauptgewinn", main);
-        set(4, hero);
-        set(13, hero.clone());
-        List<String> keys = new ArrayList<>();
-        keys.add("&f" + days + " Tage &7lang jeden Tag gratis:");
-        for (String line : gs.dailyKeyLines()) keys.add("&8» " + line);
-        keys.add("");
-        keys.add("&7Abholen: hier unten links.");
-        set(19, Items.of(Material.TRIPWIRE_HOOK, 1, "&eJeden Tag Gratis-Schluessel", keys));
-        set(21, icon("gr_ic_top", Material.GOLDEN_HELMET, "&b" + cfg.getInt("ticket.premium-days", 30) + " Tage Premium", List.of(
-                "&7Der Rang kommt sofort dazu.",
-                "&7Hast du ihn schon, bekommst du einen",
-                "&bGutschein &7zum Verschenken.")));
-        set(23, Items.of(Material.NAME_TAG, 1, "&6Goldener Name", List.of(
+        main.add("");
+        main.add("&7Goldtickets gefunden: &f" + gs.ticketsTotal() + " &8(heute " + gs.ticketsToday() + ")");
+        List<String> finders = gs.finders();
+        if (finders.isEmpty()) main.add("&8Noch keins gefunden - vielleicht bist du der Erste!");
+        for (int i = 0; i < Math.min(5, finders.size()); i++) {
+            String[] nt = finders.get(i).split(":");
+            long when = 0;
+            try { when = Long.parseLong(nt.length > 1 ? nt[1] : "0"); } catch (NumberFormatException ignored) { }
+            long ago = Math.max(60_000, System.currentTimeMillis() - when);
+            main.add("&8\u00BB &6" + nt[0] + " &8vor " + TimeUtil.format(ago - ago % 60_000));
+        }
+        ItemStack hero = icon("gr_leer", Material.PAPER, "&6&l\u2726 GOLDTICKET &8- &eHauptgewinn", main);
+        if (pack) for (int i = 0; i < 18; i++) set(i, hero.clone());        // ganzes Banner zeigt den Hinweistext
+        else set(4, hero);
+        // Karten: jeden Tag ein Gratis-Schluessel aus jeder Kiste
+        List<String> crates = ticketCrates(gs);
+        ConfigurationSection dk = cfg.getConfigurationSection("ticket.daily-keys");
+        for (int i = 0; i < Math.min(4, crates.size()); i++) {
+            String id = crates.get(i);
+            int n = dk == null ? 1 : dk.getInt(id, 1);
+            ItemStack key = plugin.crates() == null ? null : plugin.crates().keyItem(id, 1);
+            if (key == null) key = new ItemStack(Material.TRIPWIRE_HOOK);
+            String name = plugin.crates() == null ? id : plugin.crates().displayName(id);
+            set(19 + 2 * i, labeled(key, "&e" + n + "x " + name + "-Schluessel", List.of(
+                    "&7Mit Goldticket &f" + days + " Tage lang",
+                    "&7jeden Tag gratis.",
+                    "", gs.hasTicket(p) ? (gs.dailyReady(p) ? "&aAbholen: unten rechts" : "&7Heute schon abgeholt.") : "&8Du brauchst ein Goldticket.")));
+        }
+        int pd = cfg.getInt("ticket.premium-days", 30);
+        set(36, icon("gr_ic_top", Material.GOLDEN_HELMET, "&b" + pd + " Tage Premium", List.of(
+                "&7Der Rang kommt sofort dazu - selbst",
+                "&7oder als &bGutschein &7zum Verschenken,",
+                "&7wenn du Premium schon hast.")));
+        set(40, Items.of(Material.NAME_TAG, 1, "&6Goldener Name &7+ &6Aura", List.of(
                 "&7Dein Name glaenzt golden - im Chat,",
-                "&7in der Tab-Liste und ueber dem Kopf.")));
-        set(25, Items.of(Material.GLOWSTONE_DUST, 1, "&6Goldene Aura", List.of(
+                "&7in der Tab-Liste und ueber dem Kopf.",
                 "&7Goldene Funken kreisen um dich,",
                 "&7solange dein Goldticket gilt.")));
-        // Eigenes Ticket
+        // Dein Ticket (unten rechts)
         if (gs.hasTicket(p)) {
             boolean ready = gs.dailyReady(p);
             ItemStack own = plugin.customItems().create("goldticket");
@@ -454,25 +492,11 @@ public final class GoldrushMenu extends Menu {
             lore.add("&8Morgen gibt es neue.");
             labeled(own, "&6&lDein Goldticket", lore);
             if (!ready) own.editMeta(m -> m.setEnchantmentGlintOverride(false));
-            set(36, own, e -> { if (gs.claimDaily(p)) new GoldrushMenu(gs, p, Tab.TICKET).open(p); });
+            set(44, own, e -> { if (gs.claimDaily(p)) new GoldrushMenu(gs, p, Tab.TICKET).open(p); });
         } else {
-            set(36, icon("gr_ic_schloss", Material.GRAY_DYE, "&7Noch kein Goldticket", List.of(
+            set(44, icon("gr_ic_schloss", Material.GRAY_DYE, "&7Noch kein Goldticket", List.of(
                     "&7Bau Erze ab - jedes kann es sein.",
                     "&7Du hast abgebaut: &f" + Text.money(gs.ores(p)) + " Erze")));
-        }
-        // Zuletzt gefunden
-        List<String> finders = gs.finders();
-        for (int i = 0; i < 3; i++) {
-            if (i >= finders.size()) {
-                if (i == 0) set(42, icon("gr_leer", Material.LIGHT_GRAY_STAINED_GLASS_PANE, "&7Noch kein Goldticket gefunden", List.of("&7Vielleicht bist du der Erste!")));
-                break;
-            }
-            String[] nt = finders.get(i).split(":");
-            long when = 0;
-            try { when = Long.parseLong(nt.length > 1 ? nt[1] : "0"); } catch (NumberFormatException ignored) { }
-            List<String> lore = List.of("&7Goldticket gefunden", "&8vor " + TimeUtil.format(Math.max(60_000, System.currentTimeMillis() - when - (System.currentTimeMillis() - when) % 60_000)));
-            org.bukkit.OfflinePlayer op = Bukkit.getOfflinePlayerIfCached(nt[0]);       // nie im Netz nachschlagen
-            set(42 + i, op == null ? Items.of(Material.PLAYER_HEAD, 1, "&6" + nt[0], lore) : Items.head(op, "&6" + nt[0], lore));
         }
     }
 
