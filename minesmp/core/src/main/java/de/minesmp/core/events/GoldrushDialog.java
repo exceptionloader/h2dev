@@ -67,7 +67,7 @@ public final class GoldrushDialog {
 
         // ---- Hauptgewinn
         image(body, pack, "banner", "&6&l✦ HAUPTGEWINN: GOLDTICKET ✦");
-        text(body, "&7Ein Schlag ins richtige Erz und du raeumst &f" + days + " Tage &7lang jeden Tag ab.\n&6🎁 Jeden Tag ein Gratis-Schluessel aus jeder Kiste");
+        text(body, "&7Ein Schlag ins richtige Erz und du raeumst &f" + days + " Tage &7lang jeden Tag ab.\n&6\u2726 Jeden Tag ein Gratis-Schluessel aus jeder Kiste");
         image(body, pack, "cards", "&aVote &8| &9Rare &8| &5Epic &8| &6Legendary &7- jeden Tag gratis");
         image(body, pack, "boxes", "&b" + cfg.getInt("ticket.premium-days", 30) + " Tage Premium &7(oder als Geschenk) &8| &6Goldener Name &7in Chat und Tab");
         int perDay = 0;
@@ -143,20 +143,33 @@ public final class GoldrushDialog {
 
         // ---- Knoepfe
         List<ActionButton> buttons = new ArrayList<>();
-        if (gs.dailyReady(p)) buttons.add(button("&6🎁 Gratis-Schluessel abholen", "Heutige Schluessel deines Goldtickets", pl -> { gs.claimDaily(pl); open(gs, pl); }));
-        buttons.add(button("&6Goldstaub-Shop", "Items fuer Goldstaub", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.SHOP).open(pl)));
-        buttons.add(button("&bMeilensteine", "Belohnungen fuer abgebaute Erze", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.ZIELE).open(pl)));
-        buttons.add(button("&eRangliste", "Die Top 10 gewinnen am Ende", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.TOP).open(pl)));
-        ActionButton close = ActionButton.builder(Text.c("&7✕ Schliessen")).width(150).build();
+        if (gs.dailyReady(p)) buttons.add(button(pack, "b_keys", "&6\u2726 Gratis-Schluessel abholen", "Heutige Schluessel deines Goldtickets", pl -> { gs.claimDaily(pl); open(gs, pl); }));
+        buttons.add(button(pack, "b_shop", "&6Goldstaub-Shop", "Items fuer Goldstaub", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.SHOP).open(pl)));
+        buttons.add(button(pack, "b_goals", "&bMeilensteine", "Belohnungen fuer abgebaute Erze", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.ZIELE).open(pl)));
+        buttons.add(button(pack, "b_top", "&eRangliste", "Die Top 10 gewinnen am Ende", pl -> new GoldrushMenu(gs, pl, GoldrushMenu.Tab.TOP).open(pl)));
+        ActionButton close = ActionButton.builder(label(pack, "b_close", "&7\u2715 Schliessen")).width(width(pack, "b_close", 150)).build();
+        String titleGlyph = pack ? glyphs(plugin).getString("dialog.title", "") : "";
+        Component title = titleGlyph.isEmpty() ? Text.c("<g:#FFF3B0:#FFC83D>&lGOLDRAUSCH</g>")
+                : Component.text(titleGlyph).font(FONT).shadowColor(ShadowColor.none()).color(net.kyori.adventure.text.format.NamedTextColor.WHITE);
         Dialog dialog = Dialog.create(b -> b.empty()
-                .base(DialogBase.builder(Text.c("<g:#FFF3B0:#FFC83D>&lGOLDRAUSCH</g>")).canCloseWithEscape(true).pause(false)
+                .base(DialogBase.builder(title).externalTitle(Text.c("Goldrausch")).canCloseWithEscape(true).pause(false)
                         .afterAction(DialogBase.DialogAfterAction.CLOSE).body(body).build())
                 .type(DialogType.multiAction(buttons).columns(Math.min(4, buttons.size())).exitAction(close).build()));
         p.showDialog(dialog);
     }
 
-    private static ActionButton button(String label, String tip, Consumer<Player> run) {
-        return ActionButton.builder(Text.c(label)).tooltip(Text.c("&7" + tip)).width(110)
+    /** Mit Ressourcenpaket: eigene Knopf-Grafik (deckt den Minecraft-Knopf ab), sonst Text. */
+    private static Component label(boolean pack, String key, String fallback) {
+        String g = pack ? glyphs(MineSMP.get()).getString("dialog.buttons." + key + ".text", "") : "";
+        return g.isEmpty() ? Text.c(fallback) : Component.text(g).font(FONT).shadowColor(ShadowColor.none()).color(net.kyori.adventure.text.format.NamedTextColor.WHITE);
+    }
+
+    private static int width(boolean pack, String key, int fallback) {
+        return pack ? glyphs(MineSMP.get()).getInt("dialog.buttons." + key + ".width", fallback) : fallback;
+    }
+
+    private static ActionButton button(boolean pack, String key, String label, String tip, Consumer<Player> run) {
+        return ActionButton.builder(label(pack, key, label)).tooltip(Text.c("&7" + tip)).width(width(pack, key, 110))
                 .action(DialogAction.customClick((view, audience) -> {
                     if (audience instanceof Player pl) Bukkit.getScheduler().runTask(MineSMP.get(), () -> { if (pl.isOnline()) run.accept(pl); });
                 }, ClickCallback.Options.builder().uses(1).lifetime(Duration.ofMinutes(15)).build())).build();

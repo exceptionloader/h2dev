@@ -43,13 +43,20 @@ dialog:
     h_ores: {text: "\uE415\uE4FF\uE416\uE4FF\uE417", lines: 2}
     h_finds: {text: "\uE418\uE4FF\uE419\uE4FF\uE41A", lines: 2}
     h_mine: {text: "\uE41B\uE4FF\uE41C\uE4FF\uE41D", lines: 2}
+  buttons:
+    b_keys: {text: "\uE4FD\uE41E\uE4FE", width: 110}
+    b_shop: {text: "\uE4FD\uE41F\uE4FE", width: 110}
+    b_goals: {text: "\uE4FD\uE420\uE4FE", width: 110}
+    b_top: {text: "\uE4FD\uE421\uE4FE", width: 110}
+    b_close: {text: "\uE4FD\uE422\uE4FE", width: 120}
+  title: "\uE423"
   ores:
-    coal_ore: "\uE41E"
-    copper_ore: "\uE41F"
-    iron_ore: "\uE420"
-    gold_ore: "\uE421"
-    redstone_ore: "\uE422"
-    lapis_ore: "\uE423"
-    emerald_ore: "\uE424"
-    diamond_ore: "\uE425"
-    ancient_debris: "\uE426"
+    coal_ore: "\uE424"
+    copper_ore: "\uE425"
+    iron_ore: "\uE426"
+    gold_ore: "\uE427"
+    redstone_ore: "\uE428"
+    lapis_ore: "\uE429"
+    emerald_ore: "\uE42A"
+    diamond_ore: "\uE42B"
+    ancient_debris: "\uE42C"

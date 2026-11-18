@@ -272,61 +272,61 @@
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/coal_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/b_keys.png",
+   "ascent": 13,
+   "height": 20,
    "chars": [
     "\ue41e"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/copper_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/b_shop.png",
+   "ascent": 13,
+   "height": 20,
    "chars": [
     "\ue41f"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/iron_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/b_goals.png",
+   "ascent": 13,
+   "height": 20,
    "chars": [
     "\ue420"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/gold_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/b_top.png",
+   "ascent": 13,
+   "height": 20,
    "chars": [
     "\ue421"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/redstone_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/b_close.png",
+   "ascent": 13,
+   "height": 20,
    "chars": [
     "\ue422"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/lapis_ore.png",
-   "ascent": 8,
-   "height": 9,
+   "file": "minesmp:font/dlg/title.png",
+   "ascent": 11,
+   "height": 16,
    "chars": [
     "\ue423"
    ]
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/emerald_ore.png",
+   "file": "minecraft:block/coal_ore.png",
    "ascent": 8,
    "height": 9,
    "chars": [
@@ -335,7 +335,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/diamond_ore.png",
+   "file": "minecraft:block/copper_ore.png",
    "ascent": 8,
    "height": 9,
    "chars": [
@@ -344,7 +344,7 @@
   },
   {
    "type": "bitmap",
-   "file": "minecraft:block/ancient_debris_side.png",
+   "file": "minecraft:block/iron_ore.png",
    "ascent": 8,
    "height": 9,
    "chars": [
@@ -352,9 +352,65 @@
    ]
   },
   {
+   "type": "bitmap",
+   "file": "minecraft:block/gold_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue427"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/redstone_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue428"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/lapis_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue429"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/emerald_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue42a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/diamond_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue42b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/ancient_debris_side.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue42c"
+   ]
+  },
+  {
    "type": "space",
    "advances": {
-    "\ue4ff": -1
+    "\ue4ff": -1,
+    "\ue4fd": -3,
+    "\ue4fe": -5
    }
   }
  ]

@@ -567,6 +567,58 @@ def dlg_slogan():
     cv.text_c(word, 160, 3, GOLD, 2, shadow='#3A2200')
     return cv.img
 
+BTN_W, CLOSE_W = 110, 120
+
+def dlg_button(label, icon, edge, fill, txt, w=BTN_W, glow=None):
+    """Eigener Knopf (deckt den Minecraft-Knopf ganz ab): Rahmen, Glanzkante, Symbol, Schrift."""
+    cv = Canvas(w, 20)
+    cv.R(0, 0, w - 1, 19, '#050B12')
+    cv.R(1, 1, w - 2, 18, edge)
+    cv.R(2, 2, w - 3, 17, fill)
+    for yy in range(2, 10):                      # weicher Glanz oben
+        cv.R(2, yy, w - 3, yy, mixc(fill, '#FFFFFF', 0.10 * (10 - yy) / 8))
+    cv.R(2, 17, w - 3, 17, mixc(fill, '#000000', 0.35))
+    cv.R(3, 2, w - 4, 2, mixc(edge, '#FFFFFF', 0.45))
+    for x, y in ((1, 1), (w - 2, 1), (1, 18), (w - 2, 18)):
+        cv.R(x, y, x, y, '#050B12')
+    tw = cv.width(label, 2)
+    total = tw + (15 if icon is not None else 0)
+    x = (w - total) / 2
+    if icon is not None:
+        ic = icon.crop(icon.getbbox())
+        sc = max(1, round(28 / max(ic.width, ic.height)))       # Symbol etwa 14 GUI-Pixel gross
+        ic = ic.resize((ic.width * sc, ic.height * sc), Image.NEAREST)
+        cv.img.alpha_composite(ic, (int(x * D), (40 - ic.height) // 2))
+        x += ic.width / D + 3
+        total = total
+    cv.text(label, x, 6, txt, 2, shadow='#050B12')
+    if glow:
+        for gx, gy in ((5, 4), (w - 6, 15)):
+            cv.R(gx - 1, gy, gx + 1, gy, glow); cv.R(gx, gy - 1, gx, gy + 1, glow)
+    return cv.img
+
+def dlg_buttons():
+    X = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    dx = ImageDraw.Draw(X)
+    for k in range(4, 12):
+        dx.rectangle([k, k, k + 1, k + 1], fill=c('#FF9A9A')); dx.rectangle([15 - k - 1, k, 15 - k, k + 1], fill=c('#FF9A9A'))
+    return {
+        'b_keys': dlg_button("GRATIS-KEYS", A.TICKET, GOLD, '#4A3608', GOLD_L, glow='#FFFFFF'),
+        'b_shop': dlg_button("SHOP", A.STAUB, CYAN, '#0E3A4A', '#FFFFFF'),
+        'b_goals': dlg_button("MEILENSTEINE", A.ICONS['gr_ic_ziel'], CYAN, '#0E3A4A', '#FFFFFF'),
+        'b_top': dlg_button("RANGLISTE", A.ICONS['gr_ic_top'], CYAN, '#0E3A4A', '#FFFFFF'),
+        'b_close': dlg_button("SCHLIESSEN", X, '#7A2A33', '#2A1218', '#FFB4B4', w=CLOSE_W),
+    }
+
+def dlg_title():
+    w = gold_word("GOLDRAUSCH", 3, 3)
+    cv = Canvas(120, 16)
+    cv.img.alpha_composite(w, ((cv.img.width - w.width) // 2, (cv.img.height - w.height) // 2 + 1))
+    p = A.PICKE.crop(A.PICKE.getbbox()); p = p.resize((p.width * 2, p.height * 2), Image.NEAREST)
+    gx = (cv.img.width - w.width) // 2
+    cv.img.alpha_composite(p, (gx - p.width - 6, (32 - p.height) // 2)); cv.img.alpha_composite(p.transpose(Image.FLIP_LEFT_RIGHT), (gx + w.width + 4, (32 - p.height) // 2))
+    return cv.img
+
 def dlg_images():
     return {'banner': dlg_banner(), 'cards': dlg_cards(), 'boxes': dlg_boxes(), 'slogan': dlg_slogan(), 'moderated': dlg_moderated(),
             'h_status': dlg_header("STATUS"), 'h_tickets': dlg_header("GOLDTICKETS", GOLD, GOLD_D), 'h_ores': dlg_header("DIESE ERZE ZÄHLEN"),
@@ -586,13 +638,26 @@ def dialog_assets(out):
             chars += (chr(CP_DLG_SP) if chars else '') + chr(cp)
             cp += 1
         lines.append('    %s: {text: "%s", lines: %d}' % (name, ''.join('\\u%04X' % ord(ch) for ch in chars), (h + 8) // 9))
+    # Knoepfe: Bild 20 hoch, oben buendig mit dem Knopf (ascent 13). Davor -3, danach -5: die gemessene Breite bleibt
+    # kleiner als der Knopf (sonst laeuft die Schrift), und das Bild sitzt genau auf dem Knopf.
+    lines.append("  buttons:")
+    for name, img in dlg_buttons().items():
+        img.save(tex / f"{name}.png")
+        providers.append({"type": "bitmap", "file": f"minesmp:font/dlg/{name}.png", "ascent": 13, "height": 20, "chars": [chr(cp)]})
+        lines.append('    %s: {text: "\\uE4FD\\u%04X\\uE4FE", width: %d}' % (name, cp, img.width // D))
+        cp += 1
+    t = dlg_title()
+    t.save(tex / "title.png")
+    providers.append({"type": "bitmap", "file": "minesmp:font/dlg/title.png", "ascent": 11, "height": 16, "chars": [chr(cp)]})
+    lines.append('  title: "\\u%04X"' % cp)
+    cp += 1
     # Erz-Symbole (Minecraft-eigene Texturen), 9 Pixel hoch, fuer die Liste "Diese Erze zaehlen"
     lines.append("  ores:")
     for name in ORE_ICONS:
         providers.append({"type": "bitmap", "file": f"minecraft:block/{name}.png", "ascent": 8, "height": 9, "chars": [chr(cp)]})
         lines.append('    %s: "\\u%04X"' % (name.replace('_side', ''), cp))
         cp += 1
-    providers.append({"type": "space", "advances": {chr(CP_DLG_SP): -1}})
+    providers.append({"type": "space", "advances": {chr(CP_DLG_SP): -1, "\ue4fd": -3, "\ue4fe": -5}})
     (out / "assets/minesmp/font/dlg.json").write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
     return lines
 
