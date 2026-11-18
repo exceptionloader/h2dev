@@ -455,5 +455,151 @@ def write(out, root):
     y += [f"  {n}: {esc(CP_SHIFT + i)}" for i, n in enumerate(SHIFTS)]
     y += ["shift-forward:"] + [f"  {n}: {esc(CP_SHIFT + 16 + i)}" for i, n in enumerate(SHIFTS)]
     y += ["row-fonts: {" + ", ".join(f"{r}: 'minesmp:gr{r}'" for r in ROW_Y) + "}"]
+    y += dialog_assets(out)
     (root / "core/src/main/resources/goldrush-gui.yml").write_text("\n".join(y) + "\n")
     return sprites
+
+
+# =====================================================================================================
+#  Grosses Goldrausch-Fenster (Minecraft-Dialog, wie das Goldrausch-Menue bei HugoSMP aufgebaut - eigene Grafiken)
+#  Bilder sind Schriftzeichen in minesmp:dlg. Ein Bild steht am Anfang einer Textzeile und ragt nach unten
+#  (ascent 7); das Plugin setzt danach so viele Leerzeilen, wie das Bild hoch ist (lines). Gezeichnet in doppelter
+#  Aufloesung (D = 2), in Streifen von hoechstens 240 Bildpunkten, verbunden mit dem Abstand -1.
+# =====================================================================================================
+D = 2
+DW = 320                 # Breite der Bilder (GUI-Pixel)
+CP_DLG, CP_DLG_SP = 0xE400, 0xE4FF
+ORE_ICONS = ['coal_ore', 'copper_ore', 'iron_ore', 'gold_ore', 'redstone_ore', 'lapis_ore', 'emerald_ore', 'diamond_ore', 'ancient_debris_side']
+
+class Canvas:
+    def __init__(self, w, h):
+        self.w, self.h = w, h
+        self.img = Image.new('RGBA', (w * D, h * D), (0, 0, 0, 0))
+        self.d = ImageDraw.Draw(self.img)
+    def R(self, x0, y0, x1, y1, col):
+        self.d.rectangle([x0 * D, y0 * D, (x1 + 1) * D - 1, (y1 + 1) * D - 1], fill=c(col) if isinstance(col, str) else col)
+    def text(self, s, x, y, col, px=1, shadow=None):
+        if shadow: B.draw_text(self.d, s, x * D + D, y * D + D, px * D // 2 * 2 // 2 if px * D < 2 else px * D // 2, c(shadow)) if False else B.draw_text(self.d, s, (x * D) + px, (y * D) + px, px, c(shadow))
+        B.draw_text(self.d, s, x * D, y * D, px, c(col))
+    def width(self, s, px):
+        return B.text_width(s, px) / D
+    def text_c(self, s, cx, y, col, px=1, shadow=None):
+        self.text(s, cx - self.width(s, px) / 2, y, col, px, shadow)
+    def paste(self, im, x, y, scale=1):
+        im = im.resize((im.width * scale, im.height * scale), Image.NEAREST)
+        self.img.alpha_composite(im, (int(x * D), int(y * D)))
+        self.d = ImageDraw.Draw(self.img)
+    def panel(self, x0, y0, x1, y1, fill=NAVY2, edge=LINE, top=LINE_L):
+        self.R(x0, y0, x1, y1, edge); self.R(x0 + 1, y0 + 1, x1 - 1, y1 - 1, fill); self.R(x0 + 1, y0 + 1, x1 - 1, y0 + 1, top)
+
+def dlg_banner():
+    import math
+    cv = Canvas(DW, 98)
+    for yy in range(98 * D):
+        for xx in range(DW * D):
+            x, y = xx / D, yy / D
+            ang = math.atan2(y - 40, (x - 160) * 0.5)
+            ray = int((ang + math.pi) / (math.pi / 12)) % 2
+            dist = min(1.0, math.hypot((x - 160) * 0.5, y - 40) / 110)
+            cv.img.putpixel((xx, yy), mixc('#0E5A6E', '#0B1620', dist) if ray else mixc('#0B4252', '#0A1520', dist))
+    cv.d = ImageDraw.Draw(cv.img)
+    cv.R(0, 0, DW - 1, 0, CYAN); cv.R(0, 97, DW - 1, 97, GOLD_D)
+    cv.R(0, 0, 0, 97, CYAN_D); cv.R(DW - 1, 0, DW - 1, 97, CYAN_D)
+    # Kopfzeile "HAUPTGEWINN"
+    cv.text_c("HAUPTGEWINN", 160, 4, CYAN_L, 2, shadow=NAVY0)
+    for gx in (112, 208):
+        cv.R(gx - 1, 7, gx + 1, 7, GOLD); cv.R(gx, 6, gx, 8, GOLD)
+    # grosses Ticket mit Glanz
+    t = A.TICKET
+    cv.paste(t, 160 - 48, 4, 6)
+    for gx, gy in ((100, 20), (220, 24), (96, 52), (224, 54), (180, 16)):
+        cv.R(gx - 1, gy, gx + 1, gy, '#FFFFFF'); cv.R(gx, gy - 1, gx, gy + 1, '#FFFFFF')
+    word = gold_word("GOLDTICKET", 6, 6)
+    cv.img.alpha_composite(word, ((DW * D - word.width) // 2, 70 * D))
+    return cv.img
+
+def dlg_cards():
+    """Vier Karten: jeden Tag ein Gratis-Schluessel aus jeder Kiste."""
+    cv = Canvas(DW, 44)
+    names = [("VOTE", '#4ADE5A'), ("RARE", '#4F7CFF'), ("EPIC", '#A855F7'), ("LEGENDARY", '#FFC83D')]
+    key = B.icon(B.ICONS['key'])
+    for i, (n, col) in enumerate(names):
+        x0 = i * 80 + 1
+        cv.R(x0, 0, x0 + 77, 43, mixc(col, '#000000', 0.55)); cv.R(x0 + 1, 1, x0 + 76, 42, mixc(col, '#0B1620', 0.82))
+        cv.R(x0 + 1, 1, x0 + 76, 1, col)
+        k = key.resize((key.width * 2, key.height * 2), Image.NEAREST)
+        cv.img.alpha_composite(k, (int((x0 + 39 - 9) * D), 2 * D))
+        cv.text_c(n, x0 + 39, 22, col, 2, shadow=NAVY0)
+        cv.text_c("JEDEN TAG", x0 + 39, 34, '#8FA3B3', 2)
+    return cv.img
+
+def dlg_boxes():
+    """Premium und Goldener Name."""
+    cv = Canvas(DW, 24)
+    cv.panel(1, 0, 158, 23, fill='#10283A', edge=CYAN, top=CYAN_L)
+    cv.paste(B.icon(B.ICONS['crown']), 6, 7)
+    cv.text("PREMIUM", 18, 4, CYAN_L, 2, shadow=NAVY0)
+    cv.text("30 TAGE ODER GESCHENK", 18, 14, '#8FA3B3', 2)
+    cv.panel(161, 0, 318, 23, fill='#2A2410', edge=GOLD, top=GOLD_L)
+    cv.paste(B.icon(B.ICONS['star']), 166, 7)
+    cv.text("GOLDENER NAME", 178, 4, GOLD, 2, shadow=NAVY0)
+    cv.text("GLÄNZT IN CHAT UND TAB", 178, 14, '#8FA3B3', 2)
+    return cv.img
+
+def dlg_header(text, col=CYAN_L, line=CYAN_D):
+    cv = Canvas(DW, 14)
+    cv.R(0, 0, DW - 1, 13, NAVY2); cv.R(0, 13, DW - 1, 13, line); cv.R(0, 0, 2, 13, line)
+    cv.text(text, 8, 3, col, 2, shadow=NAVY0)
+    return cv.img
+
+def dlg_moderated():
+    cv = Canvas(DW, 38)
+    cv.R(0, 0, DW - 1, 37, '#E5484D'); cv.R(1, 1, DW - 2, 36, '#3A1420')
+    cv.text("EVENT WIRD MODERIERT", 8, 4, '#FF9A9A', 2)
+    cv.text("MAKROS, X-RAY UND ANDERE CHEATS SIND VERBOTEN", 8, 16, '#D0A0A6', 2)
+    cv.text("UND WERDEN MIT EINEM BANN BESTRAFT.", 8, 26, '#D0A0A6', 2)
+    return cv.img
+
+def dlg_slogan():
+    cv = Canvas(DW, 14)
+    cv.R(0, 0, DW - 1, 13, '#2A2410'); cv.R(0, 0, DW - 1, 0, GOLD_D); cv.R(0, 13, DW - 1, 13, GOLD_D)
+    word = "BAU ERZE AB. JEDES ERZ KANN ES SEIN!"
+    cv.text_c(word, 160, 3, GOLD, 2, shadow='#3A2200')
+    return cv.img
+
+def dlg_images():
+    return {'banner': dlg_banner(), 'cards': dlg_cards(), 'boxes': dlg_boxes(), 'slogan': dlg_slogan(), 'moderated': dlg_moderated(),
+            'h_status': dlg_header("STATUS"), 'h_tickets': dlg_header("GOLDTICKETS", GOLD, GOLD_D), 'h_ores': dlg_header("DIESE ERZE ZÄHLEN"),
+            'h_finds': dlg_header("WAS DU FINDEN KANNST", GOLD, GOLD_D), 'h_mine': dlg_header("DEIN GOLDRAUSCH")}
+
+def dialog_assets(out):
+    tex = out / "assets/minesmp/textures/font/dlg"
+    tex.mkdir(parents=True, exist_ok=True)
+    providers, lines, cp = [], ["dialog:", "  font: minesmp:dlg", "  images:"], CP_DLG
+    for name, img in dlg_images().items():
+        h = img.height // D
+        chars = ''
+        for i, x in enumerate(range(0, img.width, 240)):
+            part = img.crop((x, 0, min(img.width, x + 240), img.height))
+            part.save(tex / f"{name}_{i}.png")
+            providers.append({"type": "bitmap", "file": f"minesmp:font/dlg/{name}_{i}.png", "ascent": 7, "height": h, "chars": [chr(cp)]})
+            chars += (chr(CP_DLG_SP) if chars else '') + chr(cp)
+            cp += 1
+        lines.append('    %s: {text: "%s", lines: %d}' % (name, ''.join('\\u%04X' % ord(ch) for ch in chars), (h + 8) // 9))
+    # Erz-Symbole (Minecraft-eigene Texturen), 9 Pixel hoch, fuer die Liste "Diese Erze zaehlen"
+    lines.append("  ores:")
+    for name in ORE_ICONS:
+        providers.append({"type": "bitmap", "file": f"minecraft:block/{name}.png", "ascent": 8, "height": 9, "chars": [chr(cp)]})
+        lines.append('    %s: "\\u%04X"' % (name.replace('_side', ''), cp))
+        cp += 1
+    providers.append({"type": "space", "advances": {chr(CP_DLG_SP): -1}})
+    (out / "assets/minesmp/font/dlg.json").write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=1))
+    return lines
+
+def dialog_preview(path):
+    imgs = dlg_images()
+    y, H2 = 0, sum(i.height for i in imgs.values()) + 12 * len(imgs)
+    sheet = Image.new('RGBA', (DW * D + 40, H2 + 20), (16, 16, 20, 255))
+    for im in imgs.values():
+        sheet.alpha_composite(im, (20, y + 10)); y += im.height + 12
+    sheet.save(path)

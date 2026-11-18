@@ -1485,6 +1485,8 @@ public final class GoldrushService implements Listener {
     private void command(CommandSender s, String[] a) {
         String sub = a.length == 0 ? "" : a[0].toLowerCase(Locale.ROOT);
         if (!(s instanceof Player p) || sub.equals("info") || sub.equals("hilfe")) { info(s); return; }
+        // Ohne Zusatz: grosses Fenster wie bei HugoSMP (Bedrock: Kisten-Menue)
+        if (sub.isEmpty() && GoldrushDialog.supported(p)) { GoldrushDialog.open(this, p); return; }
         GoldrushMenu.Tab tab = switch (sub) {
             case "funde", "fund" -> GoldrushMenu.Tab.FUNDE;
             case "erze", "glueck" -> GoldrushMenu.Tab.ERZE;

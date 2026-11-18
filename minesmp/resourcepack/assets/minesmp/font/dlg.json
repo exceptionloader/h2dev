@@ -1,0 +1,361 @@
+{
+ "providers": [
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/banner_0.png",
+   "ascent": 7,
+   "height": 98,
+   "chars": [
+    "\ue400"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/banner_1.png",
+   "ascent": 7,
+   "height": 98,
+   "chars": [
+    "\ue401"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/banner_2.png",
+   "ascent": 7,
+   "height": 98,
+   "chars": [
+    "\ue402"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/cards_0.png",
+   "ascent": 7,
+   "height": 44,
+   "chars": [
+    "\ue403"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/cards_1.png",
+   "ascent": 7,
+   "height": 44,
+   "chars": [
+    "\ue404"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/cards_2.png",
+   "ascent": 7,
+   "height": 44,
+   "chars": [
+    "\ue405"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/boxes_0.png",
+   "ascent": 7,
+   "height": 24,
+   "chars": [
+    "\ue406"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/boxes_1.png",
+   "ascent": 7,
+   "height": 24,
+   "chars": [
+    "\ue407"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/boxes_2.png",
+   "ascent": 7,
+   "height": 24,
+   "chars": [
+    "\ue408"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/slogan_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue409"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/slogan_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue40a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/slogan_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue40b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/moderated_0.png",
+   "ascent": 7,
+   "height": 38,
+   "chars": [
+    "\ue40c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/moderated_1.png",
+   "ascent": 7,
+   "height": 38,
+   "chars": [
+    "\ue40d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/moderated_2.png",
+   "ascent": 7,
+   "height": 38,
+   "chars": [
+    "\ue40e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_status_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue40f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_status_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue410"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_status_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue411"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_tickets_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue412"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_tickets_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue413"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_tickets_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue414"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_ores_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue415"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_ores_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue416"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_ores_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue417"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_finds_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue418"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_finds_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue419"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_finds_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue41a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_mine_0.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue41b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_mine_1.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue41c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minesmp:font/dlg/h_mine_2.png",
+   "ascent": 7,
+   "height": 14,
+   "chars": [
+    "\ue41d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/coal_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue41e"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/copper_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue41f"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/iron_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue420"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/gold_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue421"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/redstone_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue422"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/lapis_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue423"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/emerald_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue424"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/diamond_ore.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue425"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "minecraft:block/ancient_debris_side.png",
+   "ascent": 8,
+   "height": 9,
+   "chars": [
+    "\ue426"
+   ]
+  },
+  {
+   "type": "space",
+   "advances": {
+    "\ue4ff": -1
+   }
+  }
+ ]
+}

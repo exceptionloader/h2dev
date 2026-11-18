@@ -30,3 +30,26 @@ shift-forward:
   64: "\uE336"
   128: "\uE337"
 row-fonts: {0: 'minesmp:gr0', 1: 'minesmp:gr1', 2: 'minesmp:gr2', 3: 'minesmp:gr3', 4: 'minesmp:gr4'}
+dialog:
+  font: minesmp:dlg
+  images:
+    banner: {text: "\uE400\uE4FF\uE401\uE4FF\uE402", lines: 11}
+    cards: {text: "\uE403\uE4FF\uE404\uE4FF\uE405", lines: 5}
+    boxes: {text: "\uE406\uE4FF\uE407\uE4FF\uE408", lines: 3}
+    slogan: {text: "\uE409\uE4FF\uE40A\uE4FF\uE40B", lines: 2}
+    moderated: {text: "\uE40C\uE4FF\uE40D\uE4FF\uE40E", lines: 5}
+    h_status: {text: "\uE40F\uE4FF\uE410\uE4FF\uE411", lines: 2}
+    h_tickets: {text: "\uE412\uE4FF\uE413\uE4FF\uE414", lines: 2}
+    h_ores: {text: "\uE415\uE4FF\uE416\uE4FF\uE417", lines: 2}
+    h_finds: {text: "\uE418\uE4FF\uE419\uE4FF\uE41A", lines: 2}
+    h_mine: {text: "\uE41B\uE4FF\uE41C\uE4FF\uE41D", lines: 2}
+  ores:
+    coal_ore: "\uE41E"
+    copper_ore: "\uE41F"
+    iron_ore: "\uE420"
+    gold_ore: "\uE421"
+    redstone_ore: "\uE422"
+    lapis_ore: "\uE423"
+    emerald_ore: "\uE424"
+    diamond_ore: "\uE425"
+    ancient_debris: "\uE426"
