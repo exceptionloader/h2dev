@@ -87,7 +87,7 @@ public final class WebService implements Listener {
             http.createContext("/", this::files);
             http.setExecutor(Executors.newFixedThreadPool(4, r -> { Thread t = new Thread(r, "MineSMP-Web"); t.setDaemon(true); return t; }));
             http.start();
-            plugin.getLogger().info("Website laeuft: " + url());
+            plugin.getLogger().info("Website laeuft: " + url() + lanHint());
         } catch (Exception e) {
             plugin.getLogger().warning("Website konnte nicht starten: " + e.getMessage());
             http = null;
@@ -99,7 +99,20 @@ public final class WebService implements Listener {
 
     public String url() {
         String u = cfg.getString("url", "");
-        return u.isBlank() ? "http://" + cfg.getString("server-address", "localhost") + ":" + cfg.getInt("port", 8164) + "/" : u;
+        return u.isBlank() ? "http://localhost:" + cfg.getInt("port", 8164) + "/" : u;
+    }
+
+    /** Adresse im Heimnetz (fuer Handy/andere PCs), z.B. " - im Netzwerk: http://192.168.0.20:8164/". */
+    private String lanHint() {
+        try {
+            for (var ni : java.util.Collections.list(java.net.NetworkInterface.getNetworkInterfaces())) {
+                if (!ni.isUp() || ni.isLoopback() || ni.isVirtual()) continue;
+                for (var a : java.util.Collections.list(ni.getInetAddresses()))
+                    if (a instanceof java.net.Inet4Address && a.isSiteLocalAddress())
+                        return " - im Heimnetz: http://" + a.getHostAddress() + ":" + cfg.getInt("port", 8164) + "/";
+            }
+        } catch (Exception ignored) { }
+        return "";
     }
 
     public void shutdown() {

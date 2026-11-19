@@ -271,6 +271,7 @@ Write-Host '  ======================================================' -Foregroun
 Write-Host '   Server laeuft!  Minecraft Java 26.3 starten:'           -ForegroundColor Cyan
 Write-Host '   Mehrspieler -> Direktverbindung -> localhost'            -ForegroundColor White
 Write-Host '   Befehle hier eintippen (z.B. op Name). Beenden: stop'    -ForegroundColor Cyan
+Write-Host '   Website im Browser: http://localhost:8164'             -ForegroundColor White
 Write-Host '  ======================================================' -ForegroundColor Cyan
 Write-Host ''
 
