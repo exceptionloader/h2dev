@@ -1,0 +1,202 @@
+# All texts use MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# Values may be a single line or a list of lines. An empty value disables the message.
+prefix: "<dark_gray>[<red>REPORT</red>]</dark_gray> "
+
+general:
+  players-only: "<prefix><red>Dieser Befehl kann nur von Spielern genutzt werden."
+  no-permission: "<prefix><red>Dazu hast du keine Berechtigung."
+  error: "<prefix><red>Es ist ein Fehler aufgetreten. Bitte versuche es später erneut."
+  console: "Konsole"
+
+report:
+  usage:
+    - "<prefix><gray>/report <white>[Spieler]</white> <dark_gray>- Spieler melden"
+  admin-usage:
+    - "<prefix><gray>/report <white>[Spieler]</white> <dark_gray>- Spieler melden"
+    - "<prefix><gray>/report resolve <white><id></white> <dark_gray>- Report als berechtigt abschließen"
+    - "<prefix><gray>/report reject <white><id> <grund></white> <dark_gray>- Report ablehnen"
+    - "<prefix><gray>/report details <white><id></white> <dark_gray>- Report anzeigen"
+    - "<prefix><gray>/report stats <white>[Spieler]</white> <dark_gray>- Statistiken anzeigen"
+    - "<prefix><gray>/report reload <dark_gray>- Nachrichten und Templates neu laden"
+  looking-up: "<prefix><gray>Suche nach <white><name></white>..."
+  not-found: "<prefix><red>Es gibt keinen Spieler mit dem Namen <white><name></white>."
+  invalid-name: "<prefix><red><white><name></white> ist kein gültiger Spielername."
+  lookup-unavailable: "<prefix><red>Der Spieler <white><name></white> konnte gerade nicht gefunden werden. Bitte versuche es später erneut."
+  self: "<prefix><red>Du kannst dich nicht selbst melden."
+  created: "<prefix><green>Dein Report wurde aufgenommen."
+  duplicate: "<prefix><yellow>Du hast <white><reported></white> bereits gemeldet. Dein Report wird noch bearbeitet."
+  cooldown: "<prefix><yellow>Bitte warte noch <white><time></white>, bevor du erneut jemanden meldest."
+  too-many-open: "<prefix><yellow>Du hast bereits <white><limit></white> offene Reports. Bitte warte, bis diese bearbeitet wurden."
+  unknown-template: "<prefix><red>Dieser Grund steht nicht mehr zur Auswahl."
+  details-missing: "<prefix><red>Bitte beschreibe den Vorfall."
+  details-too-short: "<prefix><red>Die Beschreibung ist zu kurz (mindestens <white><min></white> Zeichen)."
+  details-too-long: "<prefix><red>Die Beschreibung ist zu lang (höchstens <white><max></white> Zeichen)."
+  details-prompt: "<prefix><gray>Beschreibe im Chat, was <white><reported></white> getan hat."
+  name-prompt: "<prefix><gray>Gib den Namen des Spielers im Chat ein."
+
+prompt:
+  hint: "<prefix><dark_gray>Schreibe <white>abbrechen</white>, um die Eingabe abzubrechen."
+  cancelled: "<prefix><gray>Eingabe abgebrochen."
+  expired: "<prefix><gray>Die Eingabe ist abgelaufen."
+
+alert:
+  new-report:
+    - "<open_report><prefix><white><reported></white><gray> wurde gemeldet von </gray><white><reporter></white><gray> (Grund: </gray><white><reason></white><gray>)</gray></open_report>"
+    - "<prefix><gray>Verwende <open_reports><white>/reports</white></open_reports>, um offene Reports zu verwalten."
+  report-hover: "<gray>Server: <white><server></white><newline><yellow>Klicken für Details"
+  reports-hover: "<yellow>Klicken zum Öffnen"
+
+notify:
+  resolved: "<prefix><green>Dein Report gegen <white><reported></white> wurde bearbeitet und als berechtigt eingestuft."
+  rejected: "<prefix><red>Dein Report gegen <white><reported></white> wurde geprüft und abgelehnt. Grund: <white><note></white>"
+
+moderation:
+  resolve-usage: "<prefix><gray>Benutzung: <white>/report resolve <id>"
+  reject-usage: "<prefix><gray>Benutzung: <white>/report reject <id> <grund>"
+  details-usage: "<prefix><gray>Benutzung: <white>/report details <id>"
+  resolved: "<prefix><green>Report <white>#<short_id></white> gegen <white><reported></white> wurde als berechtigt abgeschlossen."
+  rejected: "<prefix><yellow>Report <white>#<short_id></white> gegen <white><reported></white> wurde abgelehnt."
+  not-found: "<prefix><red>Es gibt keinen Report mit der ID <white><id></white>."
+  already-closed: "<prefix><yellow>Report <white>#<short_id></white> wurde bereits von <white><handler></white> bearbeitet (<status><yellow>)."
+  own-report: "<prefix><red>Du kannst keine Reports bearbeiten, die gegen dich gerichtet sind."
+  note-missing: "<prefix><red>Bitte gib eine Begründung an."
+  note-too-long: "<prefix><red>Die Begründung ist zu lang (höchstens <white><max></white> Zeichen)."
+  reject-prompt: "<prefix><gray>Gib im Chat eine Begründung für die Ablehnung von Report <white>#<short_id></white> ein."
+  reloaded: "<prefix><green>Nachrichten und Templates wurden neu geladen."
+  open-list-header: "<prefix><gray>Offene Reports: <white><count></white>"
+  open-list-entry: "<dark_gray>- <open_report><white><reported></white> <gray>(<reason>, <server>, <created>)</gray></open_report>"
+  open-list-empty: "<prefix><green>Es gibt keine offenen Reports."
+
+details:
+  body:
+    - "<dark_gray>―――――――――― <red>Report</red> <white>#<short_id></white> ――――――――――"
+    - "<gray>ID: <copy_id><white><id></white></copy_id>"
+    - "<gray>Gemeldet: <white><reported></white>"
+    - "<gray>Gemeldet von: <white><reporter></white>"
+    - "<gray>Grund: <white><reason></white> <dark_gray>(<template>)"
+    - "<gray>Server: <white><server></white>"
+    - "<gray>Erstellt: <white><created></white>"
+    - "<gray>Status: <status>"
+  handled:
+    - "<gray>Bearbeitet von: <white><handler></white> <dark_gray>(<handled>)"
+  note:
+    - "<gray>Notiz: <white><note></white>"
+  actions: "<resolve_button><green>[Berechtigt]</green></resolve_button> <reject_button><red>[Ablehnen]</red></reject_button>"
+  copy-hover: "<gray>Klicken zum Kopieren"
+  resolve-hover: "<gray>Report als berechtigt abschließen"
+  reject-hover: "<gray>Report mit Begründung ablehnen"
+
+stats:
+  global:
+    - "<dark_gray>――――――――― <red>Report-Statistik</red> ―――――――――"
+    - "<gray>Gesamt: <white><total></white> <dark_gray>|</dark_gray> Offen: <yellow><open></yellow> <dark_gray>|</dark_gray> Berechtigt: <green><resolved></green> <dark_gray>|</dark_gray> Abgelehnt: <red><rejected></red>"
+    - "<gray>Häufigste Gründe: <white><top></white>"
+  top-entry: "<template> (<count>)"
+  top-empty: "-"
+  player:
+    - "<dark_gray>――――――――― <red>Statistik: <name></red> ―――――――――"
+    - "<gray>Gemeldet worden: <white><received_total></white> <dark_gray>(Offen <received_open>, Berechtigt <received_resolved>, Abgelehnt <received_rejected>)"
+    - "<gray>Selbst gemeldet: <white><filed_total></white> <dark_gray>(Offen <filed_open>, Berechtigt <filed_resolved>, Abgelehnt <filed_rejected>)"
+    - "<gray>Anteil berechtigter eigener Reports: <white><accuracy>%</white>"
+
+labels:
+  status:
+    ALL: "<white>Alle"
+    OPEN: "<yellow>Offen"
+    RESOLVED: "<green>Berechtigt"
+    REJECTED: "<red>Abgelehnt"
+  range:
+    ALL: "Gesamter Zeitraum"
+    LAST_DAY: "Letzte 24 Stunden"
+    LAST_WEEK: "Letzte 7 Tage"
+    LAST_MONTH: "Letzte 30 Tage"
+  sort:
+    NEWEST: "Neueste zuerst"
+    OLDEST: "Älteste zuerst"
+    SERVER: "Nach Server"
+    TEMPLATE: "Nach Grund"
+  all-templates: "Alle Gründe"
+  all-servers: "Alle Server"
+  none: "-"
+
+gui:
+  previous: "<yellow>« Vorherige Seite"
+  next: "<yellow>Nächste Seite »"
+  back: "<yellow>« Zurück"
+  close: "<red>Schließen"
+  targets:
+    title: "<dark_gray>Spieler melden"
+    player: "<white><name>"
+    player-lore:
+      - "<gray>Klicke, um <white><name></white> zu melden."
+    enter-name: "<aqua>Namen eingeben"
+    enter-name-lore:
+      - "<gray>Der Spieler ist nicht online?"
+      - "<gray>Gib seinen Namen im Chat ein."
+    empty: "<gray>Keine anderen Spieler online"
+  templates:
+    title: "<dark_gray><name> melden"
+    target: "<white><name>"
+    target-lore:
+      - "<gray>Wähle einen Grund für deinen Report."
+    template: "<red><template>"
+    template-lore:
+      - "<gray><description>"
+    requires-text: "<dark_gray>Erfordert eine Beschreibung"
+  browser:
+    title: "<dark_gray>Reports"
+    loading: "<gray>Lade Reports..."
+    failed: "<red>Die Reports konnten nicht geladen werden"
+    empty: "<gray>Keine Reports gefunden"
+    report: "<white><reported> <dark_gray>#<short_id>"
+    report-lore:
+      - "<gray>Gemeldet von: <white><reporter>"
+      - "<gray>Grund: <white><reason>"
+      - "<gray>Server: <white><server>"
+      - "<gray>Erstellt: <white><created>"
+      - "<gray>Status: <status>"
+      - ""
+      - "<yellow>Klicke für Details"
+    option: "<dark_gray>  <option>"
+    option-selected: "<green>» <option>"
+    cycle-hint:
+      - ""
+      - "<dark_gray>Linksklick: weiter"
+      - "<dark_gray>Rechtsklick: zurück"
+    status: "<gold>Status"
+    template: "<gold>Grund"
+    server: "<gold>Server"
+    range: "<gold>Zeitraum"
+    sort: "<gold>Sortierung"
+    reset: "<red>Filter zurücksetzen"
+    info: "<aqua><total> Reports"
+    info-lore:
+      - "<gray>Seite <white><page></white> von <white><pages></white>"
+      - ""
+      - "<yellow>Klicken zum Aktualisieren"
+  details:
+    title: "<dark_gray>Report #<short_id>"
+    info: "<gold>Report #<short_id>"
+    info-lore:
+      - "<gray>Grund: <white><reason>"
+      - "<gray>Template: <white><template>"
+      - "<gray>Server: <white><server>"
+      - "<gray>Erstellt: <white><created>"
+      - "<gray>Status: <status>"
+    info-handled:
+      - "<gray>Bearbeitet von: <white><handler>"
+      - "<gray>Bearbeitet am: <white><handled>"
+    info-note:
+      - "<gray>Notiz: <white><note>"
+    reported: "<red>Gemeldet: <white><reported>"
+    reporter: "<green>Gemeldet von: <white><reporter>"
+    resolve: "<green>Berechtigt"
+    resolve-lore:
+      - "<gray>Schließt den Report als berechtigt ab."
+    reject: "<red>Ablehnen"
+    reject-lore:
+      - "<gray>Lehnt den Report mit Begründung ab."
+    stats: "<aqua>Statistik von <reported>"
+    stats-lore:
+      - "<gray>Zeigt die bisherigen Reports im Chat."
+

@@ -1,0 +1,44 @@
+# Name of this server instance. It is stored with every report and shown to moderators,
+# so give every server of the network its own name (e.g. lobby-1, survival-2).
+# Leave empty to fall back to "server-<port>".
+server-name: ""
+
+mongodb:
+  uri: "mongodb://localhost:27017"
+  database: "reports"
+
+redis:
+  host: "localhost"
+  port: 6379
+  username: ""
+  password: ""
+  database: 0
+  ssl: false
+  timeout-millis: 2000
+
+reports:
+  # Time a player has to wait between two reports (checked network wide)
+  cooldown-seconds: 60
+  # Maximum number of open reports per player, 0 disables the limit
+  max-open-per-reporter: 5
+  # Length limits for free text reasons (template OTHER) and moderator notes
+  min-text-length: 5
+  max-text-length: 200
+  # Templates are re-read from MongoDB in this interval, /report reload does it immediately
+  template-refresh-minutes: 5
+
+lookup:
+  base-url: "https://mc-api.io"
+  timeout-millis: 4000
+  cache-minutes: 30
+  unknown-name-cache-seconds: 120
+  # How long to skip the API after an error or a rate limit without Retry-After header
+  error-cooldown-seconds: 60
+  # Used when Floodgate is not installed on this server
+  bedrock-prefix: "."
+
+display:
+  date-format: "dd.MM.yyyy HH:mm"
+  timezone: "Europe/Berlin"
+  # Image shown next to players in Bedrock forms, %uuid% is replaced
+  bedrock-head-url: "https://mc-api.io/render/FACE/%uuid%?size=64"
