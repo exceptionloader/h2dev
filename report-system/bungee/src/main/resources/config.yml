@@ -1,0 +1,13 @@
+mongodb:
+  uri: "mongodb://localhost:27017"
+  database: "reports"
+
+reminder:
+  permission: "report.admin"
+  # Delay after the login so the message is not lost between server switch messages
+  delay-seconds: 3
+  # Staff logging in shortly after each other share one count query
+  cache-seconds: 15
+  # Send the reminder even when there are no open reports
+  notify-when-empty: false
+  message: "&8[&cREPORT&8] &7Du hast aktuell &e%count% &7offene Reports. Nutze &e/reports&7."
