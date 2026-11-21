@@ -4,11 +4,16 @@ import dev.exceptionloader.reports.api.ProfileService;
 import dev.exceptionloader.reports.api.ReportService;
 import dev.exceptionloader.reports.api.TemplateService;
 import dev.exceptionloader.reports.api.message.ReportChannels;
+import dev.exceptionloader.reports.api.message.ReportCreatedMessage;
+import dev.exceptionloader.reports.api.message.ReportStatusMessage;
 import dev.exceptionloader.reports.api.message.TemplateReloadMessage;
 import dev.exceptionloader.reports.bukkit.command.ReportCommand;
 import dev.exceptionloader.reports.bukkit.command.ReportsCommand;
 import dev.exceptionloader.reports.bukkit.config.Messages;
 import dev.exceptionloader.reports.bukkit.config.PluginSettings;
+import dev.exceptionloader.reports.bukkit.listener.ConnectionListener;
+import dev.exceptionloader.reports.bukkit.notify.ReporterNotifier;
+import dev.exceptionloader.reports.bukkit.notify.StaffAlerts;
 import dev.exceptionloader.reports.bukkit.ui.ChatPrompts;
 import dev.exceptionloader.reports.common.inject.PluginLogger;
 import dev.exceptionloader.reports.common.lookup.MinecraftApiClient;
@@ -51,6 +56,9 @@ public class PluginLifecycle {
     private final ReportService reports;
     private final TemplateService templates;
     private final ProfileService profiles;
+    private final StaffAlerts staffAlerts;
+    private final ReporterNotifier reporterNotifier;
+    private final ConnectionListener connectionListener;
     private final ChatPrompts chatPrompts;
     private final ReportCommand reportCommand;
     private final ReportsCommand reportsCommand;
@@ -70,6 +78,9 @@ public class PluginLifecycle {
             ReportService reports,
             TemplateService templates,
             ProfileService profiles,
+            StaffAlerts staffAlerts,
+            ReporterNotifier reporterNotifier,
+            ConnectionListener connectionListener,
             ChatPrompts chatPrompts,
             ReportCommand reportCommand,
             ReportsCommand reportsCommand,
@@ -87,6 +98,9 @@ public class PluginLifecycle {
         this.reports = reports;
         this.templates = templates;
         this.profiles = profiles;
+        this.staffAlerts = staffAlerts;
+        this.reporterNotifier = reporterNotifier;
+        this.connectionListener = connectionListener;
         this.chatPrompts = chatPrompts;
         this.reportCommand = reportCommand;
         this.reportsCommand = reportsCommand;
@@ -96,11 +110,14 @@ public class PluginLifecycle {
         messages.load();
         scheduler.runAsync(this::prepareDatabase);
 
+        bus.subscribe(ReportChannels.NEW_REPORT, ReportCreatedMessage.class, staffAlerts::onReportCreated);
+        bus.subscribe(ReportChannels.STATUS_UPDATE, ReportStatusMessage.class, reporterNotifier::onStatusUpdate);
         bus.subscribe(ReportChannels.TEMPLATE_RELOAD, TemplateReloadMessage.class, this::onTemplateReload);
         bus.start();
         scheduler.runAsync(this::checkRedis);
 
         PluginManager plugins = plugin.getServer().getPluginManager();
+        plugins.registerEvents(connectionListener, plugin);
         plugins.registerEvents(chatPrompts, plugin);
         registerCommand("report", reportCommand);
         registerCommand("reports", reportsCommand);
