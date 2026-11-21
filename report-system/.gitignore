@@ -1,0 +1,18 @@
+target/
+dependency-reduced-pom.xml
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# e2e test network
+e2e/.work/
+e2e/node_modules/
+e2e/package-lock.json
+
+*.log
+.DS_Store

@@ -1,0 +1,5 @@
+name: ReportSystem
+version: '${project.version}'
+main: dev.exceptionloader.reports.bungee.ReportProxyPlugin
+author: exceptionloader
+description: Reminds staff of open reports when they join the network

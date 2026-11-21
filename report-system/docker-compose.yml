@@ -1,0 +1,39 @@
+# Local infrastructure for development and testing.
+# Ports are bound to localhost only; see README for production notes.
+name: report-system
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: report-mongo
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: reports
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: report-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--save", "60", "1000"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:
+  redis-data:

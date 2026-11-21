@@ -1,0 +1,25 @@
+name: ReportSystem
+version: '${project.version}'
+main: dev.exceptionloader.reports.bukkit.ReportPlugin
+api-version: '1.21'
+description: Network wide player reports
+author: exceptionloader
+softdepend: [floodgate]
+
+commands:
+  report:
+    description: Meldet einen Spieler oder verwaltet Reports.
+    usage: /report [spieler]
+    permission: report.use
+  reports:
+    description: Öffnet die Report-Verwaltung.
+    usage: /reports
+    permission: report.admin
+
+permissions:
+  report.use:
+    description: Spieler melden
+    default: true
+  report.admin:
+    description: Reports verwalten und Benachrichtigungen erhalten
+    default: op
