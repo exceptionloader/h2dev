@@ -4,6 +4,7 @@ main: dev.exceptionloader.reports.bukkit.ReportPlugin
 api-version: '1.21'
 description: Network wide player reports
 author: exceptionloader
+softdepend: [floodgate]
 
 commands:
   report:

@@ -18,10 +18,11 @@ public final class ReportPlugin extends JavaPlugin {
         saveDefaultConfig();
         try {
             PluginSettings settings = PluginSettings.from(getConfig(), getServer().getPort());
+            boolean floodgate = getServer().getPluginManager().getPlugin("floodgate") != null;
             Injector injector = Guice.createInjector(
                     new StorageModule(settings.mongo()),
                     new ServiceModule(settings.redis(), settings.reports(), settings.lookup()),
-                    new BukkitModule(this, settings));
+                    new BukkitModule(this, settings, floodgate));
             lifecycle = injector.getInstance(PluginLifecycle.class);
             lifecycle.start();
         } catch (RuntimeException exception) {
